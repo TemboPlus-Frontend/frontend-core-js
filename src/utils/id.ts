@@ -1,7 +1,7 @@
 import { v4 as uuidv4 } from "@npm/uuid.ts";
 import { v5 as uuidv5 } from "@npm/uuid.ts";
 
-export function generateUniqueUUID() {
+export function generateUniqueUUID(): string {
   return uuidv4();
 }
 

@@ -1,21 +1,6 @@
-import { Amount, AMOUNT_REGEX } from "@models/amount/amount.ts";
+import { AMOUNT_REGEX } from "@models/amount/amount.ts";
 import type { RuleObject } from "@npm/antd.ts";
 
-export const validateAmount = (input?: string | number): boolean => {
-  if (input === undefined) {
-    return false;
-  }
-
-  const amount = Amount.from(input);
-  if (!amount) return false;
-  return true;
-};
-
-/**
- * Antd Validator
- *
- * Validates if the input is a valid amount
- */
 export const AMOUNT_VALIDATOR = (
   _: RuleObject,
   value: string | number,

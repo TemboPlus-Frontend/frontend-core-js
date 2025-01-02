@@ -1,3 +1,8 @@
+/**
+ * Capitalizes the first letter of a string and converts the rest of the string to lowercase.
+ * @param {string} str - The input string.
+ * @returns {string} - The formatted string with the first letter capitalized.
+ */
 export function capitalizeFirstLetter(str: string): string {
   if (str.length === 0) {
     return str; // Return an empty string if input is empty
@@ -9,10 +14,21 @@ export function capitalizeFirstLetter(str: string): string {
   return firstLetter + restOfString;
 }
 
+/**
+ * Combines a first name and a last name into a full name.
+ * @param {string} firstName - The first name.
+ * @param {string} lastName - The last name.
+ * @returns {string} - The full name formatted as "FirstName LastName".
+ */
 export function getFullName(firstName: string, lastName: string): string {
   return `${firstName} ${lastName}`;
 }
 
+/**
+ * Generates a URL-friendly slug from a given text.
+ * @param {string} text - The input string.
+ * @returns {string} - The generated slug with lowercase alphanumeric characters and hyphens.
+ */
 export function generateSlug(text: string): string {
   return text
     .toLowerCase() // Convert to lowercase
@@ -22,6 +38,11 @@ export function generateSlug(text: string): string {
     .replace(/-+/g, "-"); // Replace multiple hyphens with a single hyphen
 }
 
+/**
+ * Abbreviates a full name into a first name and the initial of the last name.
+ * @param {string} fullName - The input full name.
+ * @returns {string} - The abbreviated name in the format "FirstName L.".
+ */
 export function abbreviateName(fullName: string): string {
   const nameParts = fullName.trim().split(" ");
 
@@ -36,8 +57,13 @@ export function abbreviateName(fullName: string): string {
   return `${firstName} ${lastNameInitial}.`;
 }
 
+/**
+ * Extracts the initials from a full name.
+ * @param {string} fullName - The input full name.
+ * @returns {string} - The initials in uppercase format.
+ */
 export function getInitialsFrom(fullName: string): string {
-  let label: string = "";
+  let label = "";
   const names = (fullName ?? "").trim().split(" ");
   if (names.length === 0) return "";
 
@@ -50,13 +76,4 @@ export function getInitialsFrom(fullName: string): string {
   }
 
   return label.toUpperCase();
-}
-
-export function truncateMiddle(text: string, n: number): string {
-  if (text.length <= 2 * n) {
-    return text; // Return the original text if it's too short to truncate
-  }
-  const firstPart = text.slice(0, n);
-  const lastPart = text.slice(-n);
-  return `${firstPart}...${lastPart}`;
 }

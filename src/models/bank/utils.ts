@@ -1,44 +1,76 @@
-import { TZ_BANKS } from "@models/bank/constants.ts";
+import {
+  ACCOUNT_NAME_REGEX,
+  ACCOUNT_NUMBER_REGEX,
+  SWIFT_CODE_REGEX,
+  TZ_BANKS,
+} from "@models/bank/constants.ts";
 import type { Bank } from "@models/bank/types.ts";
-import type { RuleObject } from "@npm/antd.ts";
 
-// Global Regex Constants
-const ACCOUNT_NAME_REGEX = /^[A-Za-z\s]{3,}$/; // Only letters and spaces, minimum 3 characters
-const ACCOUNT_NUMBER_REGEX = /^[0-9]{8,12}$/; // Only numbers, 8-12 digits
-const SWIFT_CODE_REGEX = /^[A-Z]{4}[A-Z]{2}[A-Z0-9]{2}([A-Z0-9]{3})?$/; // Standard SWIFT code format
-
-// Helper Functions
-function getAllSwiftCodes(): string[] {
+/**
+ * Retrieves all SWIFT codes from the TZ_BANKS list.
+ * @returns {string[]} A list of all SWIFT codes in uppercase.
+ */
+export function getAllSwiftCodes(): string[] {
   return TZ_BANKS.map((bank) => bank.swiftCode.toUpperCase());
 }
 
-function isValidSwiftCodeFormat(swiftCode: string): boolean {
+/**
+ * Checks whether a given SWIFT code is in the correct format.
+ * @param {string} swiftCode The SWIFT code to check.
+ * @returns {boolean} `true` if the SWIFT code matches the expected format; `false` otherwise.
+ */
+export function isValidSwiftCodeFormat(swiftCode: string): boolean {
   return SWIFT_CODE_REGEX.test(swiftCode);
 }
 
+/**
+ * Normalizes a string by trimming whitespace and converting to uppercase.
+ * @param {string} value The string to normalize.
+ * @returns {string} The normalized string.
+ */
 function normalizeString(value: string): string {
   return value.trim().toUpperCase();
 }
 
-// Core Functions
+/**
+ * Retrieves a bank by its SWIFT code.
+ * @param {string} swiftCode The SWIFT code of the bank.
+ * @returns {Bank | undefined} The bank corresponding to the SWIFT code or `undefined` if not found.
+ */
 export function getBankFromSwiftCode(swiftCode: string): Bank | undefined {
   return TZ_BANKS.find(
     (bank) => normalizeString(bank.swiftCode) === normalizeString(swiftCode),
   );
 }
 
+/**
+ * Retrieves a bank by its full name.
+ * @param {string} bankName The full name of the bank.
+ * @returns {Bank | undefined} The bank corresponding to the full name or `undefined` if not found.
+ */
 export function getBankFromBankName(bankName: string): Bank | undefined {
   return TZ_BANKS.find(
     (bank) => bank.fullName.toLowerCase() === bankName.toLowerCase(),
   );
 }
 
+/**
+ * Retrieves a bank by its short name.
+ * @param {string} name The short name of the bank.
+ * @returns {Bank | undefined} The bank corresponding to the short name or `undefined` if not found.
+ */
 export function getBankFromBankShortName(name: string): Bank | undefined {
   return TZ_BANKS.find(
     (bank) => bank.shortName.toLowerCase() === name.toLowerCase(),
   );
 }
 
+/**
+ * Validates whether a given SWIFT code is correct.
+ * It checks both the SWIFT code format and if the SWIFT code exists in the list of valid codes.
+ * @param {string} [swiftCode] The SWIFT code to validate.
+ * @returns {boolean} `true` if valid, otherwise `false`.
+ */
 export const validateSWIFTCode = (swiftCode?: string): boolean => {
   if (!swiftCode) return false;
 
@@ -49,10 +81,21 @@ export const validateSWIFTCode = (swiftCode?: string): boolean => {
   );
 };
 
+/**
+ * Validates if the provided account name is valid.
+ * @param {string} [name] The account name to validate.
+ * @returns {boolean} `true` if valid, otherwise `false`.
+ */
 export const validateAccountName = (name?: string): boolean => {
   return Boolean(name?.trim().length && ACCOUNT_NAME_REGEX.test(name.trim()));
 };
 
+/**
+ * Validates if the provided account number is valid.
+ * The account number must be numeric and between 8-12 digits.
+ * @param {string} [accountNumber] The account number to validate.
+ * @returns {boolean} `true` if valid, otherwise `false`.
+ */
 export const validateAccountNumber = (accountNumber?: string): boolean => {
   if (!accountNumber) return false;
 
@@ -67,57 +110,4 @@ export const validateAccountNumber = (accountNumber?: string): boolean => {
     hasNoSpaces &&
     ACCOUNT_NUMBER_REGEX.test(normalizedNumber)
   );
-};
-
-// Validation Rules
-export const ACC_NUMBER_VALIDATOR = (
-  _: RuleObject,
-  value: string,
-): void => {
-  if (!value) {
-    throw new Error("Account number is required.");
-  }
-
-  if (!ACCOUNT_NUMBER_REGEX.test(value)) {
-    throw new Error(
-      "Account number must be 8 to 12 digits long and contain only numbers.",
-    );
-  }
-};
-
-export const ACC_NAME_VALIDATOR = (
-  _: RuleObject,
-  value: string,
-): void => {
-  if (!value) {
-    throw new Error("Account name is required.");
-  }
-
-  if (!ACCOUNT_NAME_REGEX.test(value)) {
-    throw new Error(
-      "Account name must be at least 3 characters long and contain only letters and spaces.",
-    );
-  }
-};
-
-export const SWIFT_CODE_VALIDATOR = (
-  _: RuleObject,
-  value: string,
-): void => {
-  if (!value) {
-    throw new Error("SWIFT code is required.");
-  }
-
-  const normalizedCode = normalizeString(value);
-  if (!isValidSwiftCodeFormat(normalizedCode)) {
-    throw new Error(
-      "Invalid SWIFT code format. Ensure it follows the correct format.",
-    );
-  }
-
-  if (!getAllSwiftCodes().includes(normalizedCode)) {
-    throw new Error(
-      "SWIFT code is not recognized. Please enter a valid code from the list.",
-    );
-  }
 };

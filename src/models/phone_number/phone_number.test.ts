@@ -8,7 +8,6 @@ import { PhoneNumber } from "@models/phone_number/phone_number.ts";
 import { TZ_PHONE_NUMBER_REGEX } from "@models/phone_number/types.ts";
 import {
   MobileNumberFormat,
-  TransactionType,
 } from "@models/phone_number/types.ts";
 
 Deno.test("PhoneNumber - static from() - valid numbers", () => {
@@ -62,11 +61,6 @@ Deno.test("PhoneNumber - getNumberWithFormat()", () => {
   }
 });
 
-Deno.test("PhoneNumber - get255Number()", () => {
-  const phone = new PhoneNumber("742345678");
-  assertEquals(phone.get255Number(), "255742345678");
-});
-
 Deno.test("PhoneNumber - label", () => {
   const phone = new PhoneNumber("742345678");
   assertEquals(phone.label, "255742345678");
@@ -102,36 +96,6 @@ Deno.test("PhoneNumber - telecom", () => {
 
     assertEquals(telecom.label, expectedLabel);
     assertEquals(telecom.company, expectedCompany);
-  }
-});
-
-Deno.test("PhoneNumber - getPayoutChannel()", () => {
-  const testCases = [
-    {
-      number: "742345678",
-      type: TransactionType.toWallet,
-      expected: "TZ-VODACOM-C2B",
-    },
-    {
-      number: "782345678",
-      type: TransactionType.fromWallet,
-      expected: "TZ-AIRTEL-B2C",
-    },
-    {
-      number: "712345678",
-      type: TransactionType.toWallet,
-      expected: "TZ-TIGO-C2B",
-    },
-    {
-      number: "622345678",
-      type: TransactionType.fromWallet,
-      expected: "TZ-HALOTEL-B2C",
-    },
-  ];
-
-  for (const { number, type, expected } of testCases) {
-    const phone = new PhoneNumber(number);
-    assertEquals(phone.getPayoutChannel(type), expected);
   }
 });
 

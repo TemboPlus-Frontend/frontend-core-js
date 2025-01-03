@@ -1,13 +1,20 @@
 {
-    "name": "@temboplus/tembo-core",
-    "version": "0.0.3",
-    "license": "MIT",
-    "exports": "./mod.ts",
-    "imports": {
-        "@models/": "./src/models/",
-        "@npm/": "./src/npm/",
-        "@utils/": "./src/utils/",
-        "uuid": "npm:uuid@^11.0.3",
-        "antd": "npm:antd@^5.22.7"
-    }
+  "name": "@temboplus/tembo-core",
+  "version": "0.0.4",
+  "license": "MIT",
+  "exports": "./mod.ts",
+  "tasks": {
+    "format": "deno fmt && deno lint"
+  },
+  "imports": {
+    "@models/": "./src/models/",
+    "@npm/": "./src/npm/",
+    "@utils/": "./src/utils/",
+    "uuid": "npm:uuid@^11.0.3",
+    "antd": "npm:antd@^5.22.7"
+  },
+  "build": {
+    "keepNames": true,
+    "preserveClassNames": true
+  }
 }

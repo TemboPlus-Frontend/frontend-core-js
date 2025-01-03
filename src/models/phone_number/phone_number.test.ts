@@ -6,9 +6,7 @@ import {
 } from "jsr:@std/assert";
 import { PhoneNumber } from "@models/phone_number/phone_number.ts";
 import { TZ_PHONE_NUMBER_REGEX } from "@models/phone_number/types.ts";
-import {
-  MobileNumberFormat,
-} from "@models/phone_number/types.ts";
+import { MobileNumberFormat } from "@models/phone_number/types.ts";
 
 Deno.test("PhoneNumber - static from() - valid numbers", () => {
   const validNumbers = [

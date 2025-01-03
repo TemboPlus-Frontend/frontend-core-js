@@ -9,7 +9,7 @@ export function generateUniqueUUID(): string {
   return uuidv4();
 }
 
-// Predefined namespace 
+// Predefined namespace
 const NAMESPACE = uuidv5.DNS;
 
 /**

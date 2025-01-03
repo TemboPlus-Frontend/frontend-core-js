@@ -1,4 +1,4 @@
-import { assertEquals, assert } from "jsr:@std/assert";
+import { assert, assertEquals } from "jsr:@std/assert";
 import { Amount } from "@models/amount/amount.ts";
 
 Deno.test("Amount.from() - number inputs - valid positive integer", () => {
@@ -24,10 +24,12 @@ Deno.test("Amount.from() - number inputs - valid decimal numbers", () => {
     assertEquals(amount?.numericValue, expected);
     assertEquals(
       amount?.label,
-      `TZS ${expected.toLocaleString("en-US", {
-        minimumFractionDigits: 2,
-        maximumFractionDigits: 2,
-      })}`,
+      `TZS ${
+        expected.toLocaleString("en-US", {
+          minimumFractionDigits: 2,
+          maximumFractionDigits: 2,
+        })
+      }`,
     );
   }
 });
@@ -63,10 +65,12 @@ Deno.test("Amount.from() - string inputs - valid cases", () => {
     assertEquals(amount?.numericValue, expected);
     assertEquals(
       amount?.label,
-      `TZS ${expected.toLocaleString("en-US", {
-        minimumFractionDigits: 2,
-        maximumFractionDigits: 2,
-      })}`,
+      `TZS ${
+        expected.toLocaleString("en-US", {
+          minimumFractionDigits: 2,
+          maximumFractionDigits: 2,
+        })
+      }`,
     );
   }
 });

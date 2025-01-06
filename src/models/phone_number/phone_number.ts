@@ -1,3 +1,35 @@
+/**
+ * @fileoverview
+ *
+ * # Tanzania Phone Number Management System
+ *
+ * ## Problem Statement
+ * Tanzania's phone number system requires specific validation and formatting rules:
+ *
+ * 1. Phone numbers can be entered in multiple formats:
+ *    - International format: "+255712345678"
+ *    - Local format with country code: "255712345678"
+ *    - Local format with leading zero: "0712345678"
+ *    - Compact format: "712345678"
+ *
+ * 2. Valid numbers must:
+ *    - Have exactly 9 digits after removing prefixes
+ *    - Start with a valid telecom provider prefix
+ *    - Contain only numeric characters
+ *
+ * 3. Each telecom provider has specific prefixes:
+ *    - Vodacom: 71, 74, 75, etc.
+ *    - Airtel: 68, 69, etc.
+ *    - Tigo: 65, 67, etc.
+ *
+ * ## Solution
+ * The PhoneNumber class provides:
+ * 1. Parsing and validation of different input formats
+ * 2. Standardized storage in compact format
+ * 3. Formatting options for display and API use
+ * 4. Telecom provider identification
+ */
+
 import {
   MobileNumberFormat,
   type Telecom,

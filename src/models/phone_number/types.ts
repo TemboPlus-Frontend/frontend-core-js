@@ -64,10 +64,3 @@ export const telecomDetails: Record<TelecomID, Telecom> = {
     color: "orange",
   },
 };
-
-/**
- * Regular expression for validating Tanzanian phone numbers.
- * Matches numbers with prefixes 255, 0, or +255 followed by valid network codes.
- */
-export const TZ_PHONE_NUMBER_REGEX =
-  /^(?:255|0|\+255)(74|75|76|78|79|68|69|71|65|67|77|62|61)\d{7}$|^(?:74|75|76|78|79|68|69|71|65|67|77|62|61)\d{7}$/;

@@ -67,7 +67,7 @@ export class PhoneNumber {
   /**
    * Returns the formatted label of the phone number using the `s255` format.
    *
-   * @returns The phone number label in `+255` format.
+   * @returns The phone number label in `255` format.
    */
   get label(): string {
     return this.getNumberWithFormat(MobileNumberFormat.s255);
@@ -94,7 +94,12 @@ export class PhoneNumber {
    */
   static from(s: string): PhoneNumber | undefined {
     try {
-      const number = s.trim();
+      const number = removeSpaces(s.trim());
+      if (number.length === 0) return;
+
+      const isOnlyDigits = isOnlyDigitsOrPlus(number);
+      if (!isOnlyDigits) return;
+
       let compactNumber: string;
 
       // Extract the compact number by removing country or local dialing prefixes.
@@ -146,4 +151,46 @@ export class PhoneNumber {
 
     return true;
   }
+}
+
+/**
+ * Removes all whitespace characters from the given string.
+ *
+ * This function replaces all occurrences of spaces, tabs, and other
+ * whitespace characters (including multiple spaces) in the input string
+ * with an empty string, effectively removing them.
+ *
+ * @param {string} input - The input string from which spaces should be removed.
+ * @returns {string} A new string with all whitespace characters removed.
+ *
+ * @example
+ * removeSpaces("  Hello   World  ");    // Returns: "HelloWorld"
+ * removeSpaces("NoSpacesHere");         // Returns: "NoSpacesHere"
+ * removeSpaces("   ");                  // Returns: ""
+ */
+function removeSpaces(input: string): string {
+  return input.replace(/\s+/g, "");
+}
+
+/**
+ * Checks if a given string contains only digits or a `+` prefix followed by digits.
+ *
+ * This function validates that the input string:
+ * - Can optionally start with a `+` sign.
+ * - Must have one or more digits after the optional `+`.
+ * - Does not contain any other characters besides digits and the `+` prefix.
+ *
+ * @param {string} input - The input string to validate.
+ * @returns {boolean} `true` if the string contains only digits or a `+` prefix followed by digits; otherwise, `false`.
+ *
+ * @example
+ * isOnlyDigitsOrPlus("12345");    // Returns: true
+ * isOnlyDigitsOrPlus("+12345");   // Returns: true
+ * isOnlyDigitsOrPlus("123a45");   // Returns: false
+ * isOnlyDigitsOrPlus("+");        // Returns: false
+ * isOnlyDigitsOrPlus("");         // Returns: false
+ */
+function isOnlyDigitsOrPlus(input: string): boolean {
+  const digitWithPlusRegex = /^\+?\d+$/;
+  return digitWithPlusRegex.test(input);
 }

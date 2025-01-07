@@ -1,11 +1,12 @@
-import { SWIFT_CODE_REGEX, TZ_BANKS } from "@models/bank/constants.ts";
+import { SWIFT_CODE_REGEX } from "@models/bank/constants.ts";
+import { Bank } from "@models/bank/bank.ts";
 
 /**
  * Retrieves all SWIFT codes from the TZ_BANKS list.
  * @returns {string[]} A list of all SWIFT codes in uppercase.
  */
 export function getAllSwiftCodes(): string[] {
-  return TZ_BANKS.map((bank) => bank.swiftCode.toUpperCase());
+  return Bank.getAll().map((bank) => bank.swiftCode.toUpperCase());
 }
 
 /**

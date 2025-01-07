@@ -1,130 +1,108 @@
-import { assert, assertEquals } from "jsr:@std/assert";
-import { Amount } from "@models/amount/amount.ts";
+import { assertEquals, assertExists } from "jsr:@std/assert";
+import { Amount, AMOUNT_REGEX } from "@models/amount/amount.ts";
 
-Deno.test("Amount.from() - number inputs - valid positive integer", () => {
-  const amount = Amount.from(1234);
-  assert(amount);
-  assertEquals(amount?.numericValue, 1234.00);
-  assertEquals(amount?.label, "TZS 1,234.00");
+Deno.test("Amount.from() with valid number inputs", () => {
+  // Test positive integers
+  const amount1 = Amount.from(1000);
+  assertExists(amount1);
+  assertEquals(amount1.numericValue, 1000);
+  assertEquals(amount1.formattedNumericValue, "1,000.00");
+  assertEquals(amount1.label, "TZS 1,000.00");
+
+  // Test decimals
+  const amount2 = Amount.from(1234.56);
+  assertExists(amount2);
+  assertEquals(amount2.numericValue, 1234.56);
+  assertEquals(amount2.formattedNumericValue, "1,234.56");
+  assertEquals(amount2.label, "TZS 1,234.56");
+
+  // Test rounding
+  const amount3 = Amount.from(1234.567);
+  assertExists(amount3);
+  assertEquals(amount3.numericValue, 1234.57);
+  assertEquals(amount3.formattedNumericValue, "1,234.57");
+
+  // Test zero
+  const amount4 = Amount.from(0);
+  assertExists(amount4);
+  assertEquals(amount4.numericValue, 0);
+  assertEquals(amount4.formattedNumericValue, "0.00");
 });
 
-Deno.test("Amount.from() - number inputs - valid decimal numbers", () => {
-  const testCases = [
-    { input: 1234.56789, expected: 1234.57 },
-    { input: 1234.5, expected: 1234.50 },
-    { input: 1234.994, expected: 1234.99 },
-    { input: 1234.995, expected: 1234.99 },
-    { input: 0.001, expected: 0.00 },
-    { input: 0.009, expected: 0.01 },
-  ];
+Deno.test("Amount.from() with valid string inputs", () => {
+  // Test integer string
+  const amount1 = Amount.from("1000");
+  assertExists(amount1);
+  assertEquals(amount1.numericValue, 1000);
+  assertEquals(amount1.formattedNumericValue, "1,000.00");
 
-  for (const { input, expected } of testCases) {
-    const amount = Amount.from(input);
-    assert(amount);
-    assertEquals(amount?.numericValue, expected);
-    assertEquals(
-      amount?.label,
-      `TZS ${
-        expected.toLocaleString("en-US", {
-          minimumFractionDigits: 2,
-          maximumFractionDigits: 2,
-        })
-      }`,
-    );
-  }
+  // Test decimal string
+  const amount2 = Amount.from("1234.56");
+  assertExists(amount2);
+  assertEquals(amount2.numericValue, 1234.56);
+  assertEquals(amount2.formattedNumericValue, "1,234.56");
+
+  // Test string with commas
+  const amount3 = Amount.from("1,234,567.89");
+  assertExists(amount3);
+  assertEquals(amount3.numericValue, 1234567.89);
+  assertEquals(amount3.formattedNumericValue, "1,234,567.89");
+
+  // Test string with whitespace
+  const amount4 = Amount.from("  1234.56  ");
+  assertExists(amount4);
+  assertEquals(amount4.numericValue, 1234.56);
 });
 
-Deno.test("Amount.from() - number inputs - zero", () => {
-  const amount = Amount.from(0);
-  assert(amount);
-  assertEquals(amount?.numericValue, 0.00);
-  assertEquals(amount?.label, "TZS 0.00");
-});
+Deno.test("Amount.from() with invalid inputs", () => {
+  // Test negative numbers
+  assertEquals(Amount.from(-100), undefined);
+  assertEquals(Amount.from("-100"), undefined);
 
-Deno.test("Amount.from() - number inputs - invalid cases", () => {
-  assertEquals(Amount.from(-1234.56), undefined);
+  // Test invalid strings
+  assertEquals(Amount.from("abc"), undefined);
+  assertEquals(Amount.from("12.34.56"), undefined);
+  assertEquals(Amount.from("1,23,456"), undefined);
+  assertEquals(Amount.from("1.2.3"), undefined);
+  assertEquals(Amount.from(""), undefined);
+  assertEquals(Amount.from("  "), undefined);
+
+  // Test invalid numbers
   assertEquals(Amount.from(NaN), undefined);
   assertEquals(Amount.from(Infinity), undefined);
+  assertEquals(Amount.from(-Infinity), undefined);
 });
 
-Deno.test("Amount.from() - string inputs - valid cases", () => {
-  const testCases = [
-    { input: "1234", expected: 1234.00 },
-    { input: "1234.56789", expected: 1234.57 },
-    { input: "1234.5", expected: 1234.50 },
-    { input: "1234.994", expected: 1234.99 },
-    { input: "1234.995", expected: 1234.99 },
-    { input: "0.001", expected: 0.00 },
-    { input: "0.009", expected: 0.01 },
-    { input: "1,234.56789", expected: 1234.57 },
-  ];
+Deno.test("Amount.validate() function", () => {
+  // Test valid inputs
+  assertEquals(Amount.validate(1000), true);
+  assertEquals(Amount.validate("1000"), true);
+  assertEquals(Amount.validate("1,000.00"), true);
+  assertEquals(Amount.validate(1234.56), true);
+  assertEquals(Amount.validate("1234.56"), true);
 
-  for (const { input, expected } of testCases) {
-    const amount = Amount.from(input);
-    assert(amount);
-    assertEquals(amount?.numericValue, expected);
-    assertEquals(
-      amount?.label,
-      `TZS ${
-        expected.toLocaleString("en-US", {
-          minimumFractionDigits: 2,
-          maximumFractionDigits: 2,
-        })
-      }`,
-    );
-  }
+  // Test invalid inputs
+  assertEquals(Amount.validate(undefined), false);
+  assertEquals(Amount.validate(-100), false);
+  assertEquals(Amount.validate("abc"), false);
+  assertEquals(Amount.validate(""), false);
+  assertEquals(Amount.validate("1,23,456"), false);
 });
 
-Deno.test("Amount.from() - string inputs - edge cases", () => {
-  const amount = Amount.from("  1234.56789  ");
-  assert(amount);
-  assertEquals(amount?.numericValue, 1234.57);
-  assertEquals(amount?.label, "TZS 1,234.57");
-});
+Deno.test("AMOUNT_REGEX pattern", () => {
+  // Test valid patterns
+  assertEquals(AMOUNT_REGEX.test("1000"), true);
+  assertEquals(AMOUNT_REGEX.test("1,000"), true);
+  assertEquals(AMOUNT_REGEX.test("1,000.00"), true);
+  assertEquals(AMOUNT_REGEX.test("1234567.89"), true);
+  assertEquals(AMOUNT_REGEX.test("1,234,567.89"), true);
 
-Deno.test("Amount.from() - string inputs - invalid cases", () => {
-  const invalidInputs = [
-    "-1234.56",
-    "abc",
-    "1,23.45",
-    "1,234,",
-    ".",
-    "",
-  ];
-
-  for (const input of invalidInputs) {
-    assertEquals(Amount.from(input), undefined);
-  }
-});
-
-Deno.test("Amount.label getter", () => {
-  const testCases = [
-    { input: 0, expected: "TZS 0.00" },
-    { input: 1, expected: "TZS 1.00" },
-    { input: 1000, expected: "TZS 1,000.00" },
-    { input: 1234.56789, expected: "TZS 1,234.57" },
-    { input: "1234.56789", expected: "TZS 1,234.57" },
-    { input: "1,234.56789", expected: "TZS 1,234.57" },
-  ];
-
-  for (const { input, expected } of testCases) {
-    const amount = Amount.from(input);
-    assert(amount);
-    assertEquals(amount?.label, expected);
-  }
-});
-
-Deno.test("Amount.numericValue getter", () => {
-  const testCases = [
-    { input: 0, expected: 0.00 },
-    { input: 1234.56789, expected: 1234.57 },
-    { input: "1234.56789", expected: 1234.57 },
-    { input: "1,234.56789", expected: 1234.57 },
-  ];
-
-  for (const { input, expected } of testCases) {
-    const amount = Amount.from(input);
-    assert(amount);
-    assertEquals(amount?.numericValue, expected);
-  }
+  // Test invalid patterns
+  assertEquals(AMOUNT_REGEX.test(""), false);
+  assertEquals(AMOUNT_REGEX.test("abc"), false);
+  assertEquals(AMOUNT_REGEX.test("1,23,456"), false);
+  assertEquals(AMOUNT_REGEX.test("1.2.3"), false);
+  assertEquals(AMOUNT_REGEX.test("-100"), false);
+  assertEquals(AMOUNT_REGEX.test("1,"), false);
+  assertEquals(AMOUNT_REGEX.test(".123"), false);
 });

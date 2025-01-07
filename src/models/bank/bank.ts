@@ -1,4 +1,4 @@
-import { TZ_BANKS } from "@models/bank/constants.ts";
+import { banks } from "@models/bank/constants.ts";
 
 /**
  * Represents a bank with essential details.
@@ -55,7 +55,7 @@ export class Bank {
    * @returns {Bank | undefined} The bank corresponding to the SWIFT code or `undefined` if not found.
    */
   static fromSWIFTCode(swiftCode: string): Bank | undefined {
-    return TZ_BANKS.find((b) =>
+    return this.getAll().find((b) =>
       b.swiftCode.toUpperCase() === swiftCode.toUpperCase()
     );
   }
@@ -66,10 +66,20 @@ export class Bank {
    * @returns {Bank | undefined} The bank corresponding to the full name or `undefined` if not found.
    */
   static fromBankName(bankName: string): Bank | undefined {
-    return TZ_BANKS.find(
+    return this.getAll().find(
       (bank) =>
         bank.fullName.toLowerCase() === bankName.toLowerCase() ||
         bankName.toLowerCase() === bank.shortName.toLowerCase(),
+    );
+  }
+
+  /**
+   * Gets all banks from the JSON data.
+   * @returns {Bank[]} Array of all banks
+   */
+  static getAll(): Bank[] {
+    return banks.map((bank) =>
+      new Bank(bank.fullName, bank.shortName, bank.swiftCode)
     );
   }
 

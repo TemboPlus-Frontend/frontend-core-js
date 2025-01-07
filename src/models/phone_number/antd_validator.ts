@@ -92,21 +92,8 @@ export const PHONENUMBER_VALIDATOR = (
     return Promise.resolve(undefined);
   }
 
-  // If trimmed value is empty and field is required
-  if (!phoneString && rule.required) {
-    return Promise.reject(new Error("Phone number is required."));
-  }
+  const phone = PhoneNumber.from(phoneString);
+  if (phone) return Promise.resolve(phone);
 
-  // Only proceed with format validation if there's a value to validate
-  if (phoneString) {
-    const phone = PhoneNumber.from(phoneString);
-    if (phone) {
-      return Promise.resolve(phone);
-    }
-
-    return Promise.reject(new Error("Invalid phone number format."));
-  }
-
-  // Return resolved promise if all validations pass
-  return Promise.resolve(undefined);
+  return Promise.reject(new Error("Invalid phone number format."));
 };

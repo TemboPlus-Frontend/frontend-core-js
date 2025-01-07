@@ -12,7 +12,7 @@ export const SWIFT_CODE_VALIDATOR = (
   rule: RuleObject,
   value: string | null | undefined,
 ): Promise<Bank | undefined> => {
-  const code = value?.trim().toUpperCase();
+  const code = value?.toString().trim().toUpperCase();
 
   // If field is empty/undefined/null
   if (!code) {

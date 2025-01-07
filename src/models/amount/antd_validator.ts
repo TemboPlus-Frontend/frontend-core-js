@@ -54,26 +54,16 @@ export const AMOUNT_VALIDATOR = (
     return Promise.resolve(undefined);
   }
 
-  // If trimmed value is empty and field is required
-  if (!amountString && rule.required) {
-    return Promise.reject(new Error("Amount is required."));
+  const amount = Amount.from(amountString);
+  if (!amount) {
+    return Promise.reject(new Error("Invalid amount format."));
   }
 
-  // Only proceed with format validation if there's a value to validate
-  if (amountString) {
-    const amount = Amount.from(amountString);
-    if (!amount) {
-      return Promise.reject(new Error("Invalid amount format."));
-    }
-
-    if (amount.numericValue < 1000) {
-      return Promise.reject(
-        new Error("Amount must not be less than TZS 1000."),
-      );
-    }
-
-    return Promise.resolve(amount);
+  if (amount.numericValue < 1000) {
+    return Promise.reject(
+      new Error("Amount must not be less than TZS 1000."),
+    );
   }
 
-  return Promise.resolve(undefined);
+  return Promise.resolve(amount);
 };

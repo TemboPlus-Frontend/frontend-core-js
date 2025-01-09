@@ -1,4 +1,4 @@
-import { banks } from "@models/bank/constants.ts";
+import file from "@models/bank/banks.json" with { type: "json" };
 
 /**
  * Represents a bank with essential details.
@@ -72,15 +72,53 @@ export class Bank {
         bankName.toLowerCase() === bank.shortName.toLowerCase(),
     );
   }
+  /**
+   * Validates if a given SWIFT/BIC (Bank Identifier Code) is valid
+   *
+   * @param {string | null | undefined} swiftCode - The SWIFT/BIC code to validate.
+   *   Should be in the format of 8 or 11 characters (e.g., 'NMIBTZTZ' or 'CRDBTZTZXXX').
+   *
+   * @returns {boolean} Returns true if:
+   *   - The SWIFT code is not null/undefined
+   *   - The SWIFT code successfully creates a valid Bank instance
+   *   Returns false otherwise.
+   */
+  static isValidSwiftCode(swiftCode?: string | null): boolean {
+    if (!swiftCode) return false;
+    const bank = Bank.fromSWIFTCode(swiftCode);
+    return !!bank;
+  }
+
+  /**
+   * Validates if a given bank name is valid
+   *
+   * @param {string | null | undefined} bankName - The bank name to validate.
+   *   Should be either 'CRDB' or 'NMB'.
+   *
+   * @returns {boolean} Returns true if:
+   *   - The bank name is not null/undefined
+   *   - The bank name successfully creates a valid Bank instance
+   *   Returns false otherwise.
+   */
+  static isValidBankName(bankName?: string | null): boolean {
+    if (!bankName) return false;
+    const bank = Bank.fromBankName(bankName);
+    return !!bank;
+  }
 
   /**
    * Gets all banks from the JSON data.
    * @returns {Bank[]} Array of all banks
    */
   static getAll(): Bank[] {
-    return banks.map((bank) =>
-      new Bank(bank.fullName, bank.shortName, bank.swiftCode)
-    );
+    type BankInterface = {
+      fullName: string;
+      shortName: string;
+      swiftCode: string;
+    };
+
+    const data: BankInterface[] = JSON.parse(JSON.stringify(file));
+    return data.map((b) => new Bank(b.fullName, b.shortName, b.swiftCode));
   }
 
   /**

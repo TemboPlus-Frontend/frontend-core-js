@@ -1,10 +1,11 @@
 {
   "name": "@temboplus/tembo-core",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "license": "MIT",
   "exports": "./mod.ts",
   "tasks": {
-    "format": "deno fmt && deno lint"
+    "format": "deno fmt && deno lint",
+    "dev": "deno run --watch main.ts"
   },
   "imports": {
     "@models/": "./src/models/",

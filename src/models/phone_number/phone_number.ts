@@ -30,11 +30,18 @@
  * 4. Telecom provider identification
  */
 
-import {
-  MobileNumberFormat,
-  type Telecom,
-  telecomDetails,
-} from "@models/phone_number/types.ts";
+import { type Telecom, telecomDetails } from "./telecom.ts";
+
+/**
+ * Enumeration for various mobile number formats.
+ * @enum {string}
+ */
+export enum MobileNumberFormat {
+  s255 = "255", // Mobile numbers prefixed with 255
+  sp255 = "+255", // Mobile numbers prefixed with +255
+  s0 = "0", // Mobile numbers prefixed with 0
+  none = "", // Mobile numbers without prefixes
+}
 
 /**
  * Represents a TZ phone number

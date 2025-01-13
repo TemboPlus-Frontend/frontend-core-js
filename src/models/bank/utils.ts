@@ -1,5 +1,11 @@
-import { SWIFT_CODE_REGEX } from "@models/bank/constants.ts";
 import { Bank } from "@models/bank/bank.ts";
+
+/**
+ * Regex pattern to validate SWIFT codes.
+ * The SWIFT code must follow the format: XXXX XX XX XXX (optional last part for branches).
+ * @constant {RegExp}
+ */
+export const SWIFT_CODE_REGEX = /^[A-Z]{4}[A-Z]{2}[A-Z0-9]{2}([A-Z0-9]{3})?$/;
 
 /**
  * Retrieves all SWIFT codes from the TZ_BANKS list.

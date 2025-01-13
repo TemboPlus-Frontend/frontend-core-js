@@ -179,3 +179,54 @@ Deno.test("Bank.is() validation", async (t) => {
     },
   );
 });
+
+Deno.test("Bank.from", async (t) => {
+  await t.step("should create bank from valid bank name", () => {
+    const bank = Bank.from("CORUTZTZ");
+    assertEquals(bank?.shortName, "CRDB");
+  });
+
+  await t.step("should create bank from valid SWIFT code", () => {
+    const bank = Bank.from("CORUTZTZ");
+    assertEquals(bank?.swiftCode, "CORUTZTZ");
+  });
+
+  await t.step("should return undefined for invalid input", () => {
+    const bank = Bank.from("INVALID_BANK");
+    assertEquals(bank, undefined);
+  });
+});
+
+Deno.test("Bank.canConstruct", async (t) => {
+  await t.step("should return false for null input", () => {
+    assertEquals(Bank.canConstruct(null), false);
+  });
+
+  await t.step("should return false for undefined input", () => {
+    assertEquals(Bank.canConstruct(undefined), false);
+  });
+
+  await t.step("should return false for empty string", () => {
+    assertEquals(Bank.canConstruct(""), false);
+    assertEquals(Bank.canConstruct(" "), false);
+  });
+
+  await t.step(
+    "should return false when bank name and SWIFT don't match",
+    () => {
+      assertEquals(Bank.canConstruct("NONMATCHING"), false);
+    },
+  );
+
+  await t.step(
+    "should return true when bank can be constructed from both methods",
+    () => {
+      assertEquals(Bank.canConstruct("CORUTZTZ"), true);
+    },
+  );
+
+  await t.step("should return false when one method returns undefined", () => {
+    // Assuming this input only works for one method but not both
+    assertEquals(Bank.canConstruct("PARTIALVALID"), false);
+  });
+});

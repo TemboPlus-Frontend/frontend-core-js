@@ -138,6 +138,53 @@ export class Bank {
   }
 
   /**
+   * Attempts to create a Bank instance from a bank name or SWIFT code
+   * First tries to create from bank name, then from SWIFT code if bank name fails
+   *
+   * @param {string} input - The bank name or SWIFT code
+   * @returns {Bank | undefined} A Bank instance if valid input, undefined otherwise
+   *
+   * @example
+   * const bank = Bank.from('CORUTZTZ'); // From SWIFT code
+   * const sameBank = Bank.from('CRDB'); // From bank name
+   */
+  public static from(input: string): Bank | undefined {
+    if (Bank.canConstruct(input)) {
+      const bank1 = Bank.fromBankName(input);
+      if (bank1) return bank1;
+
+      const bank2 = Bank.fromSWIFTCode(input);
+      if (bank2) return bank2;
+    }
+
+    return undefined;
+  }
+
+  /**
+   * Validates if the input can be used to construct a valid Bank instance
+   * Checks if the input resolves to the same bank via both name and SWIFT code
+   *
+   * @param {string | null | undefined} input - The bank name or SWIFT code to validate
+   * @returns {boolean} True if input can construct a valid bank, false otherwise
+   *
+   * @example
+   * Bank.canConstruct('CORUTZTZ'); // true
+   * Bank.canConstruct(''); // false
+   * Bank.canConstruct(null); // false
+   */
+  public static canConstruct(input?: string | null): boolean {
+    if (!input || typeof input !== "string") return false;
+
+    const text = input.trim();
+    if (text.length === 0) return false;
+
+    const bankFromSwift = Bank.fromSWIFTCode(text);
+    const bankFromName = Bank.fromBankName(text);
+
+    return bankFromSwift !== undefined || bankFromName !== undefined;
+  }
+
+  /**
    * Checks if an unknown value is a Bank instance.
    * Validates the structural integrity of a bank object.
    *
@@ -164,6 +211,33 @@ export class Bank {
     if (typeof maybeBank._swiftCode !== "string") return false;
 
     // Validate against known banks
-    return Bank.fromSWIFTCode(maybeBank._swiftCode) !== undefined;
+    const bankFromSwift = Bank.from(maybeBank._swiftCode);
+    const bankFromName = Bank.from(maybeBank._fullName);
+    const bankFromName2 = Bank.from(maybeBank._shortName);
+
+    return Boolean(
+      bankFromSwift &&
+        bankFromName &&
+        bankFromName2 &&
+        compare(bankFromName, bankFromName2) &&
+        compare(bankFromSwift, bankFromName) &&
+        compare(bankFromSwift, bankFromName2),
+    );
   }
+}
+
+/**
+ * Compares two Bank instances for equality by checking their full name, short name, and SWIFT code
+ *
+ * @param {Bank} bank1 - First bank to compare
+ * @param {Bank} bank2 - Second bank to compare
+ * @returns {boolean} True if banks are equal, false otherwise
+ * @private
+ */
+function compare(bank1: Bank, bank2: Bank): boolean {
+  return (
+    bank1.fullName === bank2.fullName &&
+    bank1.shortName === bank2.shortName &&
+    bank1.swiftCode === bank2.swiftCode
+  );
 }

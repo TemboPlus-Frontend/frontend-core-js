@@ -18,7 +18,7 @@ export class PhoneNumberValidator {
   static isValidPhoneNumberObject(obj: unknown): obj is PhoneNumberLike {
     if (!obj || typeof obj !== "object") return false;
     if ("compactNumber" in obj && typeof obj.compactNumber === "string") {
-      return PhoneNumber.validate(obj.compactNumber);
+      return PhoneNumber.canConstruct(obj.compactNumber);
     }
 
     return false;
@@ -28,6 +28,6 @@ export class PhoneNumberValidator {
    * Checks if a string represents a valid phone number format
    */
   static isValidPhoneNumberString(value: string): boolean {
-    return PhoneNumber.validate(value);
+    return PhoneNumber.canConstruct(value);
   }
 }

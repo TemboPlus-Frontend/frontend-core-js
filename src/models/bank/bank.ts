@@ -126,10 +126,44 @@ export class Bank {
    * @returns true if the bank information is available and valid
    */
   public validate(): boolean {
-    return (
-      Bank.fromBankName(this._fullName) !== undefined &&
-      Bank.fromBankName(this._shortName) !== undefined &&
-      Bank.fromSWIFTCode(this._swiftCode) !== undefined
-    );
+    try {
+      return (
+        Bank.fromBankName(this._fullName) !== undefined &&
+        Bank.fromBankName(this._shortName) !== undefined &&
+        Bank.fromSWIFTCode(this._swiftCode) !== undefined
+      );
+    } catch (_) {
+      return false;
+    }
+  }
+
+  /**
+   * Checks if an unknown value is a Bank instance.
+   * Validates the structural integrity of a bank object.
+   *
+   * @param {unknown} obj - The value to validate
+   * @returns {obj is Bank} Type predicate indicating if the value is a valid Bank
+   *
+   * @example
+   * const maybeBank = JSON.parse(someData);
+   * if (Bank.is(maybeBank)) {
+   *   console.log(maybeBank.fullName); // maybeBank is typed as Bank
+   * }
+   *
+   * @see {@link Bank.fromSWIFTCode} for creating instances from SWIFT codes
+   * @see {@link Bank.fromBankName} for creating instances from bank names
+   */
+  public static is(obj: unknown): obj is Bank {
+    if (!obj || typeof obj !== "object") return false;
+
+    const maybeBank = obj as Record<string, unknown>;
+
+    // Check private properties exist with correct types
+    if (typeof maybeBank._fullName !== "string") return false;
+    if (typeof maybeBank._shortName !== "string") return false;
+    if (typeof maybeBank._swiftCode !== "string") return false;
+
+    // Validate against known banks
+    return Bank.fromSWIFTCode(maybeBank._swiftCode) !== undefined;
   }
 }

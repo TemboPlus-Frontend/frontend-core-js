@@ -92,7 +92,7 @@ export class PhoneNumber {
    * @param s - The input phone number string in various formats (e.g., "+255712345678", "0712345678").
    * @returns A `PhoneNumber` instance if valid, otherwise `undefined`.
    */
-  static from(s: string): PhoneNumber | undefined {
+  public static from(s: string): PhoneNumber | undefined {
     try {
       const number = removeSpaces(s.trim());
       if (number.length === 0) return;
@@ -130,26 +130,64 @@ export class PhoneNumber {
   }
 
   /**
-   * Validates a phone number string by checking if it adheres to the defined rules.
-   * @param {string | undefined} phoneNumber - The phone number to validate.
-   * @returns {boolean} - True if the phone number is valid, otherwise false.
+   * Checks if a string can be constructed into a valid phone number object.
+   * @param {string | undefined} input - The string to validate as a phone number.
+   * @returns {boolean} - Returns true if the input can be constructed into a valid phone number object,
+   *                     false if the input is undefined, empty, or cannot be parsed.
    */
-  static validate(phoneNumber?: string): boolean {
-    if (phoneNumber === undefined) {
-      return false;
-    }
-    const text = phoneNumber.trim();
+  public static canConstruct(input?: string | null): boolean {
+    if (!input || typeof input !== "string") return false;
 
-    if (text.length === 0) {
-      return false;
-    }
+    const text = removeSpaces(input.trim());
+
+    if (text.length === 0) return false;
 
     const phone = PhoneNumber.from(text);
-    if (phone === undefined) {
+    return phone !== undefined;
+  }
+
+  /**
+   * Checks if an unknown value contains valid data to construct a PhoneNumber instance.
+   * Validates the structural integrity of the phone number object.
+   *
+   * @param {unknown} obj - The value to validate.
+   * @returns {obj is PhoneNumber} Type predicate indicating if the value has a valid phone number structure.
+   *
+   * @example
+   * const maybePhone = JSON.parse(someData);
+   * if (PhoneNumber.is(maybePhone)) {
+   *   // maybePhone is typed as PhoneNumber
+   *   console.log(maybePhone.label);
+   * }
+   *
+   * @remarks
+   * Validates:
+   * - Has required compactNumber property
+   * - compactNumber is a 9-digit string
+   * - Prefix matches a valid telecom provider
+   */
+  public static is(obj: unknown): obj is PhoneNumber {
+    if (!obj || typeof obj !== "object") return false;
+
+    const maybePhone = obj as Record<string, unknown>;
+
+    // Check if compactNumber exists and is string
+    if (typeof maybePhone.compactNumber !== "string") return false;
+
+    const compactNumber = maybePhone.compactNumber;
+    return PhoneNumber.canConstruct(compactNumber);
+  }
+
+  /**
+   * Checks the validity of the phone number data
+   * @returns true if the phone number information is available and valid
+   */
+  public validate(): boolean {
+    try {
+      return PhoneNumber.canConstruct(this.compactNumber);
+    } catch (_) {
       return false;
     }
-
-    return true;
   }
 }
 

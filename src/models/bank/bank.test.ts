@@ -134,3 +134,48 @@ Deno.test("Bank.validate method", () => {
   );
   assertEquals(allInvalid.validate(), false);
 });
+
+Deno.test("Bank.is() validation", async (t) => {
+  await t.step("returns true for valid Bank instances", () => {
+    const bank = Bank.fromSWIFTCode("CORUTZTZ")!;
+    assertEquals(Bank.is(bank), true);
+  });
+
+  await t.step("returns false for invalid objects", () => {
+    assertEquals(Bank.is(null), false);
+    assertEquals(Bank.is(undefined), false);
+    assertEquals(Bank.is({}), false);
+    assertEquals(
+      Bank.is({
+        _fullName: "Invalid Bank",
+        _shortName: "INV",
+        _swiftCode: "INVALID",
+      }),
+      false,
+    );
+  });
+
+  await t.step("returns false for objects with missing properties", () => {
+    assertEquals(
+      Bank.is({
+        _fullName: "CRDB Bank",
+        _shortName: "CRDB",
+      }),
+      false,
+    );
+  });
+
+  await t.step(
+    "returns false for objects with incorrect property types",
+    () => {
+      assertEquals(
+        Bank.is({
+          _fullName: "CRDB Bank",
+          _shortName: "CRDB",
+          _swiftCode: 12345,
+        }),
+        false,
+      );
+    },
+  );
+});

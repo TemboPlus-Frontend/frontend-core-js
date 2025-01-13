@@ -75,18 +75,18 @@ Deno.test("Amount.from() with invalid inputs", () => {
 
 Deno.test("Amount.validate() function", () => {
   // Test valid inputs
-  assertEquals(Amount.validate(1000), true);
-  assertEquals(Amount.validate("1000"), true);
-  assertEquals(Amount.validate("1,000.00"), true);
-  assertEquals(Amount.validate(1234.56), true);
-  assertEquals(Amount.validate("1234.56"), true);
+  assertEquals(Amount.canConstruct(1000), true);
+  assertEquals(Amount.canConstruct("1000"), true);
+  assertEquals(Amount.canConstruct("1,000.00"), true);
+  assertEquals(Amount.canConstruct(1234.56), true);
+  assertEquals(Amount.canConstruct("1234.56"), true);
 
   // Test invalid inputs
-  assertEquals(Amount.validate(undefined), false);
-  assertEquals(Amount.validate(-100), false);
-  assertEquals(Amount.validate("abc"), false);
-  assertEquals(Amount.validate(""), false);
-  assertEquals(Amount.validate("1,23,456"), false);
+  assertEquals(Amount.canConstruct(undefined), false);
+  assertEquals(Amount.canConstruct(-100), false);
+  assertEquals(Amount.canConstruct("abc"), false);
+  assertEquals(Amount.canConstruct(""), false);
+  assertEquals(Amount.canConstruct("1,23,456"), false);
 });
 
 Deno.test("AMOUNT_REGEX pattern", () => {
@@ -105,4 +105,137 @@ Deno.test("AMOUNT_REGEX pattern", () => {
   assertEquals(AMOUNT_REGEX.test("-100"), false);
   assertEquals(AMOUNT_REGEX.test("1,"), false);
   assertEquals(AMOUNT_REGEX.test(".123"), false);
+});
+
+Deno.test("Amount.is() validation", async (t) => {
+  await t.step("returns true for valid Amount instances", () => {
+    const amount = Amount.from("1,234.56")!;
+    assertEquals(Amount.is(amount), true);
+  });
+
+  await t.step("returns false for invalid objects", () => {
+    assertEquals(Amount.is(null), false);
+    assertEquals(Amount.is(undefined), false);
+    assertEquals(Amount.is({}), false);
+    assertEquals(Amount.is({ value: "123.45" }), false); // String instead of number
+    assertEquals(Amount.is({ value: 123.45 }), false); // Missing text property
+    assertEquals(
+      Amount.is({
+        value: 123.45,
+        text: "invalid",
+      }),
+      false,
+    ); // Invalid text format
+  });
+
+  await t.step("returns false for inconsistent value/text pairs", () => {
+    assertEquals(
+      Amount.is({
+        value: 123.45,
+        text: "123.50",
+      }),
+      false,
+    );
+  });
+
+  await t.step("returns false for negative values", () => {
+    assertEquals(
+      Amount.is({
+        value: -123.45,
+        text: "-123.45",
+      }),
+      false,
+    );
+  });
+});
+
+Deno.test("Amount", async (t) => {
+  await t.step("canConstruct", async (t) => {
+    // Valid number inputs
+    await t.step("accepts valid number inputs", () => {
+      assertEquals(Amount.canConstruct(0), true);
+      assertEquals(Amount.canConstruct(1), true);
+      assertEquals(Amount.canConstruct(1000), true);
+      assertEquals(Amount.canConstruct(1.23), true);
+      assertEquals(Amount.canConstruct(1000.45), true);
+      assertEquals(Amount.canConstruct(9999999.99), true);
+    });
+
+    // Valid string inputs - no commas
+    await t.step("accepts valid string inputs without commas", () => {
+      assertEquals(Amount.canConstruct("0"), true);
+      assertEquals(Amount.canConstruct("1"), true);
+      assertEquals(Amount.canConstruct("1000"), true);
+      assertEquals(Amount.canConstruct("1.23"), true);
+      assertEquals(Amount.canConstruct("1000.45"), true);
+      assertEquals(Amount.canConstruct("9999999.99"), true);
+    });
+
+    // Valid string inputs - with commas
+    await t.step("accepts valid string inputs with commas", () => {
+      assertEquals(Amount.canConstruct("1,000"), true);
+      assertEquals(Amount.canConstruct("1,000.00"), true);
+      assertEquals(Amount.canConstruct("1,000,000"), true);
+      assertEquals(Amount.canConstruct("1,000,000.00"), true);
+      assertEquals(Amount.canConstruct("9,999,999.99"), true);
+    });
+
+    // Valid string inputs - with whitespace
+    await t.step("accepts valid string inputs with whitespace", () => {
+      assertEquals(Amount.canConstruct(" 1000 "), true);
+      assertEquals(Amount.canConstruct(" 1,000 "), true);
+      assertEquals(Amount.canConstruct(" 1000.00 "), true);
+      assertEquals(Amount.canConstruct(" 1,000.00 "), true);
+    });
+
+    // Invalid inputs - undefined/null
+    await t.step("rejects undefined and null inputs", () => {
+      assertEquals(Amount.canConstruct(undefined), false);
+      assertEquals(Amount.canConstruct(null), false);
+    });
+
+    // Invalid number inputs
+    await t.step("rejects invalid number inputs", () => {
+      assertEquals(Amount.canConstruct(-1), false);
+      assertEquals(Amount.canConstruct(-1000), false);
+      assertEquals(Amount.canConstruct(-0.01), false);
+      assertEquals(Amount.canConstruct(NaN), false);
+      assertEquals(Amount.canConstruct(Infinity), false);
+      assertEquals(Amount.canConstruct(-Infinity), false);
+    });
+
+    // Invalid string inputs - general format
+    await t.step("rejects invalid string formats", () => {
+      assertEquals(Amount.canConstruct(""), false);
+      assertEquals(Amount.canConstruct(" "), false);
+      assertEquals(Amount.canConstruct("abc"), false);
+      assertEquals(Amount.canConstruct("12abc"), false);
+      assertEquals(Amount.canConstruct("abc12"), false);
+      assertEquals(Amount.canConstruct("12.34.56"), false);
+      assertEquals(Amount.canConstruct("."), false);
+      assertEquals(Amount.canConstruct("12."), false);
+      assertEquals(Amount.canConstruct(".12"), false);
+    });
+
+    // Invalid string inputs - negative numbers
+    await t.step("rejects negative string inputs", () => {
+      assertEquals(Amount.canConstruct("-1"), false);
+      assertEquals(Amount.canConstruct("-1.23"), false);
+      assertEquals(Amount.canConstruct("-1,000"), false);
+      assertEquals(Amount.canConstruct("-1,000.00"), false);
+    });
+
+    await t.step("accepts valid string input with currency prefix", () => {
+      assertEquals(Amount.canConstruct("TZS 100"), true);
+    });
+
+    // Invalid string inputs - special characters
+    await t.step("rejects special characters", () => {
+      assertEquals(Amount.canConstruct("$100"), false);
+      assertEquals(Amount.canConstruct("100$"), false);
+      assertEquals(Amount.canConstruct("100+"), false);
+      assertEquals(Amount.canConstruct("1_000"), false);
+      assertEquals(Amount.canConstruct("1'000"), false);
+    });
+  });
 });

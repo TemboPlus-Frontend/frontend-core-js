@@ -20,7 +20,6 @@ class Amount {
    */
   static from(input: string | number): Amount | undefined {
     let amountText = input.toString().trim();
-    console.log(amountText);
 
     if (hasComma(amountText)) {
       if (!hasValidCommaPlacement(amountText)) return undefined;

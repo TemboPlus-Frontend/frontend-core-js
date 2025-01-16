@@ -1,4 +1,4 @@
-import type { RuleObject } from "@npm/antd.ts";
+import type { RuleObject } from "antd/es/form";
 import { PhoneNumber } from "@models/phone_number/phone_number.ts";
 
 /**

@@ -1,6 +1,6 @@
 {
-  "name": "@temboplus/tembo-core",
-  "version": "0.0.10",
+  "name": "@temboplus/frontend-core",
+  "version": "0.1.0",
   "license": "MIT",
   "exports": "./mod.ts",
   "tasks": {
@@ -8,14 +8,10 @@
     "dev": "deno run --watch main.ts"
   },
   "imports": {
+    "@deno/dnt": "jsr:@deno/dnt@^0.41.3",
     "@models/": "./src/models/",
-    "@npm/": "./src/npm/",
     "@utils/": "./src/utils/",
     "uuid": "npm:uuid@^11.0.3",
     "antd": "npm:antd@^5.22.7"
-  },
-  "build": {
-    "keepNames": true,
-    "preserveClassNames": true
   }
 }

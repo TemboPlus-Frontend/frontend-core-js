@@ -1,6 +1,6 @@
 import { assertEquals, assertExists } from "jsr:@std/assert";
-import { MobileNumberFormat, PhoneNumber } from "./phone_number.ts";
-import { telecomDetails } from "./telecom.ts";
+import { MobileNumberFormat, PhoneNumber } from "@models/phone_number/phone_number.ts";
+import { telecomDetails } from "@models/phone_number/telecom.ts";
 
 /**
  * Test suite for PhoneNumber class

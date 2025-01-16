@@ -1,7 +1,7 @@
 import { Bank } from "@models/bank/bank.ts";
 import { assertEquals, assertRejects } from "jsr:@std/assert";
 import { SWIFT_CODE_VALIDATOR } from "@models/bank/antd_validator.ts";
-import type { RuleObject } from "@npm/antd.ts";
+import type { RuleObject } from "antd/es/form";
 
 Deno.test("SWIFT_CODE_VALIDATOR with valid SWIFT codes", async () => {
   // Test with valid SWIFT code

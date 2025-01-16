@@ -1,4 +1,4 @@
-import type { RuleObject } from "@npm/antd.ts";
+import type { RuleObject } from "antd/es/form";
 import { Amount } from "@models/amount/index.ts";
 
 /**

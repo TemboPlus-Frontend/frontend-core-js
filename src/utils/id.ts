@@ -1,5 +1,5 @@
-import { v4 as uuidv4 } from "@npm/uuid.ts";
-import { v5 as uuidv5 } from "@npm/uuid.ts";
+import { v4 as uuidv4 } from "uuid";
+import { v5 as uuidv5 } from "uuid";
 
 /**
  * Generates a unique UUID (version 4).

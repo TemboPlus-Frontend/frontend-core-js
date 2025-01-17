@@ -14,23 +14,27 @@
  *
  * 2. Valid numbers must:
  *    - Have exactly 9 digits after removing prefixes
- *    - Start with a valid telecom provider prefix
+ *    - Start with a valid network operator prefix
  *    - Contain only numeric characters
  *
- * 3. Each telecom provider has specific prefixes:
+ * 3. Each network operator has specific prefixes:
  *    - Vodacom: 71, 74, 75, etc.
  *    - Airtel: 68, 69, etc.
  *    - Tigo: 65, 67, etc.
+ *    - Halotel: 62, etc.
  *
  * ## Solution
  * The PhoneNumber class provides:
  * 1. Parsing and validation of different input formats
  * 2. Standardized storage in compact format
  * 3. Formatting options for display and API use
- * 4. Telecom provider identification
+ * 4. Network operator identification
  */
 
-import { type Telecom, telecomDetails } from "./telecom.ts";
+import {
+  NETWORK_OPERATOR_CONFIG,
+  type NetworkOperatorInfo,
+} from "@models/phone_number/network_operator.ts";
 
 /**
  * Enumeration for various mobile number formats.
@@ -81,14 +85,14 @@ export class PhoneNumber {
   }
 
   /**
-   * Derives the telecom details associated with the phone number by checking its prefix.
+   * Derives the network operator information associated with the phone number by checking its prefix.
    *
-   * @returns The `Telecom` object that matches the phone number prefix.
+   * @returns The `NetworkOperatorInfo` object that matches the phone number prefix.
    */
-  get telecom(): Telecom {
-    const id = this.compactNumber.substring(0, 2);
-    const result = Object.values(telecomDetails).find((e) =>
-      e.prefixes.includes(id)
+  get networkOperator(): NetworkOperatorInfo {
+    const prefix = this.compactNumber.substring(0, 2);
+    const result = Object.values(NETWORK_OPERATOR_CONFIG).find((operator) =>
+      operator.mobileNumberPrefixes.includes(prefix)
     )!;
     return result;
   }
@@ -123,12 +127,12 @@ export class PhoneNumber {
       // Validate that the compact number length is correct.
       if (compactNumber.length !== 9) return;
 
-      // Check if the compact number matches any telecom provider prefix.
-      const id: string = compactNumber.substring(0, 2);
-      const telecom = Object.values(telecomDetails).find((e) =>
-        e.prefixes.includes(id)
+      // Check if the compact number matches any network operator prefix.
+      const prefix: string = compactNumber.substring(0, 2);
+      const operator = Object.values(NETWORK_OPERATOR_CONFIG).find((op) =>
+        op.mobileNumberPrefixes.includes(prefix)
       );
-      if (!telecom) return;
+      if (!operator) return;
 
       return new PhoneNumber(compactNumber);
     } catch (_) {
@@ -171,7 +175,7 @@ export class PhoneNumber {
    * Validates:
    * - Has required compactNumber property
    * - compactNumber is a 9-digit string
-   * - Prefix matches a valid telecom provider
+   * - Prefix matches a valid network operator
    */
   public static is(obj: unknown): obj is PhoneNumber {
     if (!obj || typeof obj !== "object") return false;

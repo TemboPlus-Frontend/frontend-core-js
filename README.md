@@ -1,72 +1,61 @@
 # @temboplus/frontend-core
 
-This JavaScript/TypeScript package serves as a foundation for TemboPlus front-end development. It provides a collection of reusable utilities and models that can be consumed by other libraries and individual front-end projects within the TemboPlus ecosystem.
+A foundational JavaScript/TypeScript library that powers TemboPlus front-end applications. This library provides essential tools and data models that ensure consistency across all TemboPlus projects.
 
-## Overview
+## What's Inside
 
-The @temboplus/frontend-core package offers a centralized repository of shared resources. This includes:
+The library contains:
 
-* Utilities: Reusable helper functions for common tasks.
-* Models: Standardized data structures and interfaces for consistent data representation across projects.
+* **Utilities**: Ready-to-use helper functions for common development tasks
+* **Data Models**: Standardized structures for handling data like phone numbers, amounts, and bank details
 
-### Model Validation Methods
+## Working with Data Models
 
-This document outlines the standard validation methods implemented across our model classes (`PhoneNumber`, `Amount`, and `Bank`).
-Each model class implements three validation methods with distinct purposes:
+Each data model in our library (PhoneNumber, Amount, and Bank) comes with three key validation methods to ensure your data is always correct and reliable.
 
-#### Static Method: `is`
+### 1. Checking Object Types with `is`
 
-The `is` method determines whether an unknown object is a valid instance of the respective class.
+Use this when you want to verify if an object is a valid model instance.
 
 ```typescript
-public static is(obj: unknown): obj is PhoneNumber
-public static is(obj: unknown): obj is Amount
-public static is(obj: unknown): obj is Bank
-```
-
-*Usage Example:*
-```typescript
-if (PhoneNumber.is(unknownObject)) {
-    // TypeScript now recognizes unknownObject as PhoneNumber
-    const phone = unknownObject;
+// Example: Checking if an object is a valid phone number
+if (PhoneNumber.is(someObject)) {
+    // If true, someObject is confirmed to be a PhoneNumber
+    const phoneNumber = someObject;
+    console.log(phoneNumber.label);
 }
 ```
 
-#### Static Method: `canConstruct`
+### 2. Validating Input Data with `canConstruct`
 
-The `canConstruct` method checks if the provided data can be used to create a new instance of the class.
+Before creating a new instance, use this to check if your input data is valid.
 
 ```typescript
-public static canConstruct(input?: unknown): boolean
-```
-
-*Usage Example:*
-```typescript
+// Example: Validating user input before creating an Amount
 if (Amount.canConstruct(userInput)) {
-    const amount = Amount.from(userInput); // Safe to construct
+    // Input is valid, safe to create a new Amount
+    const amount = Amount.from(userInput);
 }
 ```
 
-#### Instance Method: `validate`
+### 3. Verifying Instance Data with `validate`
 
-Due to TypeScript type system limitations, an additional runtime validation is needed to ensure all internal data of an instance remains valid. The `validate` method performs this check on class instances.
+Use this to ensure an existing instance's data remains valid after changes.
 
 ```typescript
-public validate(): boolean
-```
-
-*Usage Example:*
-```typescript
-const bank = new Bank(data);
-if (!bank.validate()) {
-    throw new Error('Invalid bank instance');
+// Example: Checking if bank data is still valid
+const bank = new Bank(bankData);
+if (bank.validate()) {
+    // Bank instance is valid
+    processBankTransaction(bank);
+} else {
+    showError("Invalid bank information");
 }
 ```
 
-### Implementation Notes
+## Best Practices
 
-- The `is` method should be used when working with unknown objects that might be instances of your model classes
-- Use `canConstruct` before attempting to create new instances from external data
-- The `validate` method should be called after any operation that might affect the internal state of an instance
-- These methods work together to provide type safety both at compile time and runtime
-
+* **Type Checking**: Use `is` when working with data from external sources or APIs
+* **Safe Creation**: Always use `canConstruct` before creating new instances
+* **Data Integrity**: Call `validate` after operations that modify instance data
+* **Error Prevention**: These methods help catch issues early in development

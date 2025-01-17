@@ -1,6 +1,9 @@
 import { assertEquals, assertExists } from "jsr:@std/assert";
-import { MobileNumberFormat, PhoneNumber } from "@models/phone_number/phone_number.ts";
-import { telecomDetails } from "@models/phone_number/telecom.ts";
+import {
+  MobileNumberFormat,
+  PhoneNumber,
+} from "@models/phone_number/phone_number.ts";
+import { NETWORK_OPERATOR_CONFIG } from "@models/phone_number/network_operator.ts";
 
 /**
  * Test suite for PhoneNumber class
@@ -51,17 +54,51 @@ Deno.test("PhoneNumber.from() - Format Tests", async (t) => {
   });
 });
 
-Deno.test("PhoneNumber.from() - Telecom Provider Tests", async (t) => {
-  for (const provider of Object.values(telecomDetails)) {
-    await t.step(`should identify ${provider.company} numbers`, () => {
-      for (const prefix of provider.prefixes) {
-        const number = `${prefix}1234567`;
-        const phone = PhoneNumber.from(number);
-        assertExists(phone);
-        assertEquals(phone.telecom, provider);
-      }
-    });
+Deno.test("PhoneNumber.from() - Network Operator Tests", async (t) => {
+  for (const operator of Object.values(NETWORK_OPERATOR_CONFIG)) {
+    await t.step(
+      `should identify ${operator.mobileMoneyService} numbers`,
+      () => {
+        for (const prefix of operator.mobileNumberPrefixes) {
+          const number = `${prefix}1234567`;
+          const phone = PhoneNumber.from(number);
+          assertExists(phone);
+          assertEquals(phone.networkOperator, operator);
+        }
+      },
+    );
   }
+});
+
+// Update the prefix validation tests to use the new naming:
+Deno.test("PhoneNumber", async (t) => {
+  await t.step("canConstruct", async (t) => {
+    // ... other test steps remain the same ...
+
+    // Valid network operator prefixes
+    await t.step("accepts all valid network operator prefixes", () => {
+      // Vodacom prefixes (74, 75, 76)
+      assertEquals(PhoneNumber.canConstruct("0742345678"), true);
+      assertEquals(PhoneNumber.canConstruct("0752345678"), true);
+      assertEquals(PhoneNumber.canConstruct("0762345678"), true);
+
+      // Airtel prefixes (78, 79, 68, 69)
+      assertEquals(PhoneNumber.canConstruct("0782345678"), true);
+      assertEquals(PhoneNumber.canConstruct("0792345678"), true);
+      assertEquals(PhoneNumber.canConstruct("0682345678"), true);
+      assertEquals(PhoneNumber.canConstruct("0692345678"), true);
+
+      // Tigo prefixes (71, 65, 67, 77)
+      assertEquals(PhoneNumber.canConstruct("0712345678"), true);
+      assertEquals(PhoneNumber.canConstruct("0652345678"), true);
+      assertEquals(PhoneNumber.canConstruct("0672345678"), true);
+      assertEquals(PhoneNumber.canConstruct("0772345678"), true);
+
+      // Halotel prefixes (62, 61)
+      assertEquals(PhoneNumber.canConstruct("0622345678"), true);
+      assertEquals(PhoneNumber.canConstruct("0612345678"), true);
+    });
+  });
 });
 
 Deno.test("PhoneNumber - Formatting Tests", async (t) => {

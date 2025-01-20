@@ -42,18 +42,7 @@ jobs:
         id: get_version
         run: |
           CURRENT_VERSION=$(cat deno.json | jq -r '.version')
-          LATEST_VERSION=$(npm view @temboplus/afloat version || echo "0.0.0")
-          if [ "$CURRENT_VERSION" = "$LATEST_VERSION" ]; then
-            # Increment patch version
-            IFS='.' read -ra VERSION_PARTS <<< "$CURRENT_VERSION"
-            NEW_VERSION="${VERSION_PARTS[0]}.${VERSION_PARTS[1]}.$((VERSION_PARTS[2] + 1))"
-            # Update version in deno.json
-            tmp=$(mktemp)
-            jq ".version = \"$NEW_VERSION\"" deno.json > "$tmp" && mv "$tmp" deno.json
-            echo "VERSION=$NEW_VERSION" >> $GITHUB_ENV
-          else
-            echo "VERSION=$CURRENT_VERSION" >> $GITHUB_ENV
-          fi
+          echo "VERSION=$CURRENT_VERSION" >> $GITHUB_ENV
 
       - name: Build npm package
         run: deno run -A scripts/build_npm.ts ${{ env.VERSION }}

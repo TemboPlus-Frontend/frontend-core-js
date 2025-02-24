@@ -7,12 +7,13 @@
     "format": "deno fmt && deno lint",
     "dev": "deno run --watch main.ts"
   },
-  "exclude": ["npm"],
+  "exclude": ["npm", "example"],
   "imports": {
     "@deno/dnt": "jsr:@deno/dnt@^0.41.3",
     "@models/": "./src/models/",
     "@utils/": "./src/utils/",
-    "uuid": "npm:uuid@^11.0.3",
-    "antd": "npm:antd@^5.22.7"
+    "uuid": "npm:uuid@^11.1.0",
+    "antd": "npm:antd@^5.24.2",
+    "react": "npm:react@19.0.0"
   }
 }

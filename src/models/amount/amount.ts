@@ -1,31 +1,52 @@
 // Regex explanation:
 // ^(?:\d{1,3}(?:,\d{3})*|\d+) - Either grouped digits with commas OR just digits
+
+import { type Currency, CurrencyService } from "../../data/currencies/index.ts";
+
 // (?:\.\d+)?$ - Optional decimal part with any number of digits
 const AMOUNT_REGEX = /^(?:\d{1,3}(?:,\d{3})*|\d+)(?:\.\d+)?$/;
 
 class Amount {
   private readonly value: number;
   private readonly text: string;
+  private readonly currency: Currency;
 
-  private constructor(value: number, text: string) {
+  private constructor(
+    value: number,
+    text: string,
+    currencyCode: string = "TZS",
+  ) {
+    const code = CurrencyService.getInstance().getCurrency(currencyCode);
+    if (!code) {
+      throw new Error("Invalid code!");
+    }
     this.value = value;
     this.text = text;
+    this.currency = code;
   }
 
   /**
    * Creates an Amount instance from a string or number input
    * Returns undefined if input is invalid or negative
    * @param input - The input value (string or number)
+   * @param currencyCode - The currency code (defaults to TZS)
    * @returns Amount instance or undefined if validation fails
    */
-  static from(input: string | number): Amount | undefined {
+  static from(
+    input: string | number,
+    currencyCode: string = "TZS",
+  ): Amount | undefined {
+    const currency = CurrencyService.getInstance().getCurrency(currencyCode);
+    // console.log("currency: ", currency);
+    if (!currency) return undefined;
+
     let amountText = input.toString().trim();
+
+    amountText = removeCommasAndCurrency(amountText);
 
     if (hasComma(amountText)) {
       if (!hasValidCommaPlacement(amountText)) return undefined;
     }
-
-    amountText = removeCommasAndCurrency(amountText);
 
     // Handle string input
     if (!AMOUNT_REGEX.test(amountText)) return undefined;
@@ -34,21 +55,36 @@ class Amount {
     const value = Number(amountText.replace(/,/g, ""));
     if (!Number.isFinite(value) || value < 0) return undefined;
 
-    // Round to 2 decimal places and format the text representation
-    const roundedValue = Number(value.toFixed(2));
-    const text = roundedValue.toLocaleString("en-US", {
-      minimumFractionDigits: 2,
-      maximumFractionDigits: 2,
+    const dd = currency.decimal_digits;
+
+    const roundedValue = Number(value.toFixed(dd));
+    let text = roundedValue.toLocaleString("en-US", {
+      minimumFractionDigits: dd,
+      maximumFractionDigits: dd,
     });
 
-    return new Amount(roundedValue, text);
+    if (dd === 0) {
+      text = text.replace(".00", "");
+    }
+
+    return new Amount(roundedValue, text, currency.code);
   }
 
   /**
-   * Returns the formatted string representation of the amount with TZS prefix
+   * Returns the formatted string representation of the amount with currency
    */
   get label(): string {
-    return `TZS ${this.text}`;
+    return `${this.currency.symbol} ${this.text}`;
+    // return this.currency.position === "prefix"
+    //   ? `${this.currency.symbol} ${this.text}`
+    //   : `${this.text} ${this.currency.symbol}`;
+  }
+
+  /**
+   * Returns the currency code
+   */
+  get currencyCode(): string {
+    return this.currency.code;
   }
 
   /**
@@ -71,13 +107,16 @@ class Amount {
   /**
    * Checks if the amount is valid
    * @param input amount to be checked for validity
+   * @param currencyCode currency code to validate against
    * @returns true if the amount is valid, false otherwise
    */
-  static canConstruct(input?: string | number | null): boolean {
-    /// (!input) alone does not work since input could 0 and (!input) return true for this case
+  static canConstruct(
+    input?: string | number | null,
+    currencyCode: string = "TZS",
+  ): boolean {
     if (input === undefined || input === null) return false;
 
-    const amount = Amount.from(input);
+    const amount = Amount.from(input, currencyCode);
     if (!amount) return false;
     return true;
   }
@@ -88,15 +127,6 @@ class Amount {
    *
    * @param {unknown} obj - The value to validate
    * @returns {obj is Amount} Type predicate indicating if the value is a valid Amount
-   *
-   * @example
-   * const maybeAmount = JSON.parse(someData);
-   * if (Amount.is(maybeAmount)) {
-   *   console.log(maybeAmount.label); // maybeAmount is typed as Amount
-   * }
-   *
-   * @see {@link Amount.canConstruct} for validating raw amount values
-   * @see {@link Amount.from} for constructing new instances
    */
   public static is(obj: unknown): obj is Amount {
     if (!obj || typeof obj !== "object") return false;
@@ -106,18 +136,24 @@ class Amount {
     // Check required properties exist with correct types
     if (typeof maybeAmount.value !== "number") return false;
     if (typeof maybeAmount.text !== "string") return false;
+    if (!maybeAmount.currency || typeof maybeAmount.currency !== "object") {
+      return false;
+    }
 
     const value = maybeAmount.value;
     const text = maybeAmount.text;
+    const currency = (maybeAmount.currency as Currency).code;
 
     // Validate numeric constraints
     if (!Number.isFinite(value) || value < 0) return false;
-    const canConstruct = Amount.canConstruct(value);
+    const canConstruct = Amount.canConstruct(value, currency);
     if (!canConstruct) return false;
 
-    const amount = Amount.from(value);
-    return amount != undefined && amount.value === value &&
-      amount.text === text;
+    const amount = Amount.from(value, currency);
+    return amount != undefined &&
+      amount.value === value &&
+      amount.text === text &&
+      amount.currencyCode === currency;
   }
 
   /**
@@ -126,7 +162,7 @@ class Amount {
    */
   public validate(): boolean {
     try {
-      return Amount.canConstruct(this.value);
+      return Amount.canConstruct(this.value, this.currencyCode);
     } catch (_) {
       return false;
     }
@@ -134,104 +170,49 @@ class Amount {
 }
 
 /**
- * Removes commas and "TZS" symbol (if present) from a string.
- * Handles both prefixed and suffixed "TZS" symbols, with or without spaces.
+ * Removes commas and currency symbols from a string.
+ * Handles both prefixed and suffixed currency symbols, with or without spaces.
  *
  * @param {string} text - The input string to clean
- * @returns {string} A string with commas and "TZS" symbol removed
- *
- * @example
- * removeCommasAndCurrency("1,234.56");         // Returns: "1234.56"
- * removeCommasAndCurrency("TZS 1,234.56");     // Returns: "1234.56"
- * removeCommasAndCurrency("1,234.56 TZS");     // Returns: "1234.56"
- * removeCommasAndCurrency("TZS1,234.56");      // Returns: "1234.56"
- * removeCommasAndCurrency("1234.56");          // Returns: "1234.56"
- * removeCommasAndCurrency("");                 // Returns: ""
- *
- * @remarks
- * - Case insensitive for "TZS" symbol
- * - Removes all commas regardless of position
- * - Handles optional spaces around the currency symbol
- * - Returns empty string if input is empty
+ * @returns {string} A string with commas and currency symbols removed
  */
 function removeCommasAndCurrency(text: string): string {
+  const currencyPatterns = CurrencyService.getInstance()
+    .getCurrencySymbolPattern();
+
+  const regex = new RegExp(
+    `(?:${currencyPatterns})\\s*|\\s*(?:${currencyPatterns})`,
+    "gi",
+  );
+
   return text
-    .replace(/TZS\s*|\s*TZS/gi, "") // Remove TZS with optional spaces
+    .replace(regex, "") // Remove currency symbols with optional spaces
     .replace(/,/g, ""); // Remove all commas
 }
 
-/**
- * Checks if commas in a numeric string are correctly placed to separate groups of three digits.
- * Only validates the part before the decimal point if one exists.
- *
- * @param {string} text - The input string to validate
- * @returns {boolean} True if commas are correctly placed or if there are no commas, false otherwise
- *
- * @example
- * hasValidCommaPlacement("1,234,567.89");     // Returns: true
- * hasValidCommaPlacement("1234567.89");       // Returns: true (no commas)
- * hasValidCommaPlacement("1,234.56");         // Returns: true
- * hasValidCommaPlacement("1,23,456");         // Returns: false (incorrect grouping)
- * hasValidCommaPlacement("1,2345");           // Returns: false (incorrect grouping)
- * hasValidCommaPlacement(",123");             // Returns: false (leading comma)
- * hasValidCommaPlacement("1,234,");           // Returns: false (trailing comma)
- * hasValidCommaPlacement("1,,234");           // Returns: false (consecutive commas)
- *
- * @remarks
- * - Validates comma placement in the whole number part only
- * - Each group after the first must be exactly 3 digits
- * - First group can be 1-3 digits
- * - Returns true if the string contains no commas
- * - Does not validate the decimal part if present
- */
+// Rest of the helper functions remain the same
 function hasValidCommaPlacement(text: string): boolean {
-  // Split at decimal point if it exists and take the whole number part
   const wholeNumberPart = text.split(".")[0];
 
-  // If no commas, it's valid
   if (!wholeNumberPart.includes(",")) {
     return true;
   }
 
-  // Split the whole number by commas
   const groups = wholeNumberPart.split(",");
 
-  // Check for invalid cases:
-  // - Empty string before/after comma (e.g. ",123" or "123,")
-  // - More than one empty group (consecutive commas)
   if (groups.some((group) => group.length === 0)) {
     return false;
   }
 
-  // First group can be 1-3 digits
   if (groups[0].length > 3 || groups[0].length < 1) {
     return false;
   }
 
-  // All other groups must be exactly 3 digits
   return groups.slice(1).every((group) => group.length === 3);
 }
 
-/**
- * Checks if a string contains a comma character.
- *
- * @param {string} text - The input string to check
- * @returns {boolean} True if the string contains at least one comma, false otherwise
- *
- * @example
- * hasComma("1,234.56");     // Returns: true
- * hasComma("1234.56");      // Returns: false
- * hasComma("hello,world");  // Returns: true
- * hasComma("");            // Returns: false
- * hasComma(",");           // Returns: true
- *
- * @remarks
- * - Returns false for empty strings
- * - Returns true if one or more commas are present
- * - Position of the comma doesn't matter
- */
 function hasComma(text: string): boolean {
   return text.includes(",");
 }
 
-export { Amount, AMOUNT_REGEX };
+export { Amount, AMOUNT_REGEX, type Currency };

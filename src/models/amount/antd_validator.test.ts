@@ -1,6 +1,6 @@
 import { assertRejects } from "jsr:@std/assert";
 import { AMOUNT_VALIDATOR } from "@models/amount/antd_validator.ts";
-import { CurrencyService } from "../../data/currencies/index.ts";
+import { CurrencyService } from "@models/amount/currency_service.ts";
 
 /**
  * Test suite for AMOUNT_VALIDATOR

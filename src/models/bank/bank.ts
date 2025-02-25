@@ -1,4 +1,4 @@
-import file from "@models/bank/banks.json" with { type: "json" };
+import file from "@data/banks.json" with { type: "json" };
 
 /**
  * Represents a bank with essential details.

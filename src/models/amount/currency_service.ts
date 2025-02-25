@@ -1,4 +1,4 @@
-import data from "./currencies.json" with { type: "json" };
+import data from "../../data/currencies.json" with { type: "json" };
 
 /**
  * Configuration interface for a single currency
@@ -69,8 +69,12 @@ class CurrencyService {
    */
   static getInstance(): CurrencyService {
     if (!CurrencyService.instance) {
+      console.log("initializing new CurrencyService")
       CurrencyService.instance = new CurrencyService();
+      CurrencyService.instance.initialize();
     }
+
+    console.log("using existing CurrencyService")
     return CurrencyService.instance;
   }
 
@@ -79,9 +83,14 @@ class CurrencyService {
    * Should be called once when your application starts
    */
   initialize() {
-    const currencies: Currencies = JSON.parse(JSON.stringify(data));
-    this.currencies = currencies;
-    this.symbolPattern = null;
+    try {
+      const currencies: Currencies = JSON.parse(JSON.stringify(data));
+      this.currencies = currencies;
+      this.symbolPattern = null;
+    } catch (error) {
+      console.error("Failed to initialize CurrencyService:", error);
+      throw new Error("Failed to initialize CurrencyService");
+    }
   }
 
   /**
@@ -96,7 +105,7 @@ class CurrencyService {
    * }
    */
   getCurrency(code: string): Currency | undefined {
-    return this.currencies[code];
+    return this.currencies[code.toUpperCase()];
   }
 
   /**

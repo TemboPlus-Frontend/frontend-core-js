@@ -1,7 +1,7 @@
 // Regex explanation:
 // ^(?:\d{1,3}(?:,\d{3})*|\d+) - Either grouped digits with commas OR just digits
 
-import { type Currency, CurrencyService } from "../../data/currencies/index.ts";
+import { type Currency, CurrencyService } from "@models/amount/currency_service.ts";
 
 // (?:\.\d+)?$ - Optional decimal part with any number of digits
 const AMOUNT_REGEX = /^(?:\d{1,3}(?:,\d{3})*|\d+)(?:\.\d+)?$/;
@@ -37,7 +37,7 @@ class Amount {
     currencyCode: string = "TZS",
   ): Amount | undefined {
     const currency = CurrencyService.getInstance().getCurrency(currencyCode);
-    // console.log("currency: ", currency);
+    console.log("currency: ", currency);
     if (!currency) return undefined;
 
     let amountText = input.toString().trim();

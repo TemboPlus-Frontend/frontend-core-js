@@ -1,4 +1,4 @@
-import file from "@data/banks.json" with { type: "json" };
+import { BankService } from "@models/bank/service.ts";
 
 /**
  * Represents a bank with essential details.
@@ -55,9 +55,7 @@ export class Bank {
    * @returns {Bank | undefined} The bank corresponding to the SWIFT code or `undefined` if not found.
    */
   static fromSWIFTCode(swiftCode: string): Bank | undefined {
-    return this.getAll().find((b) =>
-      b.swiftCode.toUpperCase() === swiftCode.toUpperCase()
-    );
+    return BankService.getInstance().fromSWIFTCode(swiftCode);
   }
 
   /**
@@ -66,12 +64,9 @@ export class Bank {
    * @returns {Bank | undefined} The bank corresponding to the full name or `undefined` if not found.
    */
   static fromBankName(bankName: string): Bank | undefined {
-    return this.getAll().find(
-      (bank) =>
-        bank.fullName.toLowerCase() === bankName.toLowerCase() ||
-        bankName.toLowerCase() === bank.shortName.toLowerCase(),
-    );
+    return BankService.getInstance().fromBankName(bankName);
   }
+
   /**
    * Validates if a given SWIFT/BIC (Bank Identifier Code) is valid
    *
@@ -104,21 +99,6 @@ export class Bank {
     if (!bankName) return false;
     const bank = Bank.fromBankName(bankName);
     return !!bank;
-  }
-
-  /**
-   * Gets all banks from the JSON data.
-   * @returns {Bank[]} Array of all banks
-   */
-  static getAll(): Bank[] {
-    type BankInterface = {
-      fullName: string;
-      shortName: string;
-      swiftCode: string;
-    };
-
-    const data: BankInterface[] = JSON.parse(JSON.stringify(file));
-    return data.map((b) => new Bank(b.fullName, b.shortName, b.swiftCode));
   }
 
   /**
@@ -219,25 +199,9 @@ export class Bank {
       bankFromSwift &&
         bankFromName &&
         bankFromName2 &&
-        compare(bankFromName, bankFromName2) &&
-        compare(bankFromSwift, bankFromName) &&
-        compare(bankFromSwift, bankFromName2),
+        BankService.getInstance().compare(bankFromName, bankFromName2) &&
+        BankService.getInstance().compare(bankFromSwift, bankFromName) &&
+        BankService.getInstance().compare(bankFromSwift, bankFromName2),
     );
   }
-}
-
-/**
- * Compares two Bank instances for equality by checking their full name, short name, and SWIFT code
- *
- * @param {Bank} bank1 - First bank to compare
- * @param {Bank} bank2 - Second bank to compare
- * @returns {boolean} True if banks are equal, false otherwise
- * @private
- */
-function compare(bank1: Bank, bank2: Bank): boolean {
-  return (
-    bank1.fullName === bank2.fullName &&
-    bank1.shortName === bank2.shortName &&
-    bank1.swiftCode === bank2.swiftCode
-  );
 }

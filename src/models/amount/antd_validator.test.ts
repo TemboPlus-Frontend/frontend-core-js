@@ -1,6 +1,5 @@
 import { assertRejects } from "jsr:@std/assert";
 import { AMOUNT_VALIDATOR } from "@models/amount/antd_validator.ts";
-import { CurrencyService } from "@models/amount/currency_service.ts";
 
 /**
  * Test suite for AMOUNT_VALIDATOR
@@ -15,9 +14,6 @@ import { CurrencyService } from "@models/amount/currency_service.ts";
 interface RuleObject {
   required?: boolean;
 }
-
-// Initialize CurrencyService before tests
-CurrencyService.getInstance().initialize();
 
 Deno.test("AMOUNT_VALIDATOR - Required Field Tests", async (t) => {
   const requiredRule: RuleObject = { required: true };

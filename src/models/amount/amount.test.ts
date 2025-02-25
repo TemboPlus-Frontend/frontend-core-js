@@ -1,6 +1,6 @@
 import { assertEquals, assertExists } from "jsr:@std/assert";
 import { Amount, AMOUNT_REGEX } from "@models/amount/amount.ts";
-import { CurrencyService } from "@models/amount/currency_service.ts";
+import { CurrencyService } from "../currency/service.ts";
 
 // Sample currency data for testing
 const TEST_CURRENCIES = {
@@ -33,15 +33,11 @@ const TEST_CURRENCIES = {
   },
 };
 
-// Initialize CurrencyService before tests
-CurrencyService.getInstance().initialize();
-
 Deno.test("CurrencyService", async (t) => {
   await t.step("initialization", async (t) => {
     await t.step("initializes with valid currency object", () => {
       const service = CurrencyService.getInstance();
-      service.initialize();
-      const usdConfig = service.getCurrency("USD");
+      const usdConfig = service.fromCode("USD");
       assertExists(usdConfig);
       assertEquals(usdConfig.symbol, "$");
     });
@@ -49,8 +45,8 @@ Deno.test("CurrencyService", async (t) => {
 
   await t.step("getCurrency", () => {
     const service = CurrencyService.getInstance();
-    assertEquals(service.getCurrency("USD")?.symbol, "$");
-    assertEquals(service.getCurrency("INVALID"), undefined);
+    assertEquals(service.fromCode("USD")?.symbol, "$");
+    assertEquals(service.fromCode("INVALID"), undefined);
   });
 });
 

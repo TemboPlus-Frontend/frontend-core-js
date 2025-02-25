@@ -1,7 +1,10 @@
 // Regex explanation:
 // ^(?:\d{1,3}(?:,\d{3})*|\d+) - Either grouped digits with commas OR just digits
 
-import { type Currency, CurrencyService } from "@models/amount/currency_service.ts";
+import {
+  type Currency,
+  CurrencyService,
+} from "../currency/service.ts";
 
 // (?:\.\d+)?$ - Optional decimal part with any number of digits
 const AMOUNT_REGEX = /^(?:\d{1,3}(?:,\d{3})*|\d+)(?:\.\d+)?$/;
@@ -16,7 +19,7 @@ class Amount {
     text: string,
     currencyCode: string = "TZS",
   ) {
-    const code = CurrencyService.getInstance().getCurrency(currencyCode);
+    const code = CurrencyService.getInstance().fromCode(currencyCode);
     if (!code) {
       throw new Error("Invalid code!");
     }
@@ -36,8 +39,7 @@ class Amount {
     input: string | number,
     currencyCode: string = "TZS",
   ): Amount | undefined {
-    const currency = CurrencyService.getInstance().getCurrency(currencyCode);
-    console.log("currency: ", currency);
+    const currency = CurrencyService.getInstance().fromCode(currencyCode);
     if (!currency) return undefined;
 
     let amountText = input.toString().trim();
@@ -55,7 +57,7 @@ class Amount {
     const value = Number(amountText.replace(/,/g, ""));
     if (!Number.isFinite(value) || value < 0) return undefined;
 
-    const dd = currency.decimal_digits;
+    const dd = currency.decimalDigits;
 
     const roundedValue = Number(value.toFixed(dd));
     let text = roundedValue.toLocaleString("en-US", {
@@ -75,9 +77,6 @@ class Amount {
    */
   get label(): string {
     return `${this.currency.symbol} ${this.text}`;
-    // return this.currency.position === "prefix"
-    //   ? `${this.currency.symbol} ${this.text}`
-    //   : `${this.text} ${this.currency.symbol}`;
   }
 
   /**

@@ -119,6 +119,39 @@ class CurrencyService {
   }
 
   /**
+   * Validates if a given ISO currency code is valid
+   *
+   * @param {string | null | undefined} code - The currency code to validate.
+   *   Should be a three-letter ISO currency code (e.g., 'USD', 'EUR').
+   *
+   * @returns {boolean} Returns true if:
+   *   - The currency code is not null/undefined
+   *   - The currency code successfully resolves to a valid Currency instance
+   *   Returns false otherwise.
+   */
+  static isValidCode(code?: string | null): boolean {
+    if (!code) return false;
+    const currency = Currency.fromCode(code);
+    return !!currency;
+  }
+
+  /**
+   * Validates if a given currency name is valid
+   *
+   * @param {string | null | undefined} currencyName - The currency name to validate.
+   *
+   * @returns {boolean} Returns true if:
+   *   - The currency name is not null/undefined
+   *   - The currency name successfully resolves to a valid Currency instance
+   *   Returns false otherwise.
+   */
+  static isValidName(currencyName?: string | null): boolean {
+    if (!currencyName) return false;
+    const currency = Currency.fromName(currencyName);
+    return !!currency;
+  }
+
+  /**
    * Gets a regex-ready pattern matching all currency symbols
    * Pattern is memoized for performance
    * @returns {string} Pipe-separated pattern of escaped currency symbols

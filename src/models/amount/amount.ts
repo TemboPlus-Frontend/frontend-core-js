@@ -1,10 +1,7 @@
 // Regex explanation:
 // ^(?:\d{1,3}(?:,\d{3})*|\d+) - Either grouped digits with commas OR just digits
 
-import {
-  type Currency,
-  CurrencyService,
-} from "../currency/service.ts";
+import { type Currency, CurrencyService } from "@models/currency/service.ts";
 
 // (?:\.\d+)?$ - Optional decimal part with any number of digits
 const AMOUNT_REGEX = /^(?:\d{1,3}(?:,\d{3})*|\d+)(?:\.\d+)?$/;
@@ -214,4 +211,4 @@ function hasComma(text: string): boolean {
   return text.includes(",");
 }
 
-export { Amount, AMOUNT_REGEX, type Currency };
+export { Amount, AMOUNT_REGEX };

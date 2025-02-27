@@ -1,5 +1,5 @@
 import type { RuleObject } from "antd/es/form";
-import { PhoneNumber } from "@models/phone_number/phone_number.ts";
+import { TZPhoneNumber } from "@models/phone_number/tz_phone_number.ts";
 
 /**
  * Validates a Tanzanian phone number according to specified format rules.
@@ -79,7 +79,7 @@ export const TZ_PHONE_NUMBER_REGEX =
 export const PHONENUMBER_VALIDATOR = (
   rule: RuleObject,
   value: string | null | undefined,
-): Promise<PhoneNumber | undefined> => {
+): Promise<TZPhoneNumber | undefined> => {
   const phoneString = value?.toString().trim();
 
   // If field is empty/undefined/null
@@ -92,7 +92,7 @@ export const PHONENUMBER_VALIDATOR = (
     return Promise.resolve(undefined);
   }
 
-  const phone = PhoneNumber.from(phoneString);
+  const phone = TZPhoneNumber.from(phoneString);
   if (phone) return Promise.resolve(phone);
 
   return Promise.reject(new Error("Invalid phone number format."));

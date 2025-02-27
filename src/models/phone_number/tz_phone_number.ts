@@ -24,7 +24,7 @@
  *    - Halotel: 62, etc.
  *
  * ## Solution
- * The PhoneNumber class provides:
+ * The TZPhoneNumber class provides:
  * 1. Parsing and validation of different input formats
  * 2. Standardized storage in compact format
  * 3. Formatting options for display and API use
@@ -50,14 +50,14 @@ export enum MobileNumberFormat {
 /**
  * Represents a TZ phone number
  */
-export class PhoneNumber {
+export class TZPhoneNumber {
   /**
    * Stores the phone number in a compact format excluding country code and the initial '0'.
    */
   compactNumber: string;
 
   /**
-   * Constructs a new `PhoneNumber` instance.
+   * Constructs a new `TZPhoneNumber` instance.
    *
    * @param compactNumber - The phone number in a compact format (e.g., "712345678").
    */
@@ -98,12 +98,12 @@ export class PhoneNumber {
   }
 
   /**
-   * Creates a `PhoneNumber` instance from a given string.
+   * Creates a `TZPhoneNumber` instance from a given string.
    *
    * @param s - The input phone number string in various formats (e.g., "+255712345678", "0712345678").
-   * @returns A `PhoneNumber` instance if valid, otherwise `undefined`.
+   * @returns A `TZPhoneNumber` instance if valid, otherwise `undefined`.
    */
-  public static from(s: string): PhoneNumber | undefined {
+  public static from(s: string): TZPhoneNumber | undefined {
     try {
       const number = removeSpaces(s.trim());
       if (number.length === 0) return;
@@ -134,7 +134,7 @@ export class PhoneNumber {
       );
       if (!operator) return;
 
-      return new PhoneNumber(compactNumber);
+      return new TZPhoneNumber(compactNumber);
     } catch (_) {
       return;
     }
@@ -153,21 +153,21 @@ export class PhoneNumber {
 
     if (text.length === 0) return false;
 
-    const phone = PhoneNumber.from(text);
+    const phone = TZPhoneNumber.from(text);
     return phone !== undefined;
   }
 
   /**
-   * Checks if an unknown value contains valid data to construct a PhoneNumber instance.
+   * Checks if an unknown value contains valid data to construct a TZPhoneNumber instance.
    * Validates the structural integrity of the phone number object.
    *
    * @param {unknown} obj - The value to validate.
-   * @returns {obj is PhoneNumber} Type predicate indicating if the value has a valid phone number structure.
+   * @returns {obj is TZPhoneNumber} Type predicate indicating if the value has a valid phone number structure.
    *
    * @example
    * const maybePhone = JSON.parse(someData);
-   * if (PhoneNumber.is(maybePhone)) {
-   *   // maybePhone is typed as PhoneNumber
+   * if (TZPhoneNumber.is(maybePhone)) {
+   *   // maybePhone is typed as TZPhoneNumber
    *   console.log(maybePhone.label);
    * }
    *
@@ -177,7 +177,7 @@ export class PhoneNumber {
    * - compactNumber is a 9-digit string
    * - Prefix matches a valid network operator
    */
-  public static is(obj: unknown): obj is PhoneNumber {
+  public static is(obj: unknown): obj is TZPhoneNumber {
     if (!obj || typeof obj !== "object") return false;
 
     const maybePhone = obj as Record<string, unknown>;
@@ -186,7 +186,7 @@ export class PhoneNumber {
     if (typeof maybePhone.compactNumber !== "string") return false;
 
     const compactNumber = maybePhone.compactNumber;
-    return PhoneNumber.canConstruct(compactNumber);
+    return TZPhoneNumber.canConstruct(compactNumber);
   }
 
   /**
@@ -195,7 +195,7 @@ export class PhoneNumber {
    */
   public validate(): boolean {
     try {
-      return PhoneNumber.canConstruct(this.compactNumber);
+      return TZPhoneNumber.canConstruct(this.compactNumber);
     } catch (_) {
       return false;
     }

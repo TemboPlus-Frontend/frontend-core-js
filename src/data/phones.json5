@@ -336,192 +336,377 @@
     "SV": {
         "code": 503,
         "min_nsn": 8,
-        "max_nsn": 8
+        "max_nsn": 8,
+        "pattern": {
+            "landline": "^2\\d{7}$",
+            "mobile": "^[6-7]\\d{7}$",
+            "tollFree": "^800\\d{6}$",
+            "premium": "^900\\d{6}$",
+            "specialServices": "^80[1-2]\\d{6}$"
+        }
     },
     // https://en.wikipedia.org/wiki/Telephone_numbers_in_Equatorial_Guinea
     "GQ": {
         "code": 240,
         "min_nsn": 9,
-        "max_nsn": 9
+        "max_nsn": 9,
+        "patterns": {
+            "landline": "^33[0-24-9]\\d[46]\\d{4}$",
+            "mobile": "^(222|55)\\d{6}$",
+            "tollFree": "^80[1-9]\\d{5}$",
+            "premiumRate": "^90[1-9]\\d{5}$",
+            "emergency": "^11[235]$"
+        }
     },
     "ER": {
         "code": 291,
         "min_nsn": 7,
-        "max_nsn": 7
+        "max_nsn": 7,
+        "pattern": {
+            "landlineRegex": "^[12]\\d{5,6}$",
+            "mobileRegex": "^7\\d{6}$"
+        }
     },
     "EE": {
         "code": 372,
         "min_nsn": 7,
-        "max_nsn": 8
+        "max_nsn": 8,
+        "patterns": {
+            "geographic": "^3\\d{6}$",
+            "mobile": "^5\\d{7}$",
+            "voip": "^6\\d{7}$",
+            "tollFree": "^800\\d{4}$",
+            "premium": "^900\\d{4}$"
+        }
     },
     "ET": {
         "code": 251,
         "min_nsn": 9,
-        "max_nsn": 9
+        "max_nsn": 9,
+        "pattern": {
+            "mobile": "^9\\d{8}$",
+            "fixed": "^[1-5]\\d{8}$",
+            "tollFree": "^800\\d{6}$"
+        }
     },
     "FK": {
         "code": 500,
         "min_nsn": 5,
-        "max_nsn": 5
+        "max_nsn": 5,
+        "pattern": "^[2-6]\\d{4}$"
     },
     "FO": {
         "code": 298,
         "min_nsn": 6,
-        "max_nsn": 6
+        "max_nsn": 6,
+        "pattern": {
+            "landline": "^[2-4]\\d{5}$",
+            "mobile": "^[5-9]\\d{5}$",
+            "emergency": "^(112|113|1870)$"
+        }
     },
     "FJ": {
         "code": 679,
         "min_nsn": 7,
-        "max_nsn": 7
+        "max_nsn": 7,
+        "patterns": {
+            "fixedLine": "^[3-6]\\d{6}$",
+            "mobile": "^[7-9]\\d{6}$",
+            "tollFree": "^0800\\d{4}$",
+            "premiumRate": "^0900\\d{4}$"
+        }
     },
     // https://en.wikipedia.org/wiki/Telephone_numbers_in_Finland
     "FI": {
         "code": 358,
         "min_nsn": 5,
-        "max_nsn": 12
+        "max_nsn": 12,
+        "pattern": {
+            "mobile": "^(4\\d|457|50)\\d{6,7}$",
+            "landline": "^[1-9]\\d{1,2}\\d{4,7}$"
+        }
     },
     "FR": {
         "code": 33,
         "min_nsn": 9,
-        "max_nsn": 9
+        "max_nsn": 9,
+        "patterns": {
+            "geographic": "^0[1-5]\\d{8}$",
+            "mobile": "^0[67]\\d{8}$",
+            "tollFree": "^080[0-5]\\d{6}$",
+            "premium": "^08[9]\\d{7}$",
+            "sharedCost": "^08[12]\\d{7}$",
+            "voip": "^09\\d{8}$"
+        }
     },
     "GF": {
         "code": 594,
         "min_nsn": 9,
-        "max_nsn": 9
+        "max_nsn": 9,
+        "pattern": {
+            "geoNumberPattern": "^594\\d{6}$",
+            "mobilePattern": "^694\\d{6}$"
+        }
     },
     // https://en.wikipedia.org/wiki/Telephone_numbers_in_French_Polynesia
     "PF": {
         "code": 689,
         "min_nsn": 8,
-        "max_nsn": 8
+        "max_nsn": 8,
+        "pattern": "^\\d{8}$"
     },
     // https://en.wikipedia.org/wiki/Telephone_numbers_in_Gabon
     "GA": {
         "code": 241,
         "min_nsn": 7,
-        "max_nsn": 7
+        "max_nsn": 7,
+        "pattern": "^\\d{7}$"
     },
     "GM": {
         "code": 220,
         "min_nsn": 7,
-        "max_nsn": 7
+        "max_nsn": 7,
+        "pattern": {
+            "landline": "^[45]\\d{6}$",
+            "mobile": "^[7-9]\\d{6}$",
+            "emergency": "^1\\d{2}$",
+            "tollFree": "^8\\d{6}$"
+        }
     },
     "GE": {
         "code": 995,
         "min_nsn": 9,
-        "max_nsn": 9
+        "max_nsn": 9,
+        "pattern": {
+            "mobile": "^5\\d{8}$",
+            "landline": "^0[3-5][1-9]\\d{6,7}$",
+            "tollFree": "^800\\d{6}$",
+            "premium": "^900\\d{6}$"
+        }
     },
     "DE": {
         "code": 49,
         "min_nsn": 6,
-        "max_nsn": 13
+        "max_nsn": 13,
+        "patterns": {
+            "geographic": "^0[2-9]\\d{1,4}\\d{3,12}$",
+            "mobile": "^01[5-7]\\d{1,2}\\d{4,9}$",
+            "tollFree": "^0800\\d{7,12}$",
+            "premium": "^0900[1359]\\d{6}$",
+            "sharedCost": "^0180\\d{5,11}$",
+            "personal": "^0700\\d{7,12}$"
+        }
     },
     "GH": {
         "code": 233,
         "min_nsn": 9,
-        "max_nsn": 10
+        "max_nsn": 10,
+        "pattern": {
+            "landline": "^[23][2-9]\\d{7}$",
+            "mobile": "^[2357]\\d{8}$",
+            "tollFree": "^800\\d{5}$",
+            "premium": "^9\\d{7}$"
+        }
     },
     "GI": {
         "code": 350,
         "min_nsn": 8,
-        "max_nsn": 8
+        "max_nsn": 8,
+        "pattern": {
+            "landlinePattern": "^(200|222|225)\\d{5}$",
+            "mobilePattern": "^5[4-8]\\d{6}$",
+            "specialPattern": "^8\\d{7}$",
+        }
     },
     "GR": {
         "code": 30,
         "min_nsn": 10,
-        "max_nsn": 10
+        "max_nsn": 10,
+        "pattern": {
+            "geographical": "^[234]\\d{9}$",
+            "mobile": "^6\\d{9}$",
+            "premium": "^9(01|09)\\d{6}$",
+        }
     },
-    // start from here
     "GL": {
         "code": 299,
         "min_nsn": 6,
-        "max_nsn": 6
+        "max_nsn": 6,
+        "pattern": "^\\d{6}$"
     },
     "GD": {
         "code": 1473,
         "min_nsn": 7,
-        "max_nsn": 7
+        "max_nsn": 7,
+        "pattern": {
+            "mobile": "^[45]\\d{6}$",
+            "landline": "^2\\d{6}$",
+            "emergency": "^911$"
+        }
     },
     "GP": {
         "code": 590,
         "min_nsn": 9,
-        "max_nsn": 9
+        "max_nsn": 9,
+        "pattern": {
+            "landline": "^\\d{8}$",
+            "mobile": "^690\\d{6}$",
+            "tollFree": "^800\\d{6}$",
+            "premiumRate": "^89\\d{7}$"
+        }
     },
     "GU": {
         "code": 1671,
         "min_nsn": 7,
-        "max_nsn": 7
+        "max_nsn": 7,
+        "pattern": {
+            "landline": "^\\d{7}$",
+            "mobile": "^\\d{7}$",
+            "tollFree": "^800\\d{7}$",
+            "premiumRate": "^900\\d{7}$"
+        }
     },
     "GT": {
         "code": 502,
         "min_nsn": 8,
-        "max_nsn": 8
+        "max_nsn": 8,
+        "patterns": {
+            "geographic": "^[267]\\d{7}$",
+            "mobile": "^[3-5]\\d{7}$",
+            "tollFree": "^180[01]\\d{6}$",
+            "premium": "^19\\d{6}$",
+            "emergency": "^(110|120|122|123|128)$",
+            "shortCode": "^\\d{4}$",
+            "carrierService": "^\\d{6}$"
+        }
     },
     "GG": {
         "code": 44,
         "min_nsn": 10,
-        "max_nsn": 10
+        "max_nsn": 10,
+        "pattern": {
+            "landline": "^1481\\d{6}$",
+            "mobile": "^7[7-9]\\d{8}$"
+        }
     },
     "GN": {
         "code": 224,
         "min_nsn": 9,
-        "max_nsn": 9
+        "max_nsn": 9,
+        "patterns": {
+            "landline": "^3\\d{7}$",
+            "mobile": "^6\\d{7}$",
+            "emergency": "^(15|17|18)$"
+        }
     },
     "GW": {
         "code": 245,
         "min_nsn": 7,
-        "max_nsn": 7
+        "max_nsn": 7,
+        "patterns": {
+            "landline": "^44\\d{6}$",
+            "mobile": "^9[567]\\d{6}$",
+            "specialServices": "^80\\d{5}$"
+        }
     },
     "GY": {
         "code": 592,
         "min_nsn": 7,
-        "max_nsn": 7
+        "max_nsn": 7,
+        "pattern": {
+            "landline": "^2[1-9]\\d{5}$",
+            "mobile": "^(6\\d{6}|7[0-5]\\d{5})$",
+            "tollFree": "^800\\d{4}$",
+            "premiumRate": "^9008\\d{3}$"
+        }
     },
     "HT": {
         "code": 509,
         "min_nsn": 8,
-        "max_nsn": 8
+        "max_nsn": 8,
+        "pattern": {
+            "landline": "^2[2-9]\\d{5}$",
+            "mobile": "^[34]\\d{6}$",
+            "tollFree": "^8\\d{6}$"
+        }
     },
     "HN": {
         "code": 504,
         "min_nsn": 8,
-        "max_nsn": 8
+        "max_nsn": 8,
+        "pattern": {
+            "landline": "^2\\d{7}$",
+            "mobile": "^[3789]\\d{7}$",
+            "tollFree": "^8002\\d{4}$"
+        }
     },
     "HK": {
         "code": 852,
         "min_nsn": 8,
-        "max_nsn": 8
+        "max_nsn": 8,
+        "patterns": {
+            "fixedLine": "^[23]\\d{7}$",
+            "mobile": "^[4-9]\\d{7}$",
+            "tollFree": "^800\\d{6}$",
+            "premium": "^900\\d{7}$"
+        }
     },
     "HU": {
         "code": 36,
         "min_nsn": 9,
-        "max_nsn": 9
+        "max_nsn": 9,
+        "pattern": {
+            "geoPattern": "^([1-9][0-9])\\d{6,7}$",
+            "mobilePattern": "^(20|30|31|70)\\d{7}$"
+        }
     },
     "IS": {
         "code": 354,
         "min_nsn": 7,
-        "max_nsn": 7
+        "max_nsn": 7,
+        "pattern": {
+            "geoPattern": "^[4-5]\\d{6}$",
+            "mobilePattern": "^[6-8]\\d{6}$",
+            "tollFreePattern": "^80[0-8]\\d{4}$",
+            "premiumPattern": "^90[0-9]\\d{4}$",
+            "m2mPattern": "^3\\d{8}$"
+        }
     },
     "IN": {
         "code": 91,
         "min_nsn": 10,
-        "max_nsn": 10
+        "max_nsn": 10,
+        "pattern": "^[1-9]\\d{9}$"
     },
     "ID": {
         "code": 62,
         "min_nsn": 10,
-        "max_nsn": 10
+        "max_nsn": 10,
+        "pattern": {
+            "geographic": "^([2-7][1-9]|[2-7][1-9][0-9])\\d{6,7}$",
+            "mobile": "^(8[1-9][0-9])\\d{7,8}$",
+            "special": "^(01803|01807)\\d{6,7}$"
+        }
     },
     "IR": {
         "code": 98,
         "min_nsn": 10,
-        "max_nsn": 10
+        "max_nsn": 10,
+        "pattern": {
+            "landline": "^[1-8]{2}\\d{7}$",
+            "mobile": "^9\\d{8}$",
+            "mvno": "^99\\d{8}$",
+            "premium": "^909\\d{7}$"
+        }
     },
     "IQ": {
         "code": 964,
         "min_nsn": 10,
-        "max_nsn": 10
+        "max_nsn": 10,
+        "pattern": {
+            "mobile": "^7[5-9]\\d{7}$",
+            "landline": "^(1\\d{7}|[2-6]\\d{6,7})$"
+        }
     },
     "IE": {
         "code": 353,

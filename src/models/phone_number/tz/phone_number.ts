@@ -34,7 +34,7 @@
 import {
   NETWORK_OPERATOR_CONFIG,
   type NetworkOperatorInfo,
-} from "@models/phone_number/network_operator.ts";
+} from "./network_operator.ts";
 
 /**
  * Enumeration for various mobile number formats.

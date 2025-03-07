@@ -1,6 +1,6 @@
 import { assertEquals, assertExists } from "jsr:@std/assert";
-import { MobileNumberFormat, TZPhoneNumber } from "./tz_phone_number.ts";
-import { NETWORK_OPERATOR_CONFIG } from "@models/phone_number/network_operator.ts";
+import { MobileNumberFormat, TZPhoneNumber } from "./phone_number.ts";
+import { NETWORK_OPERATOR_CONFIG } from "./network_operator.ts";
 
 /**
  * Test suite for PhoneNumber class

@@ -12,68 +12,7 @@
  */
 
 import { Country } from "@models/country/country.ts";
-
-/**
- * Country-specific phone number metadata structure
- */
-interface CountryMetadata {
-  /** The country dial code (e.g., 93 for Afghanistan) */
-  code: number;
-  /** Minimum length of national subscriber number */
-  min_nsn: number;
-  /** Maximum length of national subscriber number */
-  max_nsn: number;
-}
-
-/**
- * Mapping of ISO country codes to their phone metadata
- */
-type CountryMetadataMap = {
-  [isoCode: string]: CountryMetadata;
-};
-
-/**
- * Sample metadata based on provided structure
- * In production, this would be loaded from a complete dataset
- */
-const COUNTRY_METADATA: CountryMetadataMap = {
-  "AF": {
-    code: 93,
-    min_nsn: 9,
-    max_nsn: 9,
-  },
-  "US": {
-    code: 1,
-    min_nsn: 10,
-    max_nsn: 10,
-  },
-  "GB": {
-    code: 44,
-    min_nsn: 9,
-    max_nsn: 10,
-  },
-  "DE": {
-    code: 49,
-    min_nsn: 10,
-    max_nsn: 11,
-  },
-  "TZ": {
-    code: 255,
-    min_nsn: 9,
-    max_nsn: 9,
-  },
-  "IN": {
-    code: 91,
-    min_nsn: 10,
-    max_nsn: 10,
-  },
-  "AU": {
-    code: 61,
-    min_nsn: 9,
-    max_nsn: 9,
-  },
-  // Additional countries would be included here
-};
+import { GlobalPhoneNumberService } from "@models/phone_number/global/service.ts";
 
 /**
  * Enumeration for various phone number formats
@@ -127,7 +66,9 @@ export class GlobalPhoneNumber {
    * Gets the dial code (numeric) of the phone number
    */
   get dialCode(): number {
-    const metadata = COUNTRY_METADATA[this.countryCode];
+    const metadata = GlobalPhoneNumberService.getInstance().getCountryMetadata(
+      this.countryCode,
+    );
     return metadata?.code || 0;
   }
 
@@ -240,7 +181,8 @@ export class GlobalPhoneNumber {
       }
 
       // Get the metadata for this country
-      const metadata = COUNTRY_METADATA[this._country.code];
+      const service = GlobalPhoneNumberService.getInstance();
+      const metadata = service.getCountryMetadata(this._country.code);
       if (!metadata) {
         return false;
       }
@@ -253,7 +195,13 @@ export class GlobalPhoneNumber {
       // Check if the compact number contains only digits
       const isOnlyDigits = /^\d+$/.test(this._compactNumber);
 
-      return isValidLength && isOnlyDigits;
+      // Basic validation passed, now check against patterns if available
+      let patternValid = true;
+      if (metadata.patterns && Object.keys(metadata.patterns).length > 0) {
+        patternValid = service.validatePattern(this);
+      }
+
+      return isValidLength && isOnlyDigits && patternValid;
     } catch (e) {
       console.log(e);
       return false;
@@ -269,6 +217,8 @@ export class GlobalPhoneNumber {
    */
   public static from(input: string): GlobalPhoneNumber | undefined {
     try {
+      const service = GlobalPhoneNumberService.getInstance();
+
       // Clean the input
       const cleanedInput = removeSpaces(input.trim());
       if (cleanedInput.length === 0) return undefined;
@@ -282,8 +232,11 @@ export class GlobalPhoneNumber {
       // Remove the leading +
       const numberWithoutPlus = cleanedInput.substring(1);
 
+      // Get all country metadata
+      const countryMetadata = service.getAllCountryMetadata();
+
       // Try to identify the country code
-      for (const [isoCode, metadata] of Object.entries(COUNTRY_METADATA)) {
+      for (const [isoCode, metadata] of Object.entries(countryMetadata)) {
         const dialCode = metadata.code.toString();
         if (numberWithoutPlus.startsWith(dialCode)) {
           // Get the country object
@@ -300,6 +253,21 @@ export class GlobalPhoneNumber {
           if (phoneNumber.validate()) {
             return phoneNumber;
           }
+        }
+      }
+
+      // Handle shared country codes
+      const possibleCountries = service.getPossibleCountries(cleanedInput);
+      for (const country of possibleCountries) {
+        const metadata = service.getCountryMetadata(country.code);
+        if (!metadata) continue;
+
+        const dialCode = metadata.code.toString();
+        const nationalNumber = numberWithoutPlus.substring(dialCode.length);
+        const phoneNumber = new GlobalPhoneNumber(country, nationalNumber);
+
+        if (phoneNumber.validate()) {
+          return phoneNumber;
         }
       }
 
@@ -333,7 +301,8 @@ export class GlobalPhoneNumber {
       if (!isOnlyDigitsOrPlus(cleanedInput)) return undefined;
 
       // Get the metadata for this country
-      const metadata = COUNTRY_METADATA[country.code];
+      const metadata = GlobalPhoneNumberService.getInstance()
+        .getCountryMetadata(country.code);
       if (!metadata) return undefined;
 
       const dialCode = metadata.code.toString();
@@ -446,23 +415,9 @@ export class GlobalPhoneNumber {
    * @returns The Country object if found, undefined otherwise
    */
   public static getCountry(input: string): Country | undefined {
-    const cleanedInput = removeSpaces(input.trim());
-    if (cleanedInput.length === 0 || !cleanedInput.startsWith("+")) {
-      return undefined;
-    }
-
-    // Remove the leading +
-    const numberWithoutPlus = cleanedInput.substring(1);
-
-    // Try to identify the country code
-    for (const [isoCode, metadata] of Object.entries(COUNTRY_METADATA)) {
-      const dialCode = metadata.code.toString();
-      if (numberWithoutPlus.startsWith(dialCode)) {
-        return Country.fromCode(isoCode);
-      }
-    }
-
-    return undefined;
+    const service = GlobalPhoneNumberService.getInstance();
+    const [country, _] = service.extractParts(input);
+    return country;
   }
 }
 

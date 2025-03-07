@@ -1,5 +1,5 @@
 import { assertRejects } from "jsr:@std/assert";
-import { PHONENUMBER_VALIDATOR } from "@models/phone_number/antd_validator.ts";
+import { PHONENUMBER_VALIDATOR } from "./antd_validator.ts";
 
 /**
  * Test suite for PHONENUMBER_VALIDATOR

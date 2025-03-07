@@ -1,5 +1,5 @@
 import type { RuleObject } from "antd/es/form";
-import { TZPhoneNumber } from "@models/phone_number/tz_phone_number.ts";
+import { TZPhoneNumber } from "./phone_number.ts";
 
 /**
  * Validates a Tanzanian phone number according to specified format rules.

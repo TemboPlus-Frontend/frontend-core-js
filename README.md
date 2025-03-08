@@ -7,12 +7,14 @@ A foundational JavaScript/TypeScript library that powers TemboPlus front-end app
 The library contains:
 
 * **Utilities**: Ready-to-use helper functions for common development tasks
-* **Data Models**: Standardized structures for handling data like phone numbers, amounts, and bank details
+* **Data Models**: Standardized structures for handling data like phone numbers, amounts, currencies, countries, and bank details
 
 ## Key Data Models
 
 - **PhoneNumber**: International phone number handling with country-specific validation
 - **Amount**: Currency value handling with formatting and conversion
+- **Currency**: Comprehensive currency information with symbols, formatting rules, and validation
+- **Country**: Standardized country data with ISO codes and validation
 - **Bank**: Standardized bank account information management
 
 ## Working with Data Models
@@ -45,13 +47,33 @@ if (bank.validate()) {
 }
 ```
 
+## Static Access to Common Data
+
+Many of our models provide convenient static access to common data:
+
+```typescript
+// Access countries by ISO code
+const tanzania = Country.TZ;
+const usa = Country.us; // lowercase also works
+
+// Access currencies by code
+const usd = Currency.USD;
+const tzs = Currency.tzs; // lowercase also works
+
+// Access banks by short name
+const crdb = Bank.CRDB;
+const nmb = Bank.nmb; // lowercase also works
+```
+
 ## Documentation
 
 For detailed documentation on specific models:
 
-- [PhoneNumber Documentation](./docs/PhoneNumber.md)
-- [Amount Documentation](./docs/Amount.md)
-- [Bank Documentation](./docs/Bank.md)
+- [PhoneNumber Documentation](./docs/phone_number.md)
+- [Amount Documentation](./docs/amount.md)
+- [Bank Documentation](./docs/bank.md)
+- [Currency Documentation](./docs/currency.md)
+- [Country Documentation](./docs/country.md)
 
 ## Installation
 

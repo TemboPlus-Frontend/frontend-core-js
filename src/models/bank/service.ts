@@ -1,5 +1,5 @@
 import { Bank } from "./bank.ts";
-import file from "@data/banks.json" with { type: "json" };
+import file from "../../data/banks_tz.json" with { type: "json" };
 
 /**
  * Regex pattern to validate SWIFT codes.

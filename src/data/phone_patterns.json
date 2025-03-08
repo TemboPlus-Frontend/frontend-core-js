@@ -8,7 +8,8 @@
         "1": [
             "CA",
             "PR",
-            "US"
+            "US",
+            "JM"
         ],
         "7": [
             "KZ",
@@ -68,8 +69,6 @@
     },
     "AF": {
         "code": 93,
-        "min_nsn": 8,
-        "max_nsn": 9,
         "patterns": {
             "landline": "^[2-6][0-9]\\d{6}$",
             "mobile": "^7[0-9]\\d{7}$",
@@ -79,8 +78,6 @@
     },
     "AX": {
         "code": 358,
-        "min_nsn": 6,
-        "max_nsn": 10,
         "patterns": {
             "landline": "^18[1-8]\\d{3,6}$",
             "mobile": "^4946\\d{2,6}$|^4[0-8]\\d{4,8}$|^50\\d{4,8}$",
@@ -91,8 +88,6 @@
     },
     "AL": {
         "code": 355,
-        "min_nsn": 8,
-        "max_nsn": 8,
         "patterns": {
             "landline": "^[2-5]\\d{7}$",
             "mobile": "^6[7-9]\\d{7}$",
@@ -103,8 +98,6 @@
     },
     "DZ": {
         "code": 213,
-        "min_nsn": 8,
-        "max_nsn": 8,
         "patterns": {
             "landline": "^(21|23|31|41)\\d{7}$",
             "mobile": "^(5[4-6]|6[5-7]|7[7-9])\\d{7}$",
@@ -116,8 +109,6 @@
     },
     "AS": {
         "code": 1684,
-        "min_nsn": 7,
-        "max_nsn": 7,
         "patterns": {
             "landline": "^[2-9]\\d{6}$",
             "mobile": "^7\\d{6}$",
@@ -128,8 +119,6 @@
     },
     "AD": {
         "code": 376,
-        "min_nsn": 6,
-        "max_nsn": 6,
         "patterns": {
             "landline": "^[78]\\d{5}$",
             "mobile": "^6\\d{6}$",
@@ -141,8 +130,6 @@
     },
     "AO": {
         "code": 244,
-        "min_nsn": 9,
-        "max_nsn": 9,
         "patterns": {
             "landline": "^2[2-9]\\d{7}$",
             "mobile": "^9[1-9]\\d{7}$",
@@ -152,8 +139,6 @@
     },
     "AI": {
         "code": 1264,
-        "min_nsn": 7,
-        "max_nsn": 7,
         "patterns": {
             "landline": "^292\\d{4}$|^497\\d{4}$",
             "mobile": "^235\\d{4}$|^584\\d{4}$",
@@ -164,8 +149,6 @@
     },
     "AQ": {
         "code": 672,
-        "min_nsn": 6,
-        "max_nsn": 6,
         "patterns": {
             "landline": "^1\\d{5}$",
             "mobile": "^1\\d{5}$"
@@ -174,8 +157,6 @@
     },
     "AG": {
         "code": 1268,
-        "min_nsn": 7,
-        "max_nsn": 7,
         "patterns": {
             "landline": "^46\\d{4}$",
             "mobile": "^(464|7\\d{2}|5\\d{2})\\d{4}$",
@@ -185,8 +166,6 @@
     },
     "AR": {
         "code": 54,
-        "min_nsn": 8,
-        "max_nsn": 13,
         "patterns": {
             "landline": "^([1-9]\\d{1,3})\\s?\\d{6,8}$",
             "mobile": "^9\\s?([1-9]\\d{1,3})\\s?\\d{6,8}$",
@@ -197,8 +176,6 @@
     },
     "AM": {
         "code": 374,
-        "min_nsn": 8,
-        "max_nsn": 8,
         "patterns": {
             "landline": "^[1-25]\\d{6}$",
             "mobile": "^(33|4[1349]|55|77|88|9[13-9])\\d{6}$",
@@ -210,8 +187,6 @@
     },
     "AW": {
         "code": 297,
-        "min_nsn": 7,
-        "max_nsn": 7,
         "patterns": {
             "landline": "^5\\d{6}$",
             "mobile": "^(290\\d{4}|5[69]\\d{5}|6[03]\\d{5}|6[22]\\d{5}|7[34]\\d{5}|9[46]\\d{5})$",
@@ -222,8 +197,6 @@
     },
     "AU": {
         "code": 61,
-        "min_nsn": 9,
-        "max_nsn": 9,
         "patterns": {
             "landline": "^[2378]\\d{8}$",
             "mobile": "^4\\d{8}$",
@@ -235,8 +208,6 @@
     },
     "AT": {
         "code": 43,
-        "min_nsn": 4,
-        "max_nsn": 12,
         "patterns": {
             "landline": "^[1-9]\\d{3,11}$",
             "mobile": "^6[56789]\\d{4,10}$",
@@ -248,8 +219,6 @@
     },
     "AZ": {
         "code": 994,
-        "min_nsn": 8,
-        "max_nsn": 8,
         "patterns": {
             "landline": "^(12|22|36)\\d{7}$",
             "mobile": "^(50|51|55|70|77|99)\\d{7}$",
@@ -260,8 +229,6 @@
     },
     "BS": {
         "code": 1242,
-        "min_nsn": 7,
-        "max_nsn": 7,
         "patterns": {
             "landline": "^[2-9]\\d{6}$",
             "mobile": "^[3-9]\\d{6}$",
@@ -272,8 +239,6 @@
     },
     "BH": {
         "code": 973,
-        "min_nsn": 8,
-        "max_nsn": 8,
         "patterns": {
             "landline": "^[2-9]\\d{7}$",
             "mobile": "^6[0-9]{7}$",
@@ -285,8 +250,6 @@
     },
     "BD": {
         "code": 880,
-        "min_nsn": 9,
-        "max_nsn": 10,
         "patterns": {
             "landline": "^[2-9]\\d{7,8}$",
             "mobile": "^1[3-9]\\d{8}$",
@@ -297,8 +260,6 @@
     },
     "BB": {
         "code": 1246,
-        "min_nsn": 7,
-        "max_nsn": 7,
         "patterns": {
             "landline": "^[2-9]\\d{2}\\d{4}$",
             "mobile": "^[2-9]\\d{2}\\d{4}$",
@@ -309,8 +270,6 @@
     },
     "BY": {
         "code": 375,
-        "min_nsn": 9,
-        "max_nsn": 9,
         "patterns": {
             "landline": "^(1[5-7]|2[1-5])\\s\\d{7}$",
             "mobile": "^(29|33|44)\\s\\d{7}$",
@@ -321,8 +280,6 @@
     },
     "BE": {
         "code": 32,
-        "min_nsn": 8,
-        "max_nsn": 8,
         "patterns": {
             "landline": "^[1-9]{1,2}[0-9]{6}$",
             "mobile": "^4[5-9][0-9]{6}$",
@@ -334,8 +291,6 @@
     },
     "BZ": {
         "code": 501,
-        "min_nsn": 7,
-        "max_nsn": 7,
         "patterns": {
             "landline": "^2[02]\\d{5}$",
             "mobile": "^6[0-35-7]\\d{5}$",
@@ -347,8 +302,6 @@
     },
     "BJ": {
         "code": 229,
-        "min_nsn": 8,
-        "max_nsn": 8,
         "patterns": {
             "landline": "^2\\d{7}$",
             "mobile": "^[9654]\\d{7}$",
@@ -359,8 +312,6 @@
     },
     "BM": {
         "code": 1441,
-        "min_nsn": 7,
-        "max_nsn": 7,
         "patterns": {
             "landline": "^[2-9]\\d{2}\\s\\d{4}$",
             "mobile": "^[357]\\d{2}\\s\\d{4}$",
@@ -371,8 +322,6 @@
     },
     "BT": {
         "code": 975,
-        "min_nsn": 8,
-        "max_nsn": 8,
         "patterns": {
             "landline": "^2[3-6]\\d{6}$",
             "mobile": "^17[1-8]\\d{6}$|^77\\d{6}$",
@@ -382,8 +331,6 @@
     },
     "BO": {
         "code": 591,
-        "min_nsn": 8,
-        "max_nsn": 8,
         "patterns": {
             "landline": "^[2-4]\\d{2} \\d{4}$",
             "mobile": "^[67]\\d{7}$",
@@ -394,8 +341,6 @@
     },
     "BA": {
         "code": 387,
-        "min_nsn": 8,
-        "max_nsn": 8,
         "patterns": {
             "landline": "^[3-5][0-9]{1,2}[0-9]{6}$",
             "mobile": "^6[1-9][0-9]{6}$",
@@ -407,8 +352,6 @@
     },
     "BW": {
         "code": 267,
-        "min_nsn": 7,
-        "max_nsn": 8,
         "patterns": {
             "landline": "^2[0-9]{6}$",
             "mobile": "^7[1-8][0-9]{6}$",
@@ -419,8 +362,6 @@
     },
     "BR": {
         "code": 55,
-        "min_nsn": 10,
-        "max_nsn": 11,
         "patterns": {
             "landline": "^(1[1-9]|2[12478]|3[1-578]|4[1-9]|5[1-5]|6[1-9]|7[1-9]|8[1-9]|9[1-9])[2-5]\\d{7}$",
             "mobile": "^(1[1-9]|2[12478]|3[1-578]|4[1-9]|5[1-5]|6[1-9]|7[1-9]|8[1-9]|9[1-9])9\\d{8}$",
@@ -433,8 +374,6 @@
     },
     "IO": {
         "code": 246,
-        "min_nsn": 7,
-        "max_nsn": 7,
         "patterns": {
             "landline": "^[2-9]\\d{6}$",
             "mobile": "^[2-9]\\d{6}$",
@@ -445,8 +384,6 @@
     },
     "VG": {
         "code": 1284,
-        "min_nsn": 7,
-        "max_nsn": 7,
         "patterns": {
             "landline": "^[2-9]\\d{6}$",
             "mobile": "^[3-9]\\d{6}$",
@@ -457,8 +394,6 @@
     },
     "BN": {
         "code": 673,
-        "min_nsn": 7,
-        "max_nsn": 7,
         "patterns": {
             "landline": "^[2-9]\\d{6}$",
             "mobile": "^[3-9]\\d{6}$",
@@ -469,8 +404,6 @@
     },
     "BG": {
         "code": 359,
-        "min_nsn": 9,
-        "max_nsn": 9,
         "patterns": {
             "landline": "^[2-9]\\d{8}$",
             "mobile": "^[3-9]\\d{8}$",
@@ -481,8 +414,6 @@
     },
     "BF": {
         "code": 226,
-        "min_nsn": 8,
-        "max_nsn": 8,
         "patterns": {
             "landline": "^[2-9]\\d{7}$",
             "mobile": "^[3-9]\\d{7}$",
@@ -493,8 +424,6 @@
     },
     "BI": {
         "code": 257,
-        "min_nsn": 8,
-        "max_nsn": 8,
         "patterns": {
             "landline": "^[2-9]\\d{7}$",
             "mobile": "^[3-9]\\d{7}$",
@@ -505,8 +434,6 @@
     },
     "KH": {
         "code": 855,
-        "min_nsn": 9,
-        "max_nsn": 9,
         "patterns": {
             "landline": "^[2-9]\\d{8}$",
             "mobile": "^[3-9]\\d{8}$",
@@ -517,8 +444,6 @@
     },
     "CM": {
         "code": 237,
-        "min_nsn": 9,
-        "max_nsn": 9,
         "patterns": {
             "landline": "^[2-9]\\d{8}$",
             "mobile": "^[3-9]\\d{8}$",
@@ -529,8 +454,6 @@
     },
     "CA": {
         "code": 1,
-        "min_nsn": 10,
-        "max_nsn": 10,
         "patterns": {
             "landline": "^[2-9]\\d{9}$",
             "mobile": "^[3-9]\\d{9}$",
@@ -541,8 +464,6 @@
     },
     "CV": {
         "code": 238,
-        "min_nsn": 7,
-        "max_nsn": 7,
         "patterns": {
             "landline": "^[2-9]\\d{6}$",
             "mobile": "^[3-9]\\d{6}$",
@@ -553,8 +474,6 @@
     },
     "KY": {
         "code": 1345,
-        "min_nsn": 7,
-        "max_nsn": 7,
         "patterns": {
             "landline": "^[2-9]\\d{6}$",
             "mobile": "^[3-9]\\d{6}$",
@@ -565,8 +484,6 @@
     },
     "CF": {
         "code": 236,
-        "min_nsn": 8,
-        "max_nsn": 8,
         "patterns": {
             "landline": "^[2-9]\\d{7}$",
             "mobile": "^[3-9]\\d{7}$",
@@ -577,8 +494,6 @@
     },
     "TD": {
         "code": 235,
-        "min_nsn": 8,
-        "max_nsn": 8,
         "patterns": {
             "landline": "^[2-9]\\d{7}$",
             "mobile": "^[3-9]\\d{7}$",
@@ -589,8 +504,6 @@
     },
     "CL": {
         "code": 56,
-        "min_nsn": 9,
-        "max_nsn": 9,
         "patterns": {
             "landline": "^[2-9]\\d{8}$",
             "mobile": "^[3-9]\\d{8}$",
@@ -601,8 +514,6 @@
     },
     "CN": {
         "code": 86,
-        "min_nsn": 11,
-        "max_nsn": 11,
         "patterns": {
             "landline": "^[2-9]\\d{10}$",
             "mobile": "^[3-9]\\d{10}$",
@@ -613,8 +524,6 @@
     },
     "CX": {
         "code": 61,
-        "min_nsn": 9,
-        "max_nsn": 9,
         "patterns": {
             "landline": "^[2-9]\\d{8}$",
             "mobile": "^[3-9]\\d{8}$",
@@ -625,8 +534,6 @@
     },
     "CC": {
         "code": 61,
-        "min_nsn": 9,
-        "max_nsn": 9,
         "patterns": {
             "landline": "^[2-9]\\d{8}$",
             "mobile": "^[3-9]\\d{8}$",
@@ -637,8 +544,6 @@
     },
     "CO": {
         "code": 57,
-        "min_nsn": 10,
-        "max_nsn": 10,
         "patterns": {
             "landline": "^[2-9]\\d{9}$",
             "mobile": "^[3-9]\\d{9}$",
@@ -649,8 +554,6 @@
     },
     "KM": {
         "code": 269,
-        "min_nsn": 7,
-        "max_nsn": 7,
         "patterns": {
             "landline": "^[2-9]\\d{6}$",
             "mobile": "^[3-9]\\d{6}$",
@@ -661,8 +564,6 @@
     },
     "CG": {
         "code": 242,
-        "min_nsn": 9,
-        "max_nsn": 9,
         "patterns": {
             "landline": "^[2-9]\\d{8}$",
             "mobile": "^[3-9]\\d{8}$",
@@ -673,8 +574,6 @@
     },
     "CD": {
         "code": 243,
-        "min_nsn": 9,
-        "max_nsn": 9,
         "patterns": {
             "landline": "^[2-9]\\d{8}$",
             "mobile": "^[3-9]\\d{8}$",
@@ -685,8 +584,6 @@
     },
     "CK": {
         "code": 682,
-        "min_nsn": 5,
-        "max_nsn": 5,
         "patterns": {
             "landline": "^[2-9]\\d{4}$",
             "mobile": "^[3-9]\\d{4}$",
@@ -697,8 +594,6 @@
     },
     "CR": {
         "code": 506,
-        "min_nsn": 8,
-        "max_nsn": 8,
         "patterns": {
             "landline": "^[2-9]\\d{7}$",
             "mobile": "^[3-9]\\d{7}$",
@@ -709,8 +604,6 @@
     },
     "HR": {
         "code": 385,
-        "min_nsn": 9,
-        "max_nsn": 9,
         "patterns": {
             "landline": "^[2-9]\\d{8}$",
             "mobile": "^[3-9]\\d{8}$",
@@ -721,8 +614,6 @@
     },
     "CU": {
         "code": 53,
-        "min_nsn": 8,
-        "max_nsn": 8,
         "patterns": {
             "landline": "^[2-9]\\d{7}$",
             "mobile": "^[3-9]\\d{7}$",
@@ -733,8 +624,6 @@
     },
     "CW": {
         "code": 599,
-        "min_nsn": 7,
-        "max_nsn": 7,
         "patterns": {
             "landline": "^[2-9]\\d{6}$",
             "mobile": "^[3-9]\\d{6}$",
@@ -745,8 +634,6 @@
     },
     "CY": {
         "code": 357,
-        "min_nsn": 8,
-        "max_nsn": 8,
         "patterns": {
             "landline": "^[2-9]\\d{7}$",
             "mobile": "^[3-9]\\d{7}$",
@@ -757,8 +644,6 @@
     },
     "CZ": {
         "code": 420,
-        "min_nsn": 9,
-        "max_nsn": 9,
         "patterns": {
             "landline": "^[2-9]\\d{8}$",
             "mobile": "^[3-9]\\d{8}$",
@@ -769,8 +654,6 @@
     },
     "DK": {
         "code": 45,
-        "min_nsn": 8,
-        "max_nsn": 8,
         "patterns": {
             "landline": "^[2-9]\\d{7}$",
             "mobile": "^[3-9]\\d{7}$",
@@ -781,8 +664,6 @@
     },
     "DJ": {
         "code": 253,
-        "min_nsn": 8,
-        "max_nsn": 8,
         "patterns": {
             "landline": "^[2-9]\\d{7}$",
             "mobile": "^[3-9]\\d{7}$",
@@ -793,8 +674,6 @@
     },
     "DM": {
         "code": 1767,
-        "min_nsn": 7,
-        "max_nsn": 7,
         "patterns": {
             "landline": "^[2-9]\\d{6}$",
             "mobile": "^[3-9]\\d{6}$",
@@ -805,8 +684,6 @@
     },
     "DO": {
         "code": 1809,
-        "min_nsn": 10,
-        "max_nsn": 10,
         "patterns": {
             "landline": "^[2-9]\\d{9}$",
             "mobile": "^[3-9]\\d{9}$",
@@ -817,8 +694,6 @@
     },
     "EC": {
         "code": 593,
-        "min_nsn": 9,
-        "max_nsn": 9,
         "patterns": {
             "landline": "^[2-9]\\d{8}$",
             "mobile": "^[3-9]\\d{8}$",
@@ -829,8 +704,6 @@
     },
     "EG": {
         "code": 20,
-        "min_nsn": 10,
-        "max_nsn": 10,
         "patterns": {
             "landline": "^[2-9]\\d{9}$",
             "mobile": "^[3-9]\\d{9}$",
@@ -841,8 +714,6 @@
     },
     "SV": {
         "code": 503,
-        "min_nsn": 8,
-        "max_nsn": 8,
         "patterns": {
             "landline": "^[2-9]\\d{7}$",
             "mobile": "^[3-9]\\d{7}$",
@@ -853,8 +724,6 @@
     },
     "GQ": {
         "code": 240,
-        "min_nsn": 9,
-        "max_nsn": 9,
         "patterns": {
             "landline": "^33[0-24-9]\\d[46]\\d{4}$",
             "mobile": "^(222|55)\\d{6}$",
@@ -866,8 +735,6 @@
     },
     "ER": {
         "code": 291,
-        "min_nsn": 7,
-        "max_nsn": 7,
         "patterns": {
             "landline": "^[12]\\d{5,6}$",
             "mobile": "^7\\d{6}$"
@@ -876,8 +743,6 @@
     },
     "EE": {
         "code": 372,
-        "min_nsn": 7,
-        "max_nsn": 8,
         "patterns": {
             "landline": "^3\\d{6}$",
             "mobile": "^5\\d{7}$",
@@ -889,8 +754,6 @@
     },
     "ET": {
         "code": 251,
-        "min_nsn": 9,
-        "max_nsn": 9,
         "patterns": {
             "landline": "^[1-5]\\d{8}$",
             "mobile": "^9\\d{8}$",
@@ -900,8 +763,6 @@
     },
     "FK": {
         "code": 500,
-        "min_nsn": 5,
-        "max_nsn": 5,
         "patterns": {
             "landline": "^[2-6]\\d{4}$",
             "mobile": "^[2-6]\\d{4}$"
@@ -910,8 +771,6 @@
     },
     "FO": {
         "code": 298,
-        "min_nsn": 6,
-        "max_nsn": 6,
         "patterns": {
             "landline": "^[2-4]\\d{5}$",
             "mobile": "^[5-9]\\d{5}$",
@@ -921,8 +780,6 @@
     },
     "FJ": {
         "code": 679,
-        "min_nsn": 7,
-        "max_nsn": 7,
         "patterns": {
             "landline": "^[3-6]\\d{6}$",
             "mobile": "^[7-9]\\d{6}$",
@@ -933,8 +790,6 @@
     },
     "FI": {
         "code": 358,
-        "min_nsn": 5,
-        "max_nsn": 12,
         "patterns": {
             "landline": "^[1-9]\\d{1,2}\\d{4,7}$",
             "mobile": "^(4\\d|457|50)\\d{6,7}$"
@@ -943,8 +798,6 @@
     },
     "FR": {
         "code": 33,
-        "min_nsn": 9,
-        "max_nsn": 9,
         "patterns": {
             "landline": "^0[1-5]\\d{8}$",
             "mobile": "^0[67]\\d{8}$",
@@ -957,8 +810,6 @@
     },
     "GF": {
         "code": 594,
-        "min_nsn": 9,
-        "max_nsn": 9,
         "patterns": {
             "landline": "^594\\d{6}$",
             "mobile": "^694\\d{6}$"
@@ -967,8 +818,6 @@
     },
     "PF": {
         "code": 689,
-        "min_nsn": 8,
-        "max_nsn": 8,
         "patterns": {
             "landline": "^\\d{8}$",
             "mobile": "^\\d{8}$"
@@ -977,8 +826,6 @@
     },
     "GA": {
         "code": 241,
-        "min_nsn": 7,
-        "max_nsn": 7,
         "patterns": {
             "landline": "^\\d{7}$",
             "mobile": "^\\d{7}$"
@@ -987,8 +834,6 @@
     },
     "GM": {
         "code": 220,
-        "min_nsn": 7,
-        "max_nsn": 7,
         "patterns": {
             "landline": "^[45]\\d{6}$",
             "mobile": "^[7-9]\\d{6}$",
@@ -999,8 +844,6 @@
     },
     "GE": {
         "code": 995,
-        "min_nsn": 9,
-        "max_nsn": 9,
         "patterns": {
             "landline": "^[3-5][1-9]\\d{6,7}$",
             "mobile": "^5\\d{8}$",
@@ -1011,8 +854,6 @@
     },
     "DE": {
         "code": 49,
-        "min_nsn": 5,
-        "max_nsn": 13,
         "patterns": {
             "landline": "^[1-9]\\d{3,11}$",
             "mobile": "^1[5-7]\\d{5,11}$",
@@ -1025,8 +866,6 @@
     },
     "GH": {
         "code": 233,
-        "min_nsn": 9,
-        "max_nsn": 9,
         "patterns": {
             "landline": "^[23][2-9]\\d{7}$",
             "mobile": "^[2357]\\d{8}$",
@@ -1037,8 +876,6 @@
     },
     "GI": {
         "code": 350,
-        "min_nsn": 8,
-        "max_nsn": 8,
         "patterns": {
             "landline": "^(200|222|225)\\d{5}$",
             "mobile": "^5[4-8]\\d{6}$",
@@ -1048,8 +885,6 @@
     },
     "GR": {
         "code": 30,
-        "min_nsn": 10,
-        "max_nsn": 10,
         "patterns": {
             "landline": "^[234]\\d{9}$",
             "mobile": "^6\\d{9}$",
@@ -1059,8 +894,6 @@
     },
     "GL": {
         "code": 299,
-        "min_nsn": 6,
-        "max_nsn": 6,
         "patterns": {
             "landline": "^\\d{6}$",
             "mobile": "^\\d{6}$"
@@ -1069,8 +902,6 @@
     },
     "GD": {
         "code": 1473,
-        "min_nsn": 7,
-        "max_nsn": 7,
         "patterns": {
             "landline": "^2\\d{6}$",
             "mobile": "^(48[89]|55[6-8]|66\\d|76[02-7])\\d{4}$",
@@ -1082,20 +913,16 @@
     },
     "GP": {
         "code": 590,
-        "min_nsn": 9,
-        "max_nsn": 9,
         "patterns": {
-            "landline": "^\\d{8}$",
+            "landline": "^590\\d{6}$",
             "mobile": "^690\\d{6}$",
-            "toll_free": "^800\\d{6}$",
-            "premium_rate": "^89\\d{7}$"
+            "tollFree": "^800\\d{6}$",
+            "premiumRate": "^89\\d{7}$"
         },
         "_source": "https://www.sent.dm/resources/GP"
     },
     "GU": {
         "code": 1671,
-        "min_nsn": 7,
-        "max_nsn": 7,
         "patterns": {
             "landline": "^\\d{7}$",
             "mobile": "^\\d{7}$",
@@ -1106,8 +933,6 @@
     },
     "GT": {
         "code": 502,
-        "min_nsn": 8,
-        "max_nsn": 8,
         "patterns": {
             "landline": "^[267]\\d{7}$",
             "mobile": "^[3-5]\\d{7}$",
@@ -1119,8 +944,6 @@
     },
     "GG": {
         "code": 44,
-        "min_nsn": 10,
-        "max_nsn": 10,
         "patterns": {
             "landline": "^1481\\d{6}$",
             "mobile": "^7[7-9]\\d{8}$"
@@ -1129,8 +952,6 @@
     },
     "GN": {
         "code": 224,
-        "min_nsn": 8,
-        "max_nsn": 9,
         "patterns": {
             "landline": "^3\\d{7}$",
             "mobile": "^6\\d{8}$",
@@ -1140,8 +961,6 @@
     },
     "GW": {
         "code": 245,
-        "min_nsn": 7,
-        "max_nsn": 7,
         "patterns": {
             "landline": "^44\\d{6}$",
             "mobile": "^9[567]\\d{6}$",
@@ -1151,8 +970,6 @@
     },
     "GY": {
         "code": 592,
-        "min_nsn": 7,
-        "max_nsn": 7,
         "patterns": {
             "landline": "^2[1-9]\\d{5}$",
             "mobile": "^(6\\d{6}|7[0-5]\\d{5})$",
@@ -1163,8 +980,6 @@
     },
     "HT": {
         "code": 509,
-        "min_nsn": 8,
-        "max_nsn": 8,
         "patterns": {
             "landline": "^2[2-9]\\d{5}$",
             "mobile": "^[34]\\d{7}$",
@@ -1174,8 +989,6 @@
     },
     "HN": {
         "code": 504,
-        "min_nsn": 8,
-        "max_nsn": 8,
         "patterns": {
             "landline": "^2\\d{7}$",
             "mobile": "^[3789]\\d{7}$",
@@ -1185,8 +998,6 @@
     },
     "HK": {
         "code": 852,
-        "min_nsn": 8,
-        "max_nsn": 8,
         "patterns": {
             "landline": "^[23]\\d{7}$",
             "mobile": "^[4-9]\\d{7}$",
@@ -1197,8 +1008,6 @@
     },
     "HU": {
         "code": 36,
-        "min_nsn": 8,
-        "max_nsn": 9,
         "patterns": {
             "landline": "^([1-9][0-9])\\d{6,7}$",
             "mobile": "^(20|30|31|70)\\d{7}$"
@@ -1207,8 +1016,6 @@
     },
     "IS": {
         "code": 354,
-        "min_nsn": 7,
-        "max_nsn": 7,
         "patterns": {
             "landline": "^[4-5]\\d{6}$",
             "mobile": "^[6-8]\\d{6}$",
@@ -1219,8 +1026,6 @@
     },
     "IN": {
         "code": 91,
-        "min_nsn": 10,
-        "max_nsn": 10,
         "patterns": {
             "landline": "^[1-9]\\d{9}$",
             "mobile": "^[1-9]\\d{9}$"
@@ -1229,8 +1034,6 @@
     },
     "ID": {
         "code": 62,
-        "min_nsn": 9,
-        "max_nsn": 11,
         "patterns": {
             "landline": "^([2-7][1-9]|[2-7][1-9][0-9])\\d{6,7}$",
             "mobile": "^(8[1-9][0-9])\\d{7,8}$",
@@ -1240,8 +1043,6 @@
     },
     "IR": {
         "code": 98,
-        "min_nsn": 10,
-        "max_nsn": 10,
         "patterns": {
             "landline": "^[1-8]{2}\\d{7}$",
             "mobile": "^9\\d{9}$",
@@ -1251,8 +1052,6 @@
     },
     "IQ": {
         "code": 964,
-        "min_nsn": 10,
-        "max_nsn": 10,
         "patterns": {
             "landline": "^(1\\d{7}|[2-6]\\d{6,7})$",
             "mobile": "^7[5-9]\\d{8}$"
@@ -1261,8 +1060,6 @@
     },
     "IE": {
         "code": 353,
-        "min_nsn": 7,
-        "max_nsn": 9,
         "patterns": {
             "landline": "^[1-9]\\d{5,7}$",
             "mobile": "^8[3-9]\\d{7}$",
@@ -1274,8 +1071,6 @@
     },
     "IM": {
         "code": 44,
-        "min_nsn": 10,
-        "max_nsn": 10,
         "patterns": {
             "landline": "^1624\\d{6,7}$",
             "mobile": "^7624\\d{6}$",
@@ -1286,11 +1081,9 @@
     },
     "IL": {
         "code": 972,
-        "min_nsn": 9,
-        "max_nsn": 9,
         "patterns": {
-            "landline": "^0([2-9])\\d{7}$",
-            "mobile": "^05\\d{8}$",
+            "landline": "^([2-9])\\d{7}$",
+            "mobile": "^5\\d{8}$",
             "toll_free": "^1800\\d{6}$",
             "premium_rate": "^1900\\d{6}$",
             "shared_cost": "^1700\\d{6}$"
@@ -1299,8 +1092,6 @@
     },
     "IT": {
         "code": 39,
-        "min_nsn": 9,
-        "max_nsn": 11,
         "patterns": {
             "landline": "^0\\d{2,3}\\d{6,8}$",
             "mobile": "^3[1-9]\\d{7,8}$",
@@ -1312,8 +1103,6 @@
     },
     "CI": {
         "code": 225,
-        "min_nsn": 8,
-        "max_nsn": 8,
         "patterns": {
             "landline": "^[1257]\\d{7}$",
             "mobile": "^[157]\\d{7}$",
@@ -1322,9 +1111,7 @@
         "_source": "https://www.sent.dm/resources/CI"
     },
     "JM": {
-        "code": 1876,
-        "min_nsn": 7,
-        "max_nsn": 7,
+        "code": 1,
         "patterns": {
             "landline": "^(876|658)[2-9]\\d{6}$",
             "mobile": "^(876|658)[2-9]\\d{6}$",
@@ -1335,8 +1122,6 @@
     },
     "JP": {
         "code": 81,
-        "min_nsn": 9,
-        "max_nsn": 10,
         "patterns": {
             "landline": "^{2,3}-{3,4}-{4}$",
             "mobile": "^[789]0-{4}-{4}$",
@@ -1347,18 +1132,14 @@
     },
     "JE": {
         "code": 44,
-        "min_nsn": 10,
-        "max_nsn": 10,
         "patterns": {
             "landline": "^(?:1534)\\d{6,7}$",
-            "mobile": "^(?:07\\d{3})\\s?(\\d{3})\\s?(\\d{3})$"
+            "mobile": "^(?:7\\d{3})\\d{6}$"
         },
         "_source": "https://www.sent.dm/resources/JE"
     },
     "JO": {
         "code": 962,
-        "min_nsn": 8,
-        "max_nsn": 9,
         "patterns": {
             "landline": "^[2356]\\d{7}$",
             "mobile": "^7[789]\\d{7}$",
@@ -1368,8 +1149,6 @@
     },
     "KZ": {
         "code": 7,
-        "min_nsn": 10,
-        "max_nsn": 10,
         "patterns": {
             "landline": "^(7[1-2]\\d{1}|7[3][0-3]{1})\\d{7}$",
             "mobile": "^(70[0-8]|77[1-8])\\d{7}$"
@@ -1378,8 +1157,6 @@
     },
     "KE": {
         "code": 254,
-        "min_nsn": 9,
-        "max_nsn": 9,
         "patterns": {
             "landline": "^(20|41|[4-6][0-9])[0-9]{7}$",
             "mobile": "^[17][0-9]{8}$",
@@ -1390,8 +1167,6 @@
     },
     "KI": {
         "code": 686,
-        "min_nsn": 5,
-        "max_nsn": 7,
         "patterns": {
             "landline": "^[2-4]\\d{4,5}$",
             "mobile": "^6\\d{5}$",
@@ -1402,8 +1177,6 @@
     },
     "KP": {
         "code": 850,
-        "min_nsn": 7,
-        "max_nsn": 10,
         "patterns": {
             "landline": "^[2-7]\\d{5,6}$",
             "mobile": "^19[125]\\d{7}$"
@@ -1412,8 +1185,6 @@
     },
     "KR": {
         "code": 82,
-        "min_nsn": 9,
-        "max_nsn": 10,
         "patterns": {
             "landline": "^[2-6][0-9]{1,2}-[0-9]{3,4}-[0-9]{4}$",
             "mobile": "^10-[0-9]{4}-[0-9]{4}$",
@@ -1425,8 +1196,6 @@
     },
     "KW": {
         "code": 965,
-        "min_nsn": 8,
-        "max_nsn": 8,
         "patterns": {
             "landline": "^2[0-9]{7}$",
             "mobile": "^[569][0-9]{7}$",
@@ -1437,8 +1206,6 @@
     },
     "KG": {
         "code": 996,
-        "min_nsn": 9,
-        "max_nsn": 9,
         "patterns": {
             "landline": "^[23]\\d{8}$",
             "mobile": "^20[2-9]\\d{6,7}$",
@@ -1448,8 +1215,6 @@
     },
     "LA": {
         "code": 856,
-        "min_nsn": 8,
-        "max_nsn": 9,
         "patterns": {
             "landline": "^[23]\\d{7}$",
             "mobile": "^20[2-9]\\d{6,7}$",
@@ -1459,8 +1224,6 @@
     },
     "LV": {
         "code": 371,
-        "min_nsn": 8,
-        "max_nsn": 8,
         "patterns": {
             "landline": "^6\\d{7}$",
             "mobile": "^2\\d{7}$",
@@ -1472,8 +1235,6 @@
     },
     "LB": {
         "code": 961,
-        "min_nsn": 8,
-        "max_nsn": 8,
         "patterns": {
             "landline": "^[14-79]\\d{6}$",
             "mobile": "^(3|7[01689]|7\\d|81[2-8])\\d{6}$",
@@ -1484,8 +1245,6 @@
     },
     "LS": {
         "code": 266,
-        "min_nsn": 8,
-        "max_nsn": 8,
         "patterns": {
             "landline": "^2\\d{7}$",
             "mobile": "^[56]\\d{7}$",
@@ -1495,8 +1254,6 @@
     },
     "LR": {
         "code": 231,
-        "min_nsn": 7,
-        "max_nsn": 9,
         "patterns": {
             "landline": "^2\\d{7}$",
             "mobile": "^(77|88)\\d{7}$",
@@ -1506,8 +1263,6 @@
     },
     "LY": {
         "code": 218,
-        "min_nsn": 9,
-        "max_nsn": 9,
         "patterns": {
             "landline": "^[2-8][0-9]{7}$",
             "mobile": "^9[1-6][0-9]{7}$"
@@ -1516,8 +1271,6 @@
     },
     "LI": {
         "code": 423,
-        "min_nsn": 7,
-        "max_nsn": 7,
         "patterns": {
             "landline": "^2\\d{6}$",
             "mobile": "^[67]\\d{6}$",
@@ -1528,8 +1281,6 @@
     },
     "LT": {
         "code": 370,
-        "min_nsn": 8,
-        "max_nsn": 8,
         "patterns": {
             "landline": "^(?:8|0)\\d{7}$",
             "mobile": "^(?:8|0)\\d{7}$"
@@ -1538,8 +1289,6 @@
     },
     "LU": {
         "code": 352,
-        "min_nsn": 4,
-        "max_nsn": 11,
         "patterns": {
             "landline": "^(?:35[013-9]\\d{4,8}|[2457-9]\\d{2,9})$",
             "mobile": "^(?:6[269][18]\\d{6}|7[189]\\d{6})$",
@@ -1550,8 +1299,6 @@
     },
     "MO": {
         "code": 853,
-        "min_nsn": 8,
-        "max_nsn": 8,
         "patterns": {
             "landline": "^28\\d{6}$",
             "mobile": "^6\\d{7}$",
@@ -1561,8 +1308,6 @@
     },
     "MK": {
         "code": 389,
-        "min_nsn": 8,
-        "max_nsn": 8,
         "patterns": {
             "landline": "^0[2-4][0-9]{7}$",
             "mobile": "^07[0-9]{7}$",
@@ -1574,8 +1319,6 @@
     },
     "PT": {
         "code": 351,
-        "min_nsn": 9,
-        "max_nsn": 9,
         "patterns": {
             "landline": "^2\\d{8}$",
             "mobile": "^9[1236]\\d{7}$",
@@ -1587,8 +1330,6 @@
     },
     "PR": {
         "code": 1,
-        "min_nsn": 10,
-        "max_nsn": 10,
         "patterns": {
             "landline": "^(787|939)[2-9]\\d{6}$",
             "mobile": "^(787|939)[2-9]\\d{6}$",
@@ -1599,8 +1340,6 @@
     },
     "QA": {
         "code": 974,
-        "min_nsn": 8,
-        "max_nsn": 8,
         "patterns": {
             "landline": "^4\\d{7}$",
             "mobile": "^[3567]\\d{7}$",
@@ -1610,8 +1349,6 @@
     },
     "RE": {
         "code": 262,
-        "min_nsn": 9,
-        "max_nsn": 9,
         "patterns": {
             "landline": "^\\d{6}$",
             "mobile": "^\\d{6}$"
@@ -1620,8 +1357,6 @@
     },
     "RO": {
         "code": 40,
-        "min_nsn": 9,
-        "max_nsn": 9,
         "patterns": {
             "landline": "^[2-9]\\d{8}$",
             "mobile": "^7[0-9]\\d{7}$"
@@ -1630,8 +1365,6 @@
     },
     "RU": {
         "code": 7,
-        "min_nsn": 10,
-        "max_nsn": 10,
         "patterns": {
             "landline": "^(\\d{3})\\d{7}$",
             "mobile": "^9\\d{9}$",
@@ -1641,8 +1374,6 @@
     },
     "RW": {
         "code": 250,
-        "min_nsn": 9,
-        "max_nsn": 9,
         "patterns": {
             "landline": "^[2][258]\\d{7}$",
             "mobile": "^[7][0-9]{8}$",
@@ -1654,8 +1385,6 @@
     },
     "BL": {
         "code": 590,
-        "min_nsn": 9,
-        "max_nsn": 9,
         "patterns": {
             "landline": "(27|28|29|30|31|32|33|34|35|36|37|38|39)\\d{6}",
             "mobile": "690\\d{6}",
@@ -1666,8 +1395,6 @@
     },
     "SH": {
         "code": 290,
-        "min_nsn": 4,
-        "max_nsn": 4,
         "patterns": {
             "landline": "^2[0-57-9]\\d{4}$",
             "mobile": "^[5-6]\\d{4}$",
@@ -1677,8 +1404,6 @@
     },
     "KN": {
         "code": 1869,
-        "min_nsn": 7,
-        "max_nsn": 7,
         "patterns": {
             "landline": "^[2-5]\\d{2}\\d{4}$",
             "mobile": "^(48[89]|55[6-8]|66\\d|76[02-7])\\d{4}$",
@@ -1689,8 +1414,6 @@
     },
     "LC": {
         "code": 1758,
-        "min_nsn": 7,
-        "max_nsn": 7,
         "patterns": {
             "landline": "^[2-9]\\d{6}$",
             "mobile": "^[2-9]\\d{6}$"
@@ -1699,8 +1422,6 @@
     },
     "MF": {
         "code": 590,
-        "min_nsn": 9,
-        "max_nsn": 9,
         "patterns": {
             "landline": "^590\\d{6}$",
             "mobile": "^690\\d{6}$"
@@ -1709,8 +1430,6 @@
     },
     "PM": {
         "code": 508,
-        "min_nsn": 6,
-        "max_nsn": 6,
         "patterns": {
             "landline": "^4[1-7]\\d{4}$",
             "mobile": "^55\\d{4}$",
@@ -1721,8 +1440,6 @@
     },
     "VC": {
         "code": 1784,
-        "min_nsn": 7,
-        "max_nsn": 7,
         "patterns": {
             "landline": "^(266|456|457|458|459|485|486|487|488|489)\\d{4}$",
             "mobile": "^(430|431|432|433|434|454|455|491|492|493|494|495|496|497|498|526|527|528|529|530|531|532|533|534)\\d{4}$"
@@ -1731,8 +1448,6 @@
     },
     "WS": {
         "code": 685,
-        "min_nsn": 5,
-        "max_nsn": 7,
         "patterns": {
             "landline": "^(?:[2-5]\\d{4}|6[0-9]\\d{4})$",
             "mobile": "^(?:7[1-35-7]|8[3-7])\\d{5}$",
@@ -1742,8 +1457,6 @@
     },
     "SM": {
         "code": 378,
-        "min_nsn": 10,
-        "max_nsn": 10,
         "patterns": {
             "landline": "^0549\\d{4}$",
             "mobile": "^6\\d{7}$",
@@ -1753,8 +1466,6 @@
     },
     "ST": {
         "code": 239,
-        "min_nsn": 7,
-        "max_nsn": 7,
         "patterns": {
             "landline": "^22\\d{5}$",
             "mobile": "^9\\d{6}$",
@@ -1764,8 +1475,6 @@
     },
     "SA": {
         "code": 966,
-        "min_nsn": 9,
-        "max_nsn": 9,
         "patterns": {
             "landline": "^(11|12|13|14|16|17)\\d{7}$",
             "mobile": "^(50|51|53|54|55|56|570|571|572|574|575|576|577|578|58|59)\\d{7}$"
@@ -1774,8 +1483,6 @@
     },
     "SN": {
         "code": 221,
-        "min_nsn": 9,
-        "max_nsn": 9,
         "patterns": {
             "landline": "^3[3-6]\\d{7}$",
             "mobile": "^7[0567-8]\\d{7}$",
@@ -1785,8 +1492,6 @@
     },
     "RS": {
         "code": 381,
-        "min_nsn": 9,
-        "max_nsn": 9,
         "patterns": {
             "landline": "^(?:[1-9][0-9]{1,2})\\s?[0-9]{5,7}$",
             "mobile": "^6[0-9]\\s?[0-9]{6,7}$",
@@ -1797,8 +1502,6 @@
     },
     "SC": {
         "code": 248,
-        "min_nsn": 7,
-        "max_nsn": 7,
         "patterns": {
             "landline": "^4[2-46]\\d{5}$",
             "mobile": "^2[125-8]\\d{5}$",
@@ -1809,8 +1512,6 @@
     },
     "SL": {
         "code": 232,
-        "min_nsn": 8,
-        "max_nsn": 8,
         "patterns": {
             "landline": "^22[2-4][2-9]\\d{4}$",
             "mobile": "^(25|3[0-5]|66|7[2-9]|8[08]|9[09])\\d{6}$"
@@ -1819,8 +1520,6 @@
     },
     "SG": {
         "code": 65,
-        "min_nsn": 8,
-        "max_nsn": 8,
         "patterns": {
             "landline": "^6\\d{7}$",
             "mobile": "^[89]\\d{7}$",
@@ -1832,8 +1531,6 @@
     },
     "SX": {
         "code": 1721,
-        "min_nsn": 7,
-        "max_nsn": 7,
         "patterns": {
             "landline": "^54[2-9]\\d{4}$",
             "mobile": "^(52[0-2]|58[0-2])\\d{4}$",
@@ -1843,8 +1540,6 @@
     },
     "SK": {
         "code": 421,
-        "min_nsn": 9,
-        "max_nsn": 9,
         "patterns": {
             "landline": "^[2-5]\\d{8}$",
             "mobile": "^9\\d{8}$",
@@ -1856,8 +1551,6 @@
     },
     "SI": {
         "code": 386,
-        "min_nsn": 8,
-        "max_nsn": 8,
         "patterns": {
             "landline": "^[1-7]\\d{7}$",
             "mobile": "^6[4-9]\\d{6}$"
@@ -1866,8 +1559,6 @@
     },
     "SB": {
         "code": 677,
-        "min_nsn": 7,
-        "max_nsn": 7,
         "patterns": {
             "landline": "^2\\d{6}$",
             "mobile": "^[789]\\d{6}$"
@@ -1876,8 +1567,6 @@
     },
     "SO": {
         "code": 252,
-        "min_nsn": 7,
-        "max_nsn": 9,
         "patterns": {
             "landline": "^[1-7][0-9]{4,6}$",
             "mobile": "^[679][0-9]{7}$"
@@ -1886,8 +1575,6 @@
     },
     "ZA": {
         "code": 27,
-        "min_nsn": 9,
-        "max_nsn": 9,
         "patterns": {
             "landline": "^[2-7]\\d{8}$",
             "mobile": "^[68]\\d{8}$"
@@ -1896,8 +1583,6 @@
     },
     "SS": {
         "code": 211,
-        "min_nsn": 9,
-        "max_nsn": 9,
         "patterns": {
             "landline": "^18[0-9][0-9]{7}$",
             "mobile": "^(12[0-9]|9[1257-9][0-9])[0-9]{7}$"
@@ -1906,8 +1591,6 @@
     },
     "ES": {
         "code": 34,
-        "min_nsn": 9,
-        "max_nsn": 9,
         "patterns": {
             "landline": "^9[1-9][0-9]{7}$",
             "mobile": "^6[0-9]{8}|7[1-9][0-9]{8}$"
@@ -1916,8 +1599,6 @@
     },
     "LK": {
         "code": 94,
-        "min_nsn": 9,
-        "max_nsn": 9,
         "patterns": {
             "landline": "^0[1-9][0-9]{7}$",
             "mobile": "^07[0-8][0-9]{7}$"
@@ -1926,8 +1607,6 @@
     },
     "SD": {
         "code": 249,
-        "min_nsn": 9,
-        "max_nsn": 9,
         "patterns": {
             "landline": "^1[58][35-7][0-9]{6}$",
             "mobile": "^(?:1[0-2][0-9]{7}|9[0-3569][0-9]{7})$"
@@ -1936,8 +1615,6 @@
     },
     "SR": {
         "code": 597,
-        "min_nsn": 7,
-        "max_nsn": 7,
         "patterns": {
             "landline": "^([234]\\d{5})$",
             "mobile": "^(7[1-9]\\d{5}|8[1-9]\\d{5})$"
@@ -1946,8 +1623,6 @@
     },
     "SJ": {
         "code": 47,
-        "min_nsn": 8,
-        "max_nsn": 8,
         "patterns": {
             "landline": "^79\\d{6}$",
             "mobile": "^4\\d{7}$"
@@ -1956,8 +1631,6 @@
     },
     "SZ": {
         "code": 268,
-        "min_nsn": 8,
-        "max_nsn": 8,
         "patterns": {
             "landline": "^23[2-5]\\d{6}$",
             "mobile": "^7[6-9]\\d{6}$"
@@ -1966,8 +1639,6 @@
     },
     "SE": {
         "code": 46,
-        "min_nsn": 9,
-        "max_nsn": 9,
         "patterns": {
             "landline": "^(8\\d{5,7}|31\\d{5,7}|40\\d{5,7}|18\\d{5,7}|[2-9]\\d{4,7}|[1-9]\\d{4,7})$",
             "mobile": "^7[02369]\\d{7}$"
@@ -1976,8 +1647,6 @@
     },
     "CH": {
         "code": 41,
-        "min_nsn": 9,
-        "max_nsn": 9,
         "patterns": {
             "landline": "^0[2-5][0-9]{2} [0-9]{3} [0-9]{2} [0-9]{2}$",
             "mobile": "^07[5-9][0-9]{2} [0-9]{3} [0-9]{2} [0-9]{2}$"
@@ -1986,8 +1655,6 @@
     },
     "SY": {
         "code": 963,
-        "min_nsn": 9,
-        "max_nsn": 9,
         "patterns": {
             "landline": "^0[1-9]{1,2}[0-9]{6,7}$",
             "mobile": "^09[1-689][0-9]{7}$"
@@ -1996,8 +1663,6 @@
     },
     "TW": {
         "code": 886,
-        "min_nsn": 9,
-        "max_nsn": 9,
         "patterns": {
             "landline": "^(02|03|04|05|06|07|08|082|0836|089)-?\\d{6,8}$",
             "mobile": "^09\\d{8}$"
@@ -2006,8 +1671,6 @@
     },
     "MG": {
         "code": 261,
-        "min_nsn": 9,
-        "max_nsn": 9,
         "patterns": {
             "landline": "^20\\d{7}$",
             "mobile": "^3[2-4,7-9]\\d{7}$",
@@ -2017,8 +1680,6 @@
     },
     "MW": {
         "code": 265,
-        "min_nsn": 9,
-        "max_nsn": 9,
         "patterns": {
             "landline": "^0[1-9]\\d{7,8}$",
             "mobile": "^0(88|99)\\d{7}$",
@@ -2028,8 +1689,6 @@
     },
     "MY": {
         "code": 60,
-        "min_nsn": 9,
-        "max_nsn": 10,
         "patterns": {
             "landline": "^[3-9]-\\d{7,8}$",
             "mobile": "^1[0-9]-\\d{7,8}$",
@@ -2041,8 +1700,6 @@
     },
     "MV": {
         "code": 960,
-        "min_nsn": 7,
-        "max_nsn": 7,
         "patterns": {
             "landline": "^[36]\\d{6}$",
             "mobile": "^[79]\\d{6}$",
@@ -2054,8 +1711,6 @@
     },
     "ML": {
         "code": 223,
-        "min_nsn": 8,
-        "max_nsn": 8,
         "patterns": {
             "landline": "^2\\d{7}$",
             "mobile": "^[679]\\d{7}$"
@@ -2064,8 +1719,6 @@
     },
     "MT": {
         "code": 356,
-        "min_nsn": 8,
-        "max_nsn": 8,
         "patterns": {
             "landline": "^2\\d{7}$",
             "mobile": "^[79]\\d{7}$",
@@ -2077,8 +1730,6 @@
     },
     "MH": {
         "code": 692,
-        "min_nsn": 7,
-        "max_nsn": 7,
         "patterns": {
             "landline": "^2\\d{6}$",
             "mobile": "^3\\d{6}$",
@@ -2089,8 +1740,6 @@
     },
     "MQ": {
         "code": 596,
-        "min_nsn": 9,
-        "max_nsn": 9,
         "patterns": {
             "landline": "^[3-7]\\d{7}$",
             "mobile": "^696[0-46-9]\\d{6}$|^6965[0-6]\\d{5}$",
@@ -2100,8 +1749,6 @@
     },
     "MR": {
         "code": 222,
-        "min_nsn": 8,
-        "max_nsn": 8,
         "patterns": {
             "landline": "^(25[08]|35[0-9]|45[1-7])\\d{5}$",
             "mobile": "^(?:2[0-9]|3[0-9]|4[0-46-9])\\d{6}$",
@@ -2112,8 +1759,6 @@
     },
     "MU": {
         "code": 230,
-        "min_nsn": 7,
-        "max_nsn": 7,
         "patterns": {
             "landline": "^2\\d{6}$",
             "mobile": "^5\\d{6}$",
@@ -2124,8 +1769,6 @@
     },
     "YT": {
         "code": 262,
-        "min_nsn": 9,
-        "max_nsn": 9,
         "patterns": {
             "landline": "^269\\d{6}$",
             "mobile": "^639\\d{6}$"
@@ -2134,8 +1777,6 @@
     },
     "MX": {
         "code": 52,
-        "min_nsn": 10,
-        "max_nsn": 10,
         "patterns": {
             "landline": "^[2-9]\\d{9,10}$",
             "mobile": "^1[2-9]\\d{9}$"
@@ -2144,8 +1785,6 @@
     },
     "FM": {
         "code": 691,
-        "min_nsn": 7,
-        "max_nsn": 7,
         "patterns": {
             "landline": "^[2-6]\\d{6}$",
             "mobile": "^7\\d{6}$"
@@ -2154,8 +1793,6 @@
     },
     "MD": {
         "code": 373,
-        "min_nsn": 8,
-        "max_nsn": 8,
         "patterns": {
             "landline": "^[235-9]\\d{7}$",
             "mobile": "^[67]\\d{7}$",
@@ -2167,8 +1804,6 @@
     },
     "MC": {
         "code": 377,
-        "min_nsn": 8,
-        "max_nsn": 8,
         "patterns": {
             "landline": "^9\\d{7}$",
             "mobile": "^6\\d{7}$",
@@ -2178,8 +1813,6 @@
     },
     "MN": {
         "code": 976,
-        "min_nsn": 8,
-        "max_nsn": 8,
         "patterns": {
             "landline": "^\\d{8}$",
             "mobile": "^\\d{8}$"
@@ -2188,8 +1821,6 @@
     },
     "ME": {
         "code": 382,
-        "min_nsn": 8,
-        "max_nsn": 8,
         "patterns": {
             "landline": "^[2-5][0-9]{7}$",
             "mobile": "^6[7-9][0-9]{6}$",
@@ -2200,8 +1831,6 @@
     },
     "MS": {
         "code": 1664,
-        "min_nsn": 7,
-        "max_nsn": 7,
         "patterns": {
             "landline": "^(49[1-9])-\\d{4}$",
             "mobile": "^49[0-9]-\\d{4}$",
@@ -2211,8 +1840,6 @@
     },
     "MA": {
         "code": 212,
-        "min_nsn": 9,
-        "max_nsn": 9,
         "patterns": {
             "landline": "^[6-7][0-9]{8}$",
             "mobile": "^[6-7][0-9]{8}$"
@@ -2221,8 +1848,6 @@
     },
     "MZ": {
         "code": 258,
-        "min_nsn": 9,
-        "max_nsn": 9,
         "patterns": {
             "landline": "^2[134679]\\d{7}$",
             "mobile": "^8[2-7]\\d{7}$"
@@ -2231,8 +1856,6 @@
     },
     "MM": {
         "code": 95,
-        "min_nsn": 7,
-        "max_nsn": 9,
         "patterns": {
             "landline": "^[1-8][0-9]{5,7}$",
             "mobile": "^9[0-9]{8}$",
@@ -2243,8 +1866,6 @@
     },
     "NA": {
         "code": 264,
-        "min_nsn": 7,
-        "max_nsn": 9,
         "patterns": {
             "landline": "^[2-6]\\d{1,2}\\d{5,6}$",
             "mobile": "^[68]\\d{7}$",
@@ -2255,8 +1876,6 @@
     },
     "NR": {
         "code": 674,
-        "min_nsn": 7,
-        "max_nsn": 7,
         "patterns": {
             "landline": "^444\\d{4}$",
             "mobile": "^(555|666|88\\d)\\d{4}$"
@@ -2265,8 +1884,6 @@
     },
     "NP": {
         "code": 977,
-        "min_nsn": 8,
-        "max_nsn": 8,
         "patterns": {
             "landline": "^0[1-9]\\d{7}$",
             "mobile": "^98[4-9]\\d{7}$",
@@ -2276,8 +1893,6 @@
     },
     "NL": {
         "code": 31,
-        "min_nsn": 9,
-        "max_nsn": 9,
         "patterns": {
             "landline": "^0[1-9]\\d{7}$",
             "mobile": "^06[1-58]\\d{7}$",
@@ -2288,8 +1903,6 @@
     },
     "NC": {
         "code": 687,
-        "min_nsn": 6,
-        "max_nsn": 6,
         "patterns": {
             "landline": "^\\d{6}$",
             "mobile": "^\\d{6}$"
@@ -2298,8 +1911,6 @@
     },
     "NZ": {
         "code": 64,
-        "min_nsn": 8,
-        "max_nsn": 10,
         "patterns": {
             "landline": "^0([34679])([2-9]\\d{6})$",
             "mobile": "^02[12789]\\d{7,8}$",
@@ -2310,8 +1921,6 @@
     },
     "NI": {
         "code": 505,
-        "min_nsn": 8,
-        "max_nsn": 8,
         "patterns": {
             "landline": "^2\\d{7}$",
             "mobile": "^[578]\\d{7}$",
@@ -2323,8 +1932,6 @@
     },
     "NE": {
         "code": 227,
-        "min_nsn": 8,
-        "max_nsn": 8,
         "patterns": {
             "landline": "^[2-7]\\d{7}$",
             "mobile": "^[8-9]\\d{7}$"
@@ -2333,8 +1940,6 @@
     },
     "NG": {
         "code": 234,
-        "min_nsn": 10,
-        "max_nsn": 10,
         "patterns": {
             "landline": "^(02|0[1-9]{1,2})[0-9]{7}$",
             "mobile": "^(070|080|081|090|091)[0-9]{8}$",
@@ -2344,8 +1949,6 @@
     },
     "NU": {
         "code": 683,
-        "min_nsn": 4,
-        "max_nsn": 4,
         "patterns": {
             "landline": "^4\\d{3}$",
             "mobile": "^5\\d{3}$"
@@ -2354,8 +1957,6 @@
     },
     "NF": {
         "code": 672,
-        "min_nsn": 5,
-        "max_nsn": 6,
         "patterns": {
             "landline": "^1[06172839]\\d{3}$",
             "mobile": "^(?:14|3[58])\\d{4}$"
@@ -2364,8 +1965,6 @@
     },
     "MP": {
         "code": 1670,
-        "min_nsn": 7,
-        "max_nsn": 7,
         "patterns": {
             "landline": "^\\d{7}$",
             "mobile": "^\\d{7}$"
@@ -2374,8 +1973,6 @@
     },
     "NO": {
         "code": 47,
-        "min_nsn": 8,
-        "max_nsn": 8,
         "patterns": {
             "landline": "^([2-3,5-7]\\d)\\d{6}$",
             "mobile": "^(4[0-8]|9\\d)\\d{6}$"
@@ -2384,8 +1981,6 @@
     },
     "OM": {
         "code": 968,
-        "min_nsn": 8,
-        "max_nsn": 8,
         "patterns": {
             "landline": "^2[1-6]\\d{6}$",
             "mobile": "^9[1-9]\\d{6}$"
@@ -2394,8 +1989,6 @@
     },
     "PK": {
         "code": 92,
-        "min_nsn": 10,
-        "max_nsn": 10,
         "patterns": {
             "landline": "^\\d{10}$",
             "mobile": "^03\\d{9}$"
@@ -2404,8 +1997,6 @@
     },
     "PW": {
         "code": 680,
-        "min_nsn": 7,
-        "max_nsn": 7,
         "patterns": {
             "landline": "^[2-79]\\d{6}$",
             "mobile": "^488\\d{4}$",
@@ -2415,8 +2006,6 @@
     },
     "PS": {
         "code": 970,
-        "min_nsn": 9,
-        "max_nsn": 9,
         "patterns": {
             "landline": "^(?:2|8)\\d{7}$",
             "mobile": "^(?:56|59)\\d{7}$",
@@ -2427,8 +2016,6 @@
     },
     "PA": {
         "code": 507,
-        "min_nsn": 8,
-        "max_nsn": 8,
         "patterns": {
             "landline": "^([2-9]\\d{2}[2-9]\\d{2}\\d{4})$",
             "mobile": "^([2-9]\\d{2}[2-9]\\d{2}\\d{4})$"
@@ -2437,8 +2024,6 @@
     },
     "PG": {
         "code": 675,
-        "min_nsn": 8,
-        "max_nsn": 8,
         "patterns": {
             "landline": "^(3[0-2]|4[257]|5[34])\\d{5}$",
             "mobile": "^(7\\d{6}|8[1-38]\\d{5})$",
@@ -2448,8 +2033,6 @@
     },
     "PY": {
         "code": 595,
-        "min_nsn": 9,
-        "max_nsn": 9,
         "patterns": {
             "landline": "^[2-8]\\d{5,6}$",
             "mobile": "^9[1-9]\\d{7}$",
@@ -2460,8 +2043,6 @@
     },
     "PE": {
         "code": 51,
-        "min_nsn": 9,
-        "max_nsn": 9,
         "patterns": {
             "landline": "^(0)(1|[2-9][0-9])\\d{7}$",
             "mobile": "^9\\d{8}$",
@@ -2473,8 +2054,6 @@
     },
     "PH": {
         "code": 63,
-        "min_nsn": 10,
-        "max_nsn": 10,
         "patterns": {
             "landline": "^(02|\\+632)[8]\\d{7}$|^(0\\d{2}|\\+63\\d{2})\\d{7}$",
             "mobile": "^(09|\\+639)\\d{9}$"
@@ -2483,8 +2062,6 @@
     },
     "PN": {
         "code": 64,
-        "min_nsn": 6,
-        "max_nsn": 8,
         "patterns": {
             "landline": "^\\d{8}$",
             "mobile": "^\\d{8}$"
@@ -2493,8 +2070,6 @@
     },
     "PL": {
         "code": 48,
-        "min_nsn": 9,
-        "max_nsn": 9,
         "patterns": {
             "landline": "^\\d{9}$",
             "mobile": "^[4-8]\\d{8}$",
@@ -2504,8 +2079,6 @@
     },
     "TJ": {
         "code": 992,
-        "min_nsn": 9,
-        "max_nsn": 9,
         "patterns": {
             "landline": "^[3-4][1-9]\\d{7}$",
             "mobile": "^(9[1-5]\\d|50|55)\\d{7}$"
@@ -2514,8 +2087,6 @@
     },
     "TZ": {
         "code": 255,
-        "min_nsn": 9,
-        "max_nsn": 9,
         "patterns": {
             "landline": "^2[2-8]\\d{7}$",
             "mobile": "^(?:6[125-9]|7[13-9])\\d{7}$"
@@ -2524,8 +2095,6 @@
     },
     "TH": {
         "code": 66,
-        "min_nsn": 9,
-        "max_nsn": 9,
         "patterns": {
             "landline": "^0[2-9]\\d{7}$",
             "mobile": "^0[689]\\d{8}$"
@@ -2534,8 +2103,6 @@
     },
     "TL": {
         "code": 670,
-        "min_nsn": 8,
-        "max_nsn": 8,
         "patterns": {
             "landline": "^2[1-5]\\d{5}$",
             "mobile": "^7[2-8]\\d{5}$"
@@ -2544,8 +2111,6 @@
     },
     "TG": {
         "code": 228,
-        "min_nsn": 8,
-        "max_nsn": 8,
         "patterns": {
             "landline": "^2[2-7]\\d{6}$",
             "mobile": "^7[019]\\d{6}|9[0-36-9]\\d{6}$"
@@ -2554,8 +2119,6 @@
     },
     "TK": {
         "code": 690,
-        "min_nsn": 4,
-        "max_nsn": 7,
         "patterns": {
             "landline": "^[2-4,7][2-7]\\d{3,6}$",
             "mobile": "^[2-4,7][2-7]\\d{3,6}$"
@@ -2564,8 +2127,6 @@
     },
     "TO": {
         "code": 676,
-        "min_nsn": 5,
-        "max_nsn": 5,
         "patterns": {
             "landline": "^[2-8]\\d{4}$",
             "mobile": "^7\\d{4}$"
@@ -2574,8 +2135,6 @@
     },
     "TT": {
         "code": 1868,
-        "min_nsn": 7,
-        "max_nsn": 7,
         "patterns": {
             "landline": "^[2-6]\\d{6}$",
             "mobile": "^[37-9]\\d{6}$"
@@ -2584,8 +2143,6 @@
     },
     "TN": {
         "code": 216,
-        "min_nsn": 8,
-        "max_nsn": 8,
         "patterns": {
             "landline": "^(3[0-2]|7[0-9])\\d{6}$",
             "mobile": "^(2[0-9]|5[0-9]|9[0-9])\\d{6}$"
@@ -2594,8 +2151,6 @@
     },
     "TR": {
         "code": 90,
-        "min_nsn": 10,
-        "max_nsn": 10,
         "patterns": {
             "landline": "^[2-3]\\d{9}$",
             "mobile": "^5\\d{9}$"
@@ -2604,8 +2159,6 @@
     },
     "TM": {
         "code": 993,
-        "min_nsn": 8,
-        "max_nsn": 8,
         "patterns": {
             "landline": "^([1-5]\\d)\\d{6}$",
             "mobile": "^(6\\d|71)\\d{6}$"
@@ -2614,8 +2167,6 @@
     },
     "TC": {
         "code": 1649,
-        "min_nsn": 7,
-        "max_nsn": 7,
         "patterns": {
             "landline": "^[2-9]\\d{6}$",
             "mobile": "^[2-9]\\d{6}$"
@@ -2624,8 +2175,6 @@
     },
     "TV": {
         "code": 688,
-        "min_nsn": 5,
-        "max_nsn": 5,
         "patterns": {
             "landline": "^2\\d{4}$",
             "mobile": "^7\\d{4}$"
@@ -2634,8 +2183,6 @@
     },
     "UG": {
         "code": 256,
-        "min_nsn": 9,
-        "max_nsn": 9,
         "patterns": {
             "landline": "^(?:0|\\+256)[34][0-9]{7}$",
             "mobile": "^(?:0|\\+256)7[0-9]{7}$"
@@ -2644,8 +2191,6 @@
     },
     "UA": {
         "code": 380,
-        "min_nsn": 9,
-        "max_nsn": 9,
         "patterns": {
             "landline": "^\\d{9}$",
             "mobile": "^\\d{9}$"
@@ -2654,8 +2199,6 @@
     },
     "AE": {
         "code": 971,
-        "min_nsn": 9,
-        "max_nsn": 9,
         "patterns": {
             "landline": "^[2-9][2-8]\\d{6}$",
             "mobile": "^5[024-68]\\d{7}$"
@@ -2664,18 +2207,14 @@
     },
     "GB": {
         "code": 44,
-        "min_nsn": 10,
-        "max_nsn": 10,
         "patterns": {
-            "landline": "^(?:(?:\\+44\\s?|0)(?:(?:[1-5]\\d{8,9}|[1-5]\\d{3}[-\\s]?\\d{3}[-\\s]?\\d{3,4})))$",
-            "mobile": "^(?:(?:\\+44\\s?|0)7(?:[1-5|7-9])\\d{8})$"
+            "landline": "^(?:[1-5]\\d{8,9}|[1-5]\\d{3}[-\\s]?\\d{3}[-\\s]?\\d{3,4})$",
+            "mobile": "^7(?:[1-57-9])\\d{8}$"
         },
         "_source": "https://www.sent.dm/resources/GB"
     },
     "US": {
         "code": 1,
-        "min_nsn": 10,
-        "max_nsn": 10,
         "patterns": {
             "landline": "[2-9][0-8]\\d[2-9]\\d{6}",
             "mobile": "[2-9][0-8]\\d[2-9]\\d{6}",
@@ -2686,8 +2225,6 @@
     },
     "UY": {
         "code": 598,
-        "min_nsn": 8,
-        "max_nsn": 8,
         "patterns": {
             "landline": "^2\\d{7}|[4-7]\\d{7}$",
             "mobile": "^9[1-9]\\d{6}$"
@@ -2696,8 +2233,6 @@
     },
     "UZ": {
         "code": 998,
-        "min_nsn": 9,
-        "max_nsn": 9,
         "patterns": {
             "landline": "^[2-9]\\d{8}$",
             "mobile": "^[2-9]\\d{8}$"
@@ -2706,8 +2241,6 @@
     },
     "VU": {
         "code": 678,
-        "min_nsn": 7,
-        "max_nsn": 7,
         "patterns": {
             "landline": "^2[02-9]\\d{4}|3[4-7]\\d{4}|38[0-8]\\d{3}|48[4-9]\\d{3}$",
             "mobile": "^[57]\\d{6}|7[013-7]\\d{5}$"
@@ -2716,8 +2249,6 @@
     },
     "VA": {
         "code": 379,
-        "min_nsn": 10,
-        "max_nsn": 10,
         "patterns": {
             "landline": "^\\d{7}$",
             "mobile": "^(703|571|757|804|434|540)\\d{7}$"
@@ -2726,8 +2257,6 @@
     },
     "VE": {
         "code": 58,
-        "min_nsn": 10,
-        "max_nsn": 10,
         "patterns": {
             "landline": "^(?:2[12478]\\d)\\d{7}$",
             "mobile": "^(?:4(?:12|14|16|24|26))\\d{7}$",
@@ -2738,8 +2267,6 @@
     },
     "VN": {
         "code": 84,
-        "min_nsn": 9,
-        "max_nsn": 11,
         "patterns": {
             "landline": "^([2-9]\\d{1,2})\\d{7,8}$",
             "mobile": "^(3[2-9]|5[2689]|7[06-9]|8[1-5]|9[0-4689])\\d{7}$",
@@ -2750,8 +2277,6 @@
     },
     "WF": {
         "code": 681,
-        "min_nsn": 6,
-        "max_nsn": 6,
         "patterns": {
             "landline": "^72\\d{4}$",
             "mobile": "^8[23]\\d{4}$",
@@ -2761,8 +2286,6 @@
     },
     "EH": {
         "code": 212,
-        "min_nsn": 9,
-        "max_nsn": 9,
         "patterns": {
             "landline": "^528[89]\\d{5}$",
             "mobile": "^(6[0-79]|68[0-247-9]|7[0167]|72[0-4]|75[01]|78[0-3])\\d{7}$",
@@ -2773,8 +2296,6 @@
     },
     "YE": {
         "code": 967,
-        "min_nsn": 7,
-        "max_nsn": 9,
         "patterns": {
             "landline": "^[1-7]\\d{6}$",
             "mobile": "^[7138]\\d{8}$"
@@ -2783,8 +2304,6 @@
     },
     "ZM": {
         "code": 260,
-        "min_nsn": 9,
-        "max_nsn": 9,
         "patterns": {
             "landline": "^21[1-8]\\d{6}$",
             "mobile": "^(7[5-9]|9[5-6])\\d{7}$",
@@ -2794,8 +2313,6 @@
     },
     "ZW": {
         "code": 263,
-        "min_nsn": 9,
-        "max_nsn": 9,
         "patterns": {
             "landline": "^2\\d{7}$",
             "mobile": "^7\\d{8}$",

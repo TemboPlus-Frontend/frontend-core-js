@@ -12,7 +12,10 @@
  */
 
 import { Country } from "@models/country/country.ts";
-import { GlobalPhoneNumberService } from "@models/phone_number/global/service.ts";
+import { 
+  GlobalPhoneNumberService, 
+  SharedDialCodeError 
+} from "@models/phone_number/global/service.ts";
 
 /**
  * Enumeration for various phone number formats
@@ -26,6 +29,23 @@ export enum GlobalPhoneNumberFormat {
   COMPACT = "COMPACT",
   /** RFC3966 format (e.g., tel:+1-202-555-0123) */
   RFC3966 = "RFC3966",
+}
+
+/**
+ * Options for parsing phone numbers
+ */
+export interface PhoneNumberParseOptions {
+  /** 
+   * Default country to use when a dial code is shared by multiple countries 
+   * This can be either a Country object or an ISO country code string
+   */
+  defaultCountry?: Country | string;
+  
+  /** 
+   * Whether to throw an error when encountering an ambiguous phone number
+   * with a shared dial code
+   */
+  throwOnAmbiguous?: boolean;
 }
 
 /**
@@ -126,18 +146,7 @@ export class GlobalPhoneNumber {
     let formatted = "";
 
     // Add plus and country code
-    formatted = `+${this.dialCode} `;
-
-    // Format national number based on length
-    // This is a basic implementation that adds spaces every 3 digits
-    // A real implementation would use country-specific grouping patterns
-    for (let i = 0; i < compact.length; i++) {
-      formatted += compact[i];
-      if ((i + 1) % 3 === 0 && i !== compact.length - 1) {
-        formatted += " ";
-      }
-    }
-
+    formatted = `+${this.dialCode}${compact}`;
     return formatted;
   }
 
@@ -170,6 +179,7 @@ export class GlobalPhoneNumber {
 
   /**
    * Validates that this phone number meets the requirements for its country
+   * Relies entirely on pattern validation
    *
    * @returns True if the phone number is valid, false otherwise
    */
@@ -187,21 +197,20 @@ export class GlobalPhoneNumber {
         return false;
       }
 
-      // Check if the compact number length is within the valid range for the country
-      const nsLength = this._compactNumber.length;
-      const isValidLength = nsLength >= metadata.min_nsn &&
-        nsLength <= metadata.max_nsn;
-
+      // Clean the compact number to ensure it only contains digits
+      const compactNumber = this._compactNumber.replace(/\D/g, "");
+      
       // Check if the compact number contains only digits
-      const isOnlyDigits = /^\d+$/.test(this._compactNumber);
+      const isOnlyDigits = /^\d+$/.test(compactNumber);
+      if (!isOnlyDigits) return false;
 
-      // Basic validation passed, now check against patterns if available
-      let patternValid = true;
-      if (metadata.patterns && Object.keys(metadata.patterns).length > 0) {
-        patternValid = service.validatePattern(this);
+      // Verify required patterns exist
+      if (!metadata.patterns || !metadata.patterns.landline || !metadata.patterns.mobile) {
+        console.error(`Country ${this._country.code} is missing required patterns for landline or mobile`);
+        return false;
       }
-
-      return isValidLength && isOnlyDigits && patternValid;
+      
+      return service.validatePattern(this._country.code, compactNumber);
     } catch (e) {
       console.log(e);
       return false;
@@ -211,61 +220,95 @@ export class GlobalPhoneNumber {
   /**
    * Creates a GlobalPhoneNumber from an international format string.
    * Only accepts the international format with a leading '+'.
+   * Thoroughly cleans the input by removing all non-digit characters except the leading '+'.
    *
-   * @param input - The phone number string in international format (e.g., "+12025550123")
+   * @param input - The phone number string in international format (e.g., "+1 (202) 555-0123")
+   * @param options - Options for handling parsing, including defaultCountry and throwOnAmbiguous
    * @returns A GlobalPhoneNumber instance if parsing succeeded, undefined otherwise
+   * @throws SharedDialCodeError when a shared dial code is encountered and throwOnAmbiguous is true
    */
-  public static from(input: string): GlobalPhoneNumber | undefined {
+  public static from(
+    input: string, 
+    options?: PhoneNumberParseOptions
+  ): GlobalPhoneNumber | undefined {
     try {
+      if (!input || typeof input !== "string") return undefined;
+      
       const service = GlobalPhoneNumberService.getInstance();
 
-      // Clean the input
-      const cleanedInput = removeSpaces(input.trim());
+      // Clean the input (remove all non-digits except the leading '+')
+      const hasPlus = input.trim().startsWith("+");
+      const digitsOnly = input.replace(/\D/g, "");
+      const cleanedInput = hasPlus ? `+${digitsOnly}` : digitsOnly;
+      
       if (cleanedInput.length === 0) return undefined;
 
       // Must start with + for international format
       if (!cleanedInput.startsWith("+")) return undefined;
 
-      // Check input only contains valid characters
-      if (!isOnlyDigitsOrPlus(cleanedInput)) return undefined;
-
-      // Remove the leading +
-      const numberWithoutPlus = cleanedInput.substring(1);
-
-      // Get all country metadata
-      const countryMetadata = service.getAllCountryMetadata();
-
-      // Try to identify the country code
-      for (const [isoCode, metadata] of Object.entries(countryMetadata)) {
-        const dialCode = metadata.code.toString();
-        if (numberWithoutPlus.startsWith(dialCode)) {
-          // Get the country object
-          const country = Country.fromCode(isoCode);
+      // Extract the dial code information
+      const dialCodeInfo = service.extractDialCode(cleanedInput);
+      if (!dialCodeInfo) return undefined;
+      
+      // Check if this is a shared dial code
+      if (dialCodeInfo.isShared) {
+        // Handle shared dial code according to options
+        if (options?.defaultCountry) {
+          // Try to use the provided default country
+          const defaultCountry = typeof options.defaultCountry === 'string'
+            ? Country.fromCode(options.defaultCountry)
+            : options.defaultCountry;
+            
+          if (defaultCountry) {
+            // Verify that the default country actually uses this dial code
+            const metadata = service.getCountryMetadata(defaultCountry.code);
+            if (metadata && metadata.code.toString() === dialCodeInfo.dialCode) {
+              // Create and validate phone number with the default country
+              const phoneNumber = new GlobalPhoneNumber(
+                defaultCountry, 
+                dialCodeInfo.nationalNumber
+              );
+              
+              if (phoneNumber.validate()) {
+                return phoneNumber;
+              }
+            }
+          }
+        }
+        
+        // If we get here, either no default country was provided, or it didn't validate
+        if (options?.throwOnAmbiguous) {
+          throw new SharedDialCodeError(
+            dialCodeInfo.dialCode, 
+            dialCodeInfo.possibleCountries
+          );
+        }
+        
+        // Try each possible country
+        for (const countryCode of dialCodeInfo.possibleCountries) {
+          const country = Country.fromCode(countryCode);
           if (!country) continue;
-
-          // Extract the national number
-          const nationalNumber = numberWithoutPlus.substring(dialCode.length);
-
-          // Create the phone number
-          const phoneNumber = new GlobalPhoneNumber(country, nationalNumber);
-
-          // Validate and return
+          
+          const phoneNumber = new GlobalPhoneNumber(country, dialCodeInfo.nationalNumber);
           if (phoneNumber.validate()) {
             return phoneNumber;
           }
         }
-      }
+        
+        // If we get here, we couldn't validate with any country
+        return undefined;
+      } else {
+        // For non-shared dial codes, get the country
+        const countryCode = dialCodeInfo.possibleCountries[0];
+        if (!countryCode) return undefined;
+        
+        const country = Country.fromCode(countryCode);
+        if (!country) return undefined;
+        
+        // Create the phone number
+        const phoneNumber = new GlobalPhoneNumber(country, dialCodeInfo.nationalNumber);
 
-      // Handle shared country codes
-      const possibleCountries = service.getPossibleCountries(cleanedInput);
-      for (const country of possibleCountries) {
-        const metadata = service.getCountryMetadata(country.code);
-        if (!metadata) continue;
-
-        const dialCode = metadata.code.toString();
-        const nationalNumber = numberWithoutPlus.substring(dialCode.length);
-        const phoneNumber = new GlobalPhoneNumber(country, nationalNumber);
-
+        // Validate and return
         if (phoneNumber.validate()) {
           return phoneNumber;
         }
@@ -273,6 +316,9 @@ export class GlobalPhoneNumber {
 
       return undefined;
     } catch (e) {
+      if (e instanceof SharedDialCodeError) {
+        throw e; // Re-throw the shared dial code error
+      }
       console.log(e);
       return undefined;
     }
@@ -280,7 +326,13 @@ export class GlobalPhoneNumber {
 
   /**
    * Creates a GlobalPhoneNumber from various formats when a country is explicitly provided.
-   * Supports multiple input formats (international, national with leading zero, etc.)
+   * Supports multiple input formats:
+   * - International format with plus and country code: "+{code}{number}" (e.g., "+12025550123")
+   * - Format with just country code: "{code}{number}" (e.g., "12025550123")
+   * - Local format with leading zero: "0{number}" (e.g., "02025550123")
+   * - Just the national number: "{number}" (e.g., "2025550123")
+   * 
+   * Thoroughly cleans the input by removing all non-digit characters except the leading '+'.
    *
    * @param input - The phone number string in any format
    * @param country - The Country object for this phone number
@@ -291,14 +343,14 @@ export class GlobalPhoneNumber {
     country: Country,
   ): GlobalPhoneNumber | undefined {
     try {
-      if (!country || !Country.is(country)) return undefined;
+      if (!input || typeof input !== "string" || !country || !Country.is(country)) return undefined;
 
-      // Clean the input
-      const cleanedInput = removeSpaces(input.trim());
+      // Clean the input (remove all non-digits except the leading '+')
+      const hasPlus = input.trim().startsWith("+");
+      const digitsOnly = input.replace(/\D/g, "");
+      const cleanedInput = hasPlus ? `+${digitsOnly}` : digitsOnly;
+      
       if (cleanedInput.length === 0) return undefined;
-
-      // Check input only contains valid characters (allowing + only at the start)
-      if (!isOnlyDigitsOrPlus(cleanedInput)) return undefined;
 
       // Get the metadata for this country
       const metadata = GlobalPhoneNumberService.getInstance()
@@ -309,12 +361,17 @@ export class GlobalPhoneNumber {
       let nationalNumber: string;
 
       // Handle different input formats
-      if (
-        cleanedInput.startsWith("+") &&
-        cleanedInput.substring(1).startsWith(dialCode)
-      ) {
-        // International format with + and country code: +12025550123
-        nationalNumber = cleanedInput.substring(1 + dialCode.length);
+      if (cleanedInput.startsWith("+")) {
+        // Check if the number actually starts with the correct dial code
+        const numberWithoutPlus = cleanedInput.substring(1);
+        
+        if (numberWithoutPlus.startsWith(dialCode)) {
+          // International format with + and country code: +12025550123
+          nationalNumber = numberWithoutPlus.substring(dialCode.length);
+        } else {
+          // Has a plus but wrong dial code for the specified country
+          return undefined;
+        }
       } else if (cleanedInput.startsWith(dialCode)) {
         // Format with just country code: 12025550123
         nationalNumber = cleanedInput.substring(dialCode.length);
@@ -325,6 +382,9 @@ export class GlobalPhoneNumber {
         // Assume it's just the national number: 2025550123
         nationalNumber = cleanedInput;
       }
+
+      // Check if we have a non-empty national number
+      if (nationalNumber.length === 0) return undefined;
 
       // Create and validate the phone number
       const phoneNumber = new GlobalPhoneNumber(country, nationalNumber);
@@ -341,16 +401,32 @@ export class GlobalPhoneNumber {
    * Checks if a string can be constructed into a valid phone number.
    *
    * @param input - The string to validate
+   * @param options - Options for handling parsing
    * @returns True if the input can be parsed into a valid phone number, false otherwise
    */
-  public static canConstruct(input?: string | null): boolean {
+  public static canConstruct(
+    input?: string | null, 
+    options?: PhoneNumberParseOptions
+  ): boolean {
     if (!input || typeof input !== "string") return false;
 
-    const text = removeSpaces(input.trim());
-    if (text.length === 0) return false;
+    try {
+      const hasPlus = input.trim().startsWith("+");
+      const digitsOnly = input.replace(/\D/g, "");
+      const cleanedInput = hasPlus ? `+${digitsOnly}` : digitsOnly;
+      
+      if (cleanedInput.length === 0) return false;
 
-    const phone = GlobalPhoneNumber.from(text);
-    return phone !== undefined;
+      const phone = GlobalPhoneNumber.from(cleanedInput, options);
+      return phone !== undefined;
+    } catch (e) {
+      // If throwOnAmbiguous is true and we got a SharedDialCodeError, 
+      // technically the phone number is constructible with a country
+      if (e instanceof SharedDialCodeError) {
+        return true;
+      }
+      return false;
+    }
   }
 
   /**
@@ -366,10 +442,13 @@ export class GlobalPhoneNumber {
   ): boolean {
     if (!input || typeof input !== "string" || !country) return false;
 
-    const text = removeSpaces(input.trim());
-    if (text.length === 0) return false;
+    const hasPlus = input.trim().startsWith("+");
+    const digitsOnly = input.replace(/\D/g, "");
+    const cleanedInput = hasPlus ? `+${digitsOnly}` : digitsOnly;
+    
+    if (cleanedInput.length === 0) return false;
 
-    const phone = GlobalPhoneNumber.fromWithCountry(text, country);
+    const phone = GlobalPhoneNumber.fromWithCountry(cleanedInput, country);
     return phone !== undefined;
   }
 
@@ -394,44 +473,83 @@ export class GlobalPhoneNumber {
       return false;
     }
 
-    // Validate the phone number
-    try {
-      const country = maybePhone._country as Country;
-      const compactNumber = maybePhone._compactNumber as string;
+    // Basic structural validation passed
+    const country = maybePhone._country as Country;
+    const compactNumber = maybePhone._compactNumber as string;
 
-      // Create and validate a new phone number instance
-      const phoneNumber = new GlobalPhoneNumber(country, compactNumber);
-      return phoneNumber.validate();
-    } catch (e) {
-      console.log(e);
-      return false;
-    }
+    // Verify it has the right structure - doesn't call validate()
+    return (
+      typeof compactNumber === "string" &&
+      /^\d+$/.test(compactNumber) &&
+      Country.is(country)
+    );
   }
 
   /**
    * Attempts to extract the country from a phone number string in international format.
+   * 
+   * For shared dial codes, this will return undefined unless a default country is provided.
    *
    * @param input - The phone number string to parse (must be in international format)
-   * @returns The Country object if found, undefined otherwise
+   * @param options - Options for handling shared dial codes
+   * @returns The Country object if found, undefined if ambiguous or not found
+   * @throws SharedDialCodeError when a shared dial code is encountered and throwOnAmbiguous is true
    */
-  public static getCountry(input: string): Country | undefined {
-    const service = GlobalPhoneNumberService.getInstance();
-    const [country, _] = service.extractParts(input);
-    return country;
+  public static getCountry(
+    input: string, 
+    options?: PhoneNumberParseOptions
+  ): Country | undefined {
+    try {
+      // Clean the input first
+      const hasPlus = input.trim().startsWith("+");
+      const digitsOnly = input.replace(/\D/g, "");
+      const cleanedInput = hasPlus ? `+${digitsOnly}` : digitsOnly;
+      
+      if (!cleanedInput.startsWith("+")) return undefined;
+      
+      const service = GlobalPhoneNumberService.getInstance();
+      const dialCodeInfo = service.extractDialCode(cleanedInput);
+      
+      if (!dialCodeInfo) return undefined;
+      
+      // Handle shared dial codes
+      if (dialCodeInfo.isShared) {
+        // If a default country is provided, try to use it
+        if (options?.defaultCountry) {
+          const defaultCountry = typeof options.defaultCountry === 'string'
+            ? Country.fromCode(options.defaultCountry)
+            : options.defaultCountry;
+            
+          if (defaultCountry) {
+            // Verify that the default country actually uses this dial code
+            const metadata = service.getCountryMetadata(defaultCountry.code);
+            if (metadata && metadata.code.toString() === dialCodeInfo.dialCode) {
+              return defaultCountry;
+            }
+          }
+        }
+        
+        // If we get here, either no default country was provided, or it was invalid
+        if (options?.throwOnAmbiguous) {
+          throw new SharedDialCodeError(
+            dialCodeInfo.dialCode, 
+            dialCodeInfo.possibleCountries
+          );
+        }
+        
+        // Return undefined for ambiguous dial codes
+        return undefined;
+      } else {
+        // For non-shared dial codes, get the country
+        const countryCode = dialCodeInfo.possibleCountries[0];
+        return countryCode ? Country.fromCode(countryCode) : undefined;
+      }
+    } catch (e) {
+      if (e instanceof SharedDialCodeError) {
+        throw e; // Re-throw the shared dial code error
+      }
+      console.log(e);
+      return undefined;
+    }
   }
-}
-
-/**
- * Removes all whitespace characters from the given string.
- */
-function removeSpaces(input: string): string {
-  return input.replace(/\s+/g, "");
-}
-
-/**
- * Checks if a given string contains only digits or a `+` prefix followed by digits.
- */
-function isOnlyDigitsOrPlus(input: string): boolean {
-  const digitWithPlusRegex = /^\+?\d+$/;
-  return digitWithPlusRegex.test(input);
 }

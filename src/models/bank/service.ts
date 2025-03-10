@@ -18,7 +18,7 @@ export class BankService {
   private bankRecord: Record<string, Bank> = {};
   private banksByName: Record<string, Bank> = {};
   private banksByShortName: Record<string, Bank> = {};
-  
+
   // Static references for direct access through Bank class
   private staticReferences: Map<string, Bank> = new Map();
 
@@ -57,17 +57,17 @@ export class BankService {
       const swiftCodeRecord: Record<string, Bank> = {};
       const nameRecord: Record<string, Bank> = {};
       const shortNameRecord: Record<string, Bank> = {};
-      
+
       banks.forEach((bank) => {
         // Populate records
         swiftCodeRecord[bank.swiftCode.toUpperCase()] = bank;
         nameRecord[bank.fullName.toUpperCase()] = bank;
         shortNameRecord[bank.shortName.toUpperCase()] = bank;
-        
+
         // Add to static references with uppercase short name
         const shortName = bank.shortName.toUpperCase();
         this.staticReferences.set(shortName, bank);
-        
+
         // Handle bank names with spaces (like "GT BANK")
         if (shortName.includes(" ")) {
           const noSpaceName = shortName.replace(/\s+/g, "_");
@@ -114,6 +114,7 @@ export class BankService {
    * @returns {Bank | undefined} The bank corresponding to the SWIFT code or `undefined` if not found.
    */
   fromSWIFTCode(swiftCode: string): Bank | undefined {
+    if (!swiftCode || typeof swiftCode !== "string") return;
     return this.bankRecord[swiftCode.toUpperCase()];
   }
 
@@ -123,6 +124,8 @@ export class BankService {
    * @returns {Bank | undefined} The bank corresponding to the name or `undefined` if not found.
    */
   fromBankName(bankName: string): Bank | undefined {
+    if (!bankName || typeof bankName !== "string") return;
+
     // First try shortname exact match
     const bankByShortName = this.banksByShortName[bankName.toUpperCase()];
     if (bankByShortName) return bankByShortName;
@@ -134,8 +137,7 @@ export class BankService {
     // If not found, try more lenient matching on full name
     for (const [name, bankObj] of Object.entries(this.banksByName)) {
       if (
-        name.includes(bankName.toUpperCase()) ||
-        bankName.toUpperCase().includes(name)
+        bankName.toUpperCase() === name.toUpperCase()
       ) {
         return bankObj;
       }
@@ -144,8 +146,7 @@ export class BankService {
     // Try lenient matching on short name
     for (const [shortName, bankObj] of Object.entries(this.banksByShortName)) {
       if (
-        shortName.includes(bankName.toUpperCase()) ||
-        bankName.toUpperCase().includes(shortName)
+        bankName.toUpperCase() === shortName.toUpperCase()
       ) {
         return bankObj;
       }

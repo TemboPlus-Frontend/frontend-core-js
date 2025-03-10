@@ -153,10 +153,14 @@ export class TZPhoneNumber {
    * @param s - The input phone number string in various formats (e.g., "+255712345678", "0712345678").
    * @returns A `TZPhoneNumber` instance if valid, otherwise `undefined`.
    */
-  public static from(s: string): TZPhoneNumber | undefined {
+  public static from(input: string): TZPhoneNumber | undefined {
     try {
-      const number = removeSpaces(s.trim());
-      if (number.length === 0) return;
+      // Clean the input (remove all non-digits except the leading '+')
+      const hasPlus = input.trim().startsWith("+");
+      let number = input.replace(/\D/g, "");
+      number = hasPlus ? `+${number}` : number;
+
+      if (number.length === 0) return undefined;
 
       const isOnlyDigits = isOnlyDigitsOrPlus(number);
       if (!isOnlyDigits) return;

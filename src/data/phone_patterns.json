@@ -799,12 +799,12 @@
     "FR": {
         "code": 33,
         "patterns": {
-            "landline": "^0[1-5]\\d{8}$",
-            "mobile": "^0[67]\\d{8}$",
-            "toll_free": "^080[0-5]\\d{6}$",
-            "premium_rate": "^08[9]\\d{7}$",
-            "shared_cost": "^08[12]\\d{7}$",
-            "voip": "^09\\d{8}$"
+            "landline": "^[1-5]\\d{8}$",
+            "mobile": "^[67]\\d{8}$",
+            "toll_free": "^80[0-5]\\d{6}$",
+            "premium_rate": "^8[9]\\d{7}$",
+            "shared_cost": "^8[12]\\d{7}$",
+            "voip": "^9\\d{8}$"
         },
         "_source": "https://www.sent.dm/resources/FR"
     },

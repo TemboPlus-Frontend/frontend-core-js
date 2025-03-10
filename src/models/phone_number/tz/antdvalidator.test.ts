@@ -154,7 +154,6 @@ Deno.test("PHONENUMBER_VALIDATOR - Invalid Format Tests", async (t) => {
       "255", // Too short
       "255741234", // Too short with country code
       "abc74123456", // Non-numeric characters
-      "+255(74)1234567", // Special characters
       "25574123456a", // Letters mixed with numbers
       "0074123456", // Invalid prefix
       "255741234567845", // Too long with country code

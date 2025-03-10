@@ -11,8 +11,9 @@
  */
 
 import { Country } from "@models/country/country.ts";
-import { GlobalPhoneNumber, GlobalPhoneNumberFormat } from "@models/phone_number/global/phone_number.ts";
+import { PhoneNumber } from "@models/phone_number/global/phone_number.ts";
 import phonePatterns from "@data/phone_patterns.json" with { type: "json" };
+import { PhoneNumberFormat } from "@models/phone_number/format.ts";
 
 /**
  * Complete metadata for a country's phone number system
@@ -100,12 +101,14 @@ export class SharedDialCodeError extends Error {
 
   /**
    * Creates a new SharedDialCodeError
-   * 
+   *
    * @param dialCode - The shared dial code
    * @param countries - Countries that share this dial code
    */
   constructor(dialCode: string, countries: string[]) {
-    const message = `Dial code +${dialCode} is shared by multiple countries: ${countries.join(', ')}. Please use 'fromWithCountry' with a specific country.`;
+    const message = `Dial code +${dialCode} is shared by multiple countries: ${
+      countries.join(", ")
+    }. Please use 'fromWithCountry' with a specific country.`;
     super(message);
     this.name = "SharedDialCodeError";
     this.dialCode = dialCode;
@@ -213,12 +216,14 @@ export class GlobalPhoneNumberService {
 
   /**
    * Finds the country code associated with a given dial code
-   * 
+   *
    * @param dialCode - The dial code to look up
    * @returns The country code or undefined if not found
    */
   public getCountryForDialCode(dialCode: string): string | undefined {
-    for (const [countryCode, metadata] of Object.entries(this.countryMetadata)) {
+    for (
+      const [countryCode, metadata] of Object.entries(this.countryMetadata)
+    ) {
       if (metadata.code.toString() === dialCode) {
         return countryCode;
       }
@@ -228,7 +233,7 @@ export class GlobalPhoneNumberService {
 
   /**
    * Extracts dial code information from a phone number
-   * 
+   *
    * @param phoneNumber - The phone number in international format (with +)
    * @returns Dial code information or undefined if not found
    */
@@ -237,13 +242,13 @@ export class GlobalPhoneNumberService {
     if (!cleaned.startsWith("+")) return undefined;
 
     const numberWithoutPlus = cleaned.substring(1);
-    
+
     // Try to find the dial code by checking prefixes of increasing length
     for (let i = 3; i >= 1; i--) {
       if (numberWithoutPlus.length <= i) continue;
-      
+
       const dialCode = numberWithoutPlus.substring(0, i);
-      
+
       // Check if any country has this dial code
       let countryFound = false;
       for (const [_, metadata] of Object.entries(this.countryMetadata)) {
@@ -252,23 +257,23 @@ export class GlobalPhoneNumberService {
           break;
         }
       }
-      
+
       if (countryFound) {
         const nationalNumber = numberWithoutPlus.substring(dialCode.length);
         const isShared = this.isSharedDialCode(dialCode);
-        const possibleCountries = isShared 
-          ? this.sharedCountryCodes[dialCode] 
+        const possibleCountries = isShared
+          ? this.sharedCountryCodes[dialCode]
           : [this.getCountryForDialCode(dialCode) ?? ""];
-        
+
         return {
           dialCode,
           isShared,
           nationalNumber,
-          possibleCountries
+          possibleCountries,
         };
       }
     }
-    
+
     return undefined;
   }
 
@@ -317,7 +322,9 @@ export class GlobalPhoneNumberService {
 
     // Verify that required patterns exist
     if (!metadata.patterns.landline || !metadata.patterns.mobile) {
-      console.error(`Country ${countryCode} is missing required patterns for landline or mobile`);
+      console.error(
+        `Country ${countryCode} is missing required patterns for landline or mobile`,
+      );
       return PhoneNumberType.UNKNOWN;
     }
 
@@ -357,7 +364,9 @@ export class GlobalPhoneNumberService {
 
     // Verify that required patterns exist
     if (!metadata.patterns.landline || !metadata.patterns.mobile) {
-      console.error(`Country ${countryCode} is missing required patterns for landline or mobile`);
+      console.error(
+        `Country ${countryCode} is missing required patterns for landline or mobile`,
+      );
       return false;
     }
 
@@ -382,67 +391,67 @@ export class GlobalPhoneNumberService {
    * Formats a phone number according to the country's formatting rules
    *
    * @param {string} phoneNumber - The phone number to format
-   * @param {GlobalPhoneNumberFormat} format - The desired format
+   * @param {PhoneNumberFormat} format - The desired format
    * @returns {string} The formatted phone number
    */
   public formatNumber(
     phoneNumber: string,
-    format: GlobalPhoneNumberFormat = GlobalPhoneNumberFormat.INTERNATIONAL,
+    format: PhoneNumberFormat = PhoneNumberFormat.INTERNATIONAL,
   ): string {
-    const phone = GlobalPhoneNumber.from(phoneNumber);
+    const phone = PhoneNumber.from(phoneNumber);
     if (!phone) return phoneNumber;
 
     return phone.getWithFormat(format);
   }
 
   /**
-   * Creates a GlobalPhoneNumber from an international format string
+   * Creates a PhoneNumber from an international format string
    *
    * @param {string} phoneNumber - The phone number in international format
-   * @returns {GlobalPhoneNumber | undefined} The parsed phone number or undefined if invalid
+   * @returns {PhoneNumber | undefined} The parsed phone number or undefined if invalid
    */
-  public parsePhoneNumber(phoneNumber: string): GlobalPhoneNumber | undefined {
-    return GlobalPhoneNumber.from(phoneNumber);
+  public parsePhoneNumber(phoneNumber: string): PhoneNumber | undefined {
+    return PhoneNumber.from(phoneNumber);
   }
 
   /**
-   * Creates a GlobalPhoneNumber from a phone number with explicit country
+   * Creates a PhoneNumber from a phone number with explicit country
    *
    * @param {string} phoneNumber - The phone number in any format
    * @param {Country | string} country - The country or country code
-   * @returns {GlobalPhoneNumber | undefined} The parsed phone number or undefined if invalid
+   * @returns {PhoneNumber | undefined} The parsed phone number or undefined if invalid
    */
   public parsePhoneNumberWithCountry(
     phoneNumber: string,
     country: Country | string,
-  ): GlobalPhoneNumber | undefined {
+  ): PhoneNumber | undefined {
     const countryObj = typeof country === "string"
       ? Country.fromCode(country)
       : country;
 
     if (!countryObj) return undefined;
 
-    return GlobalPhoneNumber.fromWithCountry(phoneNumber, countryObj);
+    return PhoneNumber.fromWithCountry(phoneNumber, countryObj);
   }
 
   /**
    * Extracts the information needed for dialing from one country to another
    *
    * @param {string} fromCountry - ISO code of the country dialing from
-   * @param {GlobalPhoneNumber} phoneNumber - The phone number to dial
+   * @param {PhoneNumber} phoneNumber - The phone number to dial
    * @returns {string} The appropriately formatted dialing string
    */
   public getDialingString(
     fromCountry: string,
-    phoneNumber: GlobalPhoneNumber
+    phoneNumber: PhoneNumber,
   ): string {
-    if (!fromCountry || !phoneNumber || !GlobalPhoneNumber.is(phoneNumber)) {
+    if (!fromCountry || !phoneNumber || !PhoneNumber.is(phoneNumber)) {
       return "";
     }
 
     // Simple implementation that always uses international format
     // A production version would handle local dialing formats
-    return phoneNumber.getWithFormat(GlobalPhoneNumberFormat.INTERNATIONAL);
+    return phoneNumber.getWithFormat(PhoneNumberFormat.INTERNATIONAL);
   }
 
   /**
@@ -476,7 +485,7 @@ export class GlobalPhoneNumberService {
 
     const dialCodeInfo = this.extractDialCode(cleaned);
     if (!dialCodeInfo) return [undefined, cleaned.substring(1)];
-    
+
     if (dialCodeInfo.isShared) {
       // For shared dial codes, we return undefined for the country
       return [undefined, dialCodeInfo.nationalNumber];
@@ -503,10 +512,18 @@ export class GlobalPhoneNumberService {
 
     // Since landline and mobile patterns are required, we can always generate examples
     // Landline example
-    examples.push(`+${dialCode}${this.generateExampleFromPattern(metadata.patterns.landline)}`);
-    
+    examples.push(
+      `+${dialCode}${
+        this.generateExampleFromPattern(metadata.patterns.landline)
+      }`,
+    );
+
     // Mobile example
-    examples.push(`+${dialCode}${this.generateExampleFromPattern(metadata.patterns.mobile)}`);
+    examples.push(
+      `+${dialCode}${
+        this.generateExampleFromPattern(metadata.patterns.mobile)
+      }`,
+    );
 
     return examples;
   }
@@ -514,22 +531,22 @@ export class GlobalPhoneNumberService {
   /**
    * Generates an example phone number that would match a given pattern
    * This is a simple implementation that handles basic patterns
-   * 
+   *
    * @param pattern - The regex pattern
    * @returns A string that would match the pattern
    */
   private generateExampleFromPattern(pattern: string): string {
     // Very basic implementation - a real one would be more sophisticated
     // but this handles simple patterns like "^[2-8]\\d{7}$"
-    
+
     // Find basic digit patterns like \d{7}
     const digitMatch = pattern.match(/\\d\{(\d+)\}/);
     const digitCount = digitMatch ? parseInt(digitMatch[1]) : 8;
-    
+
     // Find range patterns like [2-8]
     const rangeMatch = pattern.match(/\[(\d)-(\d)\]/);
     const firstDigit = rangeMatch ? rangeMatch[1] : "5";
-    
+
     // Combine them
     return `${firstDigit}${"0".repeat(digitCount - 1)}`;
   }
@@ -544,14 +561,14 @@ export class GlobalPhoneNumberService {
   public isValidForCountry(phoneNumber: string, countryCode: string): boolean {
     const country = Country.fromCode(countryCode);
     if (!country) return false;
-    
-    const phone = GlobalPhoneNumber.fromWithCountry(phoneNumber, country);
+
+    const phone = PhoneNumber.fromWithCountry(phoneNumber, country);
     return phone !== undefined;
   }
-  
+
   /**
    * Checks if a given dial code exists in our database
-   * 
+   *
    * @param dialCode - The dial code to check
    * @returns True if the dial code exists, false otherwise
    */
@@ -560,14 +577,14 @@ export class GlobalPhoneNumberService {
     if (this.sharedCountryCodes[dialCode]?.length > 0) {
       return true;
     }
-    
+
     // Check if any country has this dial code
     for (const metadata of Object.values(this.countryMetadata)) {
       if (metadata.code.toString() === dialCode) {
         return true;
       }
     }
-    
+
     return false;
   }
 }

@@ -23,6 +23,12 @@
  *    - Tigo: 65, 67, etc.
  *    - Halotel: 62, etc.
  *
+ * 4. Phone numbers can be formatted in the following ways:
+ *    - International format: "+255 XXX XXX XXX"
+ *    - National format: "0XXX XXX XXX"
+ *    - Compact format: "XXXXXXXXX"
+ *    - RFC3966 format: "tel:+255XXXXXXXXX"
+ *
  * ## Solution
  * The TZPhoneNumber class provides:
  * 1. Parsing and validation of different input formats
@@ -34,18 +40,9 @@
 import {
   NETWORK_OPERATOR_CONFIG,
   type NetworkOperatorInfo,
-} from "./network_operator.ts";
+} from "@models/phone_number/tz/network_operator.ts";
 
-/**
- * Enumeration for various mobile number formats.
- * @enum {string}
- */
-export enum MobileNumberFormat {
-  s255 = "255", // Mobile numbers prefixed with 255
-  sp255 = "+255", // Mobile numbers prefixed with +255
-  s0 = "0", // Mobile numbers prefixed with 0
-  none = "", // Mobile numbers without prefixes
-}
+import { PhoneNumberFormat } from "@models/phone_number/format.ts";
 
 /**
  * Represents a TZ phone number
@@ -54,34 +51,87 @@ export class TZPhoneNumber {
   /**
    * Stores the phone number in a compact format excluding country code and the initial '0'.
    */
-  compactNumber: string;
+  private _compactNumber: string;
 
   /**
-   * Constructs a new `TZPhoneNumber` instance.
+   * Private constructor to prevent direct instantiation.
+   * Use TZPhoneNumber.from() instead.
    *
    * @param compactNumber - The phone number in a compact format (e.g., "712345678").
    */
-  constructor(compactNumber: string) {
-    this.compactNumber = compactNumber;
+  private constructor(compactNumber: string) {
+    this._compactNumber = compactNumber;
   }
 
   /**
-   * Formats the compact phone number with the specified `MobileNumberFormat`.
-   *
-   * @param format - The desired phone number format (e.g., `+255` or `255`).
-   * @returns The phone number formatted as a string.
+   * Gets the compact number (national number without formatting)
    */
-  getNumberWithFormat(format: MobileNumberFormat): string {
-    return `${format}${this.compactNumber}`;
+  get compactNumber(): string {
+    return this._compactNumber;
   }
 
   /**
-   * Returns the formatted label of the phone number using the `s255` format.
+   * Formats the phone number according to the specified format
    *
-   * @returns The phone number label in `255` format.
+   * @param format - The desired format from GlobalPhoneNumberFormat
+   * @returns The formatted phone number string
+   */
+  getWithFormat(format: PhoneNumberFormat): string {
+    switch (format) {
+      case PhoneNumberFormat.INTERNATIONAL:
+        // Format: +255 XXX XXX XXX
+        return this.formatInternational();
+      case PhoneNumberFormat.NATIONAL:
+        // Format: 0XXX XXX XXX
+        return this.formatNational();
+      case PhoneNumberFormat.COMPACT:
+        // Format: XXXXXXXXX (just the 9 digits)
+        return this._compactNumber;
+      case PhoneNumberFormat.RFC3966:
+        // Format: tel:+255XXXXXXXXX
+        return this.formatRFC3966();
+      default:
+        return `+255${this._compactNumber}`;
+    }
+  }
+
+  /**
+   * Formats the phone number in international format with spaces
+   * Format: +255 XXX XXX XXX
+   */
+  private formatInternational(): string {
+    const num = this._compactNumber;
+    // Insert spaces: +255 XXX XXX XXX
+    return `+255 ${num.substring(0, 3)} ${num.substring(3, 6)} ${
+      num.substring(6)
+    }`;
+  }
+
+  /**
+   * Formats the phone number in national format with spaces
+   * Format: 0XXX XXX XXX
+   */
+  private formatNational(): string {
+    const num = this._compactNumber;
+    // Insert spaces: 0XXX XXX XXX
+    return `0${num.substring(0, 3)} ${num.substring(3, 6)} ${num.substring(6)}`;
+  }
+
+  /**
+   * Formats the phone number according to RFC3966
+   * Format: tel:+255XXXXXXXXX
+   */
+  private formatRFC3966(): string {
+    return `tel:+255${this._compactNumber}`;
+  }
+
+  /**
+   * Returns the formatted label of the phone number using the international format.
+   *
+   * @returns The phone number label in international format.
    */
   get label(): string {
-    return this.getNumberWithFormat(MobileNumberFormat.s255);
+    return this.getWithFormat(PhoneNumberFormat.INTERNATIONAL);
   }
 
   /**
@@ -90,7 +140,7 @@ export class TZPhoneNumber {
    * @returns The `NetworkOperatorInfo` object that matches the phone number prefix.
    */
   get networkOperator(): NetworkOperatorInfo {
-    const prefix = this.compactNumber.substring(0, 2);
+    const prefix = this._compactNumber.substring(0, 2);
     const result = Object.values(NETWORK_OPERATOR_CONFIG).find((operator) =>
       operator.mobileNumberPrefixes.includes(prefix)
     )!;
@@ -182,10 +232,10 @@ export class TZPhoneNumber {
 
     const maybePhone = obj as Record<string, unknown>;
 
-    // Check if compactNumber exists and is string
-    if (typeof maybePhone.compactNumber !== "string") return false;
+    // Check if _compactNumber exists and is string
+    if (typeof maybePhone._compactNumber !== "string") return false;
 
-    const compactNumber = maybePhone.compactNumber;
+    const compactNumber = maybePhone._compactNumber;
     return TZPhoneNumber.canConstruct(compactNumber);
   }
 
@@ -195,7 +245,7 @@ export class TZPhoneNumber {
    */
   public validate(): boolean {
     try {
-      return TZPhoneNumber.canConstruct(this.compactNumber);
+      return TZPhoneNumber.canConstruct(this._compactNumber);
     } catch (_) {
       return false;
     }

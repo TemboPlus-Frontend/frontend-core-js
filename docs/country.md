@@ -1,21 +1,14 @@
 # Country Class Documentation
 
-The `Country` class provides a standardized way to work with country data in your application. It offers static access to all countries through their ISO codes, comprehensive validation, and utility methods for country identification.
+The `Country` class provides a standardized way to work with country data in your application. It offers static access to all countries through their ISO codes and full names, comprehensive validation, and utility methods for country identification.
 
 ## Overview
 
 - Represents individual countries with name and ISO country code
-- Provides static properties for direct access to countries (e.g., `Country.US`, `Country.us`)
+- Provides static properties for direct access to countries via ISO codes (e.g., `Country.US`)
+- Provides static properties for direct access to countries via full names (e.g., `Country.UNITED_STATES`)
 - Includes utility methods for validating country information
-- Handles JavaScript reserved keywords (like 'in' for India)
-- Follows a singleton pattern for consistent data access
-
-## Installation
-
-The Country class works in Deno projects. Make sure you have the following files:
-
-- `country.ts`: The main Country class implementation
-- `countries.json`: JSON data containing all country information
+- Prevents direct instantiation - only accessible through static methods or properties
 
 ## Basic Usage
 
@@ -26,23 +19,18 @@ import { Country } from "./country.ts";
 const usa = Country.US;
 console.log(usa.toString()); // "United States (US)"
 
-// Access countries directly by ISO code (lowercase)
-const canada = Country.ca;
-console.log(canada.name); // "Canada"
+// Access countries by full name (uppercase)
+const canada = Country.CANADA;
+console.log(canada.code); // "CA"
 
-// For countries with ISO codes that are reserved keywords in JavaScript:
-const india = Country.india; // Instead of Country.in (reserved keyword)
-const iceland = Country.iceland; // Instead of Country.is (reserved keyword)
-const dominican = Country.dominican; // Instead of Country.do (reserved keyword)
-
-// You can still use uppercase versions for these countries
-const indiaUpper = Country.IN;
-console.log(indiaUpper.name); // "India"
+// For countries with special names
+const congodr = Country.DEMOCRATIC_REPUBLIC_OF_CONGO;
+console.log(congodr.code); // "CD"
 ```
 
 ## Static Country Properties
 
-All countries are available as static properties on the `Country` class, accessible by their ISO codes:
+All countries are available as static properties on the `Country` class:
 
 ### Uppercase ISO Codes
 
@@ -56,25 +44,43 @@ Country.IN      // India
 // ... and all other countries
 ```
 
-### Lowercase ISO Codes
+### Uppercase Full Names
 
 ```typescript
-Country.us      // United States
-Country.gb      // United Kingdom
-Country.ca      // Canada
-Country.de      // Germany
-Country.jp      // Japan
-// ... and all other countries (except reserved keywords)
+Country.UNITED_STATES               // US
+Country.UNITED_KINGDOM              // GB
+Country.CANADA                      // CA
+Country.GERMANY                     // DE
+Country.JAPAN                       // JP
+Country.INDIA                       // IN
+Country.TANZANIA                    // TZ
+Country.DEMOCRATIC_REPUBLIC_OF_CONGO // CD
+Country.COCOS_ISLANDS               // CC
+// ... and all other countries
 ```
 
-### Reserved Keywords
+## Special Country Names
 
-For ISO codes that are JavaScript reserved keywords, alternative names are provided:
+Some countries have special mappings to ensure they can be easily accessed:
 
 ```typescript
-Country.india     // India (instead of Country.in)
-Country.iceland   // Iceland (instead of Country.is)
-Country.dominican // Dominican Republic (instead of Country.do)
+Country.COCOS_ISLANDS               // CC
+Country.DEMOCRATIC_REPUBLIC_OF_CONGO // CD
+Country.COTE_DIVOIRE                // CI
+Country.FALKLAND_ISLANDS            // FK
+Country.HOLY_SEE                    // VA
+Country.IRAN                        // IR
+Country.NORTH_KOREA                 // KP
+Country.SOUTH_KOREA                 // KR
+Country.LAO                         // LA
+Country.PALESTINE                   // PS
+Country.MACEDONIA                   // MK
+Country.MICRONESIA                  // FM
+Country.MOLDOVA                     // MD
+Country.TAIWAN                      // TW
+Country.TANZANIA                    // TZ
+Country.VIRGIN_ISLANDS_US           // VI
+Country.VIRGIN_ISLANDS_BRITISH      // VG
 ```
 
 ## Instance Properties
@@ -185,7 +191,7 @@ console.log(country.toString()); // "United States (US)"
 Checks the validity of the country data against known countries.
 
 ```typescript
-const country = new Country("United States", "US");
+const country = Country.US;
 console.log(country.validate()); // true
 ```
 
@@ -196,33 +202,33 @@ While not built into the class directly, you can easily create regional collecti
 ```typescript
 // Example: Creating a collection of European Union countries
 const EU_COUNTRIES = [
-  Country.AT, // Austria
-  Country.BE, // Belgium
-  Country.BG, // Bulgaria
-  Country.HR, // Croatia
-  Country.CY, // Cyprus
-  Country.CZ, // Czech Republic
-  Country.DK, // Denmark
-  Country.EE, // Estonia
-  Country.FI, // Finland
-  Country.FR, // France
-  Country.DE, // Germany
-  Country.GR, // Greece
-  Country.HU, // Hungary
-  Country.IE, // Ireland
-  Country.IT, // Italy
-  Country.LV, // Latvia
-  Country.LT, // Lithuania
-  Country.LU, // Luxembourg
-  Country.MT, // Malta
-  Country.NL, // Netherlands
-  Country.PL, // Poland
-  Country.PT, // Portugal
-  Country.RO, // Romania
-  Country.SK, // Slovakia
-  Country.SI, // Slovenia
-  Country.ES, // Spain
-  Country.SE, // Sweden
+  Country.AUSTRIA,
+  Country.BELGIUM,
+  Country.BULGARIA,
+  Country.CROATIA,
+  Country.CYPRUS,
+  Country.CZECH_REPUBLIC,
+  Country.DENMARK,
+  Country.ESTONIA,
+  Country.FINLAND,
+  Country.FRANCE,
+  Country.GERMANY,
+  Country.GREECE,
+  Country.HUNGARY,
+  Country.IRELAND,
+  Country.ITALY,
+  Country.LATVIA,
+  Country.LITHUANIA,
+  Country.LUXEMBOURG,
+  Country.MALTA,
+  Country.NETHERLANDS,
+  Country.POLAND,
+  Country.PORTUGAL,
+  Country.ROMANIA,
+  Country.SLOVAKIA,
+  Country.SLOVENIA,
+  Country.SPAIN,
+  Country.SWEDEN,
 ];
 
 // Example usage:
@@ -233,7 +239,7 @@ function isEUCountry(country: Country): boolean {
 
 ## Best Practices
 
-1. Always use the static properties for accessing known countries: `Country.US` instead of creating new instances.
+1. Always use the static properties for accessing known countries: `Country.US` or `Country.UNITED_STATES` instead of creating new instances.
 
 2. Use the `fromCode()` or `fromName()` methods when working with user-provided country information to validate and normalize input.
 
@@ -241,7 +247,7 @@ function isEUCountry(country: Country): boolean {
 
 4. For validating user input, use `isValidCode()` or `isValidName()` before attempting to use the value.
 
-5. Be aware of reserved keyword country codes (`in`, `is`, `do`) and use their alternative names when accessing in lowercase.
+5. Do not attempt to create Country instances directly with the constructor - always use static methods or properties.
 
 ## Examples
 
@@ -253,5 +259,25 @@ function validateCountryForm(formData: { countryCode: string }) {
     return { valid: false, error: "Please enter a valid country code" };
   }
   return { valid: true };
+}
+```
+
+### Getting Local Information
+
+```typescript
+function getLocalInformation(countryCode: string) {
+  const country = Country.fromCode(countryCode);
+  if (!country) {
+    throw new Error(`Unknown country code: ${countryCode}`);
+  }
+  
+  // Get information specific to this country
+  const localInfo = {
+    name: country.name,
+    code: country.code,
+    // Other local information could be loaded here
+  };
+  
+  return localInfo;
 }
 ```

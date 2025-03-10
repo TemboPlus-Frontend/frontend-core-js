@@ -5,32 +5,22 @@ The `Bank` class provides a standardized way to work with Tanzanian banks in you
 ## Overview
 
 - Represents individual banks with full name, short name, and SWIFT code
-- Provides static properties for direct access to banks using short names (uppercase and lowercase)
+- Provides static properties for direct access to banks using short names (uppercase only)
 - Includes utility methods for validating bank information
 - Follows a singleton pattern for consistent data access
-
-## Installation
-
-The Bank class works in Deno projects. Make sure you have the following files:
-
-- `bank.ts`: The main Bank class implementation
-- `banks_tz.json`: JSON data containing all Tanzanian bank information
+- Prevents direct instantiation - only accessible through static methods or properties
 
 ## Basic Usage
 
 ```typescript
-import { Bank } from "./bank.ts";
+import { Bank } from "@temboplus/frontend-core";
 
 // Access banks directly by short name (uppercase)
 const crdbBank = Bank.CRDB;
 console.log(crdbBank.toString()); // "CRDB BANK PLC (CRDB) - SWIFT: CORUTZTZ"
 
-// Access banks directly by short name (lowercase)
-const nmbBank = Bank.nmb;
-console.log(nmbBank.fullName); // "NATIONAL MICROFINANCE BANK LIMITED"
-
 // Access banks with compound names using underscores
-const gtBank = Bank.GT_BANK; // or Bank.gt_bank
+const gtBank = Bank.GT_BANK;
 console.log(gtBank.shortName); // "GT BANK"
 ```
 
@@ -44,15 +34,6 @@ All Tanzanian banks are available as static properties on the `Bank` class, acce
 Bank.CRDB       // CRDB Bank
 Bank.NMB        // National Microfinance Bank
 Bank.PBZ        // People's Bank of Zanzibar
-// ... and all other banks
-```
-
-### Lowercase Short Names
-
-```typescript
-Bank.crdb       // CRDB Bank
-Bank.nmb        // National Microfinance Bank
-Bank.pbz        // People's Bank of Zanzibar
 // ... and all other banks
 ```
 
@@ -162,7 +143,7 @@ console.log(bank.toString()); // "CRDB BANK PLC (CRDB) - SWIFT: CORUTZTZ"
 Checks the validity of the bank data against known banks.
 
 ```typescript
-const bank = new Bank("CRDB BANK PLC", "CRDB", "CORUTZTZ");
+const bank = Bank.CRDB;
 console.log(bank.validate()); // true
 ```
 
@@ -188,6 +169,8 @@ The Bank class provides access to all Tanzanian banks, including:
 3. When working with data of uncertain origin, use the `Bank.is()` type guard to safely check and type the data.
 
 4. For validating user input, use `isValidBankName()` or `isValidSwiftCode()` before attempting to use the value.
+
+5. Do not attempt to create Bank instances directly with the constructor - it is protected and will throw an error. Always use static methods and properties.
 
 ## Examples
 

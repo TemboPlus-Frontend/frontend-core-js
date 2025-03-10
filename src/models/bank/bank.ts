@@ -46,49 +46,10 @@ export class Bank {
   static readonly YETU: Bank;
   static readonly DASHENG: Bank;
 
-  // Explicitly declare static properties for each bank by short name (lowercase)
-  static readonly crdb: Bank;
-  static readonly pbz: Bank;
-  static readonly scb: Bank;
-  static readonly stanbic: Bank;
-  static readonly citi: Bank;
-  static readonly boa: Bank;
-  static readonly dtb: Bank;
-  static readonly akiba: Bank;
-  static readonly exim: Bank;
-  static readonly kilimanjaro: Bank;
-  static readonly nbc: Bank;
-  static readonly nmb: Bank;
-  static readonly kcb: Bank;
-  static readonly habib: Bank;
-  static readonly icb: Bank;
-  static readonly absa: Bank;
-  static readonly imbank: Bank;
-  static readonly ncba: Bank;
-  static readonly dcb: Bank;
-  static readonly baroda: Bank;
-  static readonly azania: Bank;
-  static readonly uchumi: Bank;
-  static readonly bancabc: Bank;
-  static readonly access: Bank;
-  static readonly boi: Bank;
-  static readonly uba: Bank;
-  static readonly mkombozi: Bank;
-  static readonly ecobank: Bank;
-  static readonly mwanga: Bank;
-  static readonly fnb: Bank;
-  static readonly amana: Bank;
-  static readonly equity: Bank;
-  static readonly tcb: Bank;
-  static readonly maendeleo: Bank;
-  static readonly canara: Bank;
-  static readonly mwalimu: Bank;
-  static readonly gt_bank: Bank;
-  static readonly yetu: Bank;
-  static readonly dasheng: Bank;
-
   /**
-   * Creates a new Bank instance.
+   * Creates a new Bank instance. Private constructor - only BankService can create instances.
+   * Clients should use static methods like Bank.from() or Bank.CRDB instead.
+   *
    * @param {string} _fullName - The full name of the bank
    * @param {string} _shortName - The short name or abbreviated name of the bank
    * @param {string} _swiftCode - The SWIFT code associated with the bank
@@ -97,7 +58,15 @@ export class Bank {
     private readonly _fullName: string,
     private readonly _shortName: string,
     private readonly _swiftCode: string,
-  ) {}
+  ) {
+    // Make sure only BankService can create Bank instances
+    const callerIsService = new Error().stack?.includes("BankService");
+    if (!callerIsService) {
+      throw new Error(
+        "Bank instances cannot be created directly. Use Bank.from() or access via Bank.CRDB, Bank.NMB, etc.",
+      );
+    }
+  }
 
   /**
    * Gets the full name of the bank.
@@ -131,58 +100,13 @@ export class Bank {
     return `${this.fullName} (${this.shortName}) - SWIFT: ${this.swiftCode}`;
   }
 
-  // Private static fields for lookup
-  private static readonly _banksBySwiftCode = new Map<string, Bank>();
-  private static readonly _banksByName = new Map<string, Bank>();
-  private static readonly _banksByShortName = new Map<string, Bank>();
-  private static _initialized = false;
-
-  /**
-   * Initializes the static bank properties
-   */
-  private static initialize(): void {
-    if (this._initialized) return;
-
-    // Create Bank instances for each entry
-    for (const bank of BankService.getInstance().getAll()) {
-      // Add to lookup maps
-      this._banksBySwiftCode.set(bank.swiftCode.toUpperCase(), bank);
-      this._banksByName.set(bank.fullName.toUpperCase(), bank);
-      this._banksByShortName.set(bank.shortName.toUpperCase(), bank);
-
-      const shortName = bank.shortName;
-
-      // Set the uppercase short name property
-      // deno-lint-ignore no-explicit-any
-      (this as any)[shortName.toUpperCase()] = bank;
-
-      // Set the lowercase short name property
-      // deno-lint-ignore no-explicit-any
-      (this as any)[shortName.toLowerCase()] = bank;
-
-      // Handle bank names with spaces (like "GT BANK")
-      if (shortName.includes(" ")) {
-        const noSpaceName = shortName.replace(/\s+/g, "_");
-        // Add uppercase version
-        // deno-lint-ignore no-explicit-any
-        (this as any)[noSpaceName.toUpperCase()] = bank;
-        // Add lowercase version
-        // deno-lint-ignore no-explicit-any
-        (this as any)[noSpaceName.toLowerCase()] = bank;
-      }
-    }
-
-    this._initialized = true;
-  }
-
   /**
    * Retrieves a bank by its SWIFT code.
    * @param {string} swiftCode The SWIFT code of the bank.
    * @returns {Bank | undefined} The bank corresponding to the SWIFT code or `undefined` if not found.
    */
   static fromSWIFTCode(swiftCode: string): Bank | undefined {
-    this.initialize();
-    return this._banksBySwiftCode.get(swiftCode.toUpperCase());
+    return BankService.getInstance().fromSWIFTCode(swiftCode);
   }
 
   /**
@@ -191,37 +115,7 @@ export class Bank {
    * @returns {Bank | undefined} The bank corresponding to the full name or `undefined` if not found.
    */
   static fromBankName(bankName: string): Bank | undefined {
-    this.initialize();
-
-    // First try shortname exact match
-    const bankByShortName = this._banksByShortName.get(bankName.toUpperCase());
-    if (bankByShortName) return bankByShortName;
-
-    // Next try fullname exact match
-    const bankByName = this._banksByName.get(bankName.toUpperCase());
-    if (bankByName) return bankByName;
-
-    // If not found, try more lenient matching on full name
-    for (const [name, bankObj] of this._banksByName.entries()) {
-      if (
-        name.includes(bankName.toUpperCase()) ||
-        bankName.toUpperCase().includes(name)
-      ) {
-        return bankObj;
-      }
-    }
-
-    // Try lenient matching on short name
-    for (const [shortName, bankObj] of this._banksByShortName.entries()) {
-      if (
-        shortName.includes(bankName.toUpperCase()) ||
-        bankName.toUpperCase().includes(shortName)
-      ) {
-        return bankObj;
-      }
-    }
-
-    return undefined;
+    return BankService.getInstance().fromBankName(bankName);
   }
 
   /**
@@ -229,8 +123,7 @@ export class Bank {
    * @returns {Bank[]} Array of all banks
    */
   static getAll(): Bank[] {
-    this.initialize();
-    return Array.from(this._banksBySwiftCode.values());
+    return BankService.getInstance().getAll();
   }
 
   /**
@@ -327,5 +220,18 @@ export class Bank {
   }
 }
 
-// Initialize the static properties when the module is loaded
-Bank["initialize"]();
+// Initialize static properties by applying the references from BankService.
+// zero-timeout to defer the initialization until after both modules have been fully loaded.
+// The setTimeout pushes the initialization code to the end of the JavaScript event loop,
+// which happens after all modules are loaded.
+setTimeout(() => {
+  try {
+    const staticRefs = BankService.getInstance().getStaticReferences();
+    staticRefs.forEach((bank, key) => {
+      // deno-lint-ignore no-explicit-any
+      (Bank as any)[key] = bank;
+    });
+  } catch (error) {
+    console.error("Failed to initialize Bank static properties:", error);
+  }
+}, 0);

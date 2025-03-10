@@ -1,21 +1,70 @@
-# PhoneNumber Documentation
+# Phone Number Documentation
 
-The PhoneNumber model provides comprehensive support for validating, formatting, and working with international phone numbers. It includes country-specific validation rules based on regex patterns, special handling for shared country codes, and multiple formatting options.
+The phone number models provide comprehensive support for validating, formatting, and working with phone numbers. There are two main classes:
+
+1. `PhoneNumber` (formerly GlobalPhoneNumber) - For international phone numbers from any country
+2. `TZPhoneNumber` - Specialized for Tanzania phone numbers with network operator identification
+
+Both classes use the same formatting options defined in `PhoneNumberFormat` enum.
 
 ## Table of Contents
 
-- [Basic Usage](#basic-usage)
-- [Creating PhoneNumber Instances](#creating-phonenumber-instances)
-- [Validation](#validation)
-- [Handling Shared Country Codes](#handling-shared-country-codes)
-- [Formatting Options](#formatting-options)
-- [Phone Number Properties](#phone-number-properties)
-- [Phone Number Types](#phone-number-types)
-- [Examples](#examples)
-- [PhoneNumberService](#phonenumberservice)
-- [Best Practices](#best-practices)
+- [Phone Number Documentation](#phone-number-documentation)
+  - [Table of Contents](#table-of-contents)
+  - [Phone Number Format](#phone-number-format)
+  - [PhoneNumber Class](#phonenumber-class)
+    - [Basic Usage](#basic-usage)
+    - [Creating PhoneNumber Instances](#creating-phonenumber-instances)
+      - [1. Using `from()` with International Format](#1-using-from-with-international-format)
+      - [2. Using `fromWithCountry()` with Explicit Country](#2-using-fromwithcountry-with-explicit-country)
+    - [Validation](#validation)
+      - [1. Instance Validation](#1-instance-validation)
+      - [2. String Validation](#2-string-validation)
+      - [3. Type Guard](#3-type-guard)
+    - [Handling Shared Country Codes](#handling-shared-country-codes)
+      - [1. Specifying a Default Country](#1-specifying-a-default-country)
+      - [2. Throwing an Error for Ambiguous Cases](#2-throwing-an-error-for-ambiguous-cases)
+      - [3. Using `fromWithCountry()` Directly](#3-using-fromwithcountry-directly)
+    - [Formatting Options](#formatting-options)
+    - [Phone Number Properties](#phone-number-properties)
+  - [TZPhoneNumber Class](#tzphonenumber-class)
+    - [Basic Usage](#basic-usage-1)
+    - [Creating TZPhoneNumber Instances](#creating-tzphonenumber-instances)
+    - [TZ-Specific Formatting](#tz-specific-formatting)
+    - [Network Operator Information](#network-operator-information)
+      - [Tanzania Network Operators](#tanzania-network-operators)
+    - [TZPhoneNumber Validation](#tzphonenumber-validation)
+  - [PhoneNumberService](#phonenumberservice)
+  - [Examples](#examples)
+    - [Example 1: Phone Input Component with Country Selection](#example-1-phone-input-component-with-country-selection)
+    - [Example 2: Tanzania-Specific Mobile Money Integration](#example-2-tanzania-specific-mobile-money-integration)
+    - [Example 3: Network Operator Grouping](#example-3-network-operator-grouping)
+  - [Best Practices](#best-practices)
 
-## Basic Usage
+## Phone Number Format
+
+Both `PhoneNumber` and `TZPhoneNumber` use the same `PhoneNumberFormat` enum for formatting:
+
+```typescript
+import { PhoneNumberFormat } from '@temboplus/frontend-core';
+
+enum PhoneNumberFormat {
+  /** E.164 format with plus sign (e.g., +12025550123) */
+  INTERNATIONAL = "INTERNATIONAL",
+  /** National format with spaces (varies by country) */
+  NATIONAL = "NATIONAL",
+  /** Compact format without country code (e.g., 2025550123) */
+  COMPACT = "COMPACT",
+  /** RFC3966 format (e.g., tel:+1-202-555-0123) */
+  RFC3966 = "RFC3966",
+}
+```
+
+## PhoneNumber Class
+
+The `PhoneNumber` class (previously called `GlobalPhoneNumber`) handles international phone numbers from any country.
+
+### Basic Usage
 
 ```typescript
 import { PhoneNumber, PhoneNumberFormat } from '@temboplus/frontend-core';
@@ -24,21 +73,22 @@ import { Country } from '@temboplus/frontend-core';
 // Parse a phone number from international format
 const phoneNumber = PhoneNumber.from("+1 (202) 555-0123");
 
-// Get formatted representation
+// Access phone number information
 console.log(phoneNumber.formattedNumber);  // +12025550123
-console.log(phoneNumber.label);            // +1 202 555 012 3
-
-// Access country information
 console.log(phoneNumber.country.name);     // United States
-console.log(phoneNumber.countryCode);      // US
 console.log(phoneNumber.dialCode);         // 1
+
+// Format the phone number
+console.log(phoneNumber.getWithFormat(PhoneNumberFormat.INTERNATIONAL)); // +12025550123
+console.log(phoneNumber.getWithFormat(PhoneNumberFormat.COMPACT));       // 2025550123
+console.log(phoneNumber.getWithFormat(PhoneNumberFormat.RFC3966));       // tel:+12025550123
 ```
 
-## Creating PhoneNumber Instances
+### Creating PhoneNumber Instances
 
-There are multiple ways to create PhoneNumber instances:
+There are multiple ways to create `PhoneNumber` instances:
 
-### 1. Using `from()` with International Format
+#### 1. Using `from()` with International Format
 
 The `from()` method parses a phone number in international format (starting with '+'):
 
@@ -48,7 +98,7 @@ const phoneNumber = PhoneNumber.from("+44 7911 123456");
 
 This method handles messy input with spaces, parentheses, hyphens, and other formatting characters.
 
-### 2. Using `fromWithCountry()` with Explicit Country
+#### 2. Using `fromWithCountry()` with Explicit Country
 
 When the country is known, use `fromWithCountry()` to parse phone numbers in any format:
 
@@ -64,24 +114,13 @@ This method accepts various input formats:
 - Just the national number: `"6 12 34 56 78"`
 - With country code only: `"33 6 12 34 56 78"`
 
-### 3. Direct Constructor (Advanced Usage)
-
-For advanced use cases, you can use the constructor directly:
-
-```typescript
-const country = Country.fromCode("DE");
-const nationalNumber = "15123456789";
-const phoneNumber = new PhoneNumber(country, nationalNumber);
-```
-
-## Validation
+### Validation
 
 PhoneNumber provides multiple validation methods:
 
-### 1. Instance Validation
+#### 1. Instance Validation
 
 ```typescript
-const phoneNumber = new PhoneNumber(country, nationalNumber);
 if (phoneNumber.validate()) {
   console.log("Valid phone number");
 }
@@ -92,7 +131,7 @@ This checks:
 - Presence of required patterns (landline and mobile)
 - Match against country-specific regex patterns
 
-### 2. String Validation
+#### 2. String Validation
 
 ```typescript
 // Check if a string can be parsed as a valid phone number
@@ -106,7 +145,7 @@ if (PhoneNumber.canConstructWithCountry("7911 123456", country)) {
 }
 ```
 
-### 3. Type Guard
+#### 3. Type Guard
 
 ```typescript
 function processPhoneNumber(input: unknown) {
@@ -117,11 +156,11 @@ function processPhoneNumber(input: unknown) {
 }
 ```
 
-## Handling Shared Country Codes
+### Handling Shared Country Codes
 
 Some country codes (like +1 for US and Canada) are shared among multiple countries. PhoneNumber provides several strategies to handle this:
 
-### 1. Specifying a Default Country
+#### 1. Specifying a Default Country
 
 ```typescript
 const phoneNumber = PhoneNumber.from("+1 202-555-0123", { 
@@ -129,7 +168,7 @@ const phoneNumber = PhoneNumber.from("+1 202-555-0123", {
 });
 ```
 
-### 2. Throwing an Error for Ambiguous Cases
+#### 2. Throwing an Error for Ambiguous Cases
 
 ```typescript
 try {
@@ -151,7 +190,7 @@ try {
 }
 ```
 
-### 3. Using `fromWithCountry()` Directly
+#### 3. Using `fromWithCountry()` Directly
 
 The most straightforward approach:
 
@@ -162,7 +201,7 @@ const phoneNumber = PhoneNumber.fromWithCountry(
 );
 ```
 
-## Formatting Options
+### Formatting Options
 
 PhoneNumber supports multiple formatting styles:
 
@@ -170,26 +209,26 @@ PhoneNumber supports multiple formatting styles:
 // E.164 format (canonical format for storage)
 console.log(phoneNumber.formattedNumber);  // +12025550123
 
-// International format with spaces (for display)
-console.log(phoneNumber.getWithFormat(PhoneNumberFormat.INTERNATIONAL));  // +1 202 555 0123
+// International format (for the PhoneNumber class, this is the same as E.164)
+console.log(phoneNumber.getWithFormat(PhoneNumberFormat.INTERNATIONAL));  // +12025550123
 
-// National format (local format without country code)
-console.log(phoneNumber.getWithFormat(PhoneNumberFormat.NATIONAL));  // 202 555 0123
+// National format (note: not fully implemented in the general PhoneNumber class)
+console.log(phoneNumber.getWithFormat(PhoneNumberFormat.NATIONAL));  // 2025550123
 
 // Compact format (just the national number)
 console.log(phoneNumber.getWithFormat(PhoneNumberFormat.COMPACT));  // 2025550123
 
 // RFC3966 format (for href="tel:" links)
-console.log(phoneNumber.getWithFormat(PhoneNumberFormat.RFC3966));  // tel:+1-2025550123
+console.log(phoneNumber.getWithFormat(PhoneNumberFormat.RFC3966));  // tel:+12025550123
 ```
 
 The `label` property provides a user-friendly representation (same as INTERNATIONAL format):
 
 ```typescript
-console.log(phoneNumber.label);  // +1 202 555 0123
+console.log(phoneNumber.label);  // +12025550123
 ```
 
-## Phone Number Properties
+### Phone Number Properties
 
 PhoneNumber objects provide the following properties:
 
@@ -213,88 +252,184 @@ const e164 = phoneNumber.formattedNumber;
 const display = phoneNumber.label;
 ```
 
-## Phone Number Types
+## TZPhoneNumber Class
 
-You can determine the type of a phone number (landline, mobile, etc.) using the PhoneNumberService:
+The `TZPhoneNumber` class is specifically designed for Tanzania phone numbers, with added features for network operator identification and Tanzania-specific formatting.
+
+### Basic Usage
+
+```typescript
+import { TZPhoneNumber, PhoneNumberFormat } from '@temboplus/frontend-core';
+
+// Parse a Tanzania phone number from any format
+const phone = TZPhoneNumber.from("+255 712 345 678");
+// or
+const phone = TZPhoneNumber.from("0712345678");
+// or
+const phone = TZPhoneNumber.from("712345678");
+
+// Get information about the number
+console.log(phone.networkOperator.displayName); // "Yas" (Tigo's display name)
+console.log(phone.networkOperator.mobileMoneyService); // "Mixx"
+console.log(phone.compactNumber);        // "712345678"
+
+// Format the number in different ways
+console.log(phone.getWithFormat(PhoneNumberFormat.INTERNATIONAL)); // "+255 712 345 678"
+console.log(phone.getWithFormat(PhoneNumberFormat.NATIONAL));      // "0712 345 678"
+console.log(phone.getWithFormat(PhoneNumberFormat.COMPACT));       // "712345678"
+console.log(phone.getWithFormat(PhoneNumberFormat.RFC3966));       // "tel:+255712345678"
+```
+
+### Creating TZPhoneNumber Instances
+
+Tanzania phone numbers can be created using the `from()` method which accepts various formats:
+
+```typescript
+// All these create the same phone number
+const phone1 = TZPhoneNumber.from("+255712345678");
+const phone2 = TZPhoneNumber.from("255712345678");
+const phone3 = TZPhoneNumber.from("0712345678");
+const phone4 = TZPhoneNumber.from("712345678");
+```
+
+### TZ-Specific Formatting
+
+The `TZPhoneNumber` class implements special formatting for Tanzania phone numbers:
+
+```typescript
+const phone = TZPhoneNumber.from("0712345678");
+
+// International format: "+255 712 345 678"
+console.log(phone.getWithFormat(PhoneNumberFormat.INTERNATIONAL));
+
+// National format: "0712 345 678"
+console.log(phone.getWithFormat(PhoneNumberFormat.NATIONAL));
+
+// Compact format: "712345678"
+console.log(phone.getWithFormat(PhoneNumberFormat.COMPACT));
+
+// RFC3966 format: "tel:+255712345678"
+console.log(phone.getWithFormat(PhoneNumberFormat.RFC3966));
+```
+
+### Network Operator Information
+
+One of the key features of `TZPhoneNumber` is its ability to identify the network operator. The `networkOperator` property returns a `NetworkOperatorInfo` object with comprehensive details about the operator:
+
+```typescript
+import { NetworkOperator } from '@temboplus/frontend-core';
+
+const phone = TZPhoneNumber.from("0712345678");
+const operator = phone.networkOperator;
+
+console.log(operator.id);                 // NetworkOperator.TIGO
+console.log(operator.displayName);        // "Yas"
+console.log(operator.mobileMoneyService); // "Mixx"
+console.log(operator.brandColor);         // "blue"
+
+// Check if this is a specific operator
+if (operator.id === NetworkOperator.TIGO) {
+  console.log("This is a Tigo/Yas number");
+}
+```
+
+#### Tanzania Network Operators
+
+The following network operators are supported in Tanzania:
+
+1. **Vodacom**
+   - Prefixes: 74, 75, 76
+   - Mobile Money: M-Pesa
+   - Brand Color: red
+
+2. **Airtel**
+   - Prefixes: 78, 79, 68, 69
+   - Mobile Money: Airtel Money
+   - Brand Color: volcano
+
+3. **Tigo/Yas**
+   - Prefixes: 71, 65, 67, 77
+   - Display Name: Yas
+   - Mobile Money: Mixx
+   - Brand Color: blue
+
+4. **Halotel**
+   - Prefixes: 62, 61
+   - Mobile Money: HaloPesa
+   - Brand Color: orange
+
+You can access the network operator configuration directly:
+
+```typescript
+import { NETWORK_OPERATOR_CONFIG, NetworkOperator } from '@temboplus/frontend-core';
+
+// Access configuration for a specific operator
+const tigoConfig = NETWORK_OPERATOR_CONFIG[NetworkOperator.TIGO];
+console.log(tigoConfig.mobileNumberPrefixes); // ["71", "65", "67", "77"]
+
+// Iterate through all operators
+Object.values(NETWORK_OPERATOR_CONFIG).forEach(operator => {
+  console.log(`${operator.displayName}: ${operator.mobileMoneyService}`);
+});
+```
+
+### TZPhoneNumber Validation
+
+`TZPhoneNumber` includes specialized validation for Tanzania numbers:
+
+```typescript
+// Check if a string can be parsed into a valid Tanzania phone number
+if (TZPhoneNumber.canConstruct("+255712345678")) {
+  console.log("Valid Tanzania phone number");
+}
+
+// Check if an unknown object is a TZPhoneNumber
+if (TZPhoneNumber.is(someObject)) {
+  console.log("This is a TZPhoneNumber object");
+}
+```
+
+## PhoneNumberService
+
+The PhoneNumberService provides additional utilities for working with phone numbers:
 
 ```typescript
 import { PhoneNumberService, PhoneNumberType } from '@temboplus/frontend-core';
 
 const service = PhoneNumberService.getInstance();
-const numberType = service.getNumberType(phoneNumber.countryCode, phoneNumber.compactNumber);
 
-switch (numberType) {
-  case PhoneNumberType.MOBILE:
-    console.log("This is a mobile number");
-    break;
-  case PhoneNumberType.LANDLINE:
-    console.log("This is a landline number");
-    break;
-  case PhoneNumberType.TOLL_FREE:
-    console.log("This is a toll-free number");
-    break;
-  // Other types: PREMIUM_RATE, SHARED_COST, etc.
-}
+// Get country metadata
+const metadata = service.getCountryMetadata("US");
+
+// Check if a dial code is shared between multiple countries
+const isShared = service.isSharedDialCode("1");  // true for +1
+
+// Get all countries that share a dial code
+const countries = service.getCountriesWithDialCode("1");  // ["US", "CA", ...]
+
+// Get example phone numbers for a country
+const examples = service.getExampleNumbers("FR");
+
+// Format a phone number
+const formatted = service.formatNumber("+12025550123", PhoneNumberFormat.INTERNATIONAL);
+
+// Validate a phone number against a specific country
+const isValid = service.isValidForCountry("+12025550123", "US");
+
+// Clean a messy phone number input
+const cleaned = service.cleanPhoneNumber("(202) 555-0123");  // "2025550123"
 ```
 
 ## Examples
 
-### Example 1: User Input Validation
+### Example 1: Phone Input Component with Country Selection
 
 ```typescript
-function validateUserPhoneInput(phoneString: string, countrySelect: string) {
-  const country = Country.fromCode(countrySelect);
-  if (!country) {
-    return "Invalid country selection";
-  }
-  
-  if (!PhoneNumber.canConstructWithCountry(phoneString, country)) {
-    return "Invalid phone number format for the selected country";
-  }
-  
-  const phoneNumber = PhoneNumber.fromWithCountry(phoneString, country);
-  return {
-    valid: true,
-    phoneNumber: phoneNumber.formattedNumber,  // Store in E.164 format
-    display: phoneNumber.label                 // Display in user-friendly format
-  };
-}
-```
-
-### Example 2: Handling Ambiguous Country Codes
-
-```typescript
-function resolvePhoneCountry(phoneString: string): PhoneNumber {
-  try {
-    // First try to parse directly
-    const phoneNumber = PhoneNumber.from(phoneString, { throwOnAmbiguous: true });
-    return phoneNumber;
-  } catch (e) {
-    if (e instanceof SharedDialCodeError) {
-      // Get all possible countries
-      const possibleCountries = e.countries.map(code => Country.fromCode(code));
-      
-      // Display country selection to the user
-      const selectedCountryCode = displayCountryPicker(possibleCountries);
-      
-      // Parse with the selected country
-      return PhoneNumber.fromWithCountry(
-        phoneString, 
-        Country.fromCode(selectedCountryCode)
-      );
-    }
-    throw e;
-  }
-}
-```
-
-### Example 3: International Phone Input Component
-
-```typescript
-function InternationalPhoneInput({ value, onChange }) {
-  const [selectedCountry, setSelectedCountry] = useState(Country.fromCode("US"));
+function PhoneInput({ value, onChange }) {
+  const [selectedCountry, setSelectedCountry] = useState(Country.US);
   const [nationalNumber, setNationalNumber] = useState("");
   
+  // Parse initial value if provided
   useEffect(() => {
     if (value) {
       try {
@@ -340,54 +475,172 @@ function InternationalPhoneInput({ value, onChange }) {
         value={selectedCountry?.code} 
         onChange={handleCountryChange} 
       />
-      <PhoneInput 
+      <input 
         value={nationalNumber}
-        onChange={handleNumberChange}
-        placeholder={`+${selectedCountry?.dialCode || ''} Phone Number`}
+        onChange={(e) => handleNumberChange(e.target.value)}
+        placeholder={`${selectedCountry?.dialCode || ''} Phone Number`}
       />
     </div>
   );
 }
 ```
 
-## PhoneNumberService
-
-The PhoneNumberService provides additional utilities for working with phone numbers:
+### Example 2: Tanzania-Specific Mobile Money Integration
 
 ```typescript
-import { PhoneNumberService } from '@temboplus/frontend-core';
+import { TZPhoneNumber, NetworkOperator } from '@temboplus/frontend-core';
 
-const service = PhoneNumberService.getInstance();
+function getMobileMoneyInfo(phoneString) {
+  if (!TZPhoneNumber.canConstruct(phoneString)) {
+    return { 
+      valid: false, 
+      error: "Please enter a valid Tanzania phone number" 
+    };
+  }
+  
+  const phone = TZPhoneNumber.from(phoneString);
+  const operator = phone.networkOperator;
+  
+  return {
+    valid: true,
+    formattedNumber: phone.getWithFormat(PhoneNumberFormat.INTERNATIONAL),
+    operator: operator.displayName,
+    mobileMoneyService: operator.mobileMoneyService,
+    brandColor: operator.brandColor,
+    // Format that might be needed for API calls
+    compactNumber: phone.compactNumber
+  };
+}
 
-// Get country metadata
-const metadata = service.getCountryMetadata("US");
+// Usage example - Mobile Money payment UI
+function MobileMoneyPayment({ phoneNumber, amount }) {
+  const mobileInfo = getMobileMoneyInfo(phoneNumber);
+  
+  if (!mobileInfo.valid) {
+    return <div className="error">{mobileInfo.error}</div>;
+  }
+  
+  return (
+    <div className="payment-ui" style={{ borderColor: mobileInfo.brandColor }}>
+      <h3>{mobileInfo.mobileMoneyService} Payment</h3>
+      <p>Send {amount} TZS to {mobileInfo.formattedNumber}</p>
+      <p>Provider: {mobileInfo.operator}</p>
+      
+      {mobileInfo.mobileMoneyService === "M-Pesa" && (
+        <div className="mpesa-instructions">
+          {/* M-Pesa specific instructions */}
+        </div>
+      )}
+      
+      {mobileInfo.mobileMoneyService === "Airtel Money" && (
+        <div className="airtel-instructions">
+          {/* Airtel Money specific instructions */}
+        </div>
+      )}
+      
+      {mobileInfo.mobileMoneyService === "Mixx" && (
+        <div className="tigo-instructions">
+          {/* Tigo/Yas Mixx specific instructions */}
+        </div>
+      )}
+      
+      {mobileInfo.mobileMoneyService === "HaloPesa" && (
+        <div className="halotel-instructions">
+          {/* HaloPesa specific instructions */}
+        </div>
+      )}
+    </div>
+  );
+}
+```
 
-// Check if a dial code is shared between multiple countries
-const isShared = service.isSharedDialCode("1");  // true for +1
+### Example 3: Network Operator Grouping
 
-// Get all countries that share a dial code
-const countries = service.getCountriesWithDialCode("1");  // ["US", "CA", ...]
+```typescript
+import { TZPhoneNumber, NetworkOperator, NETWORK_OPERATOR_CONFIG } from '@temboplus/frontend-core';
 
-// Get example phone numbers for a country
-const examples = service.getExampleNumbers("FR");
+// Group phone numbers by network operator
+function groupPhonesByOperator(phoneNumbers) {
+  // Initialize result object with all operators
+  const result = Object.keys(NetworkOperator).reduce((acc, key) => {
+    const operatorId = NetworkOperator[key];
+    acc[operatorId] = {
+      info: NETWORK_OPERATOR_CONFIG[operatorId],
+      phones: []
+    };
+    return acc;
+  }, {});
+  
+  // Group phone numbers
+  phoneNumbers.forEach(phoneStr => {
+    try {
+      const phone = TZPhoneNumber.from(phoneStr);
+      if (phone) {
+        const operatorId = phone.networkOperator.id;
+        result[operatorId].phones.push({
+          original: phoneStr,
+          formatted: phone.getWithFormat(PhoneNumberFormat.INTERNATIONAL),
+          compact: phone.compactNumber
+        });
+      }
+    } catch (e) {
+      console.error(`Invalid phone number: ${phoneStr}`);
+    }
+  });
+  
+  return result;
+}
 
-// Format a phone number
-const formatted = service.formatNumber("+12025550123", PhoneNumberFormat.INTERNATIONAL);
+// Example usage
+const phoneGroups = groupPhonesByOperator([
+  "+255712345678", // Tigo/Yas
+  "0754321098",    // Vodacom
+  "0689876543",    // Airtel
+  "0621234567"     // Halotel
+]);
 
-// Validate a phone number against a specific country
-const isValid = service.isValidForCountry("+12025550123", "US");
-
-// Clean a messy phone number input
-const cleaned = service.cleanPhoneNumber("(202) 555-0123");  // "2025550123"
+// Display results
+Object.entries(phoneGroups).forEach(([operatorId, data]) => {
+  if (data.phones.length > 0) {
+    console.log(`${data.info.displayName} (${data.info.mobileMoneyService}): ${data.phones.length} numbers`);
+    data.phones.forEach(phone => console.log(`  ${phone.formatted}`));
+  }
+});
 ```
 
 ## Best Practices
 
-1. **Always Store in E.164 Format**: Use `phoneNumber.formattedNumber` for storage.
-2. **Use Country Context When Available**: Always use `fromWithCountry()` when you know the country.
-3. **Handle Shared Dial Codes**: Provide a user interface for country selection when dial codes are ambiguous.
-4. **Validate Input**: Use `canConstruct()` or `canConstructWithCountry()` before creating instances.
-5. **Type Safety**: Use `PhoneNumber.is()` to validate objects from external sources.
-6. **Error Handling**: Wrap phone number parsing in try/catch blocks to handle potential errors.
-7. **Clean Input**: All methods handle messy input, but you can pre-clean with `service.cleanPhoneNumber()` if needed.
-8. **Formatting for UI**: Use `phoneNumber.label` for user-facing displays.
+1. **Choose the Right Class**:
+   - Use `TZPhoneNumber` for Tanzania numbers when you need network operator identification.
+   - Use `PhoneNumber` for international numbers from any country.
+
+2. **Storage Format**:
+   - Always store phone numbers in E.164 format (e.g., "+12025550123").
+   - For Tanzania numbers, you can use the compact format ("712345678") if the Tanzania context is clear.
+
+3. **Input Parsing**:
+   - Use `from()` for parsing user input in international format.
+   - Use `fromWithCountry()` when you have country context (e.g., from a country dropdown).
+
+4. **Validation First**:
+   - Always validate user input with `canConstruct()` before attempting to create instances.
+   - For Tanzania numbers, use `TZPhoneNumber.canConstruct()`.
+
+5. **Network Operator Handling**:
+   - Use the `networkOperator` property of `TZPhoneNumber` to get operator-specific information.
+   - Check against `NetworkOperator` enum values for type-safe comparisons.
+   - Access services like `mobileMoneyService` for operator-specific features.
+
+6. **Formatting for Display**:
+   - Use the appropriate format based on the context:
+     - `INTERNATIONAL`: For display to users across different countries
+     - `NATIONAL`: For display to users within the same country
+     - `COMPACT`: For internal storage or when space is limited
+     - `RFC3966`: For tel: links in HTML
+
+7. **Error Handling**:
+   - Wrap phone number parsing in try/catch blocks to handle potential errors.
+   - Provide helpful error messages when parsing fails.
+
+8. **Type Safety**:
+   - Use the `is()` type guard to validate objects from external sources.

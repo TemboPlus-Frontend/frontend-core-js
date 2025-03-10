@@ -1,31 +1,6 @@
 import { Bank } from "@models/bank/bank.ts";
 import { assertEquals, assertExists } from "jsr:@std/assert";
 
-Deno.test("Bank constructor and getters", () => {
-  const bank = new Bank(
-    "NATIONAL BANK OF COMMERCE LTD",
-    "NBC",
-    "NLCBTZTX",
-  );
-
-  assertEquals(bank.fullName, "NATIONAL BANK OF COMMERCE LTD");
-  assertEquals(bank.shortName, "NBC");
-  assertEquals(bank.swiftCode, "NLCBTZTX");
-});
-
-Deno.test("Bank toString method", () => {
-  const bank = new Bank(
-    "National Bank of Commerce",
-    "NBC",
-    "NLCBTZTX",
-  );
-
-  assertEquals(
-    bank.toString(),
-    "National Bank of Commerce (NBC) - SWIFT: NLCBTZTX",
-  );
-});
-
 Deno.test("Bank.fromSWIFTCode with valid inputs", () => {
   // Test with exact SWIFT code
   const bank1 = Bank.fromSWIFTCode("NLCBTZTX");
@@ -91,48 +66,6 @@ Deno.test("Bank.fromBankName with invalid inputs", () => {
   // Test with similar but incorrect name
   const bank3 = Bank.fromBankName("National Bank");
   assertEquals(bank3, undefined);
-});
-
-Deno.test("Bank.validate method", () => {
-  // Test with valid bank data
-  const validBank = new Bank(
-    "National Bank of Commerce Ltd",
-    "NBC",
-    "NLCBTZTX",
-  );
-  assertEquals(validBank.validate(), true);
-
-  // Test with invalid full name
-  const invalidFullName = new Bank(
-    "Invalid Bank",
-    "NBC",
-    "NLCBTZTX",
-  );
-  assertEquals(invalidFullName.validate(), false);
-
-  // Test with invalid short name
-  const invalidShortName = new Bank(
-    "National Bank of Commerce Ltd",
-    "INV",
-    "NLCBTZTX",
-  );
-  assertEquals(invalidShortName.validate(), false);
-
-  // Test with invalid SWIFT code
-  const invalidSwift = new Bank(
-    "National Bank of Commerce Ltd",
-    "NBC",
-    "INVALID1",
-  );
-  assertEquals(invalidSwift.validate(), false);
-
-  // Test with all invalid data
-  const allInvalid = new Bank(
-    "Invalid Bank",
-    "INV",
-    "INVALID1",
-  );
-  assertEquals(allInvalid.validate(), false);
 });
 
 Deno.test("Bank.is() validation", async (t) => {

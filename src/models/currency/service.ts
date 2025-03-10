@@ -16,21 +16,17 @@ interface CurrencyInterface {
 }
 
 /**
- * Type definition for a collection of currency configurations
- * Indexed by currency code (e.g., "USD", "EUR")
- */
-type Currencies = {
-  [key: string]: Currency;
-};
-
-/**
  * Service for managing currency data.
  * @class CurrencyService
  */
-class CurrencyService {
+export class CurrencyService {
   private static instance: CurrencyService;
   private currencyList: Currency[] = [];
   private currencyRecord: Record<string, Currency> = {};
+  private nameRecord: Record<string, Currency> = {};
+
+  // Static references for direct access through Currency class
+  private staticReferences: Map<string, Currency> = new Map();
 
   private constructor() {}
 
@@ -70,12 +66,32 @@ class CurrencyService {
           ),
       );
 
-      const records: Record<string, Currency> = {};
+      const codeRecord: Record<string, Currency> = {};
+      const nameRecord: Record<string, Currency> = {};
+
       currencies.forEach((currency) => {
-        records[currency.code] = currency;
+        // Populate code record
+        codeRecord[currency.code] = currency;
+
+        // Add to record by name
+        nameRecord[currency.name.toUpperCase()] = currency;
+
+        const upperCode = currency.code.toUpperCase();
+
+        // Add to static references for uppercase code
+        this.staticReferences.set(upperCode, currency);
+
+        // Add formatted full name static reference
+        const fullNameKey = currency.name
+          .toUpperCase()
+          .replace(/\s+/g, "_")
+          .replace(/[-(),.']/g, "")
+          .replace(/&/g, "AND");
+        this.staticReferences.set(fullNameKey, currency);
       });
 
-      this.currencyRecord = records;
+      this.currencyRecord = codeRecord;
+      this.nameRecord = nameRecord;
       this.currencyList = currencies;
     } catch (error) {
       console.error("Failed to initialize CurrencyService:", error);
@@ -99,6 +115,14 @@ class CurrencyService {
   }
 
   /**
+   * Gets static currency references to be used by the Currency class.
+   * @returns {Map<string, Currency>} Map of static references
+   */
+  getStaticReferences(): Map<string, Currency> {
+    return this.staticReferences;
+  }
+
+  /**
    * Retrieves a currency by its ISO code.
    * @param {string} code The ISO code of the currency.
    * @returns {Currency | undefined} The currency corresponding to the ISO code or `undefined` if not found.
@@ -113,6 +137,21 @@ class CurrencyService {
    * @returns {Currency | undefined} The currency corresponding to the name or `undefined` if not found.
    */
   fromName(currencyName: string): Currency | undefined {
+    // First try direct lookup in name record
+    const directMatch = this.nameRecord[currencyName.toUpperCase()];
+    if (directMatch) return directMatch;
+
+    // If not found, try more lenient matching
+    for (const [name, currObj] of Object.entries(this.nameRecord)) {
+      if (
+        name.includes(currencyName.toUpperCase()) ||
+        currencyName.toUpperCase().includes(name)
+      ) {
+        return currObj;
+      }
+    }
+
+    // Finally, try case-insensitive exact match
     return this.currencyList.find(
       (currency) => currency.name.toLowerCase() === currencyName.toLowerCase(),
     );
@@ -129,9 +168,9 @@ class CurrencyService {
    *   - The currency code successfully resolves to a valid Currency instance
    *   Returns false otherwise.
    */
-  static isValidCode(code?: string | null): boolean {
+  isValidCode(code?: string | null): boolean {
     if (!code) return false;
-    const currency = Currency.fromCode(code);
+    const currency = this.fromCode(code);
     return !!currency;
   }
 
@@ -145,9 +184,9 @@ class CurrencyService {
    *   - The currency name successfully resolves to a valid Currency instance
    *   Returns false otherwise.
    */
-  static isValidName(currencyName?: string | null): boolean {
+  isValidName(currencyName?: string | null): boolean {
     if (!currencyName) return false;
-    const currency = Currency.fromName(currencyName);
+    const currency = this.fromName(currencyName);
     return !!currency;
   }
 
@@ -183,5 +222,3 @@ class CurrencyService {
     return string.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
   }
 }
-
-export { type Currencies, type Currency, CurrencyService };

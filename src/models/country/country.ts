@@ -5,7 +5,7 @@ import { CountryService } from "@models/country/service.ts";
  * @class Country
  */
 export class Country {
-  // Explicitly declare static properties for each country (uppercase)
+  // Explicitly declare static properties for each country (uppercase ISO codes)
   static readonly AF: Country;
   static readonly AX: Country;
   static readonly AL: Country;
@@ -250,253 +250,250 @@ export class Country {
   static readonly ZM: Country;
   static readonly ZW: Country;
 
-  // Explicitly declare static properties for each country (lowercase)
-  // Excluding JS reserved keywords
-  static readonly af: Country;
-  static readonly ax: Country;
-  static readonly al: Country;
-  static readonly dz: Country;
-  static readonly as: Country;
-  static readonly ad: Country;
-  static readonly ao: Country;
-  static readonly ai: Country;
-  static readonly aq: Country;
-  static readonly ag: Country;
-  static readonly ar: Country;
-  static readonly am: Country;
-  static readonly aw: Country;
-  static readonly au: Country;
-  static readonly at: Country;
-  static readonly az: Country;
-  static readonly bs: Country;
-  static readonly bh: Country;
-  static readonly bd: Country;
-  static readonly bb: Country;
-  static readonly by: Country;
-  static readonly be: Country;
-  static readonly bz: Country;
-  static readonly bj: Country;
-  static readonly bm: Country;
-  static readonly bt: Country;
-  static readonly bo: Country;
-  static readonly ba: Country;
-  static readonly bw: Country;
-  static readonly bv: Country;
-  static readonly br: Country;
-  static readonly io: Country;
-  static readonly bn: Country;
-  static readonly bg: Country;
-  static readonly bf: Country;
-  static readonly bi: Country;
-  static readonly kh: Country;
-  static readonly cm: Country;
-  static readonly ca: Country;
-  static readonly cv: Country;
-  static readonly ky: Country;
-  static readonly cf: Country;
-  static readonly td: Country;
-  static readonly cl: Country;
-  static readonly cn: Country;
-  static readonly cx: Country;
-  static readonly cc: Country;
-  static readonly co: Country;
-  static readonly km: Country;
-  static readonly cg: Country;
-  static readonly cd: Country;
-  static readonly ck: Country;
-  static readonly cr: Country;
-  static readonly ci: Country;
-  static readonly hr: Country;
-  static readonly cu: Country;
-  static readonly cy: Country;
-  static readonly cz: Country;
-  static readonly dk: Country;
-  static readonly dj: Country;
-  static readonly dm: Country;
-  // 'do' is reserved, using full name
-  static readonly dominican: Country;
-  static readonly ec: Country;
-  static readonly eg: Country;
-  static readonly sv: Country;
-  static readonly gq: Country;
-  static readonly er: Country;
-  static readonly ee: Country;
-  static readonly et: Country;
-  static readonly fk: Country;
-  static readonly fo: Country;
-  static readonly fj: Country;
-  static readonly fi: Country;
-  static readonly fr: Country;
-  static readonly gf: Country;
-  static readonly pf: Country;
-  static readonly tf: Country;
-  static readonly ga: Country;
-  static readonly gm: Country;
-  static readonly ge: Country;
-  static readonly de: Country;
-  static readonly gh: Country;
-  static readonly gi: Country;
-  static readonly gr: Country;
-  static readonly gl: Country;
-  static readonly gd: Country;
-  static readonly gp: Country;
-  static readonly gu: Country;
-  static readonly gt: Country;
-  static readonly gg: Country;
-  static readonly gn: Country;
-  static readonly gw: Country;
-  static readonly gy: Country;
-  static readonly ht: Country;
-  static readonly hm: Country;
-  static readonly va: Country;
-  static readonly hn: Country;
-  static readonly hk: Country;
-  static readonly hu: Country;
-  // 'is' is reserved, using full name
-  static readonly iceland: Country;
-  // 'in' is reserved, using full name
-  static readonly india: Country;
-  static readonly ir: Country;
-  static readonly iq: Country;
-  static readonly ie: Country;
-  static readonly im: Country;
-  static readonly il: Country;
-  static readonly it: Country;
-  static readonly jm: Country;
-  static readonly jp: Country;
-  static readonly je: Country;
-  static readonly jo: Country;
-  static readonly kz: Country;
-  static readonly ke: Country;
-  static readonly ki: Country;
-  static readonly kp: Country;
-  static readonly kr: Country;
-  static readonly kw: Country;
-  static readonly kg: Country;
-  static readonly la: Country;
-  static readonly lv: Country;
-  static readonly lb: Country;
-  static readonly ls: Country;
-  static readonly lr: Country;
-  static readonly ly: Country;
-  static readonly li: Country;
-  static readonly lt: Country;
-  static readonly lu: Country;
-  static readonly mo: Country;
-  static readonly mk: Country;
-  static readonly mg: Country;
-  static readonly mw: Country;
-  static readonly my: Country;
-  static readonly mv: Country;
-  static readonly ml: Country;
-  static readonly mt: Country;
-  static readonly mh: Country;
-  static readonly mq: Country;
-  static readonly mr: Country;
-  static readonly mu: Country;
-  static readonly yt: Country;
-  static readonly mx: Country;
-  static readonly fm: Country;
-  static readonly md: Country;
-  static readonly mc: Country;
-  static readonly mn: Country;
-  static readonly ms: Country;
-  static readonly ma: Country;
-  static readonly mz: Country;
-  static readonly mm: Country;
-  static readonly na: Country;
-  static readonly nr: Country;
-  static readonly np: Country;
-  static readonly nl: Country;
-  static readonly an: Country;
-  static readonly nc: Country;
-  static readonly nz: Country;
-  static readonly ni: Country;
-  static readonly ne: Country;
-  static readonly ng: Country;
-  static readonly nu: Country;
-  static readonly nf: Country;
-  static readonly mp: Country;
-  static readonly no: Country;
-  static readonly om: Country;
-  static readonly pk: Country;
-  static readonly pw: Country;
-  static readonly ps: Country;
-  static readonly pa: Country;
-  static readonly pg: Country;
-  static readonly py: Country;
-  static readonly pe: Country;
-  static readonly ph: Country;
-  static readonly pn: Country;
-  static readonly pl: Country;
-  static readonly pt: Country;
-  static readonly pr: Country;
-  static readonly qa: Country;
-  static readonly re: Country;
-  static readonly ro: Country;
-  static readonly ru: Country;
-  static readonly rw: Country;
-  static readonly sh: Country;
-  static readonly kn: Country;
-  static readonly lc: Country;
-  static readonly pm: Country;
-  static readonly vc: Country;
-  static readonly ws: Country;
-  static readonly sm: Country;
-  static readonly st: Country;
-  static readonly sa: Country;
-  static readonly sn: Country;
-  static readonly cs: Country;
-  static readonly sc: Country;
-  static readonly sl: Country;
-  static readonly sg: Country;
-  static readonly sk: Country;
-  static readonly si: Country;
-  static readonly sb: Country;
-  static readonly so: Country;
-  static readonly za: Country;
-  static readonly gs: Country;
-  static readonly es: Country;
-  static readonly lk: Country;
-  static readonly sd: Country;
-  static readonly sr: Country;
-  static readonly sj: Country;
-  static readonly sz: Country;
-  static readonly se: Country;
-  static readonly ch: Country;
-  static readonly sy: Country;
-  static readonly tw: Country;
-  static readonly tj: Country;
-  static readonly tz: Country;
-  static readonly th: Country;
-  static readonly tl: Country;
-  static readonly tg: Country;
-  static readonly tk: Country;
-  static readonly to: Country;
-  static readonly tt: Country;
-  static readonly tn: Country;
-  static readonly tr: Country;
-  static readonly tm: Country;
-  static readonly tc: Country;
-  static readonly tv: Country;
-  static readonly ug: Country;
-  static readonly ua: Country;
-  static readonly ae: Country;
-  static readonly gb: Country;
-  static readonly us: Country;
-  static readonly um: Country;
-  static readonly uy: Country;
-  static readonly uz: Country;
-  static readonly vu: Country;
-  static readonly ve: Country;
-  static readonly vn: Country;
-  static readonly vg: Country;
-  static readonly vi: Country;
-  static readonly wf: Country;
-  static readonly eh: Country;
-  static readonly ye: Country;
-  static readonly zm: Country;
-  static readonly zw: Country;
+  // Explicitly declare static properties for each country (uppercase full names)
+  static readonly AFGHANISTAN: Country;
+  static readonly ALAND_ISLANDS: Country;
+  static readonly ALBANIA: Country;
+  static readonly ALGERIA: Country;
+  static readonly AMERICAN_SAMOA: Country;
+  static readonly ANDORRA: Country;
+  static readonly ANGOLA: Country;
+  static readonly ANGUILLA: Country;
+  static readonly ANTARCTICA: Country;
+  static readonly ANTIGUA_AND_BARBUDA: Country;
+  static readonly ARGENTINA: Country;
+  static readonly ARMENIA: Country;
+  static readonly ARUBA: Country;
+  static readonly AUSTRALIA: Country;
+  static readonly AUSTRIA: Country;
+  static readonly AZERBAIJAN: Country;
+  static readonly BAHAMAS: Country;
+  static readonly BAHRAIN: Country;
+  static readonly BANGLADESH: Country;
+  static readonly BARBADOS: Country;
+  static readonly BELARUS: Country;
+  static readonly BELGIUM: Country;
+  static readonly BELIZE: Country;
+  static readonly BENIN: Country;
+  static readonly BERMUDA: Country;
+  static readonly BHUTAN: Country;
+  static readonly BOLIVIA: Country;
+  static readonly BOSNIA_AND_HERZEGOVINA: Country;
+  static readonly BOTSWANA: Country;
+  static readonly BOUVET_ISLAND: Country;
+  static readonly BRAZIL: Country;
+  static readonly BRITISH_INDIAN_OCEAN_TERRITORY: Country;
+  static readonly BRUNEI_DARUSSALAM: Country;
+  static readonly BULGARIA: Country;
+  static readonly BURKINA_FASO: Country;
+  static readonly BURUNDI: Country;
+  static readonly CAMBODIA: Country;
+  static readonly CAMEROON: Country;
+  static readonly CANADA: Country;
+  static readonly CAPE_VERDE: Country;
+  static readonly CAYMAN_ISLANDS: Country;
+  static readonly CENTRAL_AFRICAN_REPUBLIC: Country;
+  static readonly CHAD: Country;
+  static readonly CHILE: Country;
+  static readonly CHINA: Country;
+  static readonly CHRISTMAS_ISLAND: Country;
+  static readonly COCOS_ISLANDS: Country;
+  static readonly COLOMBIA: Country;
+  static readonly COMOROS: Country;
+  static readonly CONGO: Country;
+  static readonly DEMOCRATIC_REPUBLIC_OF_CONGO: Country;
+  static readonly COOK_ISLANDS: Country;
+  static readonly COSTA_RICA: Country;
+  static readonly COTE_DIVOIRE: Country;
+  static readonly CROATIA: Country;
+  static readonly CUBA: Country;
+  static readonly CYPRUS: Country;
+  static readonly CZECH_REPUBLIC: Country;
+  static readonly DENMARK: Country;
+  static readonly DJIBOUTI: Country;
+  static readonly DOMINICA: Country;
+  static readonly DOMINICAN_REPUBLIC: Country;
+  static readonly ECUADOR: Country;
+  static readonly EGYPT: Country;
+  static readonly EL_SALVADOR: Country;
+  static readonly EQUATORIAL_GUINEA: Country;
+  static readonly ERITREA: Country;
+  static readonly ESTONIA: Country;
+  static readonly ETHIOPIA: Country;
+  static readonly FALKLAND_ISLANDS: Country;
+  static readonly FAROE_ISLANDS: Country;
+  static readonly FIJI: Country;
+  static readonly FINLAND: Country;
+  static readonly FRANCE: Country;
+  static readonly FRENCH_GUIANA: Country;
+  static readonly FRENCH_POLYNESIA: Country;
+  static readonly FRENCH_SOUTHERN_TERRITORIES: Country;
+  static readonly GABON: Country;
+  static readonly GAMBIA: Country;
+  static readonly GEORGIA: Country;
+  static readonly GERMANY: Country;
+  static readonly GHANA: Country;
+  static readonly GIBRALTAR: Country;
+  static readonly GREECE: Country;
+  static readonly GREENLAND: Country;
+  static readonly GRENADA: Country;
+  static readonly GUADELOUPE: Country;
+  static readonly GUAM: Country;
+  static readonly GUATEMALA: Country;
+  static readonly GUERNSEY: Country;
+  static readonly GUINEA: Country;
+  static readonly GUINEA_BISSAU: Country;
+  static readonly GUYANA: Country;
+  static readonly HAITI: Country;
+  static readonly HEARD_ISLAND_AND_MCDONALD_ISLANDS: Country;
+  static readonly HOLY_SEE: Country;
+  static readonly HONDURAS: Country;
+  static readonly HONG_KONG: Country;
+  static readonly HUNGARY: Country;
+  static readonly ICELAND: Country;
+  static readonly INDIA: Country;
+  static readonly INDONESIA: Country;
+  static readonly IRAN: Country;
+  static readonly IRAQ: Country;
+  static readonly IRELAND: Country;
+  static readonly ISLE_OF_MAN: Country;
+  static readonly ISRAEL: Country;
+  static readonly ITALY: Country;
+  static readonly JAMAICA: Country;
+  static readonly JAPAN: Country;
+  static readonly JERSEY: Country;
+  static readonly JORDAN: Country;
+  static readonly KAZAKHSTAN: Country;
+  static readonly KENYA: Country;
+  static readonly KIRIBATI: Country;
+  static readonly NORTH_KOREA: Country;
+  static readonly SOUTH_KOREA: Country;
+  static readonly KUWAIT: Country;
+  static readonly KYRGYZSTAN: Country;
+  static readonly LAO: Country;
+  static readonly LATVIA: Country;
+  static readonly LEBANON: Country;
+  static readonly LESOTHO: Country;
+  static readonly LIBERIA: Country;
+  static readonly LIBYA: Country;
+  static readonly LIECHTENSTEIN: Country;
+  static readonly LITHUANIA: Country;
+  static readonly LUXEMBOURG: Country;
+  static readonly MACAO: Country;
+  static readonly MACEDONIA: Country;
+  static readonly MADAGASCAR: Country;
+  static readonly MALAWI: Country;
+  static readonly MALAYSIA: Country;
+  static readonly MALDIVES: Country;
+  static readonly MALI: Country;
+  static readonly MALTA: Country;
+  static readonly MARSHALL_ISLANDS: Country;
+  static readonly MARTINIQUE: Country;
+  static readonly MAURITANIA: Country;
+  static readonly MAURITIUS: Country;
+  static readonly MAYOTTE: Country;
+  static readonly MEXICO: Country;
+  static readonly MICRONESIA: Country;
+  static readonly MOLDOVA: Country;
+  static readonly MONACO: Country;
+  static readonly MONGOLIA: Country;
+  static readonly MONTSERRAT: Country;
+  static readonly MOROCCO: Country;
+  static readonly MOZAMBIQUE: Country;
+  static readonly MYANMAR: Country;
+  static readonly NAMIBIA: Country;
+  static readonly NAURU: Country;
+  static readonly NEPAL: Country;
+  static readonly NETHERLANDS: Country;
+  static readonly NETHERLANDS_ANTILLES: Country;
+  static readonly NEW_CALEDONIA: Country;
+  static readonly NEW_ZEALAND: Country;
+  static readonly NICARAGUA: Country;
+  static readonly NIGER: Country;
+  static readonly NIGERIA: Country;
+  static readonly NIUE: Country;
+  static readonly NORFOLK_ISLAND: Country;
+  static readonly NORTHERN_MARIANA_ISLANDS: Country;
+  static readonly NORWAY: Country;
+  static readonly OMAN: Country;
+  static readonly PAKISTAN: Country;
+  static readonly PALAU: Country;
+  static readonly PALESTINE: Country;
+  static readonly PANAMA: Country;
+  static readonly PAPUA_NEW_GUINEA: Country;
+  static readonly PARAGUAY: Country;
+  static readonly PERU: Country;
+  static readonly PHILIPPINES: Country;
+  static readonly PITCAIRN: Country;
+  static readonly POLAND: Country;
+  static readonly PORTUGAL: Country;
+  static readonly PUERTO_RICO: Country;
+  static readonly QATAR: Country;
+  static readonly REUNION: Country;
+  static readonly ROMANIA: Country;
+  static readonly RUSSIA: Country;
+  static readonly RWANDA: Country;
+  static readonly SAINT_HELENA: Country;
+  static readonly SAINT_KITTS_AND_NEVIS: Country;
+  static readonly SAINT_LUCIA: Country;
+  static readonly SAINT_PIERRE_AND_MIQUELON: Country;
+  static readonly SAINT_VINCENT_AND_THE_GRENADINES: Country;
+  static readonly SAMOA: Country;
+  static readonly SAN_MARINO: Country;
+  static readonly SAO_TOME_AND_PRINCIPE: Country;
+  static readonly SAUDI_ARABIA: Country;
+  static readonly SENEGAL: Country;
+  static readonly SERBIA_AND_MONTENEGRO: Country;
+  static readonly SEYCHELLES: Country;
+  static readonly SIERRA_LEONE: Country;
+  static readonly SINGAPORE: Country;
+  static readonly SLOVAKIA: Country;
+  static readonly SLOVENIA: Country;
+  static readonly SOLOMON_ISLANDS: Country;
+  static readonly SOMALIA: Country;
+  static readonly SOUTH_AFRICA: Country;
+  static readonly SOUTH_GEORGIA_AND_SANDWICH_ISLANDS: Country;
+  static readonly SPAIN: Country;
+  static readonly SRI_LANKA: Country;
+  static readonly SUDAN: Country;
+  static readonly SURINAME: Country;
+  static readonly SVALBARD_AND_JAN_MAYEN: Country;
+  static readonly SWAZILAND: Country;
+  static readonly SWEDEN: Country;
+  static readonly SWITZERLAND: Country;
+  static readonly SYRIA: Country;
+  static readonly TAIWAN: Country;
+  static readonly TAJIKISTAN: Country;
+  static readonly TANZANIA: Country;
+  static readonly THAILAND: Country;
+  static readonly TIMOR_LESTE: Country;
+  static readonly TOGO: Country;
+  static readonly TOKELAU: Country;
+  static readonly TONGA: Country;
+  static readonly TRINIDAD_AND_TOBAGO: Country;
+  static readonly TUNISIA: Country;
+  static readonly TURKEY: Country;
+  static readonly TURKMENISTAN: Country;
+  static readonly TURKS_AND_CAICOS_ISLANDS: Country;
+  static readonly TUVALU: Country;
+  static readonly UGANDA: Country;
+  static readonly UKRAINE: Country;
+  static readonly UNITED_ARAB_EMIRATES: Country;
+  static readonly UNITED_KINGDOM: Country;
+  static readonly UNITED_STATES: Country;
+  static readonly UNITED_STATES_MINOR_OUTLYING_ISLANDS: Country;
+  static readonly URUGUAY: Country;
+  static readonly UZBEKISTAN: Country;
+  static readonly VANUATU: Country;
+  static readonly VENEZUELA: Country;
+  static readonly VIETNAM: Country;
+  static readonly VIRGIN_ISLANDS_BRITISH: Country;
+  static readonly VIRGIN_ISLANDS_US: Country;
+  static readonly WALLIS_AND_FUTUNA: Country;
+  static readonly WESTERN_SAHARA: Country;
+  static readonly YEMEN: Country;
+  static readonly ZAMBIA: Country;
+  static readonly ZIMBABWE: Country;
 
   /**
    * Creates a new Country instance.
@@ -532,55 +529,13 @@ export class Country {
     return `${this.name} (${this.code})`;
   }
 
-  // Private static fields for lookup
-  private static readonly _countriesByCode = new Map<string, Country>();
-  private static readonly _countriesByName = new Map<string, Country>();
-  private static _initialized = false;
-
-  /**
-   * Initializes the static country properties
-   */
-  private static initialize(): void {
-    if (this._initialized) return;
-
-    // Create Country instances for each entry
-    for (const data of CountryService.getInstance().getAll()) {
-      const country = new Country(data.name, data.code);
-
-      // Add to lookup maps
-      this._countriesByCode.set(data.code.toUpperCase(), country);
-      this._countriesByName.set(data.name.toUpperCase(), country);
-
-      const upperCode = data.code.toUpperCase();
-      const lowerCode = data.code.toLowerCase();
-
-      // Set the uppercase static property
-      // deno-lint-ignore no-explicit-any
-      (this as any)[upperCode] = country;
-      // Set the lowercase static property
-      // deno-lint-ignore no-explicit-any
-      (this as any)[lowerCode] = country;
-
-      // set the lowercase static property for countries with lowercase codes that are reserved keywords
-      // deno-lint-ignore no-explicit-any
-      (this as any)["dominican"] = CountryService.getInstance().fromCode("DO");
-      // deno-lint-ignore no-explicit-any
-      (this as any)["iceland"] = CountryService.getInstance().fromCode("IS");
-      // deno-lint-ignore no-explicit-any
-      (this as any)["india"] = CountryService.getInstance().fromCode("IN");
-    }
-
-    this._initialized = true;
-  }
-
   /**
    * Retrieves a country by its ISO code.
    * @param {string} code The ISO code of the country.
    * @returns {Country | undefined} The country corresponding to the ISO code or `undefined` if not found.
    */
   static fromCode(code: string): Country | undefined {
-    this.initialize();
-    return this._countriesByCode.get(code.toUpperCase());
+    return CountryService.getInstance().fromCode(code);
   }
 
   /**
@@ -589,22 +544,7 @@ export class Country {
    * @returns {Country | undefined} The country corresponding to the name or `undefined` if not found.
    */
   static fromName(countryName: string): Country | undefined {
-    this.initialize();
-    // First try direct lookup
-    const country = this._countriesByName.get(countryName.toUpperCase());
-    if (country) return country;
-
-    // If not found, try more lenient matching
-    for (const [name, countryObj] of this._countriesByName.entries()) {
-      if (
-        name.includes(countryName.toUpperCase()) ||
-        countryName.toUpperCase().includes(name)
-      ) {
-        return countryObj;
-      }
-    }
-
-    return undefined;
+    return CountryService.getInstance().fromName(countryName);
   }
 
   /**
@@ -612,8 +552,7 @@ export class Country {
    * @returns {Country[]} Array of all countries
    */
   static getAll(): Country[] {
-    this.initialize();
-    return Array.from(this._countriesByCode.values());
+    return CountryService.getInstance().getAll();
   }
 
   /**
@@ -713,5 +652,11 @@ export class Country {
   }
 }
 
-// Initialize the static properties when the module is loaded
-Country["initialize"]();
+// Initialize static properties by applying the references from CountryService
+(function setupStaticReferences() {
+  const staticRefs = CountryService.getInstance().getStaticReferences();
+  staticRefs.forEach((country, key) => {
+    // deno-lint-ignore no-explicit-any
+    (Country as any)[key] = country;
+  });
+})();

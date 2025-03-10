@@ -5,16 +5,11 @@ The `Currency` class provides a standardized way to work with international curr
 ## Overview
 
 - Represents individual currencies with complete information including symbols, names, and formatting rules
-- Provides static properties for direct access to currencies using ISO codes (uppercase and lowercase)
+- Provides static properties for direct access to currencies using ISO codes (uppercase only)
+- Provides static properties for direct access to currencies using full names (e.g., `UNITED_STATES_DOLLAR`)
 - Includes methods for validating and retrieving currency information
 - Follows a singleton pattern for consistent data access
-
-## Installation
-
-The Currency class works in Deno projects. Make sure you have the following files:
-
-- `currency.ts`: The main Currency class implementation
-- `currencies.json`: JSON data containing all currency information
+- Prevents direct instantiation - only accessible through static methods or properties
 
 ## Basic Usage
 
@@ -26,19 +21,14 @@ const usd = Currency.USD;
 console.log(usd.toString()); // "US Dollar (USD)"
 console.log(usd.symbol); // "$"
 
-// Access currencies directly by ISO code (lowercase)
-const eur = Currency.eur;
-console.log(eur.symbolNative); // "€"
-console.log(eur.name); // "Euro"
-
-// Special case for 'try' (Turkish Lira) which is a reserved keyword
-const turkishLira = Currency.try_; // Use try_ instead of try
-console.log(turkishLira.code); // "TRY"
+// Access currencies by full names (uppercase)
+const dollar = Currency.UNITED_STATES_DOLLAR;
+console.log(dollar.code); // "USD"
 ```
 
 ## Static Currency Properties
 
-All major world currencies are available as static properties on the `Currency` class, accessible by their ISO codes:
+All major world currencies are available as static properties on the `Currency` class:
 
 ### Uppercase ISO Codes
 
@@ -52,15 +42,15 @@ Currency.TZS     // Tanzanian Shilling
 // ... and all other currencies
 ```
 
-### Lowercase ISO Codes
+### Uppercase Full Names
 
 ```typescript
-Currency.usd     // US Dollar
-Currency.eur     // Euro
-Currency.gbp     // British Pound
-Currency.jpy     // Japanese Yen
-Currency.cny     // Chinese Yuan
-Currency.tzs     // Tanzanian Shilling
+Currency.UNITED_STATES_DOLLAR    // USD
+Currency.EURO                    // EUR
+Currency.BRITISH_POUND_STERLING  // GBP
+Currency.JAPANESE_YEN            // JPY
+Currency.CHINESE_YUAN            // CNY
+Currency.TANZANIAN_SHILLING      // TZS
 // ... and all other currencies
 ```
 
@@ -208,7 +198,7 @@ Here are some of the most commonly used currencies available:
 
 ## Best Practices
 
-1. Always use the static properties for accessing known currencies: `Currency.USD` instead of creating new instances.
+1. Always use the static properties for accessing known currencies: `Currency.USD` or `Currency.UNITED_STATES_DOLLAR` instead of creating new instances.
 
 2. Use the `fromCode()` or `fromName()` methods when working with user-provided currency information to validate and normalize input.
 
@@ -217,6 +207,8 @@ Here are some of the most commonly used currencies available:
 4. For validating user input, use `isValidCode()` or `isValidName()` before attempting to use the value.
 
 5. Consider the `decimalDigits` property when formatting currency amounts to ensure proper rounding and display.
+
+6. Do not attempt to create Currency instances directly with the constructor - always use static methods and properties.
 
 ## Examples
 

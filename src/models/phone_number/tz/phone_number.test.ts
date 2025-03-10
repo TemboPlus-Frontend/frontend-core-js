@@ -1,5 +1,5 @@
 import { assertEquals, assertExists } from "jsr:@std/assert";
-import { MobileNumberFormat, TZPhoneNumber } from "@models/phone_number/tz/phone_number.ts";
+import { TZPhoneNumber } from "@models/phone_number/tz/phone_number.ts";
 import { NETWORK_OPERATOR_CONFIG } from "@models/phone_number/tz/network_operator.ts";
 
 /**
@@ -11,14 +11,6 @@ import { NETWORK_OPERATOR_CONFIG } from "@models/phone_number/tz/network_operato
  * - Telecom provider identification
  * - Edge cases and invalid inputs
  */
-
-Deno.test("PhoneNumber - Construction Tests", async (t) => {
-  await t.step("should create instance with valid compact number", () => {
-    const phone = new TZPhoneNumber("712345678");
-    assertEquals(phone.compactNumber, "712345678");
-  });
-});
-
 Deno.test("PhoneNumber.from() - Format Tests", async (t) => {
   await t.step("should parse international format (+255)", () => {
     const phone = TZPhoneNumber.from("+255712345678");
@@ -95,35 +87,6 @@ Deno.test("PhoneNumber", async (t) => {
       assertEquals(TZPhoneNumber.canConstruct("0622345678"), true);
       assertEquals(TZPhoneNumber.canConstruct("0612345678"), true);
     });
-  });
-});
-
-Deno.test("PhoneNumber - Formatting Tests", async (t) => {
-  const phone = new TZPhoneNumber("712345678");
-
-  await t.step("should format with +255", () => {
-    assertEquals(
-      phone.getNumberWithFormat(MobileNumberFormat.sp255),
-      "+255712345678",
-    );
-  });
-
-  await t.step("should format with 255", () => {
-    assertEquals(
-      phone.getNumberWithFormat(MobileNumberFormat.s255),
-      "255712345678",
-    );
-  });
-
-  await t.step("should format with 0", () => {
-    assertEquals(
-      phone.getNumberWithFormat(MobileNumberFormat.s0),
-      "0712345678",
-    );
-  });
-
-  await t.step("should get correct label", () => {
-    assertEquals(phone.label, "255712345678");
   });
 });
 

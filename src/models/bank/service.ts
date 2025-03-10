@@ -16,6 +16,11 @@ export class BankService {
   private static instance: BankService;
   private bankList: Bank[] = [];
   private bankRecord: Record<string, Bank> = {};
+  private banksByName: Record<string, Bank> = {};
+  private banksByShortName: Record<string, Bank> = {};
+  
+  // Static references for direct access through Bank class
+  private staticReferences: Map<string, Bank> = new Map();
 
   private constructor() {}
 
@@ -49,12 +54,30 @@ export class BankService {
         (b) => new Bank(b.fullName, b.shortName, b.swiftCode),
       );
 
-      const records: Record<string, Bank> = {};
+      const swiftCodeRecord: Record<string, Bank> = {};
+      const nameRecord: Record<string, Bank> = {};
+      const shortNameRecord: Record<string, Bank> = {};
+      
       banks.forEach((bank) => {
-        records[bank.swiftCode] = bank;
+        // Populate records
+        swiftCodeRecord[bank.swiftCode.toUpperCase()] = bank;
+        nameRecord[bank.fullName.toUpperCase()] = bank;
+        shortNameRecord[bank.shortName.toUpperCase()] = bank;
+        
+        // Add to static references with uppercase short name
+        const shortName = bank.shortName.toUpperCase();
+        this.staticReferences.set(shortName, bank);
+        
+        // Handle bank names with spaces (like "GT BANK")
+        if (shortName.includes(" ")) {
+          const noSpaceName = shortName.replace(/\s+/g, "_");
+          this.staticReferences.set(noSpaceName, bank);
+        }
       });
 
-      this.bankRecord = records;
+      this.bankRecord = swiftCodeRecord;
+      this.banksByName = nameRecord;
+      this.banksByShortName = shortNameRecord;
       this.bankList = banks;
     } catch (error) {
       console.error("Failed to initialize BankService:", error);
@@ -78,6 +101,14 @@ export class BankService {
   }
 
   /**
+   * Gets static bank references to be used by the Bank class.
+   * @returns {Map<string, Bank>} Map of static references
+   */
+  getStaticReferences(): Map<string, Bank> {
+    return this.staticReferences;
+  }
+
+  /**
    * Retrieves a bank by its SWIFT code.
    * @param {string} swiftCode The SWIFT code of the bank.
    * @returns {Bank | undefined} The bank corresponding to the SWIFT code or `undefined` if not found.
@@ -92,6 +123,35 @@ export class BankService {
    * @returns {Bank | undefined} The bank corresponding to the name or `undefined` if not found.
    */
   fromBankName(bankName: string): Bank | undefined {
+    // First try shortname exact match
+    const bankByShortName = this.banksByShortName[bankName.toUpperCase()];
+    if (bankByShortName) return bankByShortName;
+
+    // Next try fullname exact match
+    const bankByName = this.banksByName[bankName.toUpperCase()];
+    if (bankByName) return bankByName;
+
+    // If not found, try more lenient matching on full name
+    for (const [name, bankObj] of Object.entries(this.banksByName)) {
+      if (
+        name.includes(bankName.toUpperCase()) ||
+        bankName.toUpperCase().includes(name)
+      ) {
+        return bankObj;
+      }
+    }
+
+    // Try lenient matching on short name
+    for (const [shortName, bankObj] of Object.entries(this.banksByShortName)) {
+      if (
+        shortName.includes(bankName.toUpperCase()) ||
+        bankName.toUpperCase().includes(shortName)
+      ) {
+        return bankObj;
+      }
+    }
+
+    // Legacy fallback - case insensitive exact match
     return this.bankList.find(
       (bank) =>
         bank.fullName.toLowerCase() === bankName.toLowerCase() ||

@@ -5,7 +5,7 @@ import { CurrencyService } from "@models/currency/service.ts";
  * @class Currency
  */
 export class Currency {
-  // Explicitly declare static properties for each currency by code
+  // Explicitly declare static properties for each currency by code (uppercase)
   static readonly USD: Currency;
   static readonly CAD: Currency;
   static readonly EUR: Currency;
@@ -126,126 +126,126 @@ export class Currency {
   static readonly ZMK: Currency;
   static readonly ZWL: Currency;
 
-  // Also declare lowercase versions
-  static readonly usd: Currency;
-  static readonly cad: Currency;
-  static readonly eur: Currency;
-  static readonly aed: Currency;
-  static readonly afn: Currency;
-  static readonly all: Currency;
-  static readonly amd: Currency;
-  static readonly ars: Currency;
-  static readonly aud: Currency;
-  static readonly azn: Currency;
-  static readonly bam: Currency;
-  static readonly bdt: Currency;
-  static readonly bgn: Currency;
-  static readonly bhd: Currency;
-  static readonly bif: Currency;
-  static readonly bnd: Currency;
-  static readonly bob: Currency;
-  static readonly brl: Currency;
-  static readonly bwp: Currency;
-  static readonly byn: Currency;
-  static readonly bzd: Currency;
-  static readonly cdf: Currency;
-  static readonly chf: Currency;
-  static readonly clp: Currency;
-  static readonly cny: Currency;
-  static readonly cop: Currency;
-  static readonly crc: Currency;
-  static readonly cve: Currency;
-  static readonly czk: Currency;
-  static readonly djf: Currency;
-  static readonly dkk: Currency;
-  static readonly dop: Currency;
-  static readonly dzd: Currency;
-  static readonly eek: Currency;
-  static readonly egp: Currency;
-  static readonly ern: Currency;
-  static readonly etb: Currency;
-  static readonly gbp: Currency;
-  static readonly gel: Currency;
-  static readonly ghs: Currency;
-  static readonly gnf: Currency;
-  static readonly gtq: Currency;
-  static readonly hkd: Currency;
-  static readonly hnl: Currency;
-  static readonly hrk: Currency;
-  static readonly huf: Currency;
-  static readonly idr: Currency;
-  static readonly ils: Currency;
-  static readonly inr: Currency;
-  static readonly iqd: Currency;
-  static readonly irr: Currency;
-  static readonly isk: Currency;
-  static readonly jmd: Currency;
-  static readonly jod: Currency;
-  static readonly jpy: Currency;
-  static readonly kes: Currency;
-  static readonly khr: Currency;
-  static readonly kmf: Currency;
-  static readonly krw: Currency;
-  static readonly kwd: Currency;
-  static readonly kzt: Currency;
-  static readonly lbp: Currency;
-  static readonly lkr: Currency;
-  static readonly ltl: Currency;
-  static readonly lvl: Currency;
-  static readonly lyd: Currency;
-  static readonly mad: Currency;
-  static readonly mdl: Currency;
-  static readonly mga: Currency;
-  static readonly mkd: Currency;
-  static readonly mmk: Currency;
-  static readonly mop: Currency;
-  static readonly mur: Currency;
-  static readonly mxn: Currency;
-  static readonly myr: Currency;
-  static readonly mzn: Currency;
-  static readonly nad: Currency;
-  static readonly ngn: Currency;
-  static readonly nio: Currency;
-  static readonly nok: Currency;
-  static readonly npr: Currency;
-  static readonly nzd: Currency;
-  static readonly omr: Currency;
-  static readonly pab: Currency;
-  static readonly pen: Currency;
-  static readonly php: Currency;
-  static readonly pkr: Currency;
-  static readonly pln: Currency;
-  static readonly pyg: Currency;
-  static readonly qar: Currency;
-  static readonly ron: Currency;
-  static readonly rsd: Currency;
-  static readonly rub: Currency;
-  static readonly rwf: Currency;
-  static readonly sar: Currency;
-  static readonly sdg: Currency;
-  static readonly sek: Currency;
-  static readonly sgd: Currency;
-  static readonly sos: Currency;
-  static readonly syp: Currency;
-  static readonly thb: Currency;
-  static readonly tnd: Currency;
-  static readonly top: Currency;
-  static readonly try_: Currency; // 'try' is a reserved keyword
-  static readonly ttd: Currency;
-  static readonly twd: Currency;
-  static readonly tzs: Currency;
-  static readonly uah: Currency;
-  static readonly ugx: Currency;
-  static readonly uyu: Currency;
-  static readonly uzs: Currency;
-  static readonly vef: Currency;
-  static readonly vnd: Currency;
-  static readonly xaf: Currency;
-  static readonly xof: Currency;
-  static readonly yer: Currency;
-  static readonly zar: Currency;
-  static readonly zmk: Currency;
-  static readonly zwl: Currency;
+  // Explicitly declare static properties for each currency by full name
+  static readonly UNITED_STATES_DOLLAR: Currency;
+  static readonly CANADIAN_DOLLAR: Currency;
+  static readonly EURO: Currency;
+  static readonly UAE_DIRHAM: Currency;
+  static readonly AFGHAN_AFGHANI: Currency;
+  static readonly ALBANIAN_LEK: Currency;
+  static readonly ARMENIAN_DRAM: Currency;
+  static readonly ARGENTINE_PESO: Currency;
+  static readonly AUSTRALIAN_DOLLAR: Currency;
+  static readonly AZERBAIJANI_MANAT: Currency;
+  static readonly BOSNIA_HERZEGOVINA_CONVERTIBLE_MARK: Currency;
+  static readonly BANGLADESHI_TAKA: Currency;
+  static readonly BULGARIAN_LEV: Currency;
+  static readonly BAHRAINI_DINAR: Currency;
+  static readonly BURUNDIAN_FRANC: Currency;
+  static readonly BRUNEI_DOLLAR: Currency;
+  static readonly BOLIVIAN_BOLIVIANO: Currency;
+  static readonly BRAZILIAN_REAL: Currency;
+  static readonly BOTSWANAN_PULA: Currency;
+  static readonly BELARUSIAN_RUBLE: Currency;
+  static readonly BELIZE_DOLLAR: Currency;
+  static readonly CONGOLESE_FRANC: Currency;
+  static readonly SWISS_FRANC: Currency;
+  static readonly CHILEAN_PESO: Currency;
+  static readonly CHINESE_YUAN: Currency;
+  static readonly COLOMBIAN_PESO: Currency;
+  static readonly COSTA_RICAN_COLON: Currency;
+  static readonly CAPE_VERDEAN_ESCUDO: Currency;
+  static readonly CZECH_REPUBLIC_KORUNA: Currency;
+  static readonly DJIBOUTIAN_FRANC: Currency;
+  static readonly DANISH_KRONE: Currency;
+  static readonly DOMINICAN_PESO: Currency;
+  static readonly ALGERIAN_DINAR: Currency;
+  static readonly ESTONIAN_KROON: Currency;
+  static readonly EGYPTIAN_POUND: Currency;
+  static readonly ERITREAN_NAKFA: Currency;
+  static readonly ETHIOPIAN_BIRR: Currency;
+  static readonly BRITISH_POUND_STERLING: Currency;
+  static readonly GEORGIAN_LARI: Currency;
+  static readonly GHANAIAN_CEDI: Currency;
+  static readonly GUINEAN_FRANC: Currency;
+  static readonly GUATEMALAN_QUETZAL: Currency;
+  static readonly HONG_KONG_DOLLAR: Currency;
+  static readonly HONDURAN_LEMPIRA: Currency;
+  static readonly CROATIAN_KUNA: Currency;
+  static readonly HUNGARIAN_FORINT: Currency;
+  static readonly INDONESIAN_RUPIAH: Currency;
+  static readonly ISRAELI_NEW_SHEQEL: Currency;
+  static readonly INDIAN_RUPEE: Currency;
+  static readonly IRAQI_DINAR: Currency;
+  static readonly IRANIAN_RIAL: Currency;
+  static readonly ICELANDIC_KRONA: Currency;
+  static readonly JAMAICAN_DOLLAR: Currency;
+  static readonly JORDANIAN_DINAR: Currency;
+  static readonly JAPANESE_YEN: Currency;
+  static readonly KENYAN_SHILLING: Currency;
+  static readonly CAMBODIAN_RIEL: Currency;
+  static readonly COMORIAN_FRANC: Currency;
+  static readonly SOUTH_KOREAN_WON: Currency;
+  static readonly KUWAITI_DINAR: Currency;
+  static readonly KAZAKHSTANI_TENGE: Currency;
+  static readonly LEBANESE_POUND: Currency;
+  static readonly SRI_LANKAN_RUPEE: Currency;
+  static readonly LITHUANIAN_LITAS: Currency;
+  static readonly LATVIAN_LATS: Currency;
+  static readonly LIBYAN_DINAR: Currency;
+  static readonly MOROCCAN_DIRHAM: Currency;
+  static readonly MOLDOVAN_LEU: Currency;
+  static readonly MALAGASY_ARIARY: Currency;
+  static readonly MACEDONIAN_DENAR: Currency;
+  static readonly MYANMA_KYAT: Currency;
+  static readonly MACANESE_PATACA: Currency;
+  static readonly MAURITIAN_RUPEE: Currency;
+  static readonly MEXICAN_PESO: Currency;
+  static readonly MALAYSIAN_RINGGIT: Currency;
+  static readonly MOZAMBICAN_METICAL: Currency;
+  static readonly NAMIBIAN_DOLLAR: Currency;
+  static readonly NIGERIAN_NAIRA: Currency;
+  static readonly NICARAGUAN_CORDOBA: Currency;
+  static readonly NORWEGIAN_KRONE: Currency;
+  static readonly NEPALESE_RUPEE: Currency;
+  static readonly NEW_ZEALAND_DOLLAR: Currency;
+  static readonly OMANI_RIAL: Currency;
+  static readonly PANAMANIAN_BALBOA: Currency;
+  static readonly PERUVIAN_NUEVO_SOL: Currency;
+  static readonly PHILIPPINE_PESO: Currency;
+  static readonly PAKISTANI_RUPEE: Currency;
+  static readonly POLISH_ZLOTY: Currency;
+  static readonly PARAGUAYAN_GUARANI: Currency;
+  static readonly QATARI_RIAL: Currency;
+  static readonly ROMANIAN_LEU: Currency;
+  static readonly SERBIAN_DINAR: Currency;
+  static readonly RUSSIAN_RUBLE: Currency;
+  static readonly RWANDAN_FRANC: Currency;
+  static readonly SAUDI_RIYAL: Currency;
+  static readonly SUDANESE_POUND: Currency;
+  static readonly SWEDISH_KRONA: Currency;
+  static readonly SINGAPORE_DOLLAR: Currency;
+  static readonly SOMALI_SHILLING: Currency;
+  static readonly SYRIAN_POUND: Currency;
+  static readonly THAI_BAHT: Currency;
+  static readonly TUNISIAN_DINAR: Currency;
+  static readonly TONGAN_PAANGA: Currency;
+  static readonly TURKISH_LIRA: Currency;
+  static readonly TRINIDAD_AND_TOBAGO_DOLLAR: Currency;
+  static readonly NEW_TAIWAN_DOLLAR: Currency;
+  static readonly TANZANIAN_SHILLING: Currency;
+  static readonly UKRAINIAN_HRYVNIA: Currency;
+  static readonly UGANDAN_SHILLING: Currency;
+  static readonly URUGUAYAN_PESO: Currency;
+  static readonly UZBEKISTAN_SOM: Currency;
+  static readonly VENEZUELAN_BOLIVAR_FUERTE: Currency;
+  static readonly VIETNAMESE_DONG: Currency;
+  static readonly CFA_FRANC_BEAC: Currency;
+  static readonly CFA_FRANC_BCEAO: Currency;
+  static readonly YEMENI_RIAL: Currency;
+  static readonly SOUTH_AFRICAN_RAND: Currency;
+  static readonly ZAMBIAN_KWACHA: Currency;
+  static readonly ZIMBABWEAN_DOLLAR: Currency;
 
   /**
    * Creates a new Currency instance.
@@ -331,67 +331,13 @@ export class Currency {
     return `${this.name} (${this.code})`;
   }
 
-  // Private static fields for lookup
-  private static readonly _currenciesByCode = new Map<string, Currency>();
-  private static readonly _currenciesByName = new Map<string, Currency>();
-  private static _initialized = false;
-
-  /**
-   * Initializes the static currency properties
-   */
-  private static initialize(): void {
-    if (this._initialized) return;
-
-    // List of JavaScript reserved keywords that can't be used as property names
-    const reservedKeywords = [
-      "in",
-      "do",
-      "if",
-      "for",
-      "let",
-      "var",
-      "new",
-      "try",
-      "this",
-    ];
-
-    // Create Currency instances for each entry in the JSON data
-    for (const currency of CurrencyService.getInstance().getAll()) {
-      const code = currency.code;
-
-      // Add to lookup maps
-      this._currenciesByCode.set(code.toUpperCase(), currency);
-      this._currenciesByName.set(currency.name.toUpperCase(), currency);
-
-      const upperCode = code.toUpperCase();
-      const lowerCode = code.toLowerCase();
-
-      // Set the uppercase code property
-      // deno-lint-ignore no-explicit-any
-      (this as any)[upperCode] = currency;
-
-      // Set the lowercase code property if it's not a reserved keyword
-      if (!reservedKeywords.includes(lowerCode)) {
-        // deno-lint-ignore no-explicit-any
-        (this as any)[lowerCode] = currency;
-      } else if (lowerCode === "try") {
-        // Special case for TRY (Turkish Lira) which is a reserved keyword
-        // deno-lint-ignore no-explicit-any
-        (this as any)["try_"] = currency;
-      }
-    }
-
-    this._initialized = true;
-  }
-
   /**
    * Retrieves a currency by its ISO code.
    * @param {string} code The ISO code of the currency.
    * @returns {Currency | undefined} The currency corresponding to the ISO code or `undefined` if not found.
    */
   static fromCode(code: string): Currency | undefined {
-    this.initialize();
-    return this._currenciesByCode.get(code.toUpperCase());
+    return CurrencyService.getInstance().fromCode(code);
   }
 
   /**
@@ -400,23 +346,7 @@ export class Currency {
    * @returns {Currency | undefined} The currency corresponding to the name or `undefined` if not found.
    */
   static fromName(currencyName: string): Currency | undefined {
-    this.initialize();
-
-    // Try exact match first
-    const currency = this._currenciesByName.get(currencyName.toUpperCase());
-    if (currency) return currency;
-
-    // If not found, try more lenient matching
-    for (const [name, currObj] of this._currenciesByName.entries()) {
-      if (
-        name.includes(currencyName.toUpperCase()) ||
-        currencyName.toUpperCase().includes(name)
-      ) {
-        return currObj;
-      }
-    }
-
-    return undefined;
+    return CurrencyService.getInstance().fromName(currencyName);
   }
 
   /**
@@ -424,8 +354,7 @@ export class Currency {
    * @returns {Currency[]} Array of all currencies
    */
   static getAll(): Currency[] {
-    this.initialize();
-    return Array.from(this._currenciesByCode.values());
+    return CurrencyService.getInstance().getAll();
   }
 
   /**
@@ -496,5 +425,18 @@ export class Currency {
   }
 }
 
-// Initialize the static properties when the module is loaded
-Currency["initialize"]();
+// Initialize static properties by applying the references from CurrencyService.
+// zero-timeout to defer the initialization until after both modules have been fully loaded.
+// The setTimeout pushes the initialization code to the end of the JavaScript event loop, 
+// which happens after all modules are loaded.
+setTimeout(() => {
+  try {
+    const staticRefs = CurrencyService.getInstance().getStaticReferences();
+    staticRefs.forEach((currency, key) => {
+      // deno-lint-ignore no-explicit-any
+      (Currency as any)[key] = currency;
+    });
+  } catch (error) {
+    console.error("Failed to initialize Currency static properties:", error);
+  }
+}, 0);

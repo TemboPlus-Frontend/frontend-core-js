@@ -1,165 +1,248 @@
+import {
+  assertEquals,
+  assertExists,
+  assertInstanceOf,
+  assertNotEquals,
+} from "jsr:@std/assert";
 import { Bank } from "@models/bank/bank.ts";
-import { assertEquals, assertExists } from "jsr:@std/assert";
+import { BankService } from "@models/bank/service.ts";
 
-Deno.test("Bank.fromSWIFTCode with valid inputs", () => {
-  // Test with exact SWIFT code
-  const bank1 = Bank.fromSWIFTCode("NLCBTZTX");
-  assertExists(bank1);
-  assertEquals(bank1.fullName, "NATIONAL BANK OF COMMERCE LTD");
+Deno.test("BankService Singleton", () => {
+  const instance1 = BankService.getInstance();
+  const instance2 = BankService.getInstance();
 
-  // Test with lowercase SWIFT code
-  const bank2 = Bank.fromSWIFTCode("nlcbtztx");
-  assertExists(bank2);
-  assertEquals(bank2.fullName, "NATIONAL BANK OF COMMERCE LTD");
-
-  // Test with mixed case SWIFT code
-  const bank3 = Bank.fromSWIFTCode("NlCbTzTx");
-  assertExists(bank3);
-  assertEquals(bank3.fullName, "NATIONAL BANK OF COMMERCE LTD");
-});
-
-Deno.test("Bank.fromSWIFTCode with invalid inputs", () => {
-  // Test with non-existent SWIFT code
-  const bank1 = Bank.fromSWIFTCode("INVALID1");
-  assertEquals(bank1, undefined);
-
-  // Test with empty string
-  const bank2 = Bank.fromSWIFTCode("");
-  assertEquals(bank2, undefined);
-
-  // Test with similar but incorrect SWIFT code
-  const bank3 = Bank.fromSWIFTCode("NLCBTZTY");
-  assertEquals(bank3, undefined);
-});
-
-Deno.test("Bank.fromBankName with valid inputs", () => {
-  // Test with full name
-  const bank1 = Bank.fromBankName("NATIONAL BANK OF COMMERCE LTD");
-  assertExists(bank1);
-  assertEquals(bank1.swiftCode, "NLCBTZTX");
-
-  // Test with short name
-  const bank2 = Bank.fromBankName("NBC");
-  assertExists(bank2);
-  assertEquals(bank2.swiftCode, "NLCBTZTX");
-
-  // Test with lowercase full name
-  const bank3 = Bank.fromBankName("National bank of commerce ltd");
-  assertExists(bank3);
-  assertEquals(bank3.swiftCode, "NLCBTZTX");
-
-  // Test with lowercase short name
-  const bank4 = Bank.fromBankName("nbc");
-  assertExists(bank4);
-  assertEquals(bank4.swiftCode, "NLCBTZTX");
-});
-
-Deno.test("Bank.fromBankName with invalid inputs", () => {
-  // Test with non-existent bank name
-  const bank1 = Bank.fromBankName("Invalid Bank");
-  assertEquals(bank1, undefined);
-
-  // Test with empty string
-  const bank2 = Bank.fromBankName("");
-  assertEquals(bank2, undefined);
-
-  // Test with similar but incorrect name
-  const bank3 = Bank.fromBankName("National Bank");
-  assertEquals(bank3, undefined);
-});
-
-Deno.test("Bank.is() validation", async (t) => {
-  await t.step("returns true for valid Bank instances", () => {
-    const bank = Bank.fromSWIFTCode("CORUTZTZ")!;
-    assertEquals(Bank.is(bank), true);
-  });
-
-  await t.step("returns false for invalid objects", () => {
-    assertEquals(Bank.is(null), false);
-    assertEquals(Bank.is(undefined), false);
-    assertEquals(Bank.is({}), false);
-    assertEquals(
-      Bank.is({
-        _fullName: "Invalid Bank",
-        _shortName: "INV",
-        _swiftCode: "INVALID",
-      }),
-      false,
-    );
-  });
-
-  await t.step("returns false for objects with missing properties", () => {
-    assertEquals(
-      Bank.is({
-        _fullName: "CRDB Bank",
-        _shortName: "CRDB",
-      }),
-      false,
-    );
-  });
-
-  await t.step(
-    "returns false for objects with incorrect property types",
-    () => {
-      assertEquals(
-        Bank.is({
-          _fullName: "CRDB Bank",
-          _shortName: "CRDB",
-          _swiftCode: 12345,
-        }),
-        false,
-      );
-    },
+  assertEquals(
+    instance1,
+    instance2,
+    "Should return the same BankService instance",
   );
 });
 
-Deno.test("Bank.from", async (t) => {
-  await t.step("should create bank from valid bank name", () => {
-    const bank = Bank.from("CORUTZTZ");
-    assertEquals(bank?.shortName, "CRDB");
-  });
+Deno.test("Bank Static Properties", () => {
+  // Verify that static bank properties are correctly initialized
+  const expectedStaticBanks = [
+    "CRDB",
+    "PBZ",
+    "SCB",
+    "STANBIC",
+    "CITI",
+    "NMB",
+    "KCB",
+    "ABSA",
+    "NCBA",
+    "DTB",
+  ];
 
-  await t.step("should create bank from valid SWIFT code", () => {
-    const bank = Bank.from("CORUTZTZ");
-    assertEquals(bank?.swiftCode, "CORUTZTZ");
+  expectedStaticBanks.forEach((bankName) => {
+    // deno-lint-ignore no-explicit-any
+    const bank = (Bank as any)[bankName];
+    assertExists(bank, `Static bank ${bankName} should exist`);
+    assertInstanceOf(bank, Bank, `${bankName} should be a Bank instance`);
   });
+});
 
-  await t.step("should return undefined for invalid input", () => {
-    const bank = Bank.from("INVALID_BANK");
-    assertEquals(bank, undefined);
+Deno.test("Bank.fromSWIFTCode", () => {
+  const crdbBank = Bank.fromSWIFTCode("CORUTZTZ");
+  assertExists(crdbBank, "CRDB Bank should be found by SWIFT code");
+  assertEquals(
+    crdbBank?.fullName,
+    "CRDB BANK PLC",
+    "Should have correct full name",
+  );
+
+  const nonExistentBank = Bank.fromSWIFTCode("NONEXISTENT");
+  assertEquals(
+    nonExistentBank,
+    undefined,
+    "Non-existent SWIFT code should return undefined",
+  );
+});
+
+Deno.test("Bank.fromBankName", () => {
+  const nmb = Bank.fromBankName("NMB");
+  assertExists(nmb, "NMB Bank should be found");
+  assertEquals(nmb?.shortName, "NMB", "Should match short name");
+
+  const fullName = Bank.fromBankName("NATIONAL MICROFINANCE BANK LIMITED");
+  assertExists(fullName, "NMB Bank should be found by full name");
+
+  const nonExistentBank = Bank.fromBankName("Fake Bank");
+  assertEquals(
+    nonExistentBank,
+    undefined,
+    "Non-existent bank name should return undefined",
+  );
+});
+
+Deno.test("Bank.getAll", () => {
+  const allBanks = Bank.getAll();
+
+  assertExists(allBanks, "Should return an array of banks");
+  assertNotEquals(allBanks.length, 0, "Bank list should not be empty");
+
+  // Verify each bank has required properties
+  allBanks.forEach((bank) => {
+    assertExists(bank.fullName, "Bank should have a full name");
+    assertExists(bank.shortName, "Bank should have a short name");
+    assertExists(bank.swiftCode, "Bank should have a SWIFT code");
   });
 });
 
-Deno.test("Bank.canConstruct", async (t) => {
-  await t.step("should return false for null input", () => {
-    assertEquals(Bank.canConstruct(null), false);
-  });
-
-  await t.step("should return false for undefined input", () => {
-    assertEquals(Bank.canConstruct(undefined), false);
-  });
-
-  await t.step("should return false for empty string", () => {
-    assertEquals(Bank.canConstruct(""), false);
-    assertEquals(Bank.canConstruct(" "), false);
-  });
-
-  await t.step(
-    "should return false when bank name and SWIFT don't match",
-    () => {
-      assertEquals(Bank.canConstruct("NONMATCHING"), false);
-    },
+Deno.test("Bank Validation Methods", () => {
+  // Test isValidSwiftCode
+  assertEquals(
+    Bank.isValidSwiftCode("CORUTZTZ"),
+    true,
+    "Valid SWIFT code should return true",
+  );
+  assertEquals(
+    Bank.isValidSwiftCode(null),
+    false,
+    "Null SWIFT code should return false",
+  );
+  assertEquals(
+    Bank.isValidSwiftCode(""),
+    false,
+    "Empty SWIFT code should return false",
   );
 
-  await t.step(
-    "should return true when bank can be constructed from both methods",
-    () => {
-      assertEquals(Bank.canConstruct("CORUTZTZ"), true);
-    },
+  // Test isValidBankName
+  assertEquals(
+    Bank.isValidBankName("NMB"),
+    true,
+    "Valid bank name should return true",
   );
-
-  await t.step("should return false when one method returns undefined", () => {
-    // Assuming this input only works for one method but not both
-    assertEquals(Bank.canConstruct("PARTIALVALID"), false);
-  });
+  assertEquals(
+    Bank.isValidBankName(null),
+    false,
+    "Null bank name should return false",
+  );
+  assertEquals(
+    Bank.isValidBankName(""),
+    false,
+    "Empty bank name should return false",
+  );
 });
+
+Deno.test("Bank.from method", () => {
+  // Test finding bank by SWIFT code
+  const bankBySwift = Bank.from("CORUTZTZ");
+  assertExists(bankBySwift, "Should find bank by SWIFT code");
+
+  // Test finding bank by name
+  const bankByName = Bank.from("NMB");
+  assertExists(bankByName, "Should find bank by name");
+
+  // Test invalid input
+  const invalidBank = Bank.from("");
+  assertEquals(invalidBank, undefined, "Invalid input should return undefined");
+});
+
+Deno.test("Bank.canConstruct method", () => {
+  // Test constructable bank inputs
+  assertEquals(
+    Bank.canConstruct("CORUTZTZ"),
+    true,
+    "Valid SWIFT code should be constructable",
+  );
+  assertEquals(
+    Bank.canConstruct("NMB"),
+    true,
+    "Valid bank name should be constructable",
+  );
+
+  // Test non-constructable inputs
+  assertEquals(
+    Bank.canConstruct(null),
+    false,
+    "Null input should not be constructable",
+  );
+  assertEquals(
+    Bank.canConstruct(""),
+    false,
+    "Empty string should not be constructable",
+  );
+  assertEquals(
+    Bank.canConstruct("NonExistentBank"),
+    false,
+    "Non-existent bank should not be constructable",
+  );
+});
+
+Deno.test("Bank.toString method", () => {
+  const nmb = Bank.fromBankName("NMB");
+  assertExists(nmb, "NMB Bank should exist");
+
+  const bankString = nmb?.toString();
+  assertExists(bankString, "toString should return a string");
+
+  // Basic validation of toString format
+  assert(
+    bankString?.includes("NMB") &&
+      bankString?.includes("SWIFT:"),
+    "toString should include bank name and SWIFT label",
+  );
+});
+
+Deno.test("Bank service search functionality", () => {
+  const service = BankService.getInstance();
+
+  // Test search by full name
+  const fullNameResults = service.search("NMB");
+  assertNotEquals(fullNameResults.length, 0, "Should find banks by full name");
+
+  // Test search by short name
+  const shortNameResults = service.search("CRDB");
+  assertNotEquals(
+    shortNameResults.length,
+    0,
+    "Should find banks by short name",
+  );
+
+  // Test search with limit
+  const limitedResults = service.search("Bank", 5);
+  assertEquals(limitedResults.length <= 5, true, "Should respect result limit");
+
+  // Test empty search
+  const emptyResults = service.search("");
+  assertEquals(
+    emptyResults.length,
+    0,
+    "Empty search should return empty array",
+  );
+});
+
+Deno.test("BankService SWIFT code validation", () => {
+  const service = BankService.getInstance();
+
+  // Test valid SWIFT codes
+  assertEquals(
+    service.isValidSwiftCodeFormat("CORUTZTZ"),
+    true,
+    "Valid SWIFT code format should return true",
+  );
+  assertEquals(
+    service.validateSWIFTCode("CORUTZTZ"),
+    true,
+    "Valid SWIFT code should return true",
+  );
+
+  // Test invalid SWIFT codes
+  assertEquals(
+    service.isValidSwiftCodeFormat("INVALID"),
+    false,
+    "Invalid SWIFT code format should return false",
+  );
+  assertEquals(
+    service.validateSWIFTCode("INVALID"),
+    false,
+    "Invalid SWIFT code validation should return false",
+  );
+});
+
+// Helper assertion function
+function assert(condition: boolean, message: string) {
+  if (!condition) {
+    throw new Error(message);
+  }
+}

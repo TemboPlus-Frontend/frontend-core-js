@@ -6,7 +6,7 @@ The `Currency` class provides a standardized way to work with international curr
 
 - Represents individual currencies with complete information including symbols, names, and formatting rules
 - Provides static properties for direct access to currencies using ISO codes (uppercase only)
-- Provides static properties for direct access to currencies using full names (e.g., `UNITED_STATES_DOLLAR`)
+- Provides static properties for direct access to currencies using plural names (e.g., `US_DOLLARS`)
 - Includes methods for validating and retrieving currency information
 - Follows a singleton pattern for consistent data access
 - Prevents direct instantiation - only accessible through static methods or properties
@@ -21,8 +21,8 @@ const usd = Currency.USD;
 console.log(usd.toString()); // "US Dollar (USD)"
 console.log(usd.symbol); // "$"
 
-// Access currencies by full names (uppercase)
-const dollar = Currency.UNITED_STATES_DOLLAR;
+// Access currencies by plural names (uppercase)
+const dollar = Currency.US_DOLLARS;
 console.log(dollar.code); // "USD"
 ```
 
@@ -42,15 +42,15 @@ Currency.TZS     // Tanzanian Shilling
 // ... and all other currencies
 ```
 
-### Uppercase Full Names
+### Uppercase Plural Names
 
 ```typescript
-Currency.UNITED_STATES_DOLLAR    // USD
-Currency.EURO                    // EUR
-Currency.BRITISH_POUND_STERLING  // GBP
-Currency.JAPANESE_YEN            // JPY
-Currency.CHINESE_YUAN            // CNY
-Currency.TANZANIAN_SHILLING      // TZS
+Currency.US_DOLLARS             // USD
+Currency.EUROS                  // EUR
+Currency.BRITISH_POUNDS_STERLING // GBP
+Currency.JAPANESE_YEN           // JPY
+Currency.CHINESE_YUAN           // CNY
+Currency.TANZANIAN_SHILLINGS    // TZS
 // ... and all other currencies
 ```
 
@@ -180,25 +180,25 @@ console.log(formatAmount(1234.56, "JPY")); // "¥1,235"
 
 Here are some of the most commonly used currencies available:
 
-| Code | Currency           | Symbol |
-| ---- | ------------------ | ------ |
-| USD  | US Dollar          | $      |
-| EUR  | Euro               | €      |
-| GBP  | British Pound      | £      |
-| JPY  | Japanese Yen       | ¥      |
-| CNY  | Chinese Yuan       | ¥      |
-| CAD  | Canadian Dollar    | CA$    |
-| AUD  | Australian Dollar  | A$     |
-| CHF  | Swiss Franc        | CHF    |
-| INR  | Indian Rupee       | ₹      |
-| TZS  | Tanzanian Shilling | TSh    |
-| KES  | Kenyan Shilling    | KSh    |
-| ZAR  | South African Rand | R      |
-| NGN  | Nigerian Naira     | ₦      |
+| Code | Currency           | Symbol | Plural Name Static Constant |
+| ---- | ------------------ | ------ | --------------------------- |
+| USD  | US Dollar          | $      | US_DOLLARS                  |
+| EUR  | Euro               | €      | EUROS                       |
+| GBP  | British Pound      | £      | BRITISH_POUNDS_STERLING     |
+| JPY  | Japanese Yen       | ¥      | JAPANESE_YEN                |
+| CNY  | Chinese Yuan       | ¥      | CHINESE_YUAN                |
+| CAD  | Canadian Dollar    | CA$    | CANADIAN_DOLLARS            |
+| AUD  | Australian Dollar  | A$     | AUSTRALIAN_DOLLARS          |
+| CHF  | Swiss Franc        | CHF    | SWISS_FRANCS                |
+| INR  | Indian Rupee       | ₹      | INDIAN_RUPEES               |
+| TZS  | Tanzanian Shilling | TSh    | TANZANIAN_SHILLINGS         |
+| KES  | Kenyan Shilling    | KSh    | KENYAN_SHILLINGS            |
+| ZAR  | South African Rand | R      | SOUTH_AFRICAN_RAND          |
+| NGN  | Nigerian Naira     | ₦      | NIGERIAN_NAIRAS             |
 
 ## Best Practices
 
-1. Always use the static properties for accessing known currencies: `Currency.USD` or `Currency.UNITED_STATES_DOLLAR` instead of creating new instances.
+1. Always use the static properties for accessing known currencies: `Currency.USD` or `Currency.US_DOLLARS` instead of creating new instances.
 
 2. Use the `fromCode()` or `fromName()` methods when working with user-provided currency information to validate and normalize input.
 
@@ -288,3 +288,39 @@ const summary = summarizeAmounts({
 });
 // Output: "$1,234.56, €1,000.00, ¥100,000"
 ```
+
+## Using Plural Name Constants
+
+When you want to reference currencies by their plural names, use the uppercase constants:
+
+```typescript
+// Access using ISO code
+const dollars = Currency.USD;
+
+// Access using plural name constant - equivalent to the above
+const sameReference = Currency.US_DOLLARS;
+
+console.log(dollars === sameReference); // true
+console.log(dollars.code); // "USD"
+console.log(dollars.namePlural); // "US dollars"
+
+// Using plural name constants for clarity in code
+function getLocalCurrency(countryCode: string): Currency {
+  switch (countryCode) {
+    case "US":
+      return Currency.US_DOLLARS;
+    case "GB":
+      return Currency.BRITISH_POUNDS_STERLING;
+    case "JP":
+      return Currency.JAPANESE_YEN;
+    case "EU":
+      return Currency.EUROS;
+    default:
+      return Currency.US_DOLLARS; // Default
+  }
+}
+```
+
+## Technical Implementation Notes
+
+The Currency class relies on a CurrencyService singleton for its data. The static properties are initialized asynchronously after module loading. All Currency instances representing the same currency (e.g., `Currency.USD` and `Currency.US_DOLLARS`) point to the same memory reference, ensuring consistent behavior throughout the application.

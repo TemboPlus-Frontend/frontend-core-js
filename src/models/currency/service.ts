@@ -81,13 +81,14 @@ export class CurrencyService {
         // Add to static references for uppercase code
         this.staticReferences.set(upperCode, currency);
 
-        // Add formatted full name static reference
-        const fullNameKey = currency.name
+        // Add formatted full name static reference based on name property
+        // Transform from "US Dollar" to "US_DOLLAR"
+        const nameKey = currency.name
           .toUpperCase()
           .replace(/\s+/g, "_")
           .replace(/[-(),.']/g, "")
           .replace(/&/g, "AND");
-        this.staticReferences.set(fullNameKey, currency);
+        this.staticReferences.set(nameKey, currency);
       });
 
       this.currencyRecord = codeRecord;
@@ -128,7 +129,7 @@ export class CurrencyService {
    * @returns {Currency | undefined} The currency corresponding to the ISO code or `undefined` if not found.
    */
   fromCode(code: string): Currency | undefined {
-    return this.currencyRecord[code.toUpperCase()];
+    return this.currencyRecord[code.trim().toUpperCase()];
   }
 
   /**
@@ -137,23 +138,21 @@ export class CurrencyService {
    * @returns {Currency | undefined} The currency corresponding to the name or `undefined` if not found.
    */
   fromName(currencyName: string): Currency | undefined {
+    const input = currencyName.trim().toUpperCase();
     // First try direct lookup in name record
-    const directMatch = this.nameRecord[currencyName.toUpperCase()];
+    const directMatch = this.nameRecord[input];
     if (directMatch) return directMatch;
 
     // If not found, try more lenient matching
     for (const [name, currObj] of Object.entries(this.nameRecord)) {
-      if (
-        name.includes(currencyName.toUpperCase()) ||
-        currencyName.toUpperCase().includes(name)
-      ) {
+      if (name.toUpperCase() === input) {
         return currObj;
       }
     }
 
     // Finally, try case-insensitive exact match
     return this.currencyList.find(
-      (currency) => currency.name.toLowerCase() === currencyName.toLowerCase(),
+      (currency) => currency.name.toUpperCase() === input,
     );
   }
 

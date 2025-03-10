@@ -12,6 +12,7 @@ The library contains:
 ## Key Data Models
 
 - **PhoneNumber**: International phone number handling with country-specific validation
+- **TZPhoneNumber**: Tanzania-specific phone number handling with network operator identification
 - **Amount**: Currency value handling with formatting and conversion
 - **Currency**: Comprehensive currency information with symbols, formatting rules, and validation
 - **Country**: Standardized country data with ISO codes and validation
@@ -41,9 +42,9 @@ if (Amount.canConstruct(userInput)) {
 ### 3. Verifying Instance Data with `validate`
 
 ```typescript
-const bank = new Bank(bankData);
-if (bank.validate()) {
-    processBankTransaction(bank);
+const phoneNumber = PhoneNumber.from("+1234567890");
+if (phoneNumber.validate()) {
+    processPhoneNumber(phoneNumber);
 }
 ```
 
@@ -52,17 +53,17 @@ if (bank.validate()) {
 Many of our models provide convenient static access to common data:
 
 ```typescript
-// Access countries by ISO code
+// Access countries by ISO code or full name
 const tanzania = Country.TZ;
-const usa = Country.us; // lowercase also works
+const usa = Country.UNITED_STATES;
 
-// Access currencies by code
+// Access currencies by code or full name
 const usd = Currency.USD;
-const tzs = Currency.tzs; // lowercase also works
+const tzs = Currency.TANZANIAN_SHILLING;
 
 // Access banks by short name
 const crdb = Bank.CRDB;
-const nmb = Bank.nmb; // lowercase also works
+const nmb = Bank.NMB;
 ```
 
 ## Documentation
@@ -79,4 +80,21 @@ For detailed documentation on specific models:
 
 ```bash
 npm install @temboplus/frontend-core
+```
+
+## Using Phone Numbers
+
+The library provides two phone number implementations:
+
+```typescript
+import { PhoneNumber, TZPhoneNumber, PhoneNumberFormat } from '@temboplus/frontend-core';
+
+// For international phone numbers:
+const phone = PhoneNumber.from("+1 (202) 555-0123");
+console.log(phone.getWithFormat(PhoneNumberFormat.INTERNATIONAL)); // +12025550123
+
+// For Tanzania phone numbers:
+const tzPhone = TZPhoneNumber.from("0712345678");
+console.log(tzPhone.getWithFormat(PhoneNumberFormat.INTERNATIONAL)); // +255 712 345 678
+console.log(tzPhone.networkOperator.name); // "Vodacom"
 ```

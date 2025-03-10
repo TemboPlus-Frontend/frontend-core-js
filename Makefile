@@ -2,7 +2,7 @@
 # This package is built using Deno
 
 # Variables
-VERSION ?= 0.1.0
+VERSION ?= 0.2.2
 NPM_DIR = npm
 JSR_PACKAGE_NAME = @temboplus/frontend-core
 

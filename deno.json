@@ -13,6 +13,9 @@
     "@models/": "./src/models/",
     "@utils/": "./src/utils/",
     "@data/": "./src/data/",
+    "@config/": "./src/config/",
+    "@reports/": "./src/reports/",
+    "file-saver": "npm:file-saver@^2.0.5",
     "uuid": "npm:uuid@^11.1.0",
     "antd": "npm:antd@^5.24.2",
     "react": "npm:react@19.0.0"

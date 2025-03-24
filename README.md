@@ -8,6 +8,8 @@ The library contains:
 
 * **Utilities**: Ready-to-use helper functions for common development tasks
 * **Data Models**: Standardized structures for handling data like phone numbers, amounts, currencies, countries, and bank details
+* **Report Management**: Tools for generating and downloading reports across different projects
+* **Configuration Service**: Centralized configuration management for application settings
 
 ## Key Data Models
 
@@ -17,6 +19,66 @@ The library contains:
 - **Currency**: Comprehensive currency information with symbols, formatting rules, and validation
 - **Country**: Standardized country data with ISO codes and validation
 - **Bank**: Standardized bank account information management
+
+## Report Management
+
+The library includes a `ReportManager` for downloading reports in different formats across various TemboPlus projects:
+
+```typescript
+import { 
+  ReportManager, 
+  FileFormat, 
+  ReportType, 
+  ProjectType 
+} from '@temboplus/frontend-core';
+
+// Download a report
+await ReportManager.instance.downloadReport({
+  token: "your-auth-token",
+  projectType: ProjectType.DASHBOARD,
+  reportType: ReportType.MERCHANT_DISBURSEMENT_REPORT,
+  fileFormat: FileFormat.PDF,
+  query: {
+    startDate: "2023-01-01T00:00:00.000Z",
+    endDate: "2023-01-31T00:00:00.000Z"
+  }
+});
+
+// Get all reports for a specific project
+import { getReportsByProject } from '@temboplus/frontend-core';
+const dashboardReports = getReportsByProject(ProjectType.DASHBOARD);
+```
+
+### Available Report Types
+
+The library supports the following report types:
+
+- **Dashboard Reports**:
+  - `MERCHANT_DISBURSEMENT_REPORT`: Detailed breakdown of payments made to merchants
+  - `TRANSACTION_REVENUE_SUMMARY`: Summary of all revenue transactions by period
+  
+- **Afloat Reports**:
+  - `CUSTOMER_WALLET_ACTIVITY`: Detailed record of all customer wallet transactions
+  - `CUSTOMER_PROFILE_SNAPSHOT`: Current account information and status
+  
+- **VertoX Reports**:
+  - `GATEWAY_TRANSACTION_LOG`: Log of all payment gateway API transactions
+
+## Configuration Service
+
+The library provides a centralized configuration service for managing application settings:
+
+```typescript
+import { ConfigService } from '@temboplus/frontend-core';
+
+// Initialize configuration at application startup
+ConfigService.instance.initialize({
+  pdfMakerBaseUrl: 'https://api.temboplus.com/pdf-maker'
+});
+
+// Access configuration values throughout your application
+const baseUrl = ConfigService.instance.pdfMakerBaseUrl;
+```
 
 ## Working with Data Models
 

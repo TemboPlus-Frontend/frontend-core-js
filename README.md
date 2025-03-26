@@ -1,4 +1,3 @@
-```markdown
 # @temboplus/frontend-core
 
 A robust and versatile JavaScript/TypeScript library designed to streamline the development of TemboPlus front-end applications. This library provides a comprehensive suite of utilities, standardized data models, and services to ensure consistency, efficiency, and maintainability across all TemboPlus projects.

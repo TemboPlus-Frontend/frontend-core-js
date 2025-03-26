@@ -1,142 +1,134 @@
+```markdown
 # @temboplus/frontend-core
 
-A foundational JavaScript/TypeScript library that powers TemboPlus front-end applications. This library provides essential tools and data models that ensure consistency across all TemboPlus projects.
+A robust and versatile JavaScript/TypeScript library designed to streamline the development of TemboPlus front-end applications. This library provides a comprehensive suite of utilities, standardized data models, and services to ensure consistency, efficiency, and maintainability across all TemboPlus projects.
 
-## What's Inside
+## Core Features
 
-The library contains:
+* **Utility Functions:** A collection of pre-built helper functions to simplify common development tasks.
+* **Standardized Data Models:** Consistent and reliable data structures for managing essential data types, including phone numbers, amounts, currencies, countries, and bank details.
+* **Comprehensive Report Management:** A powerful `ReportManager` for generating and downloading reports in various formats across different TemboPlus projects.
+* **Centralized Configuration Service:** A flexible `ConfigService` for managing application settings and environment configurations.
 
-* **Utilities**: Ready-to-use helper functions for common development tasks
-* **Data Models**: Standardized structures for handling data like phone numbers, amounts, currencies, countries, and bank details
-* **Report Management**: Tools for generating and downloading reports across different projects
-* **Configuration Service**: Centralized configuration management for application settings
+## Data Models
 
-## Key Data Models
+This library offers a set of meticulously crafted data models, each designed to handle specific data types with precision:
 
-- **PhoneNumber**: International phone number handling with country-specific validation
-- **TZPhoneNumber**: Tanzania-specific phone number handling with network operator identification
-- **Amount**: Currency value handling with formatting and conversion
-- **Currency**: Comprehensive currency information with symbols, formatting rules, and validation
-- **Country**: Standardized country data with ISO codes and validation
-- **Bank**: Standardized bank account information management
+* **PhoneNumber:** Robust international phone number validation and formatting.
+* **TZPhoneNumber:** Specialized phone number handling for Tanzania, including network operator identification.
+* **Amount:** Precise currency value management, with support for formatting and conversion.
+* **Currency:** Detailed currency information, including symbols, formatting rules, and validation.
+* **Country:** Standardized country data with ISO codes and comprehensive validation.
+* **Bank:** Consistent bank account information management.
 
-## Report Management
+## Report Management with `ReportManager`
 
-The library includes a `ReportManager` for downloading reports in different formats across various TemboPlus projects:
+The `ReportManager` simplifies the process of generating and downloading reports across various TemboPlus projects.
 
 ```typescript
-import { 
-  ReportManager, 
-  FileFormat, 
-  ReportType, 
-  ProjectType 
-} from '@temboplus/frontend-core';
+import { ReportManager, FileFormat, ReportType, ProjectType } from '@temboplus/frontend-core';
 
 // Download a report
-await ReportManager.instance.downloadReport({
-  token: "your-auth-token",
-  projectType: ProjectType.DASHBOARD,
-  reportType: ReportType.MERCHANT_DISBURSEMENT_REPORT,
-  fileFormat: FileFormat.PDF,
-  query: {
-    startDate: "2023-01-01T00:00:00.000Z",
-    endDate: "2023-01-31T00:00:00.000Z"
-  }
-});
+async function downloadMerchantDisbursementReport() {
+    await ReportManager.instance.downloadReport({
+        token: "your-auth-token",
+        projectType: ProjectType.DASHBOARD,
+        reportType: ReportType.MERCHANT_DISBURSEMENT_REPORT,
+        fileFormat: FileFormat.PDF,
+        query: {
+            startDate: "2023-01-01T00:00:00.000Z",
+            endDate: "2023-01-31T00:00:00.000Z"
+        }
+    });
+}
 
 // Get all reports for a specific project
 import { getReportsByProject } from '@temboplus/frontend-core';
-const dashboardReports = getReportsByProject(ProjectType.DASHBOARD);
+function getAllDashboardReports(){
+  const dashboardReports = getReportsByProject(ProjectType.DASHBOARD);
+  return dashboardReports;
+}
 ```
 
-### Available Report Types
+### Supported Report Types
 
-The library supports the following report types:
+* **Dashboard Reports:**
+    * `MERCHANT_DISBURSEMENT_REPORT`: Detailed merchant disbursement reports.
+    * `TRANSACTION_REVENUE_SUMMARY`: Revenue transaction summaries.
+* **Afloat Reports:**
+    * `CUSTOMER_WALLET_ACTIVITY`: Customer wallet activity logs.
+    * `CUSTOMER_PROFILE_SNAPSHOT`: Customer profile snapshots.
+* **VertoX Reports:**
+    * `GATEWAY_TRANSACTION_LOG`: Payment gateway transaction logs.
 
-- **Dashboard Reports**:
-  - `MERCHANT_DISBURSEMENT_REPORT`: Detailed breakdown of payments made to merchants
-  - `TRANSACTION_REVENUE_SUMMARY`: Summary of all revenue transactions by period
-  
-- **Afloat Reports**:
-  - `CUSTOMER_WALLET_ACTIVITY`: Detailed record of all customer wallet transactions
-  - `CUSTOMER_PROFILE_SNAPSHOT`: Current account information and status
-  
-- **VertoX Reports**:
-  - `GATEWAY_TRANSACTION_LOG`: Log of all payment gateway API transactions
+## Configuration Service with `ConfigService`
 
-## Configuration Service
-
-The library provides a centralized configuration service for managing application settings:
+The `ConfigService` provides a centralized mechanism for managing application configurations.
 
 ```typescript
 import { ConfigService } from '@temboplus/frontend-core';
 
 // Initialize configuration at application startup
 ConfigService.instance.initialize({
-  pdfMakerBaseUrl: 'https://api.temboplus.com/pdf-maker'
+    pdfMakerBaseUrl: 'https://api.temboplus.com/pdf-maker' // Optional: Override default PDF maker base URL.
 });
-
-// Access configuration values throughout your application
-const baseUrl = ConfigService.instance.pdfMakerBaseUrl;
 ```
 
-## Working with Data Models
+## Data Model Validation
 
-Each data model in our library comes with three key validation methods:
+Each data model includes validation methods to ensure data integrity:
 
-### 1. Checking Object Types with `is`
+* **`is(object)`:** Checks if an object is a valid instance of the data model.
+* **`canConstruct(input)`:** Validates input data before constructing a new instance.
+* **`validate()`:** Verifies the validity of an existing data model instance.
 
 ```typescript
+import { PhoneNumber, Amount } from '@temboplus/frontend-core';
+
+// Using is()
 if (PhoneNumber.is(someObject)) {
-    // someObject is a valid PhoneNumber
-    console.log(phoneNumber.label);
+    console.log(someObject.label);
 }
-```
 
-### 2. Validating Input Data with `canConstruct`
-
-```typescript
+// Using canConstruct()
 if (Amount.canConstruct(userInput)) {
     const amount = Amount.from(userInput);
 }
-```
 
-### 3. Verifying Instance Data with `validate`
-
-```typescript
+// Using validate()
 const phoneNumber = PhoneNumber.from("+1234567890");
 if (phoneNumber.validate()) {
-    processPhoneNumber(phoneNumber);
+    // Process the valid phone number.
 }
 ```
 
-## Static Access to Common Data
+## Static Data Access
 
-Many of our models provide convenient static access to common data:
+Convenient static properties are available for accessing common data:
 
 ```typescript
-// Access countries by ISO code or full name
+import { Country, Currency, Bank } from '@temboplus/frontend-core';
+
+// Country access
 const tanzania = Country.TZ;
 const usa = Country.UNITED_STATES;
 
-// Access currencies by code or full name
+// Currency access
 const usd = Currency.USD;
 const tzs = Currency.TANZANIAN_SHILLING;
 
-// Access banks by short name
+// Bank access
 const crdb = Bank.CRDB;
 const nmb = Bank.NMB;
 ```
 
-## Documentation
+## Detailed Model Documentation
 
-For detailed documentation on specific models:
-
-- [PhoneNumber Documentation](./docs/phone_number.md)
-- [Amount Documentation](./docs/amount.md)
-- [Bank Documentation](./docs/bank.md)
-- [Currency Documentation](./docs/currency.md)
-- [Country Documentation](./docs/country.md)
+* [PhoneNumber](./docs/phone_number.md)
+* [Amount](./docs/amount.md)
+* [Bank](./docs/bank.md)
+* [Currency](./docs/currency.md)
+* [Country](./docs/country.md)
 
 ## Installation
 
@@ -144,19 +136,17 @@ For detailed documentation on specific models:
 npm install @temboplus/frontend-core
 ```
 
-## Using Phone Numbers
-
-The library provides two phone number implementations:
+## Phone Number Usage
 
 ```typescript
 import { PhoneNumber, TZPhoneNumber, PhoneNumberFormat } from '@temboplus/frontend-core';
 
-// For international phone numbers:
-const phone = PhoneNumber.from("+1 (202) 555-0123");
-console.log(phone.getWithFormat(PhoneNumberFormat.INTERNATIONAL)); // +12025550123
+// International phone numbers
+const internationalPhone = PhoneNumber.from("+1 (202) 555-0123");
+console.log(internationalPhone.getWithFormat(PhoneNumberFormat.INTERNATIONAL)); // +12025550123
 
-// For Tanzania phone numbers:
-const tzPhone = TZPhoneNumber.from("0712345678");
-console.log(tzPhone.getWithFormat(PhoneNumberFormat.INTERNATIONAL)); // +255 712 345 678
-console.log(tzPhone.networkOperator.name); // "Vodacom"
+// Tanzania phone numbers
+const tanzaniaPhone = TZPhoneNumber.from("0712345678");
+console.log(tanzaniaPhone.getWithFormat(PhoneNumberFormat.INTERNATIONAL)); // +255 712 345 678
+console.log(tanzaniaPhone.networkOperator.name); // "Yas"
 ```

@@ -5,6 +5,9 @@
 export enum NetworkOperator {
   VODACOM = "Vodacom",
   AIRTEL = "Airtel",
+  // Preserve the value "Tigo" bse our backend still recognizes it for payout channel codes
+  // It should not be seen anywhere for we have NetworkOperatorInfo.displayName & NetworkOperatorInfo.mobileMoneyService
+  // as labels we can use on the frontend
   TIGO = "Tigo",
   HALOTEL = "Halotel",
 }
@@ -54,8 +57,8 @@ export const NETWORK_OPERATOR_CONFIG: Record<
     id: NetworkOperator.TIGO,
     mobileNumberPrefixes: ["71", "65", "67", "77"],
     displayName: "Yas",
-    mobileMoneyService: "Mixx",
-    brandColor: "blue",
+    mobileMoneyService: "Mixx by Yas",
+    brandColor: "yellow",
   },
   [NetworkOperator.HALOTEL]: {
     id: NetworkOperator.HALOTEL,

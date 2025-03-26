@@ -173,7 +173,10 @@ export class ReportManager {
    * @returns The base URL
    */
   private getBaseURL = () => {
-    const url = ConfigService.instance.pdfMakerBaseUrl;
+    let url = ConfigService.instance.pdfMakerBaseUrl;
+    if (url.trim().length === 0) {
+      url = "https://api.afloat.money/pdf-maker";
+    }
     if (url.endsWith("/")) return url.slice(0, -1);
     return url;
   };
@@ -221,7 +224,7 @@ export class ReportManager {
       // deno-lint-ignore no-explicit-any
       const queryParams: Record<string, any> = {
         ...(args.query || {}),
-        format: args.fileFormat,
+        fileFormat: args.fileFormat,
       };
 
       // Build the query string

@@ -1,4 +1,34 @@
-import { CurrencyService } from "@models/currency/service.ts";
+/**
+ * @fileoverview This file contains both the Currency class and CurrencyService class.
+ *
+ * ARCHITECTURE NOTE: Currency and CurrencyService Classes
+ * ======================================================
+ *
+ * These two classes have been intentionally placed in the same file to resolve
+ * a circular dependency issue. The original implementation had these in separate files:
+ *
+ * - Currency class: Defines currency properties and static accessors
+ * - CurrencyService class: Loads currency data and provides instance methods
+ *
+ * The circular dependency occurred because:
+ * 1. Currency needed CurrencyService to initialize its static properties
+ * 2. CurrencyService needed Currency to create Currency instances
+ *
+ * Previous attempts to solve this used setTimeout(0) to defer static initialization,
+ * but this created race conditions where static properties weren't immediately available
+ * after import (Currency.AFN would be undefined on first access).
+ *
+ * By combining both classes in a single file:
+ * - We ensure proper initialization order
+ * - All static properties are immediately available after import
+ * - The public API remains unchanged
+ *
+ * This approach follows the principle that closely related classes with circular
+ * dependencies are best managed in a unified module.
+ */
+
+import file from "@data/currencies.json" with { type: "json" };
+import type { CurrencyCode } from "@models/currency/types.ts";
 
 /**
  * Represents a currency with essential details.
@@ -330,10 +360,10 @@ export class Currency {
 
   /**
    * Retrieves a currency by its ISO code.
-   * @param {string} code The ISO code of the currency.
+   * @param {CurrencyCode} code The ISO code of the currency.
    * @returns {Currency | undefined} The currency corresponding to the ISO code or `undefined` if not found.
    */
-  static fromCode(code: string): Currency | undefined {
+  static fromCode(code: CurrencyCode): Currency | undefined {
     return CurrencyService.getInstance().fromCode(code);
   }
 
@@ -359,7 +389,7 @@ export class Currency {
    * @param code The currency code to validate
    * @returns True if the currency code is valid
    */
-  static isValidCode(code?: string | null): boolean {
+  static isValidCode(code?: CurrencyCode | null): boolean {
     if (!code) return false;
     const currency = Currency.fromCode(code);
     return !!currency;
@@ -381,13 +411,14 @@ export class Currency {
    * @param input The currency name or ISO code
    * @returns A Currency instance if valid input, undefined otherwise
    */
-  public static from(input: string): Currency | undefined {
+  public static from(input: string | CurrencyCode): Currency | undefined {
     if (!input || typeof input !== "string") return undefined;
 
     const text = input.trim();
     if (text.length === 0) return undefined;
 
-    const currency1 = Currency.fromCode(text);
+    // deno-lint-ignore no-explicit-any
+    const currency1 = Currency.fromCode(text as any);
     if (currency1) return currency1;
 
     const currency2 = Currency.fromName(text);
@@ -416,24 +447,242 @@ export class Currency {
     if (typeof maybeCurrency._namePlural !== "string") return false;
 
     // Validate against known currencies
-    const currencyFromCode = Currency.fromCode(maybeCurrency._code as string);
+    const currencyFromCode = Currency.fromCode(maybeCurrency._code as CurrencyCode);
 
     return Boolean(currencyFromCode);
   }
 }
 
+/**
+ * Configuration interface for a single currency
+ * @interface CurrencyInterface
+ */
+interface CurrencyInterface {
+  symbol: string;
+  name: string;
+  symbol_native: string;
+  decimal_digits: number;
+  rounding: number;
+  code: string;
+  name_plural: string;
+}
+
+/**
+ * Service for managing currency data.
+ * @class CurrencyService
+ */
+export class CurrencyService {
+  private static instance: CurrencyService;
+  private currencyList: Currency[] = [];
+  private currencyRecord: Record<string, Currency> = {};
+  private nameRecord: Record<string, Currency> = {};
+
+  // Static references for direct access through Currency class
+  private staticReferences: Map<string, Currency> = new Map();
+
+  private constructor() {}
+
+  /**
+   * Gets the singleton instance of CurrencyService.
+   * Creates the instance if it doesn't exist.
+   * @static
+   * @returns {CurrencyService} The singleton instance
+   */
+  static getInstance(): CurrencyService {
+    if (!CurrencyService.instance) {
+      CurrencyService.instance = new CurrencyService();
+      CurrencyService.instance.initialize();
+    }
+    return CurrencyService.instance;
+  }
+
+  /**
+   * Initializes the service with currency data.
+   * Should be called once when your application starts.
+   */
+  private initialize() {
+    try {
+      const data: Record<string, CurrencyInterface> = JSON.parse(
+        JSON.stringify(file),
+      );
+      const currencies = Object.values(data).map(
+        (c) =>
+          new Currency(
+            c.symbol,
+            c.name,
+            c.symbol_native,
+            c.decimal_digits,
+            c.rounding,
+            c.code,
+            c.name_plural,
+          ),
+      );
+
+      const codeRecord: Record<string, Currency> = {};
+      const nameRecord: Record<string, Currency> = {};
+
+      currencies.forEach((currency) => {
+        // Populate code record
+        codeRecord[currency.code] = currency;
+
+        // Add to record by name
+        nameRecord[currency.name.toUpperCase()] = currency;
+
+        const upperCode = currency.code.toUpperCase();
+
+        // Add to static references for uppercase code
+        this.staticReferences.set(upperCode, currency);
+
+        // Add formatted full name static reference based on name property
+        // Transform from "US Dollar" to "US_DOLLAR"
+        const nameKey = currency.name
+          .toUpperCase()
+          .replace(/\s+/g, "_")
+          .replace(/[-(),.']/g, "")
+          .replace(/&/g, "AND");
+        this.staticReferences.set(nameKey, currency);
+      });
+
+      this.currencyRecord = codeRecord;
+      this.nameRecord = nameRecord;
+      this.currencyList = currencies;
+    } catch (error) {
+      console.error("Failed to initialize CurrencyService:", error);
+    }
+  }
+
+  /**
+   * Gets all currencies.
+   * @returns {Currency[]} Array of all currencies
+   */
+  getAll(): Currency[] {
+    return this.currencyList;
+  }
+
+  /**
+   * Gets all currencies as a record.
+   * @returns {Record<string, Currency>} Record of currency codes and currency objects
+   */
+  getAllAsRecord(): Record<string, Currency> {
+    return this.currencyRecord;
+  }
+
+  /**
+   * Gets static currency references to be used by the Currency class.
+   * @returns {Map<string, Currency>} Map of static references
+   */
+  getStaticReferences(): Map<string, Currency> {
+    return this.staticReferences;
+  }
+
+  /**
+   * Retrieves a currency by its ISO code.
+   * @param {string} code The ISO code of the currency.
+   * @returns {Currency | undefined} The currency corresponding to the ISO code or `undefined` if not found.
+   */
+  fromCode(code: string): Currency | undefined {
+    return this.currencyRecord[code.trim().toUpperCase()];
+  }
+
+  /**
+   * Retrieves a currency by its name.
+   * @param {string} currencyName The name of the currency.
+   * @returns {Currency | undefined} The currency corresponding to the name or `undefined` if not found.
+   */
+  fromName(currencyName: string): Currency | undefined {
+    const input = currencyName.trim().toUpperCase();
+    // First try direct lookup in name record
+    const directMatch = this.nameRecord[input];
+    if (directMatch) return directMatch;
+
+    // If not found, try more lenient matching
+    for (const [name, currObj] of Object.entries(this.nameRecord)) {
+      if (name.toUpperCase() === input) {
+        return currObj;
+      }
+    }
+
+    // Finally, try case-insensitive exact match
+    return this.currencyList.find(
+      (currency) => currency.name.toUpperCase() === input,
+    );
+  }
+
+  /**
+   * Validates if a given ISO currency code is valid
+   *
+   * @param {string | null | undefined} code - The currency code to validate.
+   *   Should be a three-letter ISO currency code (e.g., 'USD', 'EUR').
+   *
+   * @returns {boolean} Returns true if:
+   *   - The currency code is not null/undefined
+   *   - The currency code successfully resolves to a valid Currency instance
+   *   Returns false otherwise.
+   */
+  isValidCode(code?: string | null): boolean {
+    if (!code) return false;
+    const currency = this.fromCode(code);
+    return !!currency;
+  }
+
+  /**
+   * Validates if a given currency name is valid
+   *
+   * @param {string | null | undefined} currencyName - The currency name to validate.
+   *
+   * @returns {boolean} Returns true if:
+   *   - The currency name is not null/undefined
+   *   - The currency name successfully resolves to a valid Currency instance
+   *   Returns false otherwise.
+   */
+  isValidName(currencyName?: string | null): boolean {
+    if (!currencyName) return false;
+    const currency = this.fromName(currencyName);
+    return !!currency;
+  }
+
+  /**
+   * Gets a regex-ready pattern matching all currency symbols
+   * Pattern is memoized for performance
+   * @returns {string} Pipe-separated pattern of escaped currency symbols
+   *
+   * @example
+   * const pattern = currencyService.getCurrencySymbolPattern();
+   * // Returns something like: "\$|€|\£|¥"
+   */
+  getCurrencySymbolPattern(): string {
+    const symbols = new Set<string>();
+    Object.values(this.currencyList).forEach((currency) => {
+      symbols.add(this.escapeRegExp(currency.symbol));
+      symbols.add(this.escapeRegExp(currency.symbolNative));
+    });
+
+    return Array.from(symbols).join("|");
+  }
+
+  /**
+   * Escapes special characters in a string for use in regular expressions
+   * @private
+   * @param {string} string - The string to escape
+   * @returns {string} The escaped string
+   *
+   * @example
+   * private escapeRegExp("$") // Returns "\$"
+   */
+  private escapeRegExp(string: string): string {
+    return string.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  }
+}
+
 // Initialize static properties by applying the references from CurrencyService.
-// zero-timeout to defer the initialization until after both modules have been fully loaded.
-// The setTimeout pushes the initialization code to the end of the JavaScript event loop,
-// which happens after all modules are loaded.
-setTimeout(() => {
+(function setupStaticReferences() {
   try {
-    const staticRefs = CurrencyService.getInstance().getStaticReferences();
-    staticRefs.forEach((currency, key) => {
+    const refs = CurrencyService.getInstance().getStaticReferences();
+    refs.forEach((country, key) => {
       // deno-lint-ignore no-explicit-any
-      (Currency as any)[key] = currency;
+      (Currency as any)[key] = country;
     });
   } catch (error) {
-    console.error("Failed to initialize Currency static properties:", error);
+    console.log("Failed to set up static references: ", error);
   }
-}, 0);
+})();

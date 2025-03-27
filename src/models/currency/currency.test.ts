@@ -1,6 +1,6 @@
+// deno-lint-ignore-file no-explicit-any
 // currency.test.ts
-import { Currency } from "@models/currency/currency.ts";
-import { CurrencyService } from "@models/currency/service.ts";
+import { Currency, CurrencyService } from "@models/currency/currency.ts";
 
 import {
   assertEquals,
@@ -14,7 +14,7 @@ function resetCurrencyServiceSingleton() {
   // @ts-ignore: Reset the singleton instance
   CurrencyService.instance = undefined;
   // Force re-initialization
-  CurrencyService.getInstance();
+  CurrencyService.getInstance();  
 }
 
 Deno.test("CurrencyService - Singleton pattern", () => {
@@ -238,7 +238,7 @@ Deno.test("Currency - Static methods", () => {
 
   // Test isValidCode
   assertEquals(Currency.isValidCode("USD"), true);
-  assertEquals(Currency.isValidCode("INVALID"), false);
+  assertEquals(Currency.isValidCode("INVALID" as any), false);
   assertEquals(Currency.isValidCode(null), false);
 
   // Test isValidName
@@ -247,7 +247,7 @@ Deno.test("Currency - Static methods", () => {
   assertEquals(Currency.isValidName(null), false);
 
   // Test isValidCode and isValidName with whitespace
-  assertEquals(Currency.isValidCode("  USD  "), true);
+  assertEquals(Currency.isValidCode("  USD  " as any), true);
   assertEquals(Currency.isValidName("  US Dollar  "), true);
 });
 
@@ -450,9 +450,9 @@ Deno.test("CurrencyService - Private constructor", () => {
 Deno.test("Currency - Test for whitespace handling", () => {
   resetCurrencyServiceSingleton();
   // Test whitespace handling in various methods
-  const withLeadingSpace = Currency.fromCode(" USD");
-  const withTrailingSpace = Currency.fromCode("USD ");
-  const withBothSpaces = Currency.fromCode(" USD ");
+  const withLeadingSpace = Currency.fromCode(" USD" as any);
+  const withTrailingSpace = Currency.fromCode("USD " as any);
+  const withBothSpaces = Currency.fromCode(" USD " as any);
 
   assertExists(withLeadingSpace);
   assertExists(withTrailingSpace);

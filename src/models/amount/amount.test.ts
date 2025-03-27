@@ -1,6 +1,6 @@
 import { assertEquals, assertExists } from "jsr:@std/assert";
 import { Amount, AMOUNT_REGEX } from "@models/amount/amount.ts";
-import { CurrencyService } from "../currency/service.ts";
+import { CurrencyService } from "@models/currency/index.ts";
 
 // Sample currency data for testing
 const TEST_CURRENCIES = {

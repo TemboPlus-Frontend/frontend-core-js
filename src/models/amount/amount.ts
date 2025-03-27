@@ -1,8 +1,7 @@
 // Regex explanation:
 // ^(?:\d{1,3}(?:,\d{3})*|\d+) - Either grouped digits with commas OR just digits
 
-import { CurrencyService } from "@models/currency/service.ts";
-import type { Currency } from "@models/currency/currency.ts";
+import { type Currency, CurrencyService } from "@models/currency/currency.ts";
 
 // (?:\.\d+)?$ - Optional decimal part with any number of digits
 const AMOUNT_REGEX = /^(?:\d{1,3}(?:,\d{3})*|\d+)(?:\.\d+)?$/;

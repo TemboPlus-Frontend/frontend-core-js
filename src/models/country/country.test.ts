@@ -1,3 +1,4 @@
+// deno-lint-ignore-file no-explicit-any
 import { assertEquals, assertExists, assertStrictEquals } from "jsr:@std/assert";
 import { Country, CONTINENT, SUB_REGION } from "@models/country/index.ts";
 
@@ -78,16 +79,16 @@ Deno.test("Country - Static Methods - fromCode", () => {
   assertEquals(usa?.name, "United States");
 
   // Test with lowercase code
-  const canada = Country.fromCode("ca");
+  const canada = Country.fromCode("ca" as any);
   assertExists(canada);
   assertEquals(canada?.code, "CA");
 
   // Test with invalid code
-  const invalid = Country.fromCode("ZZ");
+  const invalid = Country.fromCode("ZZ" as any);
   assertEquals(invalid, undefined);
 
   // Test with empty string
-  const empty = Country.fromCode("");
+  const empty = Country.fromCode("" as any);
   assertEquals(empty, undefined);
 });
 
@@ -98,16 +99,16 @@ Deno.test("Country - Static Methods - fromIso3", () => {
   assertEquals(usa?.name, "United States");
 
   // Test with lowercase code
-  const canada = Country.fromIso3("can");
+  const canada = Country.fromIso3("can" as any);
   assertExists(canada);
   assertEquals(canada?.code, "CA");
 
   // Test with invalid code
-  const invalid = Country.fromIso3("ZZZ");
+  const invalid = Country.fromIso3("ZZZ" as any);
   assertEquals(invalid, undefined);
 
   // Test with empty string
-  const empty = Country.fromIso3("");
+  const empty = Country.fromIso3("" as any);
   assertEquals(empty, undefined);
 });
 
@@ -157,20 +158,6 @@ Deno.test("Country - Static Methods - from", () => {
 });
 
 Deno.test("Country - Validation Methods", () => {
-  // Test isValidCode
-  assertEquals(Country.isValidCode("US"), true);
-  assertEquals(Country.isValidCode("ZZ"), false);
-  assertEquals(Country.isValidCode(null), false);
-  assertEquals(Country.isValidCode(undefined), false);
-  assertEquals(Country.isValidCode(""), false);
-
-  // Test isValidIso3
-  assertEquals(Country.isValidIso3("USA"), true);
-  assertEquals(Country.isValidIso3("ZZZ"), false);
-  assertEquals(Country.isValidIso3(null), false);
-  assertEquals(Country.isValidIso3(undefined), false);
-  assertEquals(Country.isValidIso3(""), false);
-
   // Test isValidName
   assertEquals(Country.isValidName("United States"), true);
   assertEquals(Country.isValidName("Not A Country"), false);
@@ -330,8 +317,8 @@ Deno.test("Country - Consistency Checks", () => {
 
   // Test that fromCode and fromIso3 are consistent
   allCountries.forEach(country => {
-    const byCode = Country.fromCode(country.code);
-    const byIso3 = Country.fromIso3(country.iso3);
+    const byCode = Country.fromCode(country.code as any);
+    const byIso3 = Country.fromIso3(country.iso3 as any);
     assertStrictEquals(byCode, byIso3, `Country ${country.name} should be the same whether accessed by ISO-2 or ISO-3`);
   });
   

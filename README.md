@@ -101,6 +101,46 @@ if (phoneNumber.validate()) {
 }
 ```
 
+## Type-Safe String Literals
+
+This library provides strongly-typed string literals for standardized codes:
+
+* **Country Codes:**
+  * `ISO2CountryCode`: Two-letter country codes (e.g., "US", "GB", "DE")
+  * `ISO3CountryCode`: Three-letter country codes (e.g., "USA", "GBR", "DEU")
+  * `CountryCode`: A union type that accepts either ISO-2 or ISO-3 formats
+
+* **Currency Codes:**
+  * `CurrencyCode`: Three-letter currency codes (e.g., "USD", "EUR", "JPY")
+
+These types provide compile-time validation and auto-completion while having zero runtime overhead:
+
+```typescript
+import { 
+  ISO2CountryCode, 
+  ISO3CountryCode, 
+  CountryCode, 
+  CurrencyCode 
+} from '@temboplus/frontend-core';
+
+// Type-safe function parameters
+function processTransaction(
+  amount: number,
+  currency: CurrencyCode,
+  country: CountryCode
+) {
+  // Implementation
+}
+
+// Valid calls - compile-time checking ensures only valid codes are accepted
+processTransaction(100, "USD", "US");   // ISO-2 country code
+processTransaction(200, "EUR", "DEU");  // ISO-3 country code
+
+// Invalid calls - caught by TypeScript at compile time
+processTransaction(300, "XYZ", "US");   // Error: "XYZ" is not a valid CurrencyCode
+processTransaction(400, "USD", "ZZZ");  // Error: "ZZZ" is not a valid CountryCode
+```
+
 ## Static Data Access
 
 Convenient static properties are available for accessing common data:
@@ -122,23 +162,18 @@ const caribbeanCountries = Country.getByRegion(SUB_REGION.CARIBBEAN);
 const usd = Currency.USD;
 const tzs = Currency.TANZANIAN_SHILLING;
 
+// Access country's currency
+const japan = Country.JP;
+const yen = japan.getCurrency();
+console.log(yen?.code); // "JPY"
+
+// Find countries using a specific currency
+const euroCountries = Country.getByCurrencyCode("EUR");
+console.log(`${euroCountries.length} countries use the Euro`);
+
 // Bank access
 const crdb = Bank.CRDB;
 const nmb = Bank.NMB;
-```
-
-## Detailed Model Documentation
-
-* [PhoneNumber](./docs/phone_number.md)
-* [Amount](./docs/amount.md)
-* [Bank](./docs/bank.md)
-* [Currency](./docs/currency.md)
-* [Country](./docs/country.md)
-
-## Installation
-
-```bash
-npm install @temboplus/frontend-core
 ```
 
 ## Phone Number Usage
@@ -154,4 +189,18 @@ console.log(internationalPhone.getWithFormat(PhoneNumberFormat.INTERNATIONAL)); 
 const tanzaniaPhone = TZPhoneNumber.from("0712345678");
 console.log(tanzaniaPhone.getWithFormat(PhoneNumberFormat.INTERNATIONAL)); // +255 712 345 678
 console.log(tanzaniaPhone.networkOperator.name); // "Yas"
+```
+
+## Detailed Model Documentation
+
+* [PhoneNumber](./docs/phone_number.md)
+* [Amount](./docs/amount.md)
+* [Bank](./docs/bank.md)
+* [Currency](./docs/currency.md)
+* [Country](./docs/country.md)
+
+## Installation
+
+```bash
+npm install @temboplus/frontend-core
 ```

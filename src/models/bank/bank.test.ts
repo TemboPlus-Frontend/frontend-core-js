@@ -4,8 +4,7 @@ import {
   assertInstanceOf,
   assertNotEquals,
 } from "jsr:@std/assert";
-import { Bank } from "@models/bank/bank.ts";
-import { BankService } from "@models/bank/service.ts";
+import { Bank, BankService } from "@models/bank/bank.ts";
 
 Deno.test("BankService Singleton", () => {
   const instance1 = BankService.getInstance();

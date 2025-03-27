@@ -1,11 +1,11 @@
 {
   "name": "@temboplus/frontend-core",
-  "version": "0.2.5",
+  "version": "0.2.6",
   "license": "MIT",
   "exports": "./mod.ts",
   "tasks": {
     "format": "deno fmt && deno lint",
-    "dev": "deno run --watch main.ts"
+    "dev": "deno run --watch --allow-net --allow-read --allow-write main.ts"
   },
   "exclude": ["npm", "example"],
   "imports": {

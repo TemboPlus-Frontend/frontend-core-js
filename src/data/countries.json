@@ -1,2227 +1,2475 @@
 {
     "dataset_name": "World Countries List",
-    "version": "1.0.0",
-    "description": "A list of world countries and territories, including common names, official names, ISO codes (alpha-2, alpha-3), geographical information (continent, UN M49 region), and flag emojis. Based on ISO 3166-1 standard and UN M49 regional codes.",
+    "version": "1.0.1",
+    "description": "A list of world countries and territories, including common names, official names, ISO codes (alpha-2, alpha-3, currency), geographical information (continent, UN M49 region), and flag emojis. Based on ISO 3166-1, ISO 4217, and UN M49 regional codes.",
     "source(s)": [
-        {
-            "name": "ISO 3166-1",
-            "url": "https://www.iso.org/iso-3166-country-codes.html"
-        },
-        {
-            "name": "UN M49",
-            "url": "https://unstats.un.org/unsd/methodology/m49/"
-        },
-        {
-            "name": "Unicode CLDR",
-            "url": "https://cldr.unicode.org/"
-        },
-        {
-            "name": "Various official government/UN sources for official names",
-            "url": null
-        }
+      {
+        "name": "ISO 3166-1",
+        "url": "https://www.iso.org/iso-3166-country-codes.html"
+      },
+      {
+        "name": "ISO 4217",
+        "url": "https://www.iso.org/iso-4217-currency-codes.html"
+      },
+      {
+        "name": "UN M49",
+        "url": "https://unstats.un.org/unsd/methodology/m49/"
+      },
+      {
+        "name": "Unicode CLDR",
+        "url": "https://cldr.unicode.org/"
+      },
+      {
+        "name": "Various official government/UN sources for official names",
+        "url": null
+      }
     ],
-    "last_updated": "2025-03-26T21:03:11Z",
+    "last_updated": "2025-03-26T12:54:40Z",
     "creation_date": "2025-03-26",
     "license": "CC-BY-4.0",
     "coverage": "Includes countries, territories, and special areas based on ISO 3166-1 standard, excluding previously listed obsolete codes AN and CS. Includes added entries for Montenegro, Serbia, and South Sudan.",
     "contact_info": "Okello Gerald",
-    "notes": "Dataset includes entries based on ISO 3166-1 standard. The listing of entities, common names ('name'), and official names ('name_official') does not imply political endorsement. Designations and names for entities like Taiwan, Palestine, Western Sahara, Afghanistan, and others may be politically sensitive, disputed, or reflect specific viewpoints or time periods. Official names generally reflect usage by the entity itself or international bodies (e.g., UN, ISO) where applicable.",
+    "notes": "Dataset includes entries based on ISO 3166-1 standard. The listing of entities, common names ('name'), and official names ('name_official') does not imply political endorsement. Designations and names for entities like Taiwan, Palestine, Western Sahara, Afghanistan, and others may be politically sensitive, disputed, or reflect specific viewpoints or time periods. Official names generally reflect usage by the entity itself or international bodies (e.g., UN, ISO) where applicable. Currency codes represent the primary official ISO 4217 code; 'null' is used where no single official code applies or is designated.",
     "countries": [
-        {
-            "name": "Afghanistan",
-            "name_official": "Islamic Republic of Afghanistan",
-            "iso_2": "AF",
-            "iso_3": "AFG",
-            "flag_emoji": "🇦🇫",
-            "continent": "Asia",
-            "region": "Southern Asia"
-        },
-        {
-            "name": "Åland Islands",
-            "name_official": "Åland Islands",
-            "iso_2": "AX",
-            "iso_3": "ALA",
-            "flag_emoji": "🇦🇽",
-            "continent": "Europe",
-            "region": "Northern Europe"
-        },
-        {
-            "name": "Albania",
-            "name_official": "Republic of Albania",
-            "iso_2": "AL",
-            "iso_3": "ALB",
-            "flag_emoji": "🇦🇱",
-            "continent": "Europe",
-            "region": "Southern Europe"
-        },
-        {
-            "name": "Algeria",
-            "name_official": "People's Democratic Republic of Algeria",
-            "iso_2": "DZ",
-            "iso_3": "DZA",
-            "flag_emoji": "🇩🇿",
-            "continent": "Africa",
-            "region": "Northern Africa"
-        },
-        {
-            "name": "American Samoa",
-            "name_official": "Territory of American Samoa",
-            "iso_2": "AS",
-            "iso_3": "ASM",
-            "flag_emoji": "🇦🇸",
-            "continent": "Oceania",
-            "region": "Polynesia"
-        },
-        {
-            "name": "Andorra",
-            "name_official": "Principality of Andorra",
-            "iso_2": "AD",
-            "iso_3": "AND",
-            "flag_emoji": "🇦🇩",
-            "continent": "Europe",
-            "region": "Southern Europe"
-        },
-        {
-            "name": "Angola",
-            "name_official": "Republic of Angola",
-            "iso_2": "AO",
-            "iso_3": "AGO",
-            "flag_emoji": "🇦🇴",
-            "continent": "Africa",
-            "region": "Middle Africa"
-        },
-        {
-            "name": "Anguilla",
-            "name_official": "Anguilla",
-            "iso_2": "AI",
-            "iso_3": "AIA",
-            "flag_emoji": "🇦🇮",
-            "continent": "North America",
-            "region": "Caribbean"
-        },
-        {
-            "name": "Antarctica",
-            "name_official": "Antarctica",
-            "iso_2": "AQ",
-            "iso_3": "ATA",
-            "flag_emoji": "🇦🇶",
-            "continent": "Antarctica",
-            "region": "Antarctica"
-        },
-        {
-            "name": "Antigua and Barbuda",
-            "name_official": "Antigua and Barbuda",
-            "iso_2": "AG",
-            "iso_3": "ATG",
-            "flag_emoji": "🇦🇬",
-            "continent": "North America",
-            "region": "Caribbean"
-        },
-        {
-            "name": "Argentina",
-            "name_official": "Argentine Republic",
-            "iso_2": "AR",
-            "iso_3": "ARG",
-            "flag_emoji": "🇦🇷",
-            "continent": "South America",
-            "region": "South America"
-        },
-        {
-            "name": "Armenia",
-            "name_official": "Republic of Armenia",
-            "iso_2": "AM",
-            "iso_3": "ARM",
-            "flag_emoji": "🇦🇲",
-            "continent": "Asia",
-            "region": "Western Asia"
-        },
-        {
-            "name": "Aruba",
-            "name_official": "Aruba",
-            "iso_2": "AW",
-            "iso_3": "ABW",
-            "flag_emoji": "🇦🇼",
-            "continent": "North America",
-            "region": "Caribbean"
-        },
-        {
-            "name": "Australia",
-            "name_official": "Commonwealth of Australia",
-            "iso_2": "AU",
-            "iso_3": "AUS",
-            "flag_emoji": "🇦🇺",
-            "continent": "Oceania",
-            "region": "Australia and New Zealand"
-        },
-        {
-            "name": "Austria",
-            "name_official": "Republic of Austria",
-            "iso_2": "AT",
-            "iso_3": "AUT",
-            "flag_emoji": "🇦🇹",
-            "continent": "Europe",
-            "region": "Western Europe"
-        },
-        {
-            "name": "Azerbaijan",
-            "name_official": "Republic of Azerbaijan",
-            "iso_2": "AZ",
-            "iso_3": "AZE",
-            "flag_emoji": "🇦🇿",
-            "continent": "Asia",
-            "region": "Western Asia"
-        },
-        {
-            "name": "Bahamas",
-            "name_official": "Commonwealth of The Bahamas",
-            "iso_2": "BS",
-            "iso_3": "BHS",
-            "flag_emoji": "🇧🇸",
-            "continent": "North America",
-            "region": "Caribbean"
-        },
-        {
-            "name": "Bahrain",
-            "name_official": "Kingdom of Bahrain",
-            "iso_2": "BH",
-            "iso_3": "BHR",
-            "flag_emoji": "🇧🇭",
-            "continent": "Asia",
-            "region": "Western Asia"
-        },
-        {
-            "name": "Bangladesh",
-            "name_official": "People's Republic of Bangladesh",
-            "iso_2": "BD",
-            "iso_3": "BGD",
-            "flag_emoji": "🇧🇩",
-            "continent": "Asia",
-            "region": "Southern Asia"
-        },
-        {
-            "name": "Barbados",
-            "name_official": "Barbados",
-            "iso_2": "BB",
-            "iso_3": "BRB",
-            "flag_emoji": "🇧🇧",
-            "continent": "North America",
-            "region": "Caribbean"
-        },
-        {
-            "name": "Belarus",
-            "name_official": "Republic of Belarus",
-            "iso_2": "BY",
-            "iso_3": "BLR",
-            "flag_emoji": "🇧🇾",
-            "continent": "Europe",
-            "region": "Eastern Europe"
-        },
-        {
-            "name": "Belgium",
-            "name_official": "Kingdom of Belgium",
-            "iso_2": "BE",
-            "iso_3": "BEL",
-            "flag_emoji": "🇧🇪",
-            "continent": "Europe",
-            "region": "Western Europe"
-        },
-        {
-            "name": "Belize",
-            "name_official": "Belize",
-            "iso_2": "BZ",
-            "iso_3": "BLZ",
-            "flag_emoji": "🇧🇿",
-            "continent": "North America",
-            "region": "Central America"
-        },
-        {
-            "name": "Benin",
-            "name_official": "Republic of Benin",
-            "iso_2": "BJ",
-            "iso_3": "BEN",
-            "flag_emoji": "🇧🇯",
-            "continent": "Africa",
-            "region": "Western Africa"
-        },
-        {
-            "name": "Bermuda",
-            "name_official": "Bermuda",
-            "iso_2": "BM",
-            "iso_3": "BMU",
-            "flag_emoji": "🇧🇲",
-            "continent": "North America",
-            "region": "Northern America"
-        },
-        {
-            "name": "Bhutan",
-            "name_official": "Kingdom of Bhutan",
-            "iso_2": "BT",
-            "iso_3": "BTN",
-            "flag_emoji": "🇧🇹",
-            "continent": "Asia",
-            "region": "Southern Asia"
-        },
-        {
-            "name": "Bolivia",
-            "name_official": "Plurinational State of Bolivia",
-            "iso_2": "BO",
-            "iso_3": "BOL",
-            "flag_emoji": "🇧🇴",
-            "continent": "South America",
-            "region": "South America"
-        },
-        {
-            "name": "Bosnia and Herzegovina",
-            "name_official": "Bosnia and Herzegovina",
-            "iso_2": "BA",
-            "iso_3": "BIH",
-            "flag_emoji": "🇧🇦",
-            "continent": "Europe",
-            "region": "Southern Europe"
-        },
-        {
-            "name": "Botswana",
-            "name_official": "Republic of Botswana",
-            "iso_2": "BW",
-            "iso_3": "BWA",
-            "flag_emoji": "🇧🇼",
-            "continent": "Africa",
-            "region": "Southern Africa"
-        },
-        {
-            "name": "Bouvet Island",
-            "name_official": "Bouvet Island",
-            "iso_2": "BV",
-            "iso_3": "BVT",
-            "flag_emoji": "🇧🇻",
-            "continent": "Antarctica",
-            "region": "Antarctica"
-        },
-        {
-            "name": "Brazil",
-            "name_official": "Federative Republic of Brazil",
-            "iso_2": "BR",
-            "iso_3": "BRA",
-            "flag_emoji": "🇧🇷",
-            "continent": "South America",
-            "region": "South America"
-        },
-        {
-            "name": "British Indian Ocean Territory",
-            "name_official": "British Indian Ocean Territory",
-            "iso_2": "IO",
-            "iso_3": "IOT",
-            "flag_emoji": "🇮🇴",
-            "continent": "Africa",
-            "region": "Eastern Africa"
-        },
-        {
-            "name": "British Virgin Islands",
-            "name_official": "Virgin Islands",
-            "iso_2": "VG",
-            "iso_3": "VGB",
-            "flag_emoji": "🇻🇬",
-            "continent": "North America",
-            "region": "Caribbean"
-        },
-        {
-            "name": "Brunei",
-            "name_official": "Brunei Darussalam",
-            "iso_2": "BN",
-            "iso_3": "BRN",
-            "flag_emoji": "🇧🇳",
-            "continent": "Asia",
-            "region": "South-eastern Asia"
-        },
-        {
-            "name": "Bulgaria",
-            "name_official": "Republic of Bulgaria",
-            "iso_2": "BG",
-            "iso_3": "BGR",
-            "flag_emoji": "🇧🇬",
-            "continent": "Europe",
-            "region": "Eastern Europe"
-        },
-        {
-            "name": "Burkina Faso",
-            "name_official": "Burkina Faso",
-            "iso_2": "BF",
-            "iso_3": "BFA",
-            "flag_emoji": "🇧🇫",
-            "continent": "Africa",
-            "region": "Western Africa"
-        },
-        {
-            "name": "Burundi",
-            "name_official": "Republic of Burundi",
-            "iso_2": "BI",
-            "iso_3": "BDI",
-            "flag_emoji": "🇧🇮",
-            "continent": "Africa",
-            "region": "Eastern Africa"
-        },
-        {
-            "name": "Cabo Verde",
-            "name_official": "Republic of Cabo Verde",
-            "iso_2": "CV",
-            "iso_3": "CPV",
-            "flag_emoji": "🇨🇻",
-            "continent": "Africa",
-            "region": "Western Africa"
-        },
-        {
-            "name": "Cambodia",
-            "name_official": "Kingdom of Cambodia",
-            "iso_2": "KH",
-            "iso_3": "KHM",
-            "flag_emoji": "🇰🇭",
-            "continent": "Asia",
-            "region": "South-eastern Asia"
-        },
-        {
-            "name": "Cameroon",
-            "name_official": "Republic of Cameroon",
-            "iso_2": "CM",
-            "iso_3": "CMR",
-            "flag_emoji": "🇨🇲",
-            "continent": "Africa",
-            "region": "Middle Africa"
-        },
-        {
-            "name": "Canada",
-            "name_official": "Canada",
-            "iso_2": "CA",
-            "iso_3": "CAN",
-            "flag_emoji": "🇨🇦",
-            "continent": "North America",
-            "region": "Northern America"
-        },
-        {
-            "name": "Cayman Islands",
-            "name_official": "Cayman Islands",
-            "iso_2": "KY",
-            "iso_3": "CYM",
-            "flag_emoji": "🇰🇾",
-            "continent": "North America",
-            "region": "Caribbean"
-        },
-        {
-            "name": "Central African Republic",
-            "name_official": "Central African Republic",
-            "iso_2": "CF",
-            "iso_3": "CAF",
-            "flag_emoji": "🇨🇫",
-            "continent": "Africa",
-            "region": "Middle Africa"
-        },
-        {
-            "name": "Chad",
-            "name_official": "Republic of Chad",
-            "iso_2": "TD",
-            "iso_3": "TCD",
-            "flag_emoji": "🇹🇩",
-            "continent": "Africa",
-            "region": "Middle Africa"
-        },
-        {
-            "name": "Chile",
-            "name_official": "Republic of Chile",
-            "iso_2": "CL",
-            "iso_3": "CHL",
-            "flag_emoji": "🇨🇱",
-            "continent": "South America",
-            "region": "South America"
-        },
-        {
-            "name": "China",
-            "name_official": "People's Republic of China",
-            "iso_2": "CN",
-            "iso_3": "CHN",
-            "flag_emoji": "🇨🇳",
-            "continent": "Asia",
-            "region": "Eastern Asia"
-        },
-        {
-            "name": "Christmas Island",
-            "name_official": "Territory of Christmas Island",
-            "iso_2": "CX",
-            "iso_3": "CXR",
-            "flag_emoji": "🇨🇽",
-            "continent": "Oceania",
-            "region": "Australia and New Zealand"
-        },
-        {
-            "name": "Cocos (Keeling) Islands",
-            "name_official": "Territory of Cocos (Keeling) Islands",
-            "iso_2": "CC",
-            "iso_3": "CCK",
-            "flag_emoji": "🇨🇨",
-            "continent": "Oceania",
-            "region": "Australia and New Zealand"
-        },
-        {
-            "name": "Colombia",
-            "name_official": "Republic of Colombia",
-            "iso_2": "CO",
-            "iso_3": "COL",
-            "flag_emoji": "🇨🇴",
-            "continent": "South America",
-            "region": "South America"
-        },
-        {
-            "name": "Comoros",
-            "name_official": "Union of the Comoros",
-            "iso_2": "KM",
-            "iso_3": "COM",
-            "flag_emoji": "🇰🇲",
-            "continent": "Africa",
-            "region": "Eastern Africa"
-        },
-        {
-            "name": "Congo",
-            "name_official": "Republic of the Congo",
-            "iso_2": "CG",
-            "iso_3": "COG",
-            "flag_emoji": "🇨🇬",
-            "continent": "Africa",
-            "region": "Middle Africa"
-        },
-        {
-            "name": "Cook Islands",
-            "name_official": "Cook Islands",
-            "iso_2": "CK",
-            "iso_3": "COK",
-            "flag_emoji": "🇨🇰",
-            "continent": "Oceania",
-            "region": "Polynesia"
-        },
-        {
-            "name": "Costa Rica",
-            "name_official": "Republic of Costa Rica",
-            "iso_2": "CR",
-            "iso_3": "CRI",
-            "flag_emoji": "🇨🇷",
-            "continent": "North America",
-            "region": "Central America"
-        },
-        {
-            "name": "Cote d'Ivoire",
-            "name_official": "Republic of Côte d'Ivoire",
-            "iso_2": "CI",
-            "iso_3": "CIV",
-            "flag_emoji": "🇨🇮",
-            "continent": "Africa",
-            "region": "Western Africa"
-        },
-        {
-            "name": "Croatia",
-            "name_official": "Republic of Croatia",
-            "iso_2": "HR",
-            "iso_3": "HRV",
-            "flag_emoji": "🇭🇷",
-            "continent": "Europe",
-            "region": "Southern Europe"
-        },
-        {
-            "name": "Cuba",
-            "name_official": "Republic of Cuba",
-            "iso_2": "CU",
-            "iso_3": "CUB",
-            "flag_emoji": "🇨🇺",
-            "continent": "North America",
-            "region": "Caribbean"
-        },
-        {
-            "name": "Cyprus",
-            "name_official": "Republic of Cyprus",
-            "iso_2": "CY",
-            "iso_3": "CYP",
-            "flag_emoji": "🇨🇾",
-            "continent": "Asia",
-            "region": "Western Asia"
-        },
-        {
-            "name": "Czechia",
-            "name_official": "Czech Republic",
-            "iso_2": "CZ",
-            "iso_3": "CZE",
-            "flag_emoji": "🇨🇿",
-            "continent": "Europe",
-            "region": "Eastern Europe"
-        },
-        {
-            "name": "Democratic Republic of the Congo",
-            "name_official": "Democratic Republic of the Congo",
-            "iso_2": "CD",
-            "iso_3": "COD",
-            "flag_emoji": "🇨🇩",
-            "continent": "Africa",
-            "region": "Middle Africa"
-        },
-        {
-            "name": "Denmark",
-            "name_official": "Kingdom of Denmark",
-            "iso_2": "DK",
-            "iso_3": "DNK",
-            "flag_emoji": "🇩🇰",
-            "continent": "Europe",
-            "region": "Northern Europe"
-        },
-        {
-            "name": "Djibouti",
-            "name_official": "Republic of Djibouti",
-            "iso_2": "DJ",
-            "iso_3": "DJI",
-            "flag_emoji": "🇩🇯",
-            "continent": "Africa",
-            "region": "Eastern Africa"
-        },
-        {
-            "name": "Dominica",
-            "name_official": "Commonwealth of Dominica",
-            "iso_2": "DM",
-            "iso_3": "DMA",
-            "flag_emoji": "🇩🇲",
-            "continent": "North America",
-            "region": "Caribbean"
-        },
-        {
-            "name": "Dominican Republic",
-            "name_official": "Dominican Republic",
-            "iso_2": "DO",
-            "iso_3": "DOM",
-            "flag_emoji": "🇩🇴",
-            "continent": "North America",
-            "region": "Caribbean"
-        },
-        {
-            "name": "Ecuador",
-            "name_official": "Republic of Ecuador",
-            "iso_2": "EC",
-            "iso_3": "ECU",
-            "flag_emoji": "🇪🇨",
-            "continent": "South America",
-            "region": "South America"
-        },
-        {
-            "name": "Egypt",
-            "name_official": "Arab Republic of Egypt",
-            "iso_2": "EG",
-            "iso_3": "EGY",
-            "flag_emoji": "🇪🇬",
-            "continent": "Africa",
-            "region": "Northern Africa"
-        },
-        {
-            "name": "El Salvador",
-            "name_official": "Republic of El Salvador",
-            "iso_2": "SV",
-            "iso_3": "SLV",
-            "flag_emoji": "🇸🇻",
-            "continent": "North America",
-            "region": "Central America"
-        },
-        {
-            "name": "Equatorial Guinea",
-            "name_official": "Republic of Equatorial Guinea",
-            "iso_2": "GQ",
-            "iso_3": "GNQ",
-            "flag_emoji": "🇬🇶",
-            "continent": "Africa",
-            "region": "Middle Africa"
-        },
-        {
-            "name": "Eritrea",
-            "name_official": "State of Eritrea",
-            "iso_2": "ER",
-            "iso_3": "ERI",
-            "flag_emoji": "🇪🇷",
-            "continent": "Africa",
-            "region": "Eastern Africa"
-        },
-        {
-            "name": "Estonia",
-            "name_official": "Republic of Estonia",
-            "iso_2": "EE",
-            "iso_3": "EST",
-            "flag_emoji": "🇪🇪",
-            "continent": "Europe",
-            "region": "Northern Europe"
-        },
-        {
-            "name": "Eswatini",
-            "name_official": "Kingdom of Eswatini",
-            "iso_2": "SZ",
-            "iso_3": "SWZ",
-            "flag_emoji": "🇸🇿",
-            "continent": "Africa",
-            "region": "Southern Africa"
-        },
-        {
-            "name": "Ethiopia",
-            "name_official": "Federal Democratic Republic of Ethiopia",
-            "iso_2": "ET",
-            "iso_3": "ETH",
-            "flag_emoji": "🇪🇹",
-            "continent": "Africa",
-            "region": "Eastern Africa"
-        },
-        {
-            "name": "Falkland Islands (Malvinas)",
-            "name_official": "Falkland Islands",
-            "iso_2": "FK",
-            "iso_3": "FLK",
-            "flag_emoji": "🇫🇰",
-            "continent": "South America",
-            "region": "South America"
-        },
-        {
-            "name": "Faroe Islands",
-            "name_official": "Faroe Islands",
-            "iso_2": "FO",
-            "iso_3": "FRO",
-            "flag_emoji": "🇫🇴",
-            "continent": "Europe",
-            "region": "Northern Europe"
-        },
-        {
-            "name": "Fiji",
-            "name_official": "Republic of Fiji",
-            "iso_2": "FJ",
-            "iso_3": "FJI",
-            "flag_emoji": "🇫🇯",
-            "continent": "Oceania",
-            "region": "Melanesia"
-        },
-        {
-            "name": "Finland",
-            "name_official": "Republic of Finland",
-            "iso_2": "FI",
-            "iso_3": "FIN",
-            "flag_emoji": "🇫🇮",
-            "continent": "Europe",
-            "region": "Northern Europe"
-        },
-        {
-            "name": "France",
-            "name_official": "French Republic",
-            "iso_2": "FR",
-            "iso_3": "FRA",
-            "flag_emoji": "🇫🇷",
-            "continent": "Europe",
-            "region": "Western Europe"
-        },
-        {
-            "name": "French Guiana",
-            "name_official": "Guiana",
-            "iso_2": "GF",
-            "iso_3": "GUF",
-            "flag_emoji": "🇬🇫",
-            "continent": "South America",
-            "region": "South America"
-        },
-        {
-            "name": "French Polynesia",
-            "name_official": "French Polynesia",
-            "iso_2": "PF",
-            "iso_3": "PYF",
-            "flag_emoji": "🇵🇫",
-            "continent": "Oceania",
-            "region": "Polynesia"
-        },
-        {
-            "name": "French Southern Territories",
-            "name_official": "French Southern and Antarctic Lands",
-            "iso_2": "TF",
-            "iso_3": "ATF",
-            "flag_emoji": "🇹🇫",
-            "continent": "Antarctica",
-            "region": "Antarctica"
-        },
-        {
-            "name": "Gabon",
-            "name_official": "Gabonese Republic",
-            "iso_2": "GA",
-            "iso_3": "GAB",
-            "flag_emoji": "🇬🇦",
-            "continent": "Africa",
-            "region": "Middle Africa"
-        },
-        {
-            "name": "Gambia",
-            "name_official": "Republic of The Gambia",
-            "iso_2": "GM",
-            "iso_3": "GMB",
-            "flag_emoji": "🇬🇲",
-            "continent": "Africa",
-            "region": "Western Africa"
-        },
-        {
-            "name": "Georgia",
-            "name_official": "Georgia",
-            "iso_2": "GE",
-            "iso_3": "GEO",
-            "flag_emoji": "🇬🇪",
-            "continent": "Asia",
-            "region": "Western Asia"
-        },
-        {
-            "name": "Germany",
-            "name_official": "Federal Republic of Germany",
-            "iso_2": "DE",
-            "iso_3": "DEU",
-            "flag_emoji": "🇩🇪",
-            "continent": "Europe",
-            "region": "Western Europe"
-        },
-        {
-            "name": "Ghana",
-            "name_official": "Republic of Ghana",
-            "iso_2": "GH",
-            "iso_3": "GHA",
-            "flag_emoji": "🇬🇭",
-            "continent": "Africa",
-            "region": "Western Africa"
-        },
-        {
-            "name": "Gibraltar",
-            "name_official": "Gibraltar",
-            "iso_2": "GI",
-            "iso_3": "GIB",
-            "flag_emoji": "🇬🇮",
-            "continent": "Europe",
-            "region": "Southern Europe"
-        },
-        {
-            "name": "Greece",
-            "name_official": "Hellenic Republic",
-            "iso_2": "GR",
-            "iso_3": "GRC",
-            "flag_emoji": "🇬🇷",
-            "continent": "Europe",
-            "region": "Southern Europe"
-        },
-        {
-            "name": "Greenland",
-            "name_official": "Greenland",
-            "iso_2": "GL",
-            "iso_3": "GRL",
-            "flag_emoji": "🇬🇱",
-            "continent": "North America",
-            "region": "Northern America"
-        },
-        {
-            "name": "Grenada",
-            "name_official": "Grenada",
-            "iso_2": "GD",
-            "iso_3": "GRD",
-            "flag_emoji": "🇬🇩",
-            "continent": "North America",
-            "region": "Caribbean"
-        },
-        {
-            "name": "Guadeloupe",
-            "name_official": "Guadeloupe",
-            "iso_2": "GP",
-            "iso_3": "GLP",
-            "flag_emoji": "🇬🇵",
-            "continent": "North America",
-            "region": "Caribbean"
-        },
-        {
-            "name": "Guam",
-            "name_official": "Territory of Guam",
-            "iso_2": "GU",
-            "iso_3": "GUM",
-            "flag_emoji": "🇬🇺",
-            "continent": "Oceania",
-            "region": "Micronesia"
-        },
-        {
-            "name": "Guatemala",
-            "name_official": "Republic of Guatemala",
-            "iso_2": "GT",
-            "iso_3": "GTM",
-            "flag_emoji": "🇬🇹",
-            "continent": "North America",
-            "region": "Central America"
-        },
-        {
-            "name": "Guernsey",
-            "name_official": "Bailiwick of Guernsey",
-            "iso_2": "GG",
-            "iso_3": "GGY",
-            "flag_emoji": "🇬🇬",
-            "continent": "Europe",
-            "region": "Northern Europe"
-        },
-        {
-            "name": "Guinea",
-            "name_official": "Republic of Guinea",
-            "iso_2": "GN",
-            "iso_3": "GIN",
-            "flag_emoji": "🇬🇳",
-            "continent": "Africa",
-            "region": "Western Africa"
-        },
-        {
-            "name": "Guinea-Bissau",
-            "name_official": "Republic of Guinea-Bissau",
-            "iso_2": "GW",
-            "iso_3": "GNB",
-            "flag_emoji": "🇬🇼",
-            "continent": "Africa",
-            "region": "Western Africa"
-        },
-        {
-            "name": "Guyana",
-            "name_official": "Co-operative Republic of Guyana",
-            "iso_2": "GY",
-            "iso_3": "GUY",
-            "flag_emoji": "🇬🇾",
-            "continent": "South America",
-            "region": "South America"
-        },
-        {
-            "name": "Haiti",
-            "name_official": "Republic of Haiti",
-            "iso_2": "HT",
-            "iso_3": "HTI",
-            "flag_emoji": "🇭🇹",
-            "continent": "North America",
-            "region": "Caribbean"
-        },
-        {
-            "name": "Heard Island and McDonald Islands",
-            "name_official": "Territory of Heard Island and McDonald Islands",
-            "iso_2": "HM",
-            "iso_3": "HMD",
-            "flag_emoji": "🇭🇲",
-            "continent": "Antarctica",
-            "region": "Antarctica"
-        },
-        {
-            "name": "Holy See",
-            "name_official": "The Holy See",
-            "iso_2": "VA",
-            "iso_3": "VAT",
-            "flag_emoji": "🇻🇦",
-            "continent": "Europe",
-            "region": "Southern Europe"
-        },
-        {
-            "name": "Honduras",
-            "name_official": "Republic of Honduras",
-            "iso_2": "HN",
-            "iso_3": "HND",
-            "flag_emoji": "🇭🇳",
-            "continent": "North America",
-            "region": "Central America"
-        },
-        {
-            "name": "Hong Kong",
-            "name_official": "Hong Kong Special Administrative Region of the People's Republic of China",
-            "iso_2": "HK",
-            "iso_3": "HKG",
-            "flag_emoji": "🇭🇰",
-            "continent": "Asia",
-            "region": "Eastern Asia"
-        },
-        {
-            "name": "Hungary",
-            "name_official": "Hungary",
-            "iso_2": "HU",
-            "iso_3": "HUN",
-            "flag_emoji": "🇭🇺",
-            "continent": "Europe",
-            "region": "Eastern Europe"
-        },
-        {
-            "name": "Iceland",
-            "name_official": "Iceland",
-            "iso_2": "IS",
-            "iso_3": "ISL",
-            "flag_emoji": "🇮🇸",
-            "continent": "Europe",
-            "region": "Northern Europe"
-        },
-        {
-            "name": "India",
-            "name_official": "Republic of India",
-            "iso_2": "IN",
-            "iso_3": "IND",
-            "flag_emoji": "🇮🇳",
-            "continent": "Asia",
-            "region": "Southern Asia"
-        },
-        {
-            "name": "Indonesia",
-            "name_official": "Republic of Indonesia",
-            "iso_2": "ID",
-            "iso_3": "IDN",
-            "flag_emoji": "🇮🇩",
-            "continent": "Asia",
-            "region": "South-eastern Asia"
-        },
-        {
-            "name": "Iran",
-            "name_official": "Islamic Republic of Iran",
-            "iso_2": "IR",
-            "iso_3": "IRN",
-            "flag_emoji": "🇮🇷",
-            "continent": "Asia",
-            "region": "Southern Asia"
-        },
-        {
-            "name": "Iraq",
-            "name_official": "Republic of Iraq",
-            "iso_2": "IQ",
-            "iso_3": "IRQ",
-            "flag_emoji": "🇮🇶",
-            "continent": "Asia",
-            "region": "Western Asia"
-        },
-        {
-            "name": "Ireland",
-            "name_official": "Ireland",
-            "iso_2": "IE",
-            "iso_3": "IRL",
-            "flag_emoji": "🇮🇪",
-            "continent": "Europe",
-            "region": "Northern Europe"
-        },
-        {
-            "name": "Isle of Man",
-            "name_official": "Isle of Man",
-            "iso_2": "IM",
-            "iso_3": "IMN",
-            "flag_emoji": "🇮🇲",
-            "continent": "Europe",
-            "region": "Northern Europe"
-        },
-        {
-            "name": "Israel",
-            "name_official": "State of Israel",
-            "iso_2": "IL",
-            "iso_3": "ISR",
-            "flag_emoji": "🇮🇱",
-            "continent": "Asia",
-            "region": "Western Asia"
-        },
-        {
-            "name": "Italy",
-            "name_official": "Italian Republic",
-            "iso_2": "IT",
-            "iso_3": "ITA",
-            "flag_emoji": "🇮🇹",
-            "continent": "Europe",
-            "region": "Southern Europe"
-        },
-        {
-            "name": "Jamaica",
-            "name_official": "Jamaica",
-            "iso_2": "JM",
-            "iso_3": "JAM",
-            "flag_emoji": "🇯🇲",
-            "continent": "North America",
-            "region": "Caribbean"
-        },
-        {
-            "name": "Japan",
-            "name_official": "Japan",
-            "iso_2": "JP",
-            "iso_3": "JPN",
-            "flag_emoji": "🇯🇵",
-            "continent": "Asia",
-            "region": "Eastern Asia"
-        },
-        {
-            "name": "Jersey",
-            "name_official": "Bailiwick of Jersey",
-            "iso_2": "JE",
-            "iso_3": "JEY",
-            "flag_emoji": "🇯🇪",
-            "continent": "Europe",
-            "region": "Northern Europe"
-        },
-        {
-            "name": "Jordan",
-            "name_official": "Hashemite Kingdom of Jordan",
-            "iso_2": "JO",
-            "iso_3": "JOR",
-            "flag_emoji": "🇯🇴",
-            "continent": "Asia",
-            "region": "Western Asia"
-        },
-        {
-            "name": "Kazakhstan",
-            "name_official": "Republic of Kazakhstan",
-            "iso_2": "KZ",
-            "iso_3": "KAZ",
-            "flag_emoji": "🇰🇿",
-            "continent": "Asia",
-            "region": "Central Asia"
-        },
-        {
-            "name": "Kenya",
-            "name_official": "Republic of Kenya",
-            "iso_2": "KE",
-            "iso_3": "KEN",
-            "flag_emoji": "🇰🇪",
-            "continent": "Africa",
-            "region": "Eastern Africa"
-        },
-        {
-            "name": "Kiribati",
-            "name_official": "Republic of Kiribati",
-            "iso_2": "KI",
-            "iso_3": "KIR",
-            "flag_emoji": "🇰🇮",
-            "continent": "Oceania",
-            "region": "Micronesia"
-        },
-        {
-            "name": "Kuwait",
-            "name_official": "State of Kuwait",
-            "iso_2": "KW",
-            "iso_3": "KWT",
-            "flag_emoji": "🇰🇼",
-            "continent": "Asia",
-            "region": "Western Asia"
-        },
-        {
-            "name": "Kyrgyzstan",
-            "name_official": "Kyrgyz Republic",
-            "iso_2": "KG",
-            "iso_3": "KGZ",
-            "flag_emoji": "🇰🇬",
-            "continent": "Asia",
-            "region": "Central Asia"
-        },
-        {
-            "name": "Laos",
-            "name_official": "Lao People's Democratic Republic",
-            "iso_2": "LA",
-            "iso_3": "LAO",
-            "flag_emoji": "🇱🇦",
-            "continent": "Asia",
-            "region": "South-eastern Asia"
-        },
-        {
-            "name": "Latvia",
-            "name_official": "Republic of Latvia",
-            "iso_2": "LV",
-            "iso_3": "LVA",
-            "flag_emoji": "🇱🇻",
-            "continent": "Europe",
-            "region": "Northern Europe"
-        },
-        {
-            "name": "Lebanon",
-            "name_official": "Lebanese Republic",
-            "iso_2": "LB",
-            "iso_3": "LBN",
-            "flag_emoji": "🇱🇧",
-            "continent": "Asia",
-            "region": "Western Asia"
-        },
-        {
-            "name": "Lesotho",
-            "name_official": "Kingdom of Lesotho",
-            "iso_2": "LS",
-            "iso_3": "LSO",
-            "flag_emoji": "🇱🇸",
-            "continent": "Africa",
-            "region": "Southern Africa"
-        },
-        {
-            "name": "Liberia",
-            "name_official": "Republic of Liberia",
-            "iso_2": "LR",
-            "iso_3": "LBR",
-            "flag_emoji": "🇱🇷",
-            "continent": "Africa",
-            "region": "Western Africa"
-        },
-        {
-            "name": "Libya",
-            "name_official": "State of Libya",
-            "iso_2": "LY",
-            "iso_3": "LBY",
-            "flag_emoji": "🇱🇾",
-            "continent": "Africa",
-            "region": "Northern Africa"
-        },
-        {
-            "name": "Liechtenstein",
-            "name_official": "Principality of Liechtenstein",
-            "iso_2": "LI",
-            "iso_3": "LIE",
-            "flag_emoji": "🇱🇮",
-            "continent": "Europe",
-            "region": "Western Europe"
-        },
-        {
-            "name": "Lithuania",
-            "name_official": "Republic of Lithuania",
-            "iso_2": "LT",
-            "iso_3": "LTU",
-            "flag_emoji": "🇱🇹",
-            "continent": "Europe",
-            "region": "Northern Europe"
-        },
-        {
-            "name": "Luxembourg",
-            "name_official": "Grand Duchy of Luxembourg",
-            "iso_2": "LU",
-            "iso_3": "LUX",
-            "flag_emoji": "🇱🇺",
-            "continent": "Europe",
-            "region": "Western Europe"
-        },
-        {
-            "name": "Macao",
-            "name_official": "Macao Special Administrative Region of the People's Republic of China",
-            "iso_2": "MO",
-            "iso_3": "MAC",
-            "flag_emoji": "🇲🇴",
-            "continent": "Asia",
-            "region": "Eastern Asia"
-        },
-        {
-            "name": "Madagascar",
-            "name_official": "Republic of Madagascar",
-            "iso_2": "MG",
-            "iso_3": "MDG",
-            "flag_emoji": "🇲🇬",
-            "continent": "Africa",
-            "region": "Eastern Africa"
-        },
-        {
-            "name": "Malawi",
-            "name_official": "Republic of Malawi",
-            "iso_2": "MW",
-            "iso_3": "MWI",
-            "flag_emoji": "🇲🇼",
-            "continent": "Africa",
-            "region": "Eastern Africa"
-        },
-        {
-            "name": "Malaysia",
-            "name_official": "Malaysia",
-            "iso_2": "MY",
-            "iso_3": "MYS",
-            "flag_emoji": "🇲🇾",
-            "continent": "Asia",
-            "region": "South-eastern Asia"
-        },
-        {
-            "name": "Maldives",
-            "name_official": "Republic of Maldives",
-            "iso_2": "MV",
-            "iso_3": "MDV",
-            "flag_emoji": "🇲🇻",
-            "continent": "Asia",
-            "region": "Southern Asia"
-        },
-        {
-            "name": "Mali",
-            "name_official": "Republic of Mali",
-            "iso_2": "ML",
-            "iso_3": "MLI",
-            "flag_emoji": "🇲🇱",
-            "continent": "Africa",
-            "region": "Western Africa"
-        },
-        {
-            "name": "Malta",
-            "name_official": "Republic of Malta",
-            "iso_2": "MT",
-            "iso_3": "MLT",
-            "flag_emoji": "🇲🇹",
-            "continent": "Europe",
-            "region": "Southern Europe"
-        },
-        {
-            "name": "Marshall Islands",
-            "name_official": "Republic of the Marshall Islands",
-            "iso_2": "MH",
-            "iso_3": "MHL",
-            "flag_emoji": "🇲🇭",
-            "continent": "Oceania",
-            "region": "Micronesia"
-        },
-        {
-            "name": "Martinique",
-            "name_official": "Martinique",
-            "iso_2": "MQ",
-            "iso_3": "MTQ",
-            "flag_emoji": "🇲🇶",
-            "continent": "North America",
-            "region": "Caribbean"
-        },
-        {
-            "name": "Mauritania",
-            "name_official": "Islamic Republic of Mauritania",
-            "iso_2": "MR",
-            "iso_3": "MRT",
-            "flag_emoji": "🇲🇷",
-            "continent": "Africa",
-            "region": "Western Africa"
-        },
-        {
-            "name": "Mauritius",
-            "name_official": "Republic of Mauritius",
-            "iso_2": "MU",
-            "iso_3": "MUS",
-            "flag_emoji": "🇲🇺",
-            "continent": "Africa",
-            "region": "Eastern Africa"
-        },
-        {
-            "name": "Mayotte",
-            "name_official": "Department of Mayotte",
-            "iso_2": "YT",
-            "iso_3": "MYT",
-            "flag_emoji": "🇾🇹",
-            "continent": "Africa",
-            "region": "Eastern Africa"
-        },
-        {
-            "name": "Mexico",
-            "name_official": "United Mexican States",
-            "iso_2": "MX",
-            "iso_3": "MEX",
-            "flag_emoji": "🇲🇽",
-            "continent": "North America",
-            "region": "Central America"
-        },
-        {
-            "name": "Micronesia",
-            "name_official": "Federated States of Micronesia",
-            "iso_2": "FM",
-            "iso_3": "FSM",
-            "flag_emoji": "🇫🇲",
-            "continent": "Oceania",
-            "region": "Micronesia"
-        },
-        {
-            "name": "Moldova",
-            "name_official": "Republic of Moldova",
-            "iso_2": "MD",
-            "iso_3": "MDA",
-            "flag_emoji": "🇲🇩",
-            "continent": "Europe",
-            "region": "Eastern Europe"
-        },
-        {
-            "name": "Monaco",
-            "name_official": "Principality of Monaco",
-            "iso_2": "MC",
-            "iso_3": "MCO",
-            "flag_emoji": "🇲🇨",
-            "continent": "Europe",
-            "region": "Western Europe"
-        },
-        {
-            "name": "Mongolia",
-            "name_official": "Mongolia",
-            "iso_2": "MN",
-            "iso_3": "MNG",
-            "flag_emoji": "🇲🇳",
-            "continent": "Asia",
-            "region": "Eastern Asia"
-        },
-        {
-            "name": "Montenegro",
-            "name_official": "Montenegro",
-            "iso_2": "ME",
-            "iso_3": "MNE",
-            "flag_emoji": "🇲🇪",
-            "continent": "Europe",
-            "region": "Southern Europe"
-        },
-        {
-            "name": "Montserrat",
-            "name_official": "Montserrat",
-            "iso_2": "MS",
-            "iso_3": "MSR",
-            "flag_emoji": "🇲🇸",
-            "continent": "North America",
-            "region": "Caribbean"
-        },
-        {
-            "name": "Morocco",
-            "name_official": "Kingdom of Morocco",
-            "iso_2": "MA",
-            "iso_3": "MAR",
-            "flag_emoji": "🇲🇦",
-            "continent": "Africa",
-            "region": "Northern Africa"
-        },
-        {
-            "name": "Mozambique",
-            "name_official": "Republic of Mozambique",
-            "iso_2": "MZ",
-            "iso_3": "MOZ",
-            "flag_emoji": "🇲🇿",
-            "continent": "Africa",
-            "region": "Eastern Africa"
-        },
-        {
-            "name": "Myanmar",
-            "name_official": "Republic of the Union of Myanmar",
-            "iso_2": "MM",
-            "iso_3": "MMR",
-            "flag_emoji": "🇲🇲",
-            "continent": "Asia",
-            "region": "South-eastern Asia"
-        },
-        {
-            "name": "Namibia",
-            "name_official": "Republic of Namibia",
-            "iso_2": "NA",
-            "iso_3": "NAM",
-            "flag_emoji": "🇳🇦",
-            "continent": "Africa",
-            "region": "Southern Africa"
-        },
-        {
-            "name": "Nauru",
-            "name_official": "Republic of Nauru",
-            "iso_2": "NR",
-            "iso_3": "NRU",
-            "flag_emoji": "🇳🇷",
-            "continent": "Oceania",
-            "region": "Micronesia"
-        },
-        {
-            "name": "Nepal",
-            "name_official": "Federal Democratic Republic of Nepal",
-            "iso_2": "NP",
-            "iso_3": "NPL",
-            "flag_emoji": "🇳🇵",
-            "continent": "Asia",
-            "region": "Southern Asia"
-        },
-        {
-            "name": "Netherlands",
-            "name_official": "Netherlands",
-            "iso_2": "NL",
-            "iso_3": "NLD",
-            "flag_emoji": "🇳🇱",
-            "continent": "Europe",
-            "region": "Western Europe"
-        },
-        {
-            "name": "New Caledonia",
-            "name_official": "New Caledonia",
-            "iso_2": "NC",
-            "iso_3": "NCL",
-            "flag_emoji": "🇳🇨",
-            "continent": "Oceania",
-            "region": "Melanesia"
-        },
-        {
-            "name": "New Zealand",
-            "name_official": "New Zealand",
-            "iso_2": "NZ",
-            "iso_3": "NZL",
-            "flag_emoji": "🇳🇿",
-            "continent": "Oceania",
-            "region": "Australia and New Zealand"
-        },
-        {
-            "name": "Nicaragua",
-            "name_official": "Republic of Nicaragua",
-            "iso_2": "NI",
-            "iso_3": "NIC",
-            "flag_emoji": "🇳🇮",
-            "continent": "North America",
-            "region": "Central America"
-        },
-        {
-            "name": "Niger",
-            "name_official": "Republic of Niger",
-            "iso_2": "NE",
-            "iso_3": "NER",
-            "flag_emoji": "🇳🇪",
-            "continent": "Africa",
-            "region": "Western Africa"
-        },
-        {
-            "name": "Nigeria",
-            "name_official": "Federal Republic of Nigeria",
-            "iso_2": "NG",
-            "iso_3": "NGA",
-            "flag_emoji": "🇳🇬",
-            "continent": "Africa",
-            "region": "Western Africa"
-        },
-        {
-            "name": "Niue",
-            "name_official": "Niue",
-            "iso_2": "NU",
-            "iso_3": "NIU",
-            "flag_emoji": "🇳🇺",
-            "continent": "Oceania",
-            "region": "Polynesia"
-        },
-        {
-            "name": "Norfolk Island",
-            "name_official": "Territory of Norfolk Island",
-            "iso_2": "NF",
-            "iso_3": "NFK",
-            "flag_emoji": "🇳🇫",
-            "continent": "Oceania",
-            "region": "Australia and New Zealand"
-        },
-        {
-            "name": "North Korea",
-            "name_official": "Democratic People's Republic of Korea",
-            "iso_2": "KP",
-            "iso_3": "PRK",
-            "flag_emoji": "🇰🇵",
-            "continent": "Asia",
-            "region": "Eastern Asia"
-        },
-        {
-            "name": "North Macedonia",
-            "name_official": "Republic of North Macedonia",
-            "iso_2": "MK",
-            "iso_3": "MKD",
-            "flag_emoji": "🇲🇰",
-            "continent": "Europe",
-            "region": "Southern Europe"
-        },
-        {
-            "name": "Northern Mariana Islands",
-            "name_official": "Commonwealth of the Northern Mariana Islands",
-            "iso_2": "MP",
-            "iso_3": "MNP",
-            "flag_emoji": "🇲🇵",
-            "continent": "Oceania",
-            "region": "Micronesia"
-        },
-        {
-            "name": "Norway",
-            "name_official": "Kingdom of Norway",
-            "iso_2": "NO",
-            "iso_3": "NOR",
-            "flag_emoji": "🇳🇴",
-            "continent": "Europe",
-            "region": "Northern Europe"
-        },
-        {
-            "name": "Oman",
-            "name_official": "Sultanate of Oman",
-            "iso_2": "OM",
-            "iso_3": "OMN",
-            "flag_emoji": "🇴🇲",
-            "continent": "Asia",
-            "region": "Western Asia"
-        },
-        {
-            "name": "Pakistan",
-            "name_official": "Islamic Republic of Pakistan",
-            "iso_2": "PK",
-            "iso_3": "PAK",
-            "flag_emoji": "🇵🇰",
-            "continent": "Asia",
-            "region": "Southern Asia"
-        },
-        {
-            "name": "Palau",
-            "name_official": "Republic of Palau",
-            "iso_2": "PW",
-            "iso_3": "PLW",
-            "flag_emoji": "🇵🇼",
-            "continent": "Oceania",
-            "region": "Micronesia"
-        },
-        {
-            "name": "Palestine",
-            "name_official": "State of Palestine",
-            "iso_2": "PS",
-            "iso_3": "PSE",
-            "flag_emoji": "🇵🇸",
-            "continent": "Asia",
-            "region": "Western Asia"
-        },
-        {
-            "name": "Panama",
-            "name_official": "Republic of Panama",
-            "iso_2": "PA",
-            "iso_3": "PAN",
-            "flag_emoji": "🇵🇦",
-            "continent": "North America",
-            "region": "Central America"
-        },
-        {
-            "name": "Papua New Guinea",
-            "name_official": "Independent State of Papua New Guinea",
-            "iso_2": "PG",
-            "iso_3": "PNG",
-            "flag_emoji": "🇵🇬",
-            "continent": "Oceania",
-            "region": "Melanesia"
-        },
-        {
-            "name": "Paraguay",
-            "name_official": "Republic of Paraguay",
-            "iso_2": "PY",
-            "iso_3": "PRY",
-            "flag_emoji": "🇵🇾",
-            "continent": "South America",
-            "region": "South America"
-        },
-        {
-            "name": "Peru",
-            "name_official": "Republic of Peru",
-            "iso_2": "PE",
-            "iso_3": "PER",
-            "flag_emoji": "🇵🇪",
-            "continent": "South America",
-            "region": "South America"
-        },
-        {
-            "name": "Philippines",
-            "name_official": "Republic of the Philippines",
-            "iso_2": "PH",
-            "iso_3": "PHL",
-            "flag_emoji": "🇵🇭",
-            "continent": "Asia",
-            "region": "South-eastern Asia"
-        },
-        {
-            "name": "Pitcairn",
-            "name_official": "Pitcairn, Henderson, Ducie and Oeno Islands",
-            "iso_2": "PN",
-            "iso_3": "PCN",
-            "flag_emoji": "🇵🇳",
-            "continent": "Oceania",
-            "region": "Polynesia"
-        },
-        {
-            "name": "Poland",
-            "name_official": "Republic of Poland",
-            "iso_2": "PL",
-            "iso_3": "POL",
-            "flag_emoji": "🇵🇱",
-            "continent": "Europe",
-            "region": "Eastern Europe"
-        },
-        {
-            "name": "Portugal",
-            "name_official": "Portuguese Republic",
-            "iso_2": "PT",
-            "iso_3": "PRT",
-            "flag_emoji": "🇵🇹",
-            "continent": "Europe",
-            "region": "Southern Europe"
-        },
-        {
-            "name": "Puerto Rico",
-            "name_official": "Commonwealth of Puerto Rico",
-            "iso_2": "PR",
-            "iso_3": "PRI",
-            "flag_emoji": "🇵🇷",
-            "continent": "North America",
-            "region": "Caribbean"
-        },
-        {
-            "name": "Qatar",
-            "name_official": "State of Qatar",
-            "iso_2": "QA",
-            "iso_3": "QAT",
-            "flag_emoji": "🇶🇦",
-            "continent": "Asia",
-            "region": "Western Asia"
-        },
-        {
-            "name": "Reunion",
-            "name_official": "Réunion",
-            "iso_2": "RE",
-            "iso_3": "REU",
-            "flag_emoji": "🇷🇪",
-            "continent": "Africa",
-            "region": "Eastern Africa"
-        },
-        {
-            "name": "Romania",
-            "name_official": "Romania",
-            "iso_2": "RO",
-            "iso_3": "ROU",
-            "flag_emoji": "🇷🇴",
-            "continent": "Europe",
-            "region": "Eastern Europe"
-        },
-        {
-            "name": "Russia",
-            "name_official": "Russian Federation",
-            "iso_2": "RU",
-            "iso_3": "RUS",
-            "flag_emoji": "🇷🇺",
-            "continent": "Europe",
-            "region": "Eastern Europe"
-        },
-        {
-            "name": "Rwanda",
-            "name_official": "Republic of Rwanda",
-            "iso_2": "RW",
-            "iso_3": "RWA",
-            "flag_emoji": "🇷🇼",
-            "continent": "Africa",
-            "region": "Eastern Africa"
-        },
-        {
-            "name": "Saint Helena",
-            "name_official": "Saint Helena, Ascension and Tristan da Cunha",
-            "iso_2": "SH",
-            "iso_3": "SHN",
-            "flag_emoji": "🇸🇭",
-            "continent": "Africa",
-            "region": "Western Africa"
-        },
-        {
-            "name": "Saint Kitts and Nevis",
-            "name_official": "Federation of Saint Christopher and Nevis",
-            "iso_2": "KN",
-            "iso_3": "KNA",
-            "flag_emoji": "🇰🇳",
-            "continent": "North America",
-            "region": "Caribbean"
-        },
-        {
-            "name": "Saint Lucia",
-            "name_official": "Saint Lucia",
-            "iso_2": "LC",
-            "iso_3": "LCA",
-            "flag_emoji": "🇱🇨",
-            "continent": "North America",
-            "region": "Caribbean"
-        },
-        {
-            "name": "Saint Pierre and Miquelon",
-            "name_official": "Territorial Collectivity of Saint-Pierre and Miquelon",
-            "iso_2": "PM",
-            "iso_3": "SPM",
-            "flag_emoji": "🇵🇲",
-            "continent": "North America",
-            "region": "Northern America"
-        },
-        {
-            "name": "Saint Vincent and the Grenadines",
-            "name_official": "Saint Vincent and the Grenadines",
-            "iso_2": "VC",
-            "iso_3": "VCT",
-            "flag_emoji": "🇻🇨",
-            "continent": "North America",
-            "region": "Caribbean"
-        },
-        {
-            "name": "Samoa",
-            "name_official": "Independent State of Samoa",
-            "iso_2": "WS",
-            "iso_3": "WSM",
-            "flag_emoji": "🇼🇸",
-            "continent": "Oceania",
-            "region": "Polynesia"
-        },
-        {
-            "name": "San Marino",
-            "name_official": "Republic of San Marino",
-            "iso_2": "SM",
-            "iso_3": "SMR",
-            "flag_emoji": "🇸🇲",
-            "continent": "Europe",
-            "region": "Southern Europe"
-        },
-        {
-            "name": "Sao Tome and Principe",
-            "name_official": "Democratic Republic of São Tomé and Príncipe",
-            "iso_2": "ST",
-            "iso_3": "STP",
-            "flag_emoji": "🇸🇹",
-            "continent": "Africa",
-            "region": "Middle Africa"
-        },
-        {
-            "name": "Saudi Arabia",
-            "name_official": "Kingdom of Saudi Arabia",
-            "iso_2": "SA",
-            "iso_3": "SAU",
-            "flag_emoji": "🇸🇦",
-            "continent": "Asia",
-            "region": "Western Asia"
-        },
-        {
-            "name": "Senegal",
-            "name_official": "Republic of Senegal",
-            "iso_2": "SN",
-            "iso_3": "SEN",
-            "flag_emoji": "🇸🇳",
-            "continent": "Africa",
-            "region": "Western Africa"
-        },
-        {
-            "name": "Serbia",
-            "name_official": "Republic of Serbia",
-            "iso_2": "RS",
-            "iso_3": "SRB",
-            "flag_emoji": "🇷🇸",
-            "continent": "Europe",
-            "region": "Southern Europe"
-        },
-        {
-            "name": "Seychelles",
-            "name_official": "Republic of Seychelles",
-            "iso_2": "SC",
-            "iso_3": "SYC",
-            "flag_emoji": "🇸🇨",
-            "continent": "Africa",
-            "region": "Eastern Africa"
-        },
-        {
-            "name": "Sierra Leone",
-            "name_official": "Republic of Sierra Leone",
-            "iso_2": "SL",
-            "iso_3": "SLE",
-            "flag_emoji": "🇸🇱",
-            "continent": "Africa",
-            "region": "Western Africa"
-        },
-        {
-            "name": "Singapore",
-            "name_official": "Republic of Singapore",
-            "iso_2": "SG",
-            "iso_3": "SGP",
-            "flag_emoji": "🇸🇬",
-            "continent": "Asia",
-            "region": "South-eastern Asia"
-        },
-        {
-            "name": "Slovakia",
-            "name_official": "Slovak Republic",
-            "iso_2": "SK",
-            "iso_3": "SVK",
-            "flag_emoji": "🇸🇰",
-            "continent": "Europe",
-            "region": "Eastern Europe"
-        },
-        {
-            "name": "Slovenia",
-            "name_official": "Republic of Slovenia",
-            "iso_2": "SI",
-            "iso_3": "SVN",
-            "flag_emoji": "🇸🇮",
-            "continent": "Europe",
-            "region": "Southern Europe"
-        },
-        {
-            "name": "Solomon Islands",
-            "name_official": "Solomon Islands",
-            "iso_2": "SB",
-            "iso_3": "SLB",
-            "flag_emoji": "🇸🇧",
-            "continent": "Oceania",
-            "region": "Melanesia"
-        },
-        {
-            "name": "Somalia",
-            "name_official": "Federal Republic of Somalia",
-            "iso_2": "SO",
-            "iso_3": "SOM",
-            "flag_emoji": "🇸🇴",
-            "continent": "Africa",
-            "region": "Eastern Africa"
-        },
-        {
-            "name": "South Africa",
-            "name_official": "Republic of South Africa",
-            "iso_2": "ZA",
-            "iso_3": "ZAF",
-            "flag_emoji": "🇿🇦",
-            "continent": "Africa",
-            "region": "Southern Africa"
-        },
-        {
-            "name": "South Georgia and the South Sandwich Islands",
-            "name_official": "South Georgia and the South Sandwich Islands",
-            "iso_2": "GS",
-            "iso_3": "SGS",
-            "flag_emoji": "🇬🇸",
-            "continent": "Antarctica",
-            "region": "Antarctica"
-        },
-        {
-            "name": "South Korea",
-            "name_official": "Republic of Korea",
-            "iso_2": "KR",
-            "iso_3": "KOR",
-            "flag_emoji": "🇰🇷",
-            "continent": "Asia",
-            "region": "Eastern Asia"
-        },
-        {
-            "name": "South Sudan",
-            "name_official": "Republic of South Sudan",
-            "iso_2": "SS",
-            "iso_3": "SSD",
-            "flag_emoji": "🇸🇸",
-            "continent": "Africa",
-            "region": "Eastern Africa"
-        },
-        {
-            "name": "Spain",
-            "name_official": "Kingdom of Spain",
-            "iso_2": "ES",
-            "iso_3": "ESP",
-            "flag_emoji": "🇪🇸",
-            "continent": "Europe",
-            "region": "Southern Europe"
-        },
-        {
-            "name": "Sri Lanka",
-            "name_official": "Democratic Socialist Republic of Sri Lanka",
-            "iso_2": "LK",
-            "iso_3": "LKA",
-            "flag_emoji": "🇱🇰",
-            "continent": "Asia",
-            "region": "Southern Asia"
-        },
-        {
-            "name": "Sudan",
-            "name_official": "Republic of the Sudan",
-            "iso_2": "SD",
-            "iso_3": "SDN",
-            "flag_emoji": "🇸🇩",
-            "continent": "Africa",
-            "region": "Northern Africa"
-        },
-        {
-            "name": "Suriname",
-            "name_official": "Republic of Suriname",
-            "iso_2": "SR",
-            "iso_3": "SUR",
-            "flag_emoji": "🇸🇷",
-            "continent": "South America",
-            "region": "South America"
-        },
-        {
-            "name": "Svalbard and Jan Mayen",
-            "name_official": "Svalbard and Jan Mayen",
-            "iso_2": "SJ",
-            "iso_3": "SJM",
-            "flag_emoji": "🇸🇯",
-            "continent": "Europe",
-            "region": "Northern Europe"
-        },
-        {
-            "name": "Sweden",
-            "name_official": "Kingdom of Sweden",
-            "iso_2": "SE",
-            "iso_3": "SWE",
-            "flag_emoji": "🇸🇪",
-            "continent": "Europe",
-            "region": "Northern Europe"
-        },
-        {
-            "name": "Switzerland",
-            "name_official": "Swiss Confederation",
-            "iso_2": "CH",
-            "iso_3": "CHE",
-            "flag_emoji": "🇨🇭",
-            "continent": "Europe",
-            "region": "Western Europe"
-        },
-        {
-            "name": "Syria",
-            "name_official": "Syrian Arab Republic",
-            "iso_2": "SY",
-            "iso_3": "SYR",
-            "flag_emoji": "🇸🇾",
-            "continent": "Asia",
-            "region": "Western Asia"
-        },
-        {
-            "name": "Taiwan",
-            "name_official": "Republic of China",
-            "iso_2": "TW",
-            "iso_3": "TWN",
-            "flag_emoji": "🇹🇼",
-            "continent": "Asia",
-            "region": "Eastern Asia"
-        },
-        {
-            "name": "Tajikistan",
-            "name_official": "Republic of Tajikistan",
-            "iso_2": "TJ",
-            "iso_3": "TJK",
-            "flag_emoji": "🇹🇯",
-            "continent": "Asia",
-            "region": "Central Asia"
-        },
-        {
-            "name": "Tanzania",
-            "name_official": "United Republic of Tanzania",
-            "iso_2": "TZ",
-            "iso_3": "TZA",
-            "flag_emoji": "🇹🇿",
-            "continent": "Africa",
-            "region": "Eastern Africa"
-        },
-        {
-            "name": "Thailand",
-            "name_official": "Kingdom of Thailand",
-            "iso_2": "TH",
-            "iso_3": "THA",
-            "flag_emoji": "🇹🇭",
-            "continent": "Asia",
-            "region": "South-eastern Asia"
-        },
-        {
-            "name": "Timor-Leste",
-            "name_official": "Democratic Republic of Timor-Leste",
-            "iso_2": "TL",
-            "iso_3": "TLS",
-            "flag_emoji": "🇹🇱",
-            "continent": "Asia",
-            "region": "South-eastern Asia"
-        },
-        {
-            "name": "Togo",
-            "name_official": "Togolese Republic",
-            "iso_2": "TG",
-            "iso_3": "TGO",
-            "flag_emoji": "🇹🇬",
-            "continent": "Africa",
-            "region": "Western Africa"
-        },
-        {
-            "name": "Tokelau",
-            "name_official": "Tokelau",
-            "iso_2": "TK",
-            "iso_3": "TKL",
-            "flag_emoji": "🇹🇰",
-            "continent": "Oceania",
-            "region": "Polynesia"
-        },
-        {
-            "name": "Tonga",
-            "name_official": "Kingdom of Tonga",
-            "iso_2": "TO",
-            "iso_3": "TON",
-            "flag_emoji": "🇹🇴",
-            "continent": "Oceania",
-            "region": "Polynesia"
-        },
-        {
-            "name": "Trinidad and Tobago",
-            "name_official": "Republic of Trinidad and Tobago",
-            "iso_2": "TT",
-            "iso_3": "TTO",
-            "flag_emoji": "🇹🇹",
-            "continent": "North America",
-            "region": "Caribbean"
-        },
-        {
-            "name": "Tunisia",
-            "name_official": "Republic of Tunisia",
-            "iso_2": "TN",
-            "iso_3": "TUN",
-            "flag_emoji": "🇹🇳",
-            "continent": "Africa",
-            "region": "Northern Africa"
-        },
-        {
-            "name": "Turkey",
-            "name_official": "Republic of Turkey",
-            "iso_2": "TR",
-            "iso_3": "TUR",
-            "flag_emoji": "🇹🇷",
-            "continent": "Asia",
-            "region": "Western Asia"
-        },
-        {
-            "name": "Turkmenistan",
-            "name_official": "Turkmenistan",
-            "iso_2": "TM",
-            "iso_3": "TKM",
-            "flag_emoji": "🇹🇲",
-            "continent": "Asia",
-            "region": "Central Asia"
-        },
-        {
-            "name": "Turks and Caicos Islands",
-            "name_official": "Turks and Caicos Islands",
-            "iso_2": "TC",
-            "iso_3": "TCA",
-            "flag_emoji": "🇹🇨",
-            "continent": "North America",
-            "region": "Caribbean"
-        },
-        {
-            "name": "Tuvalu",
-            "name_official": "Tuvalu",
-            "iso_2": "TV",
-            "iso_3": "TUV",
-            "flag_emoji": "🇹🇻",
-            "continent": "Oceania",
-            "region": "Polynesia"
-        },
-        {
-            "name": "U.S. Virgin Islands",
-            "name_official": "Virgin Islands of the United States",
-            "iso_2": "VI",
-            "iso_3": "VIR",
-            "flag_emoji": "🇻🇮",
-            "continent": "North America",
-            "region": "Caribbean"
-        },
-        {
-            "name": "Uganda",
-            "name_official": "Republic of Uganda",
-            "iso_2": "UG",
-            "iso_3": "UGA",
-            "flag_emoji": "🇺🇬",
-            "continent": "Africa",
-            "region": "Eastern Africa"
-        },
-        {
-            "name": "Ukraine",
-            "name_official": "Ukraine",
-            "iso_2": "UA",
-            "iso_3": "UKR",
-            "flag_emoji": "🇺🇦",
-            "continent": "Europe",
-            "region": "Eastern Europe"
-        },
-        {
-            "name": "United Arab Emirates",
-            "name_official": "United Arab Emirates",
-            "iso_2": "AE",
-            "iso_3": "ARE",
-            "flag_emoji": "🇦🇪",
-            "continent": "Asia",
-            "region": "Western Asia"
-        },
-        {
-            "name": "United Kingdom",
-            "name_official": "United Kingdom of Great Britain and Northern Ireland",
-            "iso_2": "GB",
-            "iso_3": "GBR",
-            "flag_emoji": "🇬🇧",
-            "continent": "Europe",
-            "region": "Northern Europe"
-        },
-        {
-            "name": "United States",
-            "name_official": "United States of America",
-            "iso_2": "US",
-            "iso_3": "USA",
-            "flag_emoji": "🇺🇸",
-            "continent": "North America",
-            "region": "Northern America"
-        },
-        {
-            "name": "United States Minor Outlying Islands",
-            "name_official": "United States Minor Outlying Islands",
-            "iso_2": "UM",
-            "iso_3": "UMI",
-            "flag_emoji": "🇺🇲",
-            "continent": "Oceania",
-            "region": "Micronesia"
-        },
-        {
-            "name": "Uruguay",
-            "name_official": "Oriental Republic of Uruguay",
-            "iso_2": "UY",
-            "iso_3": "URY",
-            "flag_emoji": "🇺🇾",
-            "continent": "South America",
-            "region": "South America"
-        },
-        {
-            "name": "Uzbekistan",
-            "name_official": "Republic of Uzbekistan",
-            "iso_2": "UZ",
-            "iso_3": "UZB",
-            "flag_emoji": "🇺🇿",
-            "continent": "Asia",
-            "region": "Central Asia"
-        },
-        {
-            "name": "Vanuatu",
-            "name_official": "Republic of Vanuatu",
-            "iso_2": "VU",
-            "iso_3": "VUT",
-            "flag_emoji": "🇻🇺",
-            "continent": "Oceania",
-            "region": "Melanesia"
-        },
-        {
-            "name": "Venezuela",
-            "name_official": "Bolivarian Republic of Venezuela",
-            "iso_2": "VE",
-            "iso_3": "VEN",
-            "flag_emoji": "🇻🇪",
-            "continent": "South America",
-            "region": "South America"
-        },
-        {
-            "name": "Vietnam",
-            "name_official": "Socialist Republic of Vietnam",
-            "iso_2": "VN",
-            "iso_3": "VNM",
-            "flag_emoji": "🇻🇳",
-            "continent": "Asia",
-            "region": "South-eastern Asia"
-        },
-        {
-            "name": "Wallis and Futuna",
-            "name_official": "Territory of the Wallis and Futuna Islands",
-            "iso_2": "WF",
-            "iso_3": "WLF",
-            "flag_emoji": "🇼🇫",
-            "continent": "Oceania",
-            "region": "Polynesia"
-        },
-        {
-            "name": "Western Sahara",
-            "name_official": "Western Sahara",
-            "iso_2": "EH",
-            "iso_3": "ESH",
-            "flag_emoji": "🇪🇭",
-            "continent": "Africa",
-            "region": "Northern Africa"
-        },
-        {
-            "name": "Yemen",
-            "name_official": "Republic of Yemen",
-            "iso_2": "YE",
-            "iso_3": "YEM",
-            "flag_emoji": "🇾🇪",
-            "continent": "Asia",
-            "region": "Western Asia"
-        },
-        {
-            "name": "Zambia",
-            "name_official": "Republic of Zambia",
-            "iso_2": "ZM",
-            "iso_3": "ZMB",
-            "flag_emoji": "🇿🇲",
-            "continent": "Africa",
-            "region": "Eastern Africa"
-        },
-        {
-            "name": "Zimbabwe",
-            "name_official": "Republic of Zimbabwe",
-            "iso_2": "ZW",
-            "iso_3": "ZWE",
-            "flag_emoji": "🇿🇼",
-            "continent": "Africa",
-            "region": "Eastern Africa"
-        }
+      {
+        "name": "Afghanistan",
+        "name_official": "Islamic Republic of Afghanistan",
+        "iso_2": "AF",
+        "iso_3": "AFG",
+        "flag_emoji": "🇦🇫",
+        "continent": "Asia",
+        "region": "Southern Asia",
+        "currency_iso_code": "AFN"
+      },
+      {
+        "name": "Åland Islands",
+        "name_official": "Åland Islands",
+        "iso_2": "AX",
+        "iso_3": "ALA",
+        "flag_emoji": "🇦🇽",
+        "continent": "Europe",
+        "region": "Northern Europe",
+        "currency_iso_code": "EUR"
+      },
+      {
+        "name": "Albania",
+        "name_official": "Republic of Albania",
+        "iso_2": "AL",
+        "iso_3": "ALB",
+        "flag_emoji": "🇦🇱",
+        "continent": "Europe",
+        "region": "Southern Europe",
+        "currency_iso_code": "ALL"
+      },
+      {
+        "name": "Algeria",
+        "name_official": "People's Democratic Republic of Algeria",
+        "iso_2": "DZ",
+        "iso_3": "DZA",
+        "flag_emoji": "🇩🇿",
+        "continent": "Africa",
+        "region": "Northern Africa",
+        "currency_iso_code": "DZD"
+      },
+      {
+        "name": "American Samoa",
+        "name_official": "Territory of American Samoa",
+        "iso_2": "AS",
+        "iso_3": "ASM",
+        "flag_emoji": "🇦🇸",
+        "continent": "Oceania",
+        "region": "Polynesia",
+        "currency_iso_code": "USD"
+      },
+      {
+        "name": "Andorra",
+        "name_official": "Principality of Andorra",
+        "iso_2": "AD",
+        "iso_3": "AND",
+        "flag_emoji": "🇦🇩",
+        "continent": "Europe",
+        "region": "Southern Europe",
+        "currency_iso_code": "EUR"
+      },
+      {
+        "name": "Angola",
+        "name_official": "Republic of Angola",
+        "iso_2": "AO",
+        "iso_3": "AGO",
+        "flag_emoji": "🇦🇴",
+        "continent": "Africa",
+        "region": "Middle Africa",
+        "currency_iso_code": "AOA"
+      },
+      {
+        "name": "Anguilla",
+        "name_official": "Anguilla",
+        "iso_2": "AI",
+        "iso_3": "AIA",
+        "flag_emoji": "🇦🇮",
+        "continent": "North America",
+        "region": "Caribbean",
+        "currency_iso_code": "XCD"
+      },
+      {
+        "name": "Antarctica",
+        "name_official": "Antarctica",
+        "iso_2": "AQ",
+        "iso_3": "ATA",
+        "flag_emoji": "🇦🇶",
+        "continent": "Antarctica",
+        "region": "Antarctica",
+        "currency_iso_code": null
+      },
+      {
+        "name": "Antigua and Barbuda",
+        "name_official": "Antigua and Barbuda",
+        "iso_2": "AG",
+        "iso_3": "ATG",
+        "flag_emoji": "🇦🇬",
+        "continent": "North America",
+        "region": "Caribbean",
+        "currency_iso_code": "XCD"
+      },
+      {
+        "name": "Argentina",
+        "name_official": "Argentine Republic",
+        "iso_2": "AR",
+        "iso_3": "ARG",
+        "flag_emoji": "🇦🇷",
+        "continent": "South America",
+        "region": "South America",
+        "currency_iso_code": "ARS"
+      },
+      {
+        "name": "Armenia",
+        "name_official": "Republic of Armenia",
+        "iso_2": "AM",
+        "iso_3": "ARM",
+        "flag_emoji": "🇦🇲",
+        "continent": "Asia",
+        "region": "Western Asia",
+        "currency_iso_code": "AMD"
+      },
+      {
+        "name": "Aruba",
+        "name_official": "Aruba",
+        "iso_2": "AW",
+        "iso_3": "ABW",
+        "flag_emoji": "🇦🇼",
+        "continent": "North America",
+        "region": "Caribbean",
+        "currency_iso_code": "AWG"
+      },
+      {
+        "name": "Australia",
+        "name_official": "Commonwealth of Australia",
+        "iso_2": "AU",
+        "iso_3": "AUS",
+        "flag_emoji": "🇦🇺",
+        "continent": "Oceania",
+        "region": "Australia and New Zealand",
+        "currency_iso_code": "AUD"
+      },
+      {
+        "name": "Austria",
+        "name_official": "Republic of Austria",
+        "iso_2": "AT",
+        "iso_3": "AUT",
+        "flag_emoji": "🇦🇹",
+        "continent": "Europe",
+        "region": "Western Europe",
+        "currency_iso_code": "EUR"
+      },
+      {
+        "name": "Azerbaijan",
+        "name_official": "Republic of Azerbaijan",
+        "iso_2": "AZ",
+        "iso_3": "AZE",
+        "flag_emoji": "🇦🇿",
+        "continent": "Asia",
+        "region": "Western Asia",
+        "currency_iso_code": "AZN"
+      },
+      {
+        "name": "Bahamas",
+        "name_official": "Commonwealth of The Bahamas",
+        "iso_2": "BS",
+        "iso_3": "BHS",
+        "flag_emoji": "🇧🇸",
+        "continent": "North America",
+        "region": "Caribbean",
+        "currency_iso_code": "BSD"
+      },
+      {
+        "name": "Bahrain",
+        "name_official": "Kingdom of Bahrain",
+        "iso_2": "BH",
+        "iso_3": "BHR",
+        "flag_emoji": "🇧🇭",
+        "continent": "Asia",
+        "region": "Western Asia",
+        "currency_iso_code": "BHD"
+      },
+      {
+        "name": "Bangladesh",
+        "name_official": "People's Republic of Bangladesh",
+        "iso_2": "BD",
+        "iso_3": "BGD",
+        "flag_emoji": "🇧🇩",
+        "continent": "Asia",
+        "region": "Southern Asia",
+        "currency_iso_code": "BDT"
+      },
+      {
+        "name": "Barbados",
+        "name_official": "Barbados",
+        "iso_2": "BB",
+        "iso_3": "BRB",
+        "flag_emoji": "🇧🇧",
+        "continent": "North America",
+        "region": "Caribbean",
+        "currency_iso_code": "BBD"
+      },
+      {
+        "name": "Belarus",
+        "name_official": "Republic of Belarus",
+        "iso_2": "BY",
+        "iso_3": "BLR",
+        "flag_emoji": "🇧🇾",
+        "continent": "Europe",
+        "region": "Eastern Europe",
+        "currency_iso_code": "BYN"
+      },
+      {
+        "name": "Belgium",
+        "name_official": "Kingdom of Belgium",
+        "iso_2": "BE",
+        "iso_3": "BEL",
+        "flag_emoji": "🇧🇪",
+        "continent": "Europe",
+        "region": "Western Europe",
+        "currency_iso_code": "EUR"
+      },
+      {
+        "name": "Belize",
+        "name_official": "Belize",
+        "iso_2": "BZ",
+        "iso_3": "BLZ",
+        "flag_emoji": "🇧🇿",
+        "continent": "North America",
+        "region": "Central America",
+        "currency_iso_code": "BZD"
+      },
+      {
+        "name": "Benin",
+        "name_official": "Republic of Benin",
+        "iso_2": "BJ",
+        "iso_3": "BEN",
+        "flag_emoji": "🇧🇯",
+        "continent": "Africa",
+        "region": "Western Africa",
+        "currency_iso_code": "XOF"
+      },
+      {
+        "name": "Bermuda",
+        "name_official": "Bermuda",
+        "iso_2": "BM",
+        "iso_3": "BMU",
+        "flag_emoji": "🇧🇲",
+        "continent": "North America",
+        "region": "Northern America",
+        "currency_iso_code": "BMD"
+      },
+      {
+        "name": "Bhutan",
+        "name_official": "Kingdom of Bhutan",
+        "iso_2": "BT",
+        "iso_3": "BTN",
+        "flag_emoji": "🇧🇹",
+        "continent": "Asia",
+        "region": "Southern Asia",
+        "currency_iso_code": "BTN"
+      },
+      {
+        "name": "Bolivia",
+        "name_official": "Plurinational State of Bolivia",
+        "iso_2": "BO",
+        "iso_3": "BOL",
+        "flag_emoji": "🇧🇴",
+        "continent": "South America",
+        "region": "South America",
+        "currency_iso_code": "BOB"
+      },
+      {
+        "name": "Bosnia and Herzegovina",
+        "name_official": "Bosnia and Herzegovina",
+        "iso_2": "BA",
+        "iso_3": "BIH",
+        "flag_emoji": "🇧🇦",
+        "continent": "Europe",
+        "region": "Southern Europe",
+        "currency_iso_code": "BAM"
+      },
+      {
+        "name": "Botswana",
+        "name_official": "Republic of Botswana",
+        "iso_2": "BW",
+        "iso_3": "BWA",
+        "flag_emoji": "🇧🇼",
+        "continent": "Africa",
+        "region": "Southern Africa",
+        "currency_iso_code": "BWP"
+      },
+      {
+        "name": "Bouvet Island",
+        "name_official": "Bouvet Island",
+        "iso_2": "BV",
+        "iso_3": "BVT",
+        "flag_emoji": "🇧🇻",
+        "continent": "Antarctica",
+        "region": "Antarctica",
+        "currency_iso_code": null
+      },
+      {
+        "name": "Brazil",
+        "name_official": "Federative Republic of Brazil",
+        "iso_2": "BR",
+        "iso_3": "BRA",
+        "flag_emoji": "🇧🇷",
+        "continent": "South America",
+        "region": "South America",
+        "currency_iso_code": "BRL"
+      },
+      {
+        "name": "British Indian Ocean Territory",
+        "name_official": "British Indian Ocean Territory",
+        "iso_2": "IO",
+        "iso_3": "IOT",
+        "flag_emoji": "🇮🇴",
+        "continent": "Africa",
+        "region": "Eastern Africa",
+        "currency_iso_code": "USD"
+      },
+      {
+        "name": "British Virgin Islands",
+        "name_official": "Virgin Islands",
+        "iso_2": "VG",
+        "iso_3": "VGB",
+        "flag_emoji": "🇻🇬",
+        "continent": "North America",
+        "region": "Caribbean",
+        "currency_iso_code": "USD"
+      },
+      {
+        "name": "Brunei",
+        "name_official": "Brunei Darussalam",
+        "iso_2": "BN",
+        "iso_3": "BRN",
+        "flag_emoji": "🇧🇳",
+        "continent": "Asia",
+        "region": "South-eastern Asia",
+        "currency_iso_code": "BND"
+      },
+      {
+        "name": "Bulgaria",
+        "name_official": "Republic of Bulgaria",
+        "iso_2": "BG",
+        "iso_3": "BGR",
+        "flag_emoji": "🇧🇬",
+        "continent": "Europe",
+        "region": "Eastern Europe",
+        "currency_iso_code": "BGN"
+      },
+      {
+        "name": "Burkina Faso",
+        "name_official": "Burkina Faso",
+        "iso_2": "BF",
+        "iso_3": "BFA",
+        "flag_emoji": "🇧🇫",
+        "continent": "Africa",
+        "region": "Western Africa",
+        "currency_iso_code": "XOF"
+      },
+      {
+        "name": "Burundi",
+        "name_official": "Republic of Burundi",
+        "iso_2": "BI",
+        "iso_3": "BDI",
+        "flag_emoji": "🇧🇮",
+        "continent": "Africa",
+        "region": "Eastern Africa",
+        "currency_iso_code": "BIF"
+      },
+      {
+        "name": "Cabo Verde",
+        "name_official": "Republic of Cabo Verde",
+        "iso_2": "CV",
+        "iso_3": "CPV",
+        "flag_emoji": "🇨🇻",
+        "continent": "Africa",
+        "region": "Western Africa",
+        "currency_iso_code": "CVE"
+      },
+      {
+        "name": "Cambodia",
+        "name_official": "Kingdom of Cambodia",
+        "iso_2": "KH",
+        "iso_3": "KHM",
+        "flag_emoji": "🇰🇭",
+        "continent": "Asia",
+        "region": "South-eastern Asia",
+        "currency_iso_code": "KHR"
+      },
+      {
+        "name": "Cameroon",
+        "name_official": "Republic of Cameroon",
+        "iso_2": "CM",
+        "iso_3": "CMR",
+        "flag_emoji": "🇨🇲",
+        "continent": "Africa",
+        "region": "Middle Africa",
+        "currency_iso_code": "XAF"
+      },
+      {
+        "name": "Canada",
+        "name_official": "Canada",
+        "iso_2": "CA",
+        "iso_3": "CAN",
+        "flag_emoji": "🇨🇦",
+        "continent": "North America",
+        "region": "Northern America",
+        "currency_iso_code": "CAD"
+      },
+      {
+        "name": "Cayman Islands",
+        "name_official": "Cayman Islands",
+        "iso_2": "KY",
+        "iso_3": "CYM",
+        "flag_emoji": "🇰🇾",
+        "continent": "North America",
+        "region": "Caribbean",
+        "currency_iso_code": "KYD"
+      },
+      {
+        "name": "Central African Republic",
+        "name_official": "Central African Republic",
+        "iso_2": "CF",
+        "iso_3": "CAF",
+        "flag_emoji": "🇨🇫",
+        "continent": "Africa",
+        "region": "Middle Africa",
+        "currency_iso_code": "XAF"
+      },
+      {
+        "name": "Chad",
+        "name_official": "Republic of Chad",
+        "iso_2": "TD",
+        "iso_3": "TCD",
+        "flag_emoji": "🇹🇩",
+        "continent": "Africa",
+        "region": "Middle Africa",
+        "currency_iso_code": "XAF"
+      },
+      {
+        "name": "Chile",
+        "name_official": "Republic of Chile",
+        "iso_2": "CL",
+        "iso_3": "CHL",
+        "flag_emoji": "🇨🇱",
+        "continent": "South America",
+        "region": "South America",
+        "currency_iso_code": "CLP"
+      },
+      {
+        "name": "China",
+        "name_official": "People's Republic of China",
+        "iso_2": "CN",
+        "iso_3": "CHN",
+        "flag_emoji": "🇨🇳",
+        "continent": "Asia",
+        "region": "Eastern Asia",
+        "currency_iso_code": "CNY"
+      },
+      {
+        "name": "Christmas Island",
+        "name_official": "Territory of Christmas Island",
+        "iso_2": "CX",
+        "iso_3": "CXR",
+        "flag_emoji": "🇨🇽",
+        "continent": "Oceania",
+        "region": "Australia and New Zealand",
+        "currency_iso_code": "AUD"
+      },
+      {
+        "name": "Cocos (Keeling) Islands",
+        "name_official": "Territory of Cocos (Keeling) Islands",
+        "iso_2": "CC",
+        "iso_3": "CCK",
+        "flag_emoji": "🇨🇨",
+        "continent": "Oceania",
+        "region": "Australia and New Zealand",
+        "currency_iso_code": "AUD"
+      },
+      {
+        "name": "Colombia",
+        "name_official": "Republic of Colombia",
+        "iso_2": "CO",
+        "iso_3": "COL",
+        "flag_emoji": "🇨🇴",
+        "continent": "South America",
+        "region": "South America",
+        "currency_iso_code": "COP"
+      },
+      {
+        "name": "Comoros",
+        "name_official": "Union of the Comoros",
+        "iso_2": "KM",
+        "iso_3": "COM",
+        "flag_emoji": "🇰🇲",
+        "continent": "Africa",
+        "region": "Eastern Africa",
+        "currency_iso_code": "KMF"
+      },
+      {
+        "name": "Congo",
+        "name_official": "Republic of the Congo",
+        "iso_2": "CG",
+        "iso_3": "COG",
+        "flag_emoji": "🇨🇬",
+        "continent": "Africa",
+        "region": "Middle Africa",
+        "currency_iso_code": "XAF"
+      },
+      {
+        "name": "Cook Islands",
+        "name_official": "Cook Islands",
+        "iso_2": "CK",
+        "iso_3": "COK",
+        "flag_emoji": "🇨🇰",
+        "continent": "Oceania",
+        "region": "Polynesia",
+        "currency_iso_code": "NZD"
+      },
+      {
+        "name": "Costa Rica",
+        "name_official": "Republic of Costa Rica",
+        "iso_2": "CR",
+        "iso_3": "CRI",
+        "flag_emoji": "🇨🇷",
+        "continent": "North America",
+        "region": "Central America",
+        "currency_iso_code": "CRC"
+      },
+      {
+        "name": "Cote d'Ivoire",
+        "name_official": "Republic of Côte d'Ivoire",
+        "iso_2": "CI",
+        "iso_3": "CIV",
+        "flag_emoji": "🇨🇮",
+        "continent": "Africa",
+        "region": "Western Africa",
+        "currency_iso_code": "XOF"
+      },
+      {
+        "name": "Croatia",
+        "name_official": "Republic of Croatia",
+        "iso_2": "HR",
+        "iso_3": "HRV",
+        "flag_emoji": "🇭🇷",
+        "continent": "Europe",
+        "region": "Southern Europe",
+        "currency_iso_code": "EUR"
+      },
+      {
+        "name": "Cuba",
+        "name_official": "Republic of Cuba",
+        "iso_2": "CU",
+        "iso_3": "CUB",
+        "flag_emoji": "🇨🇺",
+        "continent": "North America",
+        "region": "Caribbean",
+        "currency_iso_code": "CUP"
+      },
+      {
+        "name": "Cyprus",
+        "name_official": "Republic of Cyprus",
+        "iso_2": "CY",
+        "iso_3": "CYP",
+        "flag_emoji": "🇨🇾",
+        "continent": "Asia",
+        "region": "Western Asia",
+        "currency_iso_code": "EUR"
+      },
+      {
+        "name": "Czechia",
+        "name_official": "Czech Republic",
+        "iso_2": "CZ",
+        "iso_3": "CZE",
+        "flag_emoji": "🇨🇿",
+        "continent": "Europe",
+        "region": "Eastern Europe",
+        "currency_iso_code": "CZK"
+      },
+      {
+        "name": "Democratic Republic of the Congo",
+        "name_official": "Democratic Republic of the Congo",
+        "iso_2": "CD",
+        "iso_3": "COD",
+        "flag_emoji": "🇨🇩",
+        "continent": "Africa",
+        "region": "Middle Africa",
+        "currency_iso_code": "CDF"
+      },
+      {
+        "name": "Denmark",
+        "name_official": "Kingdom of Denmark",
+        "iso_2": "DK",
+        "iso_3": "DNK",
+        "flag_emoji": "🇩🇰",
+        "continent": "Europe",
+        "region": "Northern Europe",
+        "currency_iso_code": "DKK"
+      },
+      {
+        "name": "Djibouti",
+        "name_official": "Republic of Djibouti",
+        "iso_2": "DJ",
+        "iso_3": "DJI",
+        "flag_emoji": "🇩🇯",
+        "continent": "Africa",
+        "region": "Eastern Africa",
+        "currency_iso_code": "DJF"
+      },
+      {
+        "name": "Dominica",
+        "name_official": "Commonwealth of Dominica",
+        "iso_2": "DM",
+        "iso_3": "DMA",
+        "flag_emoji": "🇩🇲",
+        "continent": "North America",
+        "region": "Caribbean",
+        "currency_iso_code": "XCD"
+      },
+      {
+        "name": "Dominican Republic",
+        "name_official": "Dominican Republic",
+        "iso_2": "DO",
+        "iso_3": "DOM",
+        "flag_emoji": "🇩🇴",
+        "continent": "North America",
+        "region": "Caribbean",
+        "currency_iso_code": "DOP"
+      },
+      {
+        "name": "Ecuador",
+        "name_official": "Republic of Ecuador",
+        "iso_2": "EC",
+        "iso_3": "ECU",
+        "flag_emoji": "🇪🇨",
+        "continent": "South America",
+        "region": "South America",
+        "currency_iso_code": "USD"
+      },
+      {
+        "name": "Egypt",
+        "name_official": "Arab Republic of Egypt",
+        "iso_2": "EG",
+        "iso_3": "EGY",
+        "flag_emoji": "🇪🇬",
+        "continent": "Africa",
+        "region": "Northern Africa",
+        "currency_iso_code": "EGP"
+      },
+      {
+        "name": "El Salvador",
+        "name_official": "Republic of El Salvador",
+        "iso_2": "SV",
+        "iso_3": "SLV",
+        "flag_emoji": "🇸🇻",
+        "continent": "North America",
+        "region": "Central America",
+        "currency_iso_code": "USD"
+      },
+      {
+        "name": "Equatorial Guinea",
+        "name_official": "Republic of Equatorial Guinea",
+        "iso_2": "GQ",
+        "iso_3": "GNQ",
+        "flag_emoji": "🇬🇶",
+        "continent": "Africa",
+        "region": "Middle Africa",
+        "currency_iso_code": "XAF"
+      },
+      {
+        "name": "Eritrea",
+        "name_official": "State of Eritrea",
+        "iso_2": "ER",
+        "iso_3": "ERI",
+        "flag_emoji": "🇪🇷",
+        "continent": "Africa",
+        "region": "Eastern Africa",
+        "currency_iso_code": "ERN"
+      },
+      {
+        "name": "Estonia",
+        "name_official": "Republic of Estonia",
+        "iso_2": "EE",
+        "iso_3": "EST",
+        "flag_emoji": "🇪🇪",
+        "continent": "Europe",
+        "region": "Northern Europe",
+        "currency_iso_code": "EUR"
+      },
+      {
+        "name": "Eswatini",
+        "name_official": "Kingdom of Eswatini",
+        "iso_2": "SZ",
+        "iso_3": "SWZ",
+        "flag_emoji": "🇸🇿",
+        "continent": "Africa",
+        "region": "Southern Africa",
+        "currency_iso_code": "SZL"
+      },
+      {
+        "name": "Ethiopia",
+        "name_official": "Federal Democratic Republic of Ethiopia",
+        "iso_2": "ET",
+        "iso_3": "ETH",
+        "flag_emoji": "🇪🇹",
+        "continent": "Africa",
+        "region": "Eastern Africa",
+        "currency_iso_code": "ETB"
+      },
+      {
+        "name": "Falkland Islands (Malvinas)",
+        "name_official": "Falkland Islands",
+        "iso_2": "FK",
+        "iso_3": "FLK",
+        "flag_emoji": "🇫🇰",
+        "continent": "South America",
+        "region": "South America",
+        "currency_iso_code": "FKP"
+      },
+      {
+        "name": "Faroe Islands",
+        "name_official": "Faroe Islands",
+        "iso_2": "FO",
+        "iso_3": "FRO",
+        "flag_emoji": "🇫🇴",
+        "continent": "Europe",
+        "region": "Northern Europe",
+        "currency_iso_code": "DKK"
+      },
+      {
+        "name": "Fiji",
+        "name_official": "Republic of Fiji",
+        "iso_2": "FJ",
+        "iso_3": "FJI",
+        "flag_emoji": "🇫🇯",
+        "continent": "Oceania",
+        "region": "Melanesia",
+        "currency_iso_code": "FJD"
+      },
+      {
+        "name": "Finland",
+        "name_official": "Republic of Finland",
+        "iso_2": "FI",
+        "iso_3": "FIN",
+        "flag_emoji": "🇫🇮",
+        "continent": "Europe",
+        "region": "Northern Europe",
+        "currency_iso_code": "EUR"
+      },
+      {
+        "name": "France",
+        "name_official": "French Republic",
+        "iso_2": "FR",
+        "iso_3": "FRA",
+        "flag_emoji": "🇫🇷",
+        "continent": "Europe",
+        "region": "Western Europe",
+        "currency_iso_code": "EUR"
+      },
+      {
+        "name": "French Guiana",
+        "name_official": "Guiana",
+        "iso_2": "GF",
+        "iso_3": "GUF",
+        "flag_emoji": "🇬🇫",
+        "continent": "South America",
+        "region": "South America",
+        "currency_iso_code": "EUR"
+      },
+      {
+        "name": "French Polynesia",
+        "name_official": "French Polynesia",
+        "iso_2": "PF",
+        "iso_3": "PYF",
+        "flag_emoji": "🇵🇫",
+        "continent": "Oceania",
+        "region": "Polynesia",
+        "currency_iso_code": "XPF"
+      },
+      {
+        "name": "French Southern Territories",
+        "name_official": "French Southern and Antarctic Lands",
+        "iso_2": "TF",
+        "iso_3": "ATF",
+        "flag_emoji": "🇹🇫",
+        "continent": "Antarctica",
+        "region": "Antarctica",
+        "currency_iso_code": "EUR"
+      },
+      {
+        "name": "Gabon",
+        "name_official": "Gabonese Republic",
+        "iso_2": "GA",
+        "iso_3": "GAB",
+        "flag_emoji": "🇬🇦",
+        "continent": "Africa",
+        "region": "Middle Africa",
+        "currency_iso_code": "XAF"
+      },
+      {
+        "name": "Gambia",
+        "name_official": "Republic of The Gambia",
+        "iso_2": "GM",
+        "iso_3": "GMB",
+        "flag_emoji": "🇬🇲",
+        "continent": "Africa",
+        "region": "Western Africa",
+        "currency_iso_code": "GMD"
+      },
+      {
+        "name": "Georgia",
+        "name_official": "Georgia",
+        "iso_2": "GE",
+        "iso_3": "GEO",
+        "flag_emoji": "🇬🇪",
+        "continent": "Asia",
+        "region": "Western Asia",
+        "currency_iso_code": "GEL"
+      },
+      {
+        "name": "Germany",
+        "name_official": "Federal Republic of Germany",
+        "iso_2": "DE",
+        "iso_3": "DEU",
+        "flag_emoji": "🇩🇪",
+        "continent": "Europe",
+        "region": "Western Europe",
+        "currency_iso_code": "EUR"
+      },
+      {
+        "name": "Ghana",
+        "name_official": "Republic of Ghana",
+        "iso_2": "GH",
+        "iso_3": "GHA",
+        "flag_emoji": "🇬🇭",
+        "continent": "Africa",
+        "region": "Western Africa",
+        "currency_iso_code": "GHS"
+      },
+      {
+        "name": "Gibraltar",
+        "name_official": "Gibraltar",
+        "iso_2": "GI",
+        "iso_3": "GIB",
+        "flag_emoji": "🇬🇮",
+        "continent": "Europe",
+        "region": "Southern Europe",
+        "currency_iso_code": "GIP"
+      },
+      {
+        "name": "Greece",
+        "name_official": "Hellenic Republic",
+        "iso_2": "GR",
+        "iso_3": "GRC",
+        "flag_emoji": "🇬🇷",
+        "continent": "Europe",
+        "region": "Southern Europe",
+        "currency_iso_code": "EUR"
+      },
+      {
+        "name": "Greenland",
+        "name_official": "Greenland",
+        "iso_2": "GL",
+        "iso_3": "GRL",
+        "flag_emoji": "🇬🇱",
+        "continent": "North America",
+        "region": "Northern America",
+        "currency_iso_code": "DKK"
+      },
+      {
+        "name": "Grenada",
+        "name_official": "Grenada",
+        "iso_2": "GD",
+        "iso_3": "GRD",
+        "flag_emoji": "🇬🇩",
+        "continent": "North America",
+        "region": "Caribbean",
+        "currency_iso_code": "XCD"
+      },
+      {
+        "name": "Guadeloupe",
+        "name_official": "Guadeloupe",
+        "iso_2": "GP",
+        "iso_3": "GLP",
+        "flag_emoji": "🇬🇵",
+        "continent": "North America",
+        "region": "Caribbean",
+        "currency_iso_code": "EUR"
+      },
+      {
+        "name": "Guam",
+        "name_official": "Territory of Guam",
+        "iso_2": "GU",
+        "iso_3": "GUM",
+        "flag_emoji": "🇬🇺",
+        "continent": "Oceania",
+        "region": "Micronesia",
+        "currency_iso_code": "USD"
+      },
+      {
+        "name": "Guatemala",
+        "name_official": "Republic of Guatemala",
+        "iso_2": "GT",
+        "iso_3": "GTM",
+        "flag_emoji": "🇬🇹",
+        "continent": "North America",
+        "region": "Central America",
+        "currency_iso_code": "GTQ"
+      },
+      {
+        "name": "Guernsey",
+        "name_official": "Bailiwick of Guernsey",
+        "iso_2": "GG",
+        "iso_3": "GGY",
+        "flag_emoji": "🇬🇬",
+        "continent": "Europe",
+        "region": "Northern Europe",
+        "currency_iso_code": "GBP"
+      },
+      {
+        "name": "Guinea",
+        "name_official": "Republic of Guinea",
+        "iso_2": "GN",
+        "iso_3": "GIN",
+        "flag_emoji": "🇬🇳",
+        "continent": "Africa",
+        "region": "Western Africa",
+        "currency_iso_code": "GNF"
+      },
+      {
+        "name": "Guinea-Bissau",
+        "name_official": "Republic of Guinea-Bissau",
+        "iso_2": "GW",
+        "iso_3": "GNB",
+        "flag_emoji": "🇬🇼",
+        "continent": "Africa",
+        "region": "Western Africa",
+        "currency_iso_code": "XOF"
+      },
+      {
+        "name": "Guyana",
+        "name_official": "Co-operative Republic of Guyana",
+        "iso_2": "GY",
+        "iso_3": "GUY",
+        "flag_emoji": "🇬🇾",
+        "continent": "South America",
+        "region": "South America",
+        "currency_iso_code": "GYD"
+      },
+      {
+        "name": "Haiti",
+        "name_official": "Republic of Haiti",
+        "iso_2": "HT",
+        "iso_3": "HTI",
+        "flag_emoji": "🇭🇹",
+        "continent": "North America",
+        "region": "Caribbean",
+        "currency_iso_code": "HTG"
+      },
+      {
+        "name": "Heard Island and McDonald Islands",
+        "name_official": "Territory of Heard Island and McDonald Islands",
+        "iso_2": "HM",
+        "iso_3": "HMD",
+        "flag_emoji": "🇭🇲",
+        "continent": "Antarctica",
+        "region": "Antarctica",
+        "currency_iso_code": "AUD"
+      },
+      {
+        "name": "Holy See",
+        "name_official": "The Holy See",
+        "iso_2": "VA",
+        "iso_3": "VAT",
+        "flag_emoji": "🇻🇦",
+        "continent": "Europe",
+        "region": "Southern Europe",
+        "currency_iso_code": "EUR"
+      },
+      {
+        "name": "Honduras",
+        "name_official": "Republic of Honduras",
+        "iso_2": "HN",
+        "iso_3": "HND",
+        "flag_emoji": "🇭🇳",
+        "continent": "North America",
+        "region": "Central America",
+        "currency_iso_code": "HNL"
+      },
+      {
+        "name": "Hong Kong",
+        "name_official": "Hong Kong Special Administrative Region of the People's Republic of China",
+        "iso_2": "HK",
+        "iso_3": "HKG",
+        "flag_emoji": "🇭🇰",
+        "continent": "Asia",
+        "region": "Eastern Asia",
+        "currency_iso_code": "HKD"
+      },
+      {
+        "name": "Hungary",
+        "name_official": "Hungary",
+        "iso_2": "HU",
+        "iso_3": "HUN",
+        "flag_emoji": "🇭🇺",
+        "continent": "Europe",
+        "region": "Eastern Europe",
+        "currency_iso_code": "HUF"
+      },
+      {
+        "name": "Iceland",
+        "name_official": "Iceland",
+        "iso_2": "IS",
+        "iso_3": "ISL",
+        "flag_emoji": "🇮🇸",
+        "continent": "Europe",
+        "region": "Northern Europe",
+        "currency_iso_code": "ISK"
+      },
+      {
+        "name": "India",
+        "name_official": "Republic of India",
+        "iso_2": "IN",
+        "iso_3": "IND",
+        "flag_emoji": "🇮🇳",
+        "continent": "Asia",
+        "region": "Southern Asia",
+        "currency_iso_code": "INR"
+      },
+      {
+        "name": "Indonesia",
+        "name_official": "Republic of Indonesia",
+        "iso_2": "ID",
+        "iso_3": "IDN",
+        "flag_emoji": "🇮🇩",
+        "continent": "Asia",
+        "region": "South-eastern Asia",
+        "currency_iso_code": "IDR"
+      },
+      {
+        "name": "Iran",
+        "name_official": "Islamic Republic of Iran",
+        "iso_2": "IR",
+        "iso_3": "IRN",
+        "flag_emoji": "🇮🇷",
+        "continent": "Asia",
+        "region": "Southern Asia",
+        "currency_iso_code": "IRR"
+      },
+      {
+        "name": "Iraq",
+        "name_official": "Republic of Iraq",
+        "iso_2": "IQ",
+        "iso_3": "IRQ",
+        "flag_emoji": "🇮🇶",
+        "continent": "Asia",
+        "region": "Western Asia",
+        "currency_iso_code": "IQD"
+      },
+      {
+        "name": "Ireland",
+        "name_official": "Ireland",
+        "iso_2": "IE",
+        "iso_3": "IRL",
+        "flag_emoji": "🇮🇪",
+        "continent": "Europe",
+        "region": "Northern Europe",
+        "currency_iso_code": "EUR"
+      },
+      {
+        "name": "Isle of Man",
+        "name_official": "Isle of Man",
+        "iso_2": "IM",
+        "iso_3": "IMN",
+        "flag_emoji": "🇮🇲",
+        "continent": "Europe",
+        "region": "Northern Europe",
+        "currency_iso_code": "GBP"
+      },
+      {
+        "name": "Israel",
+        "name_official": "State of Israel",
+        "iso_2": "IL",
+        "iso_3": "ISR",
+        "flag_emoji": "🇮🇱",
+        "continent": "Asia",
+        "region": "Western Asia",
+        "currency_iso_code": "ILS"
+      },
+      {
+        "name": "Italy",
+        "name_official": "Italian Republic",
+        "iso_2": "IT",
+        "iso_3": "ITA",
+        "flag_emoji": "🇮🇹",
+        "continent": "Europe",
+        "region": "Southern Europe",
+        "currency_iso_code": "EUR"
+      },
+      {
+        "name": "Jamaica",
+        "name_official": "Jamaica",
+        "iso_2": "JM",
+        "iso_3": "JAM",
+        "flag_emoji": "🇯🇲",
+        "continent": "North America",
+        "region": "Caribbean",
+        "currency_iso_code": "JMD"
+      },
+      {
+        "name": "Japan",
+        "name_official": "Japan",
+        "iso_2": "JP",
+        "iso_3": "JPN",
+        "flag_emoji": "🇯🇵",
+        "continent": "Asia",
+        "region": "Eastern Asia",
+        "currency_iso_code": "JPY"
+      },
+      {
+        "name": "Jersey",
+        "name_official": "Bailiwick of Jersey",
+        "iso_2": "JE",
+        "iso_3": "JEY",
+        "flag_emoji": "🇯🇪",
+        "continent": "Europe",
+        "region": "Northern Europe",
+        "currency_iso_code": "GBP"
+      },
+      {
+        "name": "Jordan",
+        "name_official": "Hashemite Kingdom of Jordan",
+        "iso_2": "JO",
+        "iso_3": "JOR",
+        "flag_emoji": "🇯🇴",
+        "continent": "Asia",
+        "region": "Western Asia",
+        "currency_iso_code": "JOD"
+      },
+      {
+        "name": "Kazakhstan",
+        "name_official": "Republic of Kazakhstan",
+        "iso_2": "KZ",
+        "iso_3": "KAZ",
+        "flag_emoji": "🇰🇿",
+        "continent": "Asia",
+        "region": "Central Asia",
+        "currency_iso_code": "KZT"
+      },
+      {
+        "name": "Kenya",
+        "name_official": "Republic of Kenya",
+        "iso_2": "KE",
+        "iso_3": "KEN",
+        "flag_emoji": "🇰🇪",
+        "continent": "Africa",
+        "region": "Eastern Africa",
+        "currency_iso_code": "KES"
+      },
+      {
+        "name": "Kiribati",
+        "name_official": "Republic of Kiribati",
+        "iso_2": "KI",
+        "iso_3": "KIR",
+        "flag_emoji": "🇰🇮",
+        "continent": "Oceania",
+        "region": "Micronesia",
+        "currency_iso_code": "AUD"
+      },
+      {
+        "name": "Kuwait",
+        "name_official": "State of Kuwait",
+        "iso_2": "KW",
+        "iso_3": "KWT",
+        "flag_emoji": "🇰🇼",
+        "continent": "Asia",
+        "region": "Western Asia",
+        "currency_iso_code": "KWD"
+      },
+      {
+        "name": "Kyrgyzstan",
+        "name_official": "Kyrgyz Republic",
+        "iso_2": "KG",
+        "iso_3": "KGZ",
+        "flag_emoji": "🇰🇬",
+        "continent": "Asia",
+        "region": "Central Asia",
+        "currency_iso_code": "KGS"
+      },
+      {
+        "name": "Laos",
+        "name_official": "Lao People's Democratic Republic",
+        "iso_2": "LA",
+        "iso_3": "LAO",
+        "flag_emoji": "🇱🇦",
+        "continent": "Asia",
+        "region": "South-eastern Asia",
+        "currency_iso_code": "LAK"
+      },
+      {
+        "name": "Latvia",
+        "name_official": "Republic of Latvia",
+        "iso_2": "LV",
+        "iso_3": "LVA",
+        "flag_emoji": "🇱🇻",
+        "continent": "Europe",
+        "region": "Northern Europe",
+        "currency_iso_code": "EUR"
+      },
+      {
+        "name": "Lebanon",
+        "name_official": "Lebanese Republic",
+        "iso_2": "LB",
+        "iso_3": "LBN",
+        "flag_emoji": "🇱🇧",
+        "continent": "Asia",
+        "region": "Western Asia",
+        "currency_iso_code": "LBP"
+      },
+      {
+        "name": "Lesotho",
+        "name_official": "Kingdom of Lesotho",
+        "iso_2": "LS",
+        "iso_3": "LSO",
+        "flag_emoji": "🇱🇸",
+        "continent": "Africa",
+        "region": "Southern Africa",
+        "currency_iso_code": "LSL"
+      },
+      {
+        "name": "Liberia",
+        "name_official": "Republic of Liberia",
+        "iso_2": "LR",
+        "iso_3": "LBR",
+        "flag_emoji": "🇱🇷",
+        "continent": "Africa",
+        "region": "Western Africa",
+        "currency_iso_code": "LRD"
+      },
+      {
+        "name": "Libya",
+        "name_official": "State of Libya",
+        "iso_2": "LY",
+        "iso_3": "LBY",
+        "flag_emoji": "🇱🇾",
+        "continent": "Africa",
+        "region": "Northern Africa",
+        "currency_iso_code": "LYD"
+      },
+      {
+        "name": "Liechtenstein",
+        "name_official": "Principality of Liechtenstein",
+        "iso_2": "LI",
+        "iso_3": "LIE",
+        "flag_emoji": "🇱🇮",
+        "continent": "Europe",
+        "region": "Western Europe",
+        "currency_iso_code": "CHF"
+      },
+      {
+        "name": "Lithuania",
+        "name_official": "Republic of Lithuania",
+        "iso_2": "LT",
+        "iso_3": "LTU",
+        "flag_emoji": "🇱🇹",
+        "continent": "Europe",
+        "region": "Northern Europe",
+        "currency_iso_code": "EUR"
+      },
+      {
+        "name": "Luxembourg",
+        "name_official": "Grand Duchy of Luxembourg",
+        "iso_2": "LU",
+        "iso_3": "LUX",
+        "flag_emoji": "🇱🇺",
+        "continent": "Europe",
+        "region": "Western Europe",
+        "currency_iso_code": "EUR"
+      },
+      {
+        "name": "Macao",
+        "name_official": "Macao Special Administrative Region of the People's Republic of China",
+        "iso_2": "MO",
+        "iso_3": "MAC",
+        "flag_emoji": "🇲🇴",
+        "continent": "Asia",
+        "region": "Eastern Asia",
+        "currency_iso_code": "MOP"
+      },
+      {
+        "name": "Madagascar",
+        "name_official": "Republic of Madagascar",
+        "iso_2": "MG",
+        "iso_3": "MDG",
+        "flag_emoji": "🇲🇬",
+        "continent": "Africa",
+        "region": "Eastern Africa",
+        "currency_iso_code": "MGA"
+      },
+      {
+        "name": "Malawi",
+        "name_official": "Republic of Malawi",
+        "iso_2": "MW",
+        "iso_3": "MWI",
+        "flag_emoji": "🇲🇼",
+        "continent": "Africa",
+        "region": "Eastern Africa",
+        "currency_iso_code": "MWK"
+      },
+      {
+        "name": "Malaysia",
+        "name_official": "Malaysia",
+        "iso_2": "MY",
+        "iso_3": "MYS",
+        "flag_emoji": "🇲🇾",
+        "continent": "Asia",
+        "region": "South-eastern Asia",
+        "currency_iso_code": "MYR"
+      },
+      {
+        "name": "Maldives",
+        "name_official": "Republic of Maldives",
+        "iso_2": "MV",
+        "iso_3": "MDV",
+        "flag_emoji": "🇲🇻",
+        "continent": "Asia",
+        "region": "Southern Asia",
+        "currency_iso_code": "MVR"
+      },
+      {
+        "name": "Mali",
+        "name_official": "Republic of Mali",
+        "iso_2": "ML",
+        "iso_3": "MLI",
+        "flag_emoji": "🇲🇱",
+        "continent": "Africa",
+        "region": "Western Africa",
+        "currency_iso_code": "XOF"
+      },
+      {
+        "name": "Malta",
+        "name_official": "Republic of Malta",
+        "iso_2": "MT",
+        "iso_3": "MLT",
+        "flag_emoji": "🇲🇹",
+        "continent": "Europe",
+        "region": "Southern Europe",
+        "currency_iso_code": "EUR"
+      },
+      {
+        "name": "Marshall Islands",
+        "name_official": "Republic of the Marshall Islands",
+        "iso_2": "MH",
+        "iso_3": "MHL",
+        "flag_emoji": "🇲🇭",
+        "continent": "Oceania",
+        "region": "Micronesia",
+        "currency_iso_code": "USD"
+      },
+      {
+        "name": "Martinique",
+        "name_official": "Martinique",
+        "iso_2": "MQ",
+        "iso_3": "MTQ",
+        "flag_emoji": "🇲🇶",
+        "continent": "North America",
+        "region": "Caribbean",
+        "currency_iso_code": "EUR"
+      },
+      {
+        "name": "Mauritania",
+        "name_official": "Islamic Republic of Mauritania",
+        "iso_2": "MR",
+        "iso_3": "MRT",
+        "flag_emoji": "🇲🇷",
+        "continent": "Africa",
+        "region": "Western Africa",
+        "currency_iso_code": "MRU"
+      },
+      {
+        "name": "Mauritius",
+        "name_official": "Republic of Mauritius",
+        "iso_2": "MU",
+        "iso_3": "MUS",
+        "flag_emoji": "🇲🇺",
+        "continent": "Africa",
+        "region": "Eastern Africa",
+        "currency_iso_code": "MUR"
+      },
+      {
+        "name": "Mayotte",
+        "name_official": "Department of Mayotte",
+        "iso_2": "YT",
+        "iso_3": "MYT",
+        "flag_emoji": "🇾🇹",
+        "continent": "Africa",
+        "region": "Eastern Africa",
+        "currency_iso_code": "EUR"
+      },
+      {
+        "name": "Mexico",
+        "name_official": "United Mexican States",
+        "iso_2": "MX",
+        "iso_3": "MEX",
+        "flag_emoji": "🇲🇽",
+        "continent": "North America",
+        "region": "Central America",
+        "currency_iso_code": "MXN"
+      },
+      {
+        "name": "Micronesia",
+        "name_official": "Federated States of Micronesia",
+        "iso_2": "FM",
+        "iso_3": "FSM",
+        "flag_emoji": "🇫🇲",
+        "continent": "Oceania",
+        "region": "Micronesia",
+        "currency_iso_code": "USD"
+      },
+      {
+        "name": "Moldova",
+        "name_official": "Republic of Moldova",
+        "iso_2": "MD",
+        "iso_3": "MDA",
+        "flag_emoji": "🇲🇩",
+        "continent": "Europe",
+        "region": "Eastern Europe",
+        "currency_iso_code": "MDL"
+      },
+      {
+        "name": "Monaco",
+        "name_official": "Principality of Monaco",
+        "iso_2": "MC",
+        "iso_3": "MCO",
+        "flag_emoji": "🇲🇨",
+        "continent": "Europe",
+        "region": "Western Europe",
+        "currency_iso_code": "EUR"
+      },
+      {
+        "name": "Mongolia",
+        "name_official": "Mongolia",
+        "iso_2": "MN",
+        "iso_3": "MNG",
+        "flag_emoji": "🇲🇳",
+        "continent": "Asia",
+        "region": "Eastern Asia",
+        "currency_iso_code": "MNT"
+      },
+      {
+        "name": "Montenegro",
+        "name_official": "Montenegro",
+        "iso_2": "ME",
+        "iso_3": "MNE",
+        "flag_emoji": "🇲🇪",
+        "continent": "Europe",
+        "region": "Southern Europe",
+        "currency_iso_code": "EUR"
+      },
+      {
+        "name": "Montserrat",
+        "name_official": "Montserrat",
+        "iso_2": "MS",
+        "iso_3": "MSR",
+        "flag_emoji": "🇲🇸",
+        "continent": "North America",
+        "region": "Caribbean",
+        "currency_iso_code": "XCD"
+      },
+      {
+        "name": "Morocco",
+        "name_official": "Kingdom of Morocco",
+        "iso_2": "MA",
+        "iso_3": "MAR",
+        "flag_emoji": "🇲🇦",
+        "continent": "Africa",
+        "region": "Northern Africa",
+        "currency_iso_code": "MAD"
+      },
+      {
+        "name": "Mozambique",
+        "name_official": "Republic of Mozambique",
+        "iso_2": "MZ",
+        "iso_3": "MOZ",
+        "flag_emoji": "🇲🇿",
+        "continent": "Africa",
+        "region": "Eastern Africa",
+        "currency_iso_code": "MZN"
+      },
+      {
+        "name": "Myanmar",
+        "name_official": "Republic of the Union of Myanmar",
+        "iso_2": "MM",
+        "iso_3": "MMR",
+        "flag_emoji": "🇲🇲",
+        "continent": "Asia",
+        "region": "South-eastern Asia",
+        "currency_iso_code": "MMK"
+      },
+      {
+        "name": "Namibia",
+        "name_official": "Republic of Namibia",
+        "iso_2": "NA",
+        "iso_3": "NAM",
+        "flag_emoji": "🇳🇦",
+        "continent": "Africa",
+        "region": "Southern Africa",
+        "currency_iso_code": "NAD"
+      },
+      {
+        "name": "Nauru",
+        "name_official": "Republic of Nauru",
+        "iso_2": "NR",
+        "iso_3": "NRU",
+        "flag_emoji": "🇳🇷",
+        "continent": "Oceania",
+        "region": "Micronesia",
+        "currency_iso_code": "AUD"
+      },
+      {
+        "name": "Nepal",
+        "name_official": "Federal Democratic Republic of Nepal",
+        "iso_2": "NP",
+        "iso_3": "NPL",
+        "flag_emoji": "🇳🇵",
+        "continent": "Asia",
+        "region": "Southern Asia",
+        "currency_iso_code": "NPR"
+      },
+      {
+        "name": "Netherlands",
+        "name_official": "Netherlands",
+        "iso_2": "NL",
+        "iso_3": "NLD",
+        "flag_emoji": "🇳🇱",
+        "continent": "Europe",
+        "region": "Western Europe",
+        "currency_iso_code": "EUR"
+      },
+      {
+        "name": "New Caledonia",
+        "name_official": "New Caledonia",
+        "iso_2": "NC",
+        "iso_3": "NCL",
+        "flag_emoji": "🇳🇨",
+        "continent": "Oceania",
+        "region": "Melanesia",
+        "currency_iso_code": "XPF"
+      },
+      {
+        "name": "New Zealand",
+        "name_official": "New Zealand",
+        "iso_2": "NZ",
+        "iso_3": "NZL",
+        "flag_emoji": "🇳🇿",
+        "continent": "Oceania",
+        "region": "Australia and New Zealand",
+        "currency_iso_code": "NZD"
+      },
+      {
+        "name": "Nicaragua",
+        "name_official": "Republic of Nicaragua",
+        "iso_2": "NI",
+        "iso_3": "NIC",
+        "flag_emoji": "🇳🇮",
+        "continent": "North America",
+        "region": "Central America",
+        "currency_iso_code": "NIO"
+      },
+      {
+        "name": "Niger",
+        "name_official": "Republic of Niger",
+        "iso_2": "NE",
+        "iso_3": "NER",
+        "flag_emoji": "🇳🇪",
+        "continent": "Africa",
+        "region": "Western Africa",
+        "currency_iso_code": "XOF"
+      },
+      {
+        "name": "Nigeria",
+        "name_official": "Federal Republic of Nigeria",
+        "iso_2": "NG",
+        "iso_3": "NGA",
+        "flag_emoji": "🇳🇬",
+        "continent": "Africa",
+        "region": "Western Africa",
+        "currency_iso_code": "NGN"
+      },
+      {
+        "name": "Niue",
+        "name_official": "Niue",
+        "iso_2": "NU",
+        "iso_3": "NIU",
+        "flag_emoji": "🇳🇺",
+        "continent": "Oceania",
+        "region": "Polynesia",
+        "currency_iso_code": "NZD"
+      },
+      {
+        "name": "Norfolk Island",
+        "name_official": "Territory of Norfolk Island",
+        "iso_2": "NF",
+        "iso_3": "NFK",
+        "flag_emoji": "🇳🇫",
+        "continent": "Oceania",
+        "region": "Australia and New Zealand",
+        "currency_iso_code": "AUD"
+      },
+      {
+        "name": "North Korea",
+        "name_official": "Democratic People's Republic of Korea",
+        "iso_2": "KP",
+        "iso_3": "PRK",
+        "flag_emoji": "🇰🇵",
+        "continent": "Asia",
+        "region": "Eastern Asia",
+        "currency_iso_code": "KPW"
+      },
+      {
+        "name": "North Macedonia",
+        "name_official": "Republic of North Macedonia",
+        "iso_2": "MK",
+        "iso_3": "MKD",
+        "flag_emoji": "🇲🇰",
+        "continent": "Europe",
+        "region": "Southern Europe",
+        "currency_iso_code": "MKD"
+      },
+      {
+        "name": "Northern Mariana Islands",
+        "name_official": "Commonwealth of the Northern Mariana Islands",
+        "iso_2": "MP",
+        "iso_3": "MNP",
+        "flag_emoji": "🇲🇵",
+        "continent": "Oceania",
+        "region": "Micronesia",
+        "currency_iso_code": "USD"
+      },
+      {
+        "name": "Norway",
+        "name_official": "Kingdom of Norway",
+        "iso_2": "NO",
+        "iso_3": "NOR",
+        "flag_emoji": "🇳🇴",
+        "continent": "Europe",
+        "region": "Northern Europe",
+        "currency_iso_code": "NOK"
+      },
+      {
+        "name": "Oman",
+        "name_official": "Sultanate of Oman",
+        "iso_2": "OM",
+        "iso_3": "OMN",
+        "flag_emoji": "🇴🇲",
+        "continent": "Asia",
+        "region": "Western Asia",
+        "currency_iso_code": "OMR"
+      },
+      {
+        "name": "Pakistan",
+        "name_official": "Islamic Republic of Pakistan",
+        "iso_2": "PK",
+        "iso_3": "PAK",
+        "flag_emoji": "🇵🇰",
+        "continent": "Asia",
+        "region": "Southern Asia",
+        "currency_iso_code": "PKR"
+      },
+      {
+        "name": "Palau",
+        "name_official": "Republic of Palau",
+        "iso_2": "PW",
+        "iso_3": "PLW",
+        "flag_emoji": "🇵🇼",
+        "continent": "Oceania",
+        "region": "Micronesia",
+        "currency_iso_code": "USD"
+      },
+      {
+        "name": "Palestine",
+        "name_official": "State of Palestine",
+        "iso_2": "PS",
+        "iso_3": "PSE",
+        "flag_emoji": "🇵🇸",
+        "continent": "Asia",
+        "region": "Western Asia",
+        "currency_iso_code": null
+      },
+      {
+        "name": "Panama",
+        "name_official": "Republic of Panama",
+        "iso_2": "PA",
+        "iso_3": "PAN",
+        "flag_emoji": "🇵🇦",
+        "continent": "North America",
+        "region": "Central America",
+        "currency_iso_code": "USD"
+      },
+      {
+        "name": "Papua New Guinea",
+        "name_official": "Independent State of Papua New Guinea",
+        "iso_2": "PG",
+        "iso_3": "PNG",
+        "flag_emoji": "🇵🇬",
+        "continent": "Oceania",
+        "region": "Melanesia",
+        "currency_iso_code": "PGK"
+      },
+      {
+        "name": "Paraguay",
+        "name_official": "Republic of Paraguay",
+        "iso_2": "PY",
+        "iso_3": "PRY",
+        "flag_emoji": "🇵🇾",
+        "continent": "South America",
+        "region": "South America",
+        "currency_iso_code": "PYG"
+      },
+      {
+        "name": "Peru",
+        "name_official": "Republic of Peru",
+        "iso_2": "PE",
+        "iso_3": "PER",
+        "flag_emoji": "🇵🇪",
+        "continent": "South America",
+        "region": "South America",
+        "currency_iso_code": "PEN"
+      },
+      {
+        "name": "Philippines",
+        "name_official": "Republic of the Philippines",
+        "iso_2": "PH",
+        "iso_3": "PHL",
+        "flag_emoji": "🇵🇭",
+        "continent": "Asia",
+        "region": "South-eastern Asia",
+        "currency_iso_code": "PHP"
+      },
+      {
+        "name": "Pitcairn",
+        "name_official": "Pitcairn, Henderson, Ducie and Oeno Islands",
+        "iso_2": "PN",
+        "iso_3": "PCN",
+        "flag_emoji": "🇵🇳",
+        "continent": "Oceania",
+        "region": "Polynesia",
+        "currency_iso_code": "NZD"
+      },
+      {
+        "name": "Poland",
+        "name_official": "Republic of Poland",
+        "iso_2": "PL",
+        "iso_3": "POL",
+        "flag_emoji": "🇵🇱",
+        "continent": "Europe",
+        "region": "Eastern Europe",
+        "currency_iso_code": "PLN"
+      },
+      {
+        "name": "Portugal",
+        "name_official": "Portuguese Republic",
+        "iso_2": "PT",
+        "iso_3": "PRT",
+        "flag_emoji": "🇵🇹",
+        "continent": "Europe",
+        "region": "Southern Europe",
+        "currency_iso_code": "EUR"
+      },
+      {
+        "name": "Puerto Rico",
+        "name_official": "Commonwealth of Puerto Rico",
+        "iso_2": "PR",
+        "iso_3": "PRI",
+        "flag_emoji": "🇵🇷",
+        "continent": "North America",
+        "region": "Caribbean",
+        "currency_iso_code": "USD"
+      },
+      {
+        "name": "Qatar",
+        "name_official": "State of Qatar",
+        "iso_2": "QA",
+        "iso_3": "QAT",
+        "flag_emoji": "🇶🇦",
+        "continent": "Asia",
+        "region": "Western Asia",
+        "currency_iso_code": "QAR"
+      },
+      {
+        "name": "Reunion",
+        "name_official": "Réunion",
+        "iso_2": "RE",
+        "iso_3": "REU",
+        "flag_emoji": "🇷🇪",
+        "continent": "Africa",
+        "region": "Eastern Africa",
+        "currency_iso_code": "EUR"
+      },
+      {
+        "name": "Romania",
+        "name_official": "Romania",
+        "iso_2": "RO",
+        "iso_3": "ROU",
+        "flag_emoji": "🇷🇴",
+        "continent": "Europe",
+        "region": "Eastern Europe",
+        "currency_iso_code": "RON"
+      },
+      {
+        "name": "Russia",
+        "name_official": "Russian Federation",
+        "iso_2": "RU",
+        "iso_3": "RUS",
+        "flag_emoji": "🇷🇺",
+        "continent": "Europe",
+        "region": "Eastern Europe",
+        "currency_iso_code": "RUB"
+      },
+      {
+        "name": "Rwanda",
+        "name_official": "Republic of Rwanda",
+        "iso_2": "RW",
+        "iso_3": "RWA",
+        "flag_emoji": "🇷🇼",
+        "continent": "Africa",
+        "region": "Eastern Africa",
+        "currency_iso_code": "RWF"
+      },
+      {
+        "name": "Saint Helena",
+        "name_official": "Saint Helena, Ascension and Tristan da Cunha",
+        "iso_2": "SH",
+        "iso_3": "SHN",
+        "flag_emoji": "🇸🇭",
+        "continent": "Africa",
+        "region": "Western Africa",
+        "currency_iso_code": "SHP"
+      },
+      {
+        "name": "Saint Kitts and Nevis",
+        "name_official": "Federation of Saint Christopher and Nevis",
+        "iso_2": "KN",
+        "iso_3": "KNA",
+        "flag_emoji": "🇰🇳",
+        "continent": "North America",
+        "region": "Caribbean",
+        "currency_iso_code": "XCD"
+      },
+      {
+        "name": "Saint Lucia",
+        "name_official": "Saint Lucia",
+        "iso_2": "LC",
+        "iso_3": "LCA",
+        "flag_emoji": "🇱🇨",
+        "continent": "North America",
+        "region": "Caribbean",
+        "currency_iso_code": "XCD"
+      },
+      {
+        "name": "Saint Pierre and Miquelon",
+        "name_official": "Territorial Collectivity of Saint-Pierre and Miquelon",
+        "iso_2": "PM",
+        "iso_3": "SPM",
+        "flag_emoji": "🇵🇲",
+        "continent": "North America",
+        "region": "Northern America",
+        "currency_iso_code": "EUR"
+      },
+      {
+        "name": "Saint Vincent and the Grenadines",
+        "name_official": "Saint Vincent and the Grenadines",
+        "iso_2": "VC",
+        "iso_3": "VCT",
+        "flag_emoji": "🇻🇨",
+        "continent": "North America",
+        "region": "Caribbean",
+        "currency_iso_code": "XCD"
+      },
+      {
+        "name": "Samoa",
+        "name_official": "Independent State of Samoa",
+        "iso_2": "WS",
+        "iso_3": "WSM",
+        "flag_emoji": "🇼🇸",
+        "continent": "Oceania",
+        "region": "Polynesia",
+        "currency_iso_code": "WST"
+      },
+      {
+        "name": "San Marino",
+        "name_official": "Republic of San Marino",
+        "iso_2": "SM",
+        "iso_3": "SMR",
+        "flag_emoji": "🇸🇲",
+        "continent": "Europe",
+        "region": "Southern Europe",
+        "currency_iso_code": "EUR"
+      },
+      {
+        "name": "Sao Tome and Principe",
+        "name_official": "Democratic Republic of São Tomé and Príncipe",
+        "iso_2": "ST",
+        "iso_3": "STP",
+        "flag_emoji": "🇸🇹",
+        "continent": "Africa",
+        "region": "Middle Africa",
+        "currency_iso_code": "STN"
+      },
+      {
+        "name": "Saudi Arabia",
+        "name_official": "Kingdom of Saudi Arabia",
+        "iso_2": "SA",
+        "iso_3": "SAU",
+        "flag_emoji": "🇸🇦",
+        "continent": "Asia",
+        "region": "Western Asia",
+        "currency_iso_code": "SAR"
+      },
+      {
+        "name": "Senegal",
+        "name_official": "Republic of Senegal",
+        "iso_2": "SN",
+        "iso_3": "SEN",
+        "flag_emoji": "🇸🇳",
+        "continent": "Africa",
+        "region": "Western Africa",
+        "currency_iso_code": "XOF"
+      },
+      {
+        "name": "Serbia",
+        "name_official": "Republic of Serbia",
+        "iso_2": "RS",
+        "iso_3": "SRB",
+        "flag_emoji": "🇷🇸",
+        "continent": "Europe",
+        "region": "Southern Europe",
+        "currency_iso_code": "RSD"
+      },
+      {
+        "name": "Seychelles",
+        "name_official": "Republic of Seychelles",
+        "iso_2": "SC",
+        "iso_3": "SYC",
+        "flag_emoji": "🇸🇨",
+        "continent": "Africa",
+        "region": "Eastern Africa",
+        "currency_iso_code": "SCR"
+      },
+      {
+        "name": "Sierra Leone",
+        "name_official": "Republic of Sierra Leone",
+        "iso_2": "SL",
+        "iso_3": "SLE",
+        "flag_emoji": "🇸🇱",
+        "continent": "Africa",
+        "region": "Western Africa",
+        "currency_iso_code": "SLL"
+      },
+      {
+        "name": "Singapore",
+        "name_official": "Republic of Singapore",
+        "iso_2": "SG",
+        "iso_3": "SGP",
+        "flag_emoji": "🇸🇬",
+        "continent": "Asia",
+        "region": "South-eastern Asia",
+        "currency_iso_code": "SGD"
+      },
+      {
+        "name": "Slovakia",
+        "name_official": "Slovak Republic",
+        "iso_2": "SK",
+        "iso_3": "SVK",
+        "flag_emoji": "🇸🇰",
+        "continent": "Europe",
+        "region": "Eastern Europe",
+        "currency_iso_code": "EUR"
+      },
+      {
+        "name": "Slovenia",
+        "name_official": "Republic of Slovenia",
+        "iso_2": "SI",
+        "iso_3": "SVN",
+        "flag_emoji": "🇸🇮",
+        "continent": "Europe",
+        "region": "Southern Europe",
+        "currency_iso_code": "EUR"
+      },
+      {
+        "name": "Solomon Islands",
+        "name_official": "Solomon Islands",
+        "iso_2": "SB",
+        "iso_3": "SLB",
+        "flag_emoji": "🇸🇧",
+        "continent": "Oceania",
+        "region": "Melanesia",
+        "currency_iso_code": "SBD"
+      },
+      {
+        "name": "Somalia",
+        "name_official": "Federal Republic of Somalia",
+        "iso_2": "SO",
+        "iso_3": "SOM",
+        "flag_emoji": "🇸🇴",
+        "continent": "Africa",
+        "region": "Eastern Africa",
+        "currency_iso_code": "SOS"
+      },
+      {
+        "name": "South Africa",
+        "name_official": "Republic of South Africa",
+        "iso_2": "ZA",
+        "iso_3": "ZAF",
+        "flag_emoji": "🇿🇦",
+        "continent": "Africa",
+        "region": "Southern Africa",
+        "currency_iso_code": "ZAR"
+      },
+      {
+        "name": "South Georgia and the South Sandwich Islands",
+        "name_official": "South Georgia and the South Sandwich Islands",
+        "iso_2": "GS",
+        "iso_3": "SGS",
+        "flag_emoji": "🇬🇸",
+        "continent": "Antarctica",
+        "region": "Antarctica",
+        "currency_iso_code": "GBP"
+      },
+      {
+        "name": "South Korea",
+        "name_official": "Republic of Korea",
+        "iso_2": "KR",
+        "iso_3": "KOR",
+        "flag_emoji": "🇰🇷",
+        "continent": "Asia",
+        "region": "Eastern Asia",
+        "currency_iso_code": "KRW"
+      },
+      {
+        "name": "South Sudan",
+        "name_official": "Republic of South Sudan",
+        "iso_2": "SS",
+        "iso_3": "SSD",
+        "flag_emoji": "🇸🇸",
+        "continent": "Africa",
+        "region": "Eastern Africa",
+        "currency_iso_code": "SSP"
+      },
+      {
+        "name": "Spain",
+        "name_official": "Kingdom of Spain",
+        "iso_2": "ES",
+        "iso_3": "ESP",
+        "flag_emoji": "🇪🇸",
+        "continent": "Europe",
+        "region": "Southern Europe",
+        "currency_iso_code": "EUR"
+      },
+      {
+        "name": "Sri Lanka",
+        "name_official": "Democratic Socialist Republic of Sri Lanka",
+        "iso_2": "LK",
+        "iso_3": "LKA",
+        "flag_emoji": "🇱🇰",
+        "continent": "Asia",
+        "region": "Southern Asia",
+        "currency_iso_code": "LKR"
+      },
+      {
+        "name": "Sudan",
+        "name_official": "Republic of the Sudan",
+        "iso_2": "SD",
+        "iso_3": "SDN",
+        "flag_emoji": "🇸🇩",
+        "continent": "Africa",
+        "region": "Northern Africa",
+        "currency_iso_code": "SDG"
+      },
+      {
+        "name": "Suriname",
+        "name_official": "Republic of Suriname",
+        "iso_2": "SR",
+        "iso_3": "SUR",
+        "flag_emoji": "🇸🇷",
+        "continent": "South America",
+        "region": "South America",
+        "currency_iso_code": "SRD"
+      },
+      {
+        "name": "Svalbard and Jan Mayen",
+        "name_official": "Svalbard and Jan Mayen",
+        "iso_2": "SJ",
+        "iso_3": "SJM",
+        "flag_emoji": "🇸🇯",
+        "continent": "Europe",
+        "region": "Northern Europe",
+        "currency_iso_code": "NOK"
+      },
+      {
+        "name": "Sweden",
+        "name_official": "Kingdom of Sweden",
+        "iso_2": "SE",
+        "iso_3": "SWE",
+        "flag_emoji": "🇸🇪",
+        "continent": "Europe",
+        "region": "Northern Europe",
+        "currency_iso_code": "SEK"
+      },
+      {
+        "name": "Switzerland",
+        "name_official": "Swiss Confederation",
+        "iso_2": "CH",
+        "iso_3": "CHE",
+        "flag_emoji": "🇨🇭",
+        "continent": "Europe",
+        "region": "Western Europe",
+        "currency_iso_code": "CHF"
+      },
+      {
+        "name": "Syria",
+        "name_official": "Syrian Arab Republic",
+        "iso_2": "SY",
+        "iso_3": "SYR",
+        "flag_emoji": "🇸🇾",
+        "continent": "Asia",
+        "region": "Western Asia",
+        "currency_iso_code": "SYP"
+      },
+      {
+        "name": "Taiwan",
+        "name_official": "Republic of China",
+        "iso_2": "TW",
+        "iso_3": "TWN",
+        "flag_emoji": "🇹🇼",
+        "continent": "Asia",
+        "region": "Eastern Asia",
+        "currency_iso_code": "TWD"
+      },
+      {
+        "name": "Tajikistan",
+        "name_official": "Republic of Tajikistan",
+        "iso_2": "TJ",
+        "iso_3": "TJK",
+        "flag_emoji": "🇹🇯",
+        "continent": "Asia",
+        "region": "Central Asia",
+        "currency_iso_code": "TJS"
+      },
+      {
+        "name": "Tanzania",
+        "name_official": "United Republic of Tanzania",
+        "iso_2": "TZ",
+        "iso_3": "TZA",
+        "flag_emoji": "🇹🇿",
+        "continent": "Africa",
+        "region": "Eastern Africa",
+        "currency_iso_code": "TZS"
+      },
+      {
+        "name": "Thailand",
+        "name_official": "Kingdom of Thailand",
+        "iso_2": "TH",
+        "iso_3": "THA",
+        "flag_emoji": "🇹🇭",
+        "continent": "Asia",
+        "region": "South-eastern Asia",
+        "currency_iso_code": "THB"
+      },
+      {
+        "name": "Timor-Leste",
+        "name_official": "Democratic Republic of Timor-Leste",
+        "iso_2": "TL",
+        "iso_3": "TLS",
+        "flag_emoji": "🇹🇱",
+        "continent": "Asia",
+        "region": "South-eastern Asia",
+        "currency_iso_code": "USD"
+      },
+      {
+        "name": "Togo",
+        "name_official": "Togolese Republic",
+        "iso_2": "TG",
+        "iso_3": "TGO",
+        "flag_emoji": "🇹🇬",
+        "continent": "Africa",
+        "region": "Western Africa",
+        "currency_iso_code": "XOF"
+      },
+      {
+        "name": "Tokelau",
+        "name_official": "Tokelau",
+        "iso_2": "TK",
+        "iso_3": "TKL",
+        "flag_emoji": "🇹🇰",
+        "continent": "Oceania",
+        "region": "Polynesia",
+        "currency_iso_code": "NZD"
+      },
+      {
+        "name": "Tonga",
+        "name_official": "Kingdom of Tonga",
+        "iso_2": "TO",
+        "iso_3": "TON",
+        "flag_emoji": "🇹🇴",
+        "continent": "Oceania",
+        "region": "Polynesia",
+        "currency_iso_code": "TOP"
+      },
+      {
+        "name": "Trinidad and Tobago",
+        "name_official": "Republic of Trinidad and Tobago",
+        "iso_2": "TT",
+        "iso_3": "TTO",
+        "flag_emoji": "🇹🇹",
+        "continent": "North America",
+        "region": "Caribbean",
+        "currency_iso_code": "TTD"
+      },
+      {
+        "name": "Tunisia",
+        "name_official": "Republic of Tunisia",
+        "iso_2": "TN",
+        "iso_3": "TUN",
+        "flag_emoji": "🇹🇳",
+        "continent": "Africa",
+        "region": "Northern Africa",
+        "currency_iso_code": "TND"
+      },
+      {
+        "name": "Turkey",
+        "name_official": "Republic of Turkey",
+        "iso_2": "TR",
+        "iso_3": "TUR",
+        "flag_emoji": "🇹🇷",
+        "continent": "Asia",
+        "region": "Western Asia",
+        "currency_iso_code": "TRY"
+      },
+      {
+        "name": "Turkmenistan",
+        "name_official": "Turkmenistan",
+        "iso_2": "TM",
+        "iso_3": "TKM",
+        "flag_emoji": "🇹🇲",
+        "continent": "Asia",
+        "region": "Central Asia",
+        "currency_iso_code": "TMT"
+      },
+      {
+        "name": "Turks and Caicos Islands",
+        "name_official": "Turks and Caicos Islands",
+        "iso_2": "TC",
+        "iso_3": "TCA",
+        "flag_emoji": "🇹🇨",
+        "continent": "North America",
+        "region": "Caribbean",
+        "currency_iso_code": "USD"
+      },
+      {
+        "name": "Tuvalu",
+        "name_official": "Tuvalu",
+        "iso_2": "TV",
+        "iso_3": "TUV",
+        "flag_emoji": "🇹🇻",
+        "continent": "Oceania",
+        "region": "Polynesia",
+        "currency_iso_code": "AUD"
+      },
+      {
+        "name": "U.S. Virgin Islands",
+        "name_official": "Virgin Islands of the United States",
+        "iso_2": "VI",
+        "iso_3": "VIR",
+        "flag_emoji": "🇻🇮",
+        "continent": "North America",
+        "region": "Caribbean",
+        "currency_iso_code": "USD"
+      },
+      {
+        "name": "Uganda",
+        "name_official": "Republic of Uganda",
+        "iso_2": "UG",
+        "iso_3": "UGA",
+        "flag_emoji": "🇺🇬",
+        "continent": "Africa",
+        "region": "Eastern Africa",
+        "currency_iso_code": "UGX"
+      },
+      {
+        "name": "Ukraine",
+        "name_official": "Ukraine",
+        "iso_2": "UA",
+        "iso_3": "UKR",
+        "flag_emoji": "🇺🇦",
+        "continent": "Europe",
+        "region": "Eastern Europe",
+        "currency_iso_code": "UAH"
+      },
+      {
+        "name": "United Arab Emirates",
+        "name_official": "United Arab Emirates",
+        "iso_2": "AE",
+        "iso_3": "ARE",
+        "flag_emoji": "🇦🇪",
+        "continent": "Asia",
+        "region": "Western Asia",
+        "currency_iso_code": "AED"
+      },
+      {
+        "name": "United Kingdom",
+        "name_official": "United Kingdom of Great Britain and Northern Ireland",
+        "iso_2": "GB",
+        "iso_3": "GBR",
+        "flag_emoji": "🇬🇧",
+        "continent": "Europe",
+        "region": "Northern Europe",
+        "currency_iso_code": "GBP"
+      },
+      {
+        "name": "United States",
+        "name_official": "United States of America",
+        "iso_2": "US",
+        "iso_3": "USA",
+        "flag_emoji": "🇺🇸",
+        "continent": "North America",
+        "region": "Northern America",
+        "currency_iso_code": "USD"
+      },
+      {
+        "name": "United States Minor Outlying Islands",
+        "name_official": "United States Minor Outlying Islands",
+        "iso_2": "UM",
+        "iso_3": "UMI",
+        "flag_emoji": "🇺🇲",
+        "continent": "Oceania",
+        "region": "Micronesia",
+        "currency_iso_code": "USD"
+      },
+      {
+        "name": "Uruguay",
+        "name_official": "Oriental Republic of Uruguay",
+        "iso_2": "UY",
+        "iso_3": "URY",
+        "flag_emoji": "🇺🇾",
+        "continent": "South America",
+        "region": "South America",
+        "currency_iso_code": "UYU"
+      },
+      {
+        "name": "Uzbekistan",
+        "name_official": "Republic of Uzbekistan",
+        "iso_2": "UZ",
+        "iso_3": "UZB",
+        "flag_emoji": "🇺🇿",
+        "continent": "Asia",
+        "region": "Central Asia",
+        "currency_iso_code": "UZS"
+      },
+      {
+        "name": "Vanuatu",
+        "name_official": "Republic of Vanuatu",
+        "iso_2": "VU",
+        "iso_3": "VUT",
+        "flag_emoji": "🇻🇺",
+        "continent": "Oceania",
+        "region": "Melanesia",
+        "currency_iso_code": "VUV"
+      },
+      {
+        "name": "Venezuela",
+        "name_official": "Bolivarian Republic of Venezuela",
+        "iso_2": "VE",
+        "iso_3": "VEN",
+        "flag_emoji": "🇻🇪",
+        "continent": "South America",
+        "region": "South America",
+        "currency_iso_code": "VES"
+      },
+      {
+        "name": "Vietnam",
+        "name_official": "Socialist Republic of Vietnam",
+        "iso_2": "VN",
+        "iso_3": "VNM",
+        "flag_emoji": "🇻🇳",
+        "continent": "Asia",
+        "region": "South-eastern Asia",
+        "currency_iso_code": "VND"
+      },
+      {
+        "name": "Wallis and Futuna",
+        "name_official": "Territory of the Wallis and Futuna Islands",
+        "iso_2": "WF",
+        "iso_3": "WLF",
+        "flag_emoji": "🇼🇫",
+        "continent": "Oceania",
+        "region": "Polynesia",
+        "currency_iso_code": "XPF"
+      },
+      {
+        "name": "Western Sahara",
+        "name_official": "Western Sahara",
+        "iso_2": "EH",
+        "iso_3": "ESH",
+        "flag_emoji": "🇪🇭",
+        "continent": "Africa",
+        "region": "Northern Africa",
+        "currency_iso_code": null
+      },
+      {
+        "name": "Yemen",
+        "name_official": "Republic of Yemen",
+        "iso_2": "YE",
+        "iso_3": "YEM",
+        "flag_emoji": "🇾🇪",
+        "continent": "Asia",
+        "region": "Western Asia",
+        "currency_iso_code": "YER"
+      },
+      {
+        "name": "Zambia",
+        "name_official": "Republic of Zambia",
+        "iso_2": "ZM",
+        "iso_3": "ZMB",
+        "flag_emoji": "🇿🇲",
+        "continent": "Africa",
+        "region": "Eastern Africa",
+        "currency_iso_code": "ZMW"
+      },
+      {
+        "name": "Zimbabwe",
+        "name_official": "Republic of Zimbabwe",
+        "iso_2": "ZW",
+        "iso_3": "ZWE",
+        "flag_emoji": "🇿🇼",
+        "continent": "Africa",
+        "region": "Eastern Africa",
+        "currency_iso_code": "USD"
+      }
     ]
-}
+  }

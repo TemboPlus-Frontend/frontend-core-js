@@ -1,11 +1,51 @@
 import { CountryService } from "@models/country/service.ts";
 
 /**
+ * Enum for continents
+ */
+export enum CONTINENT {
+  AFRICA = "Africa",
+  ANTARCTICA = "Antarctica",
+  ASIA = "Asia",
+  EUROPE = "Europe",
+  NORTH_AMERICA = "North America",
+  OCEANIA = "Oceania",
+  SOUTH_AMERICA = "South America",
+}
+
+/**
+ * Enum for sub-regions
+ */
+export enum SUB_REGION {
+  AUSTRALIA_AND_NEW_ZEALAND = "Australia and New Zealand",
+  CARIBBEAN = "Caribbean",
+  CENTRAL_AMERICA = "Central America",
+  CENTRAL_ASIA = "Central Asia",
+  EASTERN_AFRICA = "Eastern Africa",
+  EASTERN_ASIA = "Eastern Asia",
+  EASTERN_EUROPE = "Eastern Europe",
+  MELANESIA = "Melanesia",
+  MICRONESIA = "Micronesia",
+  MIDDLE_AFRICA = "Middle Africa",
+  NORTHERN_AFRICA = "Northern Africa",
+  NORTHERN_AMERICA = "Northern America",
+  NORTHERN_EUROPE = "Northern Europe",
+  POLYNESIA = "Polynesia",
+  SOUTH_EASTERN_ASIA = "South-eastern Asia",
+  SOUTHERN_AFRICA = "Southern Africa",
+  SOUTHERN_ASIA = "Southern Asia",
+  SOUTHERN_EUROPE = "Southern Europe",
+  WESTERN_AFRICA = "Western Africa",
+  WESTERN_ASIA = "Western Asia",
+  WESTERN_EUROPE = "Western Europe",
+}
+
+/**
  * Represents a country with essential details.
  * @class Country
  */
 export class Country {
-  // Explicitly declare static properties for each country (uppercase ISO codes)
+  // Static properties for ISO-2 codes (will be populated manually in separate file)
   static readonly AF: Country;
   static readonly AX: Country;
   static readonly AL: Country;
@@ -152,6 +192,7 @@ export class Country {
   static readonly MD: Country;
   static readonly MC: Country;
   static readonly MN: Country;
+  static readonly ME: Country;
   static readonly MS: Country;
   static readonly MA: Country;
   static readonly MZ: Country;
@@ -160,7 +201,6 @@ export class Country {
   static readonly NR: Country;
   static readonly NP: Country;
   static readonly NL: Country;
-  static readonly AN: Country;
   static readonly NC: Country;
   static readonly NZ: Country;
   static readonly NI: Country;
@@ -198,7 +238,7 @@ export class Country {
   static readonly ST: Country;
   static readonly SA: Country;
   static readonly SN: Country;
-  static readonly CS: Country;
+  static readonly RS: Country;
   static readonly SC: Country;
   static readonly SL: Country;
   static readonly SG: Country;
@@ -208,6 +248,7 @@ export class Country {
   static readonly SO: Country;
   static readonly ZA: Country;
   static readonly GS: Country;
+  static readonly SS: Country;
   static readonly ES: Country;
   static readonly LK: Country;
   static readonly SD: Country;
@@ -250,7 +291,7 @@ export class Country {
   static readonly ZM: Country;
   static readonly ZW: Country;
 
-  // Explicitly declare static properties for each country (uppercase full names)
+  // Static properties for full names (will be populated manually in separate file)
   static readonly AFGHANISTAN: Country;
   static readonly ALAND_ISLANDS: Country;
   static readonly ALBANIA: Country;
@@ -283,14 +324,15 @@ export class Country {
   static readonly BOUVET_ISLAND: Country;
   static readonly BRAZIL: Country;
   static readonly BRITISH_INDIAN_OCEAN_TERRITORY: Country;
-  static readonly BRUNEI_DARUSSALAM: Country;
+  static readonly BRITISH_VIRGIN_ISLANDS: Country;
+  static readonly BRUNEI: Country;
   static readonly BULGARIA: Country;
   static readonly BURKINA_FASO: Country;
   static readonly BURUNDI: Country;
+  static readonly CABO_VERDE: Country;
   static readonly CAMBODIA: Country;
   static readonly CAMEROON: Country;
   static readonly CANADA: Country;
-  static readonly CAPE_VERDE: Country;
   static readonly CAYMAN_ISLANDS: Country;
   static readonly CENTRAL_AFRICAN_REPUBLIC: Country;
   static readonly CHAD: Country;
@@ -301,14 +343,14 @@ export class Country {
   static readonly COLOMBIA: Country;
   static readonly COMOROS: Country;
   static readonly CONGO: Country;
-  static readonly DEMOCRATIC_REPUBLIC_OF_CONGO: Country;
   static readonly COOK_ISLANDS: Country;
   static readonly COSTA_RICA: Country;
   static readonly COTE_DIVOIRE: Country;
   static readonly CROATIA: Country;
   static readonly CUBA: Country;
   static readonly CYPRUS: Country;
-  static readonly CZECH_REPUBLIC: Country;
+  static readonly CZECHIA: Country;
+  static readonly DEMOCRATIC_REPUBLIC_OF_CONGO: Country;
   static readonly DENMARK: Country;
   static readonly DJIBOUTI: Country;
   static readonly DOMINICA: Country;
@@ -319,6 +361,7 @@ export class Country {
   static readonly EQUATORIAL_GUINEA: Country;
   static readonly ERITREA: Country;
   static readonly ESTONIA: Country;
+  static readonly ESWATINI: Country;
   static readonly ETHIOPIA: Country;
   static readonly FALKLAND_ISLANDS: Country;
   static readonly FAROE_ISLANDS: Country;
@@ -397,6 +440,7 @@ export class Country {
   static readonly MOLDOVA: Country;
   static readonly MONACO: Country;
   static readonly MONGOLIA: Country;
+  static readonly MONTENEGRO: Country;
   static readonly MONTSERRAT: Country;
   static readonly MOROCCO: Country;
   static readonly MOZAMBIQUE: Country;
@@ -405,7 +449,6 @@ export class Country {
   static readonly NAURU: Country;
   static readonly NEPAL: Country;
   static readonly NETHERLANDS: Country;
-  static readonly NETHERLANDS_ANTILLES: Country;
   static readonly NEW_CALEDONIA: Country;
   static readonly NEW_ZEALAND: Country;
   static readonly NICARAGUA: Country;
@@ -443,7 +486,7 @@ export class Country {
   static readonly SAO_TOME_AND_PRINCIPE: Country;
   static readonly SAUDI_ARABIA: Country;
   static readonly SENEGAL: Country;
-  static readonly SERBIA_AND_MONTENEGRO: Country;
+  static readonly SERBIA: Country;
   static readonly SEYCHELLES: Country;
   static readonly SIERRA_LEONE: Country;
   static readonly SINGAPORE: Country;
@@ -453,6 +496,7 @@ export class Country {
   static readonly SOMALIA: Country;
   static readonly SOUTH_AFRICA: Country;
   static readonly SOUTH_GEORGIA_AND_SANDWICH_ISLANDS: Country;
+  static readonly SOUTH_SUDAN: Country;
   static readonly SPAIN: Country;
   static readonly SRI_LANKA: Country;
   static readonly SUDAN: Country;
@@ -497,28 +541,78 @@ export class Country {
 
   /**
    * Creates a new Country instance.
-   * @param {string} _name - The full name of the country
-   * @param {string} _code - The ISO country code
+   * @param {string} _name - The common name of the country
+   * @param {string} _code - The ISO-2 country code
+   * @param {string} _nameOfficial - The official name of the country
+   * @param {string} _iso3 - The ISO-3 country code
+   * @param {string} _flagEmoji - The flag emoji of the country
+   * @param {CONTINENT} _continent - The continent where the country is located
+   * @param {SUB_REGION} _region - The region within the continent where the country is located
    */
   constructor(
     private readonly _name: string,
     private readonly _code: string,
+    private readonly _nameOfficial: string = "",
+    private readonly _iso3: string = "",
+    private readonly _flagEmoji: string = "",
+    private readonly _continent: CONTINENT = CONTINENT.EUROPE,
+    private readonly _region: SUB_REGION = SUB_REGION.NORTHERN_EUROPE,
   ) {}
 
   /**
-   * Gets the full name of the country.
-   * @returns {string} The full name of the country
+   * Gets the common name of the country.
+   * @returns {string} The common name of the country
    */
   get name(): string {
     return this._name;
   }
 
   /**
-   * Gets the ISO code of the country.
-   * @returns {string} The ISO code of the country
+   * Gets the ISO-2 code of the country.
+   * @returns {string} The ISO-2 code of the country
    */
   get code(): string {
     return this._code;
+  }
+
+  /**
+   * Gets the official name of the country.
+   * @returns {string} The official name of the country
+   */
+  get nameOfficial(): string {
+    return this._nameOfficial;
+  }
+
+  /**
+   * Gets the ISO-3 code of the country.
+   * @returns {string} The ISO-3 code of the country
+   */
+  get iso3(): string {
+    return this._iso3;
+  }
+
+  /**
+   * Gets the flag emoji of the country.
+   * @returns {string} The flag emoji of the country
+   */
+  get flagEmoji(): string {
+    return this._flagEmoji;
+  }
+
+  /**
+   * Gets the continent where the country is located.
+   * @returns {CONTINENT} The continent where the country is located
+   */
+  get continent(): CONTINENT {
+    return this._continent;
+  }
+
+  /**
+   * Gets the region within the continent where the country is located.
+   * @returns {SUB_REGION} The region within the continent where the country is located
+   */
+  get region(): SUB_REGION {
+    return this._region;
   }
 
   /**
@@ -530,12 +624,29 @@ export class Country {
   }
 
   /**
-   * Retrieves a country by its ISO code.
-   * @param {string} code The ISO code of the country.
+   * Creates a detailed string representation of the country including the flag.
+   * @returns {string} Detailed string representation of the country
+   */
+  toDetailedString(): string {
+    return `${this.flagEmoji} ${this.name} (${this.code}, ${this.iso3})`;
+  }
+
+  /**
+   * Retrieves a country by its ISO-2 code.
+   * @param {string} code The ISO-2 code of the country.
    * @returns {Country | undefined} The country corresponding to the ISO code or `undefined` if not found.
    */
   static fromCode(code: string): Country | undefined {
     return CountryService.getInstance().fromCode(code);
+  }
+
+  /**
+   * Retrieves a country by its ISO-3 code.
+   * @param {string} iso3 The ISO-3 code of the country.
+   * @returns {Country | undefined} The country corresponding to the ISO-3 code or `undefined` if not found.
+   */
+  static fromIso3(iso3: string): Country | undefined {
+    return CountryService.getInstance().fromIso3(iso3);
   }
 
   /**
@@ -556,13 +667,58 @@ export class Country {
   }
 
   /**
-   * Validates if a given ISO country code is valid
+   * Returns countries from a specific continent.
+   * @param {CONTINENT} continent The continent enum value
+   * @returns {Country[]} Array of countries in the specified continent
+   */
+  static getByContinent(continent: CONTINENT): Country[] {
+    return CountryService.getInstance().getByContinent(continent);
+  }
+
+  /**
+   * Returns countries from a specific region.
+   * @param {SUB_REGION} region The region enum value
+   * @returns {Country[]} Array of countries in the specified region
+   */
+  static getByRegion(region: SUB_REGION): Country[] {
+    return CountryService.getInstance().getByRegion(region);
+  }
+
+  /**
+   * Returns a list of all available continents.
+   * @returns {CONTINENT[]} Array of continent enum values
+   */
+  static getContinents(): CONTINENT[] {
+    return Object.values(CONTINENT);
+  }
+
+  /**
+   * Returns a list of all available regions.
+   * @returns {SUB_REGION[]} Array of region enum values
+   */
+  static getRegions(): SUB_REGION[] {
+    return Object.values(SUB_REGION);
+  }
+
+  /**
+   * Validates if a given ISO-2 country code is valid
    * @param code The country code to validate
    * @returns True if the country code is valid
    */
   static isValidCode(code?: string | null): boolean {
     if (!code) return false;
     const country = Country.fromCode(code);
+    return !!country;
+  }
+
+  /**
+   * Validates if a given ISO-3 country code is valid
+   * @param iso3 The ISO-3 country code to validate
+   * @returns True if the ISO-3 country code is valid
+   */
+  static isValidIso3(iso3?: string | null): boolean {
+    if (!iso3) return false;
+    const country = Country.fromIso3(iso3);
     return !!country;
   }
 
@@ -604,6 +760,9 @@ export class Country {
 
       const country2 = Country.fromCode(input);
       if (country2) return country2;
+
+      const country3 = Country.fromIso3(input);
+      if (country3) return country3;
     }
 
     return undefined;
@@ -622,8 +781,11 @@ export class Country {
 
     const countryFromCode = Country.fromCode(text);
     const countryFromName = Country.fromName(text);
+    const countryFromIso3 = Country.fromIso3(text);
 
-    return countryFromCode !== undefined || countryFromName !== undefined;
+    return countryFromCode !== undefined ||
+      countryFromName !== undefined ||
+      countryFromIso3 !== undefined;
   }
 
   /**
@@ -654,7 +816,7 @@ export class Country {
 
 // Initialize static properties by applying the references from CountryService
 (function setupStaticReferences() {
-  const staticRefs = CountryService.getInstance().getStaticReferences();
+  const staticRefs = CountryService.getInstance().getAll();
   staticRefs.forEach((country, key) => {
     // deno-lint-ignore no-explicit-any
     (Country as any)[key] = country;

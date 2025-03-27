@@ -17,7 +17,7 @@ This library offers a set of meticulously crafted data models, each designed to 
 * **TZPhoneNumber:** Specialized phone number handling for Tanzania, including network operator identification.
 * **Amount:** Precise currency value management, with support for formatting and conversion.
 * **Currency:** Detailed currency information, including symbols, formatting rules, and validation.
-* **Country:** Standardized country data with ISO codes and comprehensive validation.
+* **Country:** Enhanced country data handling with ISO-2 and ISO-3 codes, official names, flag emojis, and strongly-typed geographical categorization.
 * **Bank:** Consistent bank account information management.
 
 ## Report Management with `ReportManager`
@@ -69,7 +69,7 @@ import { ConfigService } from '@temboplus/frontend-core';
 
 // Initialize configuration at application startup
 ConfigService.instance.initialize({
-    pdfMakerBaseUrl: 'https://api.temboplus.com/pdf-maker' // Optional: Override default PDF maker base URL.
+    pdfMakerBaseUrl: 'http://localhost:3000' // Optional: Override default PDF maker base URL.
 });
 ```
 
@@ -106,11 +106,17 @@ if (phoneNumber.validate()) {
 Convenient static properties are available for accessing common data:
 
 ```typescript
-import { Country, Currency, Bank } from '@temboplus/frontend-core';
+import { Country, Currency, Bank, CONTINENT, SUB_REGION } from '@temboplus/frontend-core';
 
-// Country access
+// Country access with enhanced features
 const tanzania = Country.TZ;
-const usa = Country.UNITED_STATES;
+console.log(tanzania.flagEmoji); // 🇹🇿
+console.log(tanzania.continent); // CONTINENT.AFRICA
+console.log(tanzania.region); // SUB_REGION.EASTERN_AFRICA
+
+// Regional country grouping with type-safe enums
+const africanCountries = Country.getByContinent(CONTINENT.AFRICA);
+const caribbeanCountries = Country.getByRegion(SUB_REGION.CARIBBEAN);
 
 // Currency access
 const usd = Currency.USD;

@@ -1,3 +1,4 @@
+// deno-lint-ignore-file no-explicit-any
 // @ts-check
 import { beforeAll, describe, it } from "jsr:@std/testing/bdd";
 import { assertEquals, assertNotEquals } from "jsr:@std/assert";
@@ -55,7 +56,7 @@ describe("GlobalPhoneNumberService", () => {
       // @ts-ignore - Testing invalid inputs
       assertEquals(service.validatePattern(null, "2025550123"), false);
       assertEquals(service.validatePattern("US", ""), false);
-      assertEquals(service.validatePattern("ZZ", "2025550123"), false);
+      assertEquals(service.validatePattern("ZZ" as any, "2025550123"), false);
     });
 
     it("should check if number is valid for a country", () => {
@@ -65,7 +66,7 @@ describe("GlobalPhoneNumberService", () => {
 
     it("should handle invalid inputs for country validation", () => {
       assertEquals(service.isValidForCountry("not a number", "US"), false);
-      assertEquals(service.isValidForCountry("+12025550123", "ZZ"), false);
+      assertEquals(service.isValidForCountry("+12025550123", "ZZ" as any), false);
     });
   });
 
@@ -91,9 +92,9 @@ describe("GlobalPhoneNumberService", () => {
     });
 
     it("should handle invalid inputs for number type", () => {
-      assertEquals(service.getNumberType("", ""), PhoneNumberType.UNKNOWN);
+      assertEquals(service.getNumberType("" as any, ""), PhoneNumberType.UNKNOWN);
       assertEquals(
-        service.getNumberType("ZZ", "2025550123"),
+        service.getNumberType("ZZ" as any, "2025550123"),
         PhoneNumberType.UNKNOWN,
       );
     });
@@ -107,7 +108,7 @@ describe("GlobalPhoneNumberService", () => {
     });
 
     it("should handle invalid inputs for example numbers", () => {
-      assertEquals(service.getExampleNumbers("ZZ"), []);
+      assertEquals(service.getExampleNumbers("ZZ" as any), []);
       // @ts-ignore - Testing invalid inputs
       assertEquals(service.getExampleNumbers(null), []);
     });
@@ -144,11 +145,11 @@ describe("GlobalPhoneNumberService", () => {
 
     it("should initialize with metadata", () => {
       const metadata = service.getAllCountryMetadata();
-      assertNotEquals(metadata, {});
+      assertNotEquals(metadata, {} as any);
       // Validate a few key countries exist
-      assertEquals(typeof metadata["US"], "object");
-      assertEquals(typeof metadata["GB"], "object");
-      assertEquals(typeof metadata["FR"], "object");
+      assertEquals(typeof metadata.get("US"), "object");
+      assertEquals(typeof metadata.get("GB"), "object");
+      assertEquals(typeof metadata.get("FR"), "object");
     });
   });
 
@@ -161,7 +162,7 @@ describe("GlobalPhoneNumberService", () => {
     });
 
     it("should return undefined for invalid countries", () => {
-      assertEquals(service.getCountryMetadata("ZZ"), undefined);
+      assertEquals(service.getCountryMetadata("ZZ" as any), undefined);
       // @ts-ignore - Testing invalid inputs
       assertEquals(service.getCountryMetadata(null), undefined);
       // @ts-ignore - Testing invalid inputs

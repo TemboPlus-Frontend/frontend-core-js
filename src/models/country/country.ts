@@ -601,9 +601,9 @@ export class Country {
 
   /**
    * Gets the ISO-2 code of the country.
-   * @returns {string} The ISO-2 code of the country
+   * @returns {ISO2CountryCode} The ISO-2 code of the country
    */
-  get code(): string {
+  get code(): ISO2CountryCode {
     return this._iso2;
   }
 
@@ -617,9 +617,9 @@ export class Country {
 
   /**
    * Gets the ISO-3 code of the country.
-   * @returns {string} The ISO-3 code of the country
+   * @returns {ISO3CountryCode} The ISO-3 code of the country
    */
-  get iso3(): string {
+  get iso3(): ISO3CountryCode {
     return this._iso3;
   }
 
@@ -651,7 +651,7 @@ export class Country {
    * Gets the ISO currency code used in the country.
    * @returns {string | null} The ISO currency code of the country, or null if not available
    */
-  get currencyCode(): string | null {
+  get currencyCode(): CurrencyCode | null {
     return this._currencyCode;
   }
 
@@ -831,12 +831,14 @@ export class Country {
 
     const maybeCountry = obj as Record<string, unknown>;
 
+    console.log(maybeCountry)
+
     // Check private properties exist with correct types
     if (typeof maybeCountry._name !== "string") return false;
-    if (typeof maybeCountry._code !== "string") return false;
+    if (typeof maybeCountry._iso2 !== "string") return false;
 
     // Validate against known countries
-    const countryFromCode = Country.from(maybeCountry._code as string);
+    const countryFromCode = Country.from(maybeCountry._iso2 as string);
     const countryFromName = Country.from(maybeCountry._name as string);
 
     return Boolean(
@@ -999,7 +1001,7 @@ export class CountryService {
             c.flag_emoji,
             continent,
             region,
-            c.currency_iso_code,
+            c.currency_iso_iso2,
           );
         },
       );

@@ -14,6 +14,7 @@ import { Country } from "@models/country/country.ts";
 import { PhoneNumber } from "@models/phone_number/global/phone_number.ts";
 import phonePatterns from "@data/phone_patterns.json" with { type: "json" };
 import { PhoneNumberFormat } from "@models/phone_number/format.ts";
+import type { ISO2CountryCode } from "@models/country/types.ts";
 
 /**
  * Complete metadata for a country's phone number system
@@ -47,17 +48,16 @@ export interface CountryMetadata {
 }
 
 /**
- * Mapping of ISO country codes to their phone metadata
+ * Mapping of ISO country codes to their phone metadata using a Map
  */
-type CountryMetadataMap = {
-  [isoCode: string]: CountryMetadata;
-};
+type CountryMetadataMap = Map<ISO2CountryCode, CountryMetadata>; // <--- CHANGED
 
 /**
  * Type for shared country codes
+ * (Remains an object as keys are strings representing dial codes)
  */
 type SharedCountryCodesMap = {
-  [dialCode: string]: string[];
+  [dialCode: string]: ISO2CountryCode[];
 };
 
 /**
@@ -87,7 +87,7 @@ export interface DialCodeInfo {
   /** The national number (without the dial code) */
   nationalNumber: string;
   /** List of country codes that use this dial code */
-  possibleCountries: string[];
+  possibleCountries: ISO2CountryCode[];
 }
 
 /**
@@ -97,7 +97,7 @@ export class SharedDialCodeError extends Error {
   /** The dial code that's shared */
   dialCode: string;
   /** List of country codes that share this dial code */
-  countries: string[];
+  countries: ISO2CountryCode[];
 
   /**
    * Creates a new SharedDialCodeError
@@ -105,7 +105,7 @@ export class SharedDialCodeError extends Error {
    * @param dialCode - The shared dial code
    * @param countries - Countries that share this dial code
    */
-  constructor(dialCode: string, countries: string[]) {
+  constructor(dialCode: string, countries: ISO2CountryCode[]) {
     const message = `Dial code +${dialCode} is shared by multiple countries: ${
       countries.join(", ")
     }. Please use 'fromWithCountry' with a specific country.`;
@@ -121,7 +121,8 @@ export class SharedDialCodeError extends Error {
  */
 export class GlobalPhoneNumberService {
   private static instance: GlobalPhoneNumberService;
-  private countryMetadata: CountryMetadataMap = {};
+  // Use Map for countryMetadata
+  private countryMetadata: CountryMetadataMap = new Map(); // <--- CHANGED
   private sharedCountryCodes: SharedCountryCodesMap = {};
   private initialized: boolean = false;
 
@@ -158,14 +159,15 @@ export class GlobalPhoneNumberService {
       // Extract shared country codes
       this.sharedCountryCodes = data._shared_country_codes || {};
 
-      const countries = Object.entries(data)
+      // Populate the countryMetadata Map
+      const countriesMap = new Map<ISO2CountryCode, CountryMetadata>(); // <--- CHANGED
+      Object.entries(data)
         .filter(([key]) => !key.startsWith("_"))
-        .reduce((result, [key, value]) => {
-          result[key] = value as CountryMetadata;
-          return result;
-        }, {} as CountryMetadataMap);
+        .forEach(([key, value]) => { // <--- CHANGED (using forEach to populate Map)
+          countriesMap.set(key as ISO2CountryCode, value as CountryMetadata); // <--- CHANGED (using .set())
+        });
 
-      this.countryMetadata = countries;
+      this.countryMetadata = countriesMap; // <--- CHANGED
       this.initialized = true;
     } catch (error) {
       console.error("Failed to initialize GlobalPhoneNumberService:", error);
@@ -175,19 +177,19 @@ export class GlobalPhoneNumberService {
   /**
    * Gets the metadata for a specific country
    *
-   * @param {string} countryCode - The ISO country code
+   * @param {ISO2CountryCode} countryCode - The ISO country code
    * @returns {CountryMetadata | undefined} The country metadata or undefined if not found
    */
-  public getCountryMetadata(countryCode: string): CountryMetadata | undefined {
-    return this.countryMetadata[countryCode];
+  public getCountryMetadata(countryCode: ISO2CountryCode): CountryMetadata | undefined {
+    return this.countryMetadata.get(countryCode); // <--- CHANGED (using .get())
   }
 
   /**
    * Gets all country metadata
    *
-   * @returns {CountryMetadataMap} All country metadata
+   * @returns {CountryMetadataMap} All country metadata (as a Map)
    */
-  public getAllCountryMetadata(): CountryMetadataMap {
+  public getAllCountryMetadata(): CountryMetadataMap { // Return type annotation implicitly updated
     return this.countryMetadata;
   }
 
@@ -199,6 +201,7 @@ export class GlobalPhoneNumberService {
    */
   public getCountriesWithDialCode(dialCode: string | number): string[] {
     const dialCodeStr = dialCode.toString();
+    // sharedCountryCodes remains an object, access is unchanged
     return this.sharedCountryCodes[dialCodeStr] || [];
   }
 
@@ -210,6 +213,7 @@ export class GlobalPhoneNumberService {
    */
   public isSharedDialCode(dialCode: string | number): boolean {
     const dialCodeStr = dialCode.toString();
+    // sharedCountryCodes remains an object, access is unchanged
     const countries = this.sharedCountryCodes[dialCodeStr];
     return countries !== undefined && countries.length > 1;
   }
@@ -220,12 +224,11 @@ export class GlobalPhoneNumberService {
    * @param dialCode - The dial code to look up
    * @returns The country code or undefined if not found
    */
-  public getCountryForDialCode(dialCode: string): string | undefined {
-    for (
-      const [countryCode, metadata] of Object.entries(this.countryMetadata)
-    ) {
+  public getCountryForDialCode(dialCode: string): ISO2CountryCode | undefined {
+    // Iterate over Map entries
+    for (const [countryCode, metadata] of this.countryMetadata.entries()) { // <--- CHANGED (using .entries())
       if (metadata.code.toString() === dialCode) {
-        return countryCode;
+        return countryCode; // No need for type assertion here
       }
     }
     return undefined;
@@ -247,26 +250,27 @@ export class GlobalPhoneNumberService {
     for (let i = 3; i >= 1; i--) {
       if (numberWithoutPlus.length <= i) continue;
 
-      const dialCode = numberWithoutPlus.substring(0, i);
+      const potentialDialCode = numberWithoutPlus.substring(0, i); // Renamed for clarity
 
-      // Check if any country has this dial code
+      // Check if any country has this dial code by iterating Map values
       let countryFound = false;
-      for (const [_, metadata] of Object.entries(this.countryMetadata)) {
-        if (metadata.code.toString() === dialCode) {
+      for (const metadata of this.countryMetadata.values()) { // <--- CHANGED (using .values())
+        if (metadata.code.toString() === potentialDialCode) {
           countryFound = true;
           break;
         }
       }
 
       if (countryFound) {
-        const nationalNumber = numberWithoutPlus.substring(dialCode.length);
-        const isShared = this.isSharedDialCode(dialCode);
+        const nationalNumber = numberWithoutPlus.substring(potentialDialCode.length);
+        const isShared = this.isSharedDialCode(potentialDialCode);
+        // Use the existing methods which now work with the Map internally
         const possibleCountries = isShared
-          ? this.sharedCountryCodes[dialCode]
-          : [this.getCountryForDialCode(dialCode) ?? ""];
+          ? this.sharedCountryCodes[potentialDialCode] // Access shared codes directly
+          : this.getCountryForDialCode(potentialDialCode) ? [this.getCountryForDialCode(potentialDialCode)!] : [];
 
         return {
-          dialCode,
+          dialCode: potentialDialCode,
           isShared,
           nationalNumber,
           possibleCountries,
@@ -302,21 +306,23 @@ export class GlobalPhoneNumberService {
   /**
    * Determines the most likely type of a phone number
    *
-   * @param {string} countryCode - ISO country code
+   * @param {ISO2CountryCode} countryCode - ISO country code
    * @param {string} nationalNumber - The national number to check
    * @returns {PhoneNumberType} The type of the phone number
    */
   public getNumberType(
-    countryCode: string,
+    countryCode: ISO2CountryCode,
     nationalNumber: string,
   ): PhoneNumberType {
     if (!countryCode || !nationalNumber) {
       return PhoneNumberType.UNKNOWN;
     }
 
-    const metadata = this.countryMetadata[countryCode];
+    // Use .get() to retrieve metadata
+    const metadata = this.countryMetadata.get(countryCode); // <--- CHANGED (using .get())
 
-    if (!metadata || !metadata.patterns) {
+    // Check if metadata exists after .get()
+    if (!metadata || !metadata.patterns) { // <--- ADDED Check for undefined
       return PhoneNumberType.UNKNOWN;
     }
 
@@ -348,17 +354,20 @@ export class GlobalPhoneNumberService {
   /**
    * Validates a phone number against country-specific patterns
    *
-   * @param {string} countryCode - ISO country code
+   * @param {ISO2CountryCode} countryCode - ISO country code
    * @param {string} nationalNumber - The national number to validate
    * @returns {boolean} True if the phone number is valid, false otherwise
    */
-  public validatePattern(countryCode: string, nationalNumber: string): boolean {
+  public validatePattern(countryCode: ISO2CountryCode, nationalNumber: string): boolean {
     if (!countryCode || !nationalNumber) {
       return false;
     }
 
-    const metadata = this.countryMetadata[countryCode];
-    if (!metadata || !metadata.patterns) {
+    // Use .get() to retrieve metadata
+    const metadata = this.countryMetadata.get(countryCode); // <--- CHANGED (using .get())
+
+    // Check if metadata exists after .get()
+    if (!metadata || !metadata.patterns) { // <--- ADDED Check for undefined
       return false;
     }
 
@@ -389,6 +398,7 @@ export class GlobalPhoneNumberService {
 
   /**
    * Formats a phone number according to the country's formatting rules
+   * (No changes needed in this method's logic)
    *
    * @param {string} phoneNumber - The phone number to format
    * @param {PhoneNumberFormat} format - The desired format
@@ -406,6 +416,7 @@ export class GlobalPhoneNumberService {
 
   /**
    * Creates a PhoneNumber from an international format string
+   * (No changes needed in this method's logic)
    *
    * @param {string} phoneNumber - The phone number in international format
    * @returns {PhoneNumber | undefined} The parsed phone number or undefined if invalid
@@ -416,6 +427,7 @@ export class GlobalPhoneNumberService {
 
   /**
    * Creates a PhoneNumber from a phone number with explicit country
+   * (No changes needed in this method's logic)
    *
    * @param {string} phoneNumber - The phone number in any format
    * @param {Country | string} country - The country or country code
@@ -423,7 +435,7 @@ export class GlobalPhoneNumberService {
    */
   public parsePhoneNumberWithCountry(
     phoneNumber: string,
-    country: Country | string,
+    country: Country | ISO2CountryCode,
   ): PhoneNumber | undefined {
     const countryObj = typeof country === "string"
       ? Country.fromCode(country)
@@ -436,6 +448,7 @@ export class GlobalPhoneNumberService {
 
   /**
    * Extracts the information needed for dialing from one country to another
+   * (No changes needed in this method's logic)
    *
    * @param {string} fromCountry - ISO code of the country dialing from
    * @param {PhoneNumber} phoneNumber - The phone number to dial
@@ -456,6 +469,7 @@ export class GlobalPhoneNumberService {
 
   /**
    * Cleans a phone number by removing all non-digit characters except the leading plus
+   * (No changes needed in this method's logic)
    *
    * @param {string} phoneNumber - The phone number to clean
    * @returns {string} The cleaned phone number
@@ -475,6 +489,7 @@ export class GlobalPhoneNumberService {
 
   /**
    * Extracts the country and national number from an international phone number
+   * (No changes needed in this method's logic - relies on extractDialCode which was updated)
    *
    * @param {string} phoneNumber - The phone number in international format
    * @returns {[Country | undefined, string]} The country and national number
@@ -500,30 +515,33 @@ export class GlobalPhoneNumberService {
   /**
    * Gets a list of commonly used examples of valid phone numbers for a country
    *
-   * @param {string} countryCode - The ISO country code
+   * @param {ISO2CountryCode} countryCode - The ISO country code
    * @returns {string[]} Array of example phone numbers
    */
-  public getExampleNumbers(countryCode: string): string[] {
-    const metadata = this.countryMetadata[countryCode];
-    if (!metadata) return [];
+  public getExampleNumbers(countryCode: ISO2CountryCode): string[] {
+    // Use .get() to retrieve metadata
+    const metadata = this.countryMetadata.get(countryCode); // <--- CHANGED (using .get())
+    if (!metadata) return []; // <--- ADDED Check for undefined
 
     const dialCode = metadata.code;
     const examples: string[] = [];
 
-    // Since landline and mobile patterns are required, we can always generate examples
-    // Landline example
-    examples.push(
-      `+${dialCode}${
-        this.generateExampleFromPattern(metadata.patterns.landline)
-      }`,
-    );
+    // Ensure patterns exist before trying to generate examples
+    if (metadata.patterns.landline) {
+      examples.push(
+        `+${dialCode}${
+          this.generateExampleFromPattern(metadata.patterns.landline)
+        }`,
+      );
+    }
 
-    // Mobile example
-    examples.push(
-      `+${dialCode}${
-        this.generateExampleFromPattern(metadata.patterns.mobile)
-      }`,
-    );
+    if (metadata.patterns.mobile) {
+      examples.push(
+        `+${dialCode}${
+          this.generateExampleFromPattern(metadata.patterns.mobile)
+        }`,
+      );
+    }
 
     return examples;
   }
@@ -531,6 +549,7 @@ export class GlobalPhoneNumberService {
   /**
    * Generates an example phone number that would match a given pattern
    * This is a simple implementation that handles basic patterns
+   * (No changes needed in this method's logic)
    *
    * @param pattern - The regex pattern
    * @returns A string that would match the pattern
@@ -553,12 +572,13 @@ export class GlobalPhoneNumberService {
 
   /**
    * Checks if a phone number is valid for a specific country
+   * (No changes needed in this method's logic)
    *
    * @param {string} phoneNumber - The phone number to validate
-   * @param {string} countryCode - The ISO country code
+   * @param {ISO2CountryCode} countryCode - The ISO country code
    * @returns {boolean} True if the phone number is valid for the country, false otherwise
    */
-  public isValidForCountry(phoneNumber: string, countryCode: string): boolean {
+  public isValidForCountry(phoneNumber: string, countryCode: ISO2CountryCode): boolean {
     const country = Country.fromCode(countryCode);
     if (!country) return false;
 
@@ -573,13 +593,13 @@ export class GlobalPhoneNumberService {
    * @returns True if the dial code exists, false otherwise
    */
   public hasDialCode(dialCode: string): boolean {
-    // Check if it's a shared dial code
+    // Check if it's a shared dial code (access unchanged)
     if (this.sharedCountryCodes[dialCode]?.length > 0) {
       return true;
     }
 
-    // Check if any country has this dial code
-    for (const metadata of Object.values(this.countryMetadata)) {
+    // Check if any country has this dial code by iterating Map values
+    for (const metadata of this.countryMetadata.values()) { // <--- CHANGED (using .values())
       if (metadata.code.toString() === dialCode) {
         return true;
       }

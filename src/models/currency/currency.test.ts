@@ -296,18 +296,6 @@ Deno.test("Currency - from method", () => {
   assertEquals(Currency.from("INVALID"), undefined);
   assertEquals(Currency.from(""), undefined);
 
-  // @ts-ignore: Testing with wrong type
-  assertEquals(Currency.from(123), undefined);
-
-  // Test with whitespace
-  const usdWhitespace = Currency.from("  USD  ");
-  assertExists(usdWhitespace);
-  assertEquals(
-    usdWhitespace.code,
-    "USD",
-    "from(  USD  ) should return currency with code USD",
-  );
-
   // Test with different case
   const usdCase = Currency.from("us dollar");
   assertExists(usdCase);

@@ -415,7 +415,7 @@ export class Currency {
    */
   public static from(input: string | CurrencyCode): Currency | undefined {
     // Handle null or undefined input explicitly
-    if (!input) {
+    if (!input || typeof input === "object") {
       return undefined;
     }
 

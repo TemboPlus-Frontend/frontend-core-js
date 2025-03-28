@@ -296,15 +296,6 @@
         "code": "DZD",
         "name_plural": "Algerian dinars"
     },
-    "EEK": {
-        "symbol": "Ekr",
-        "name": "Estonian Kroon",
-        "symbol_native": "kr",
-        "decimal_digits": 2,
-        "rounding": 0,
-        "code": "EEK",
-        "name_plural": "Estonian kroons"
-    },
     "EGP": {
         "symbol": "EGP",
         "name": "Egyptian Pound",
@@ -565,24 +556,6 @@
         "rounding": 0,
         "code": "LKR",
         "name_plural": "Sri Lankan rupees"
-    },
-    "LTL": {
-        "symbol": "Lt",
-        "name": "Lithuanian Litas",
-        "symbol_native": "Lt",
-        "decimal_digits": 2,
-        "rounding": 0,
-        "code": "LTL",
-        "name_plural": "Lithuanian litai"
-    },
-    "LVL": {
-        "symbol": "Ls",
-        "name": "Latvian Lats",
-        "symbol_native": "Ls",
-        "decimal_digits": 2,
-        "rounding": 0,
-        "code": "LVL",
-        "name_plural": "Latvian lati"
     },
     "LYD": {
         "symbol": "LD",
@@ -998,15 +971,6 @@
         "code": "UZS",
         "name_plural": "Uzbekistan som"
     },
-    "VEF": {
-        "symbol": "Bs.F.",
-        "name": "Venezuelan Bolívar",
-        "symbol_native": "Bs.F.",
-        "decimal_digits": 2,
-        "rounding": 0,
-        "code": "VEF",
-        "name_plural": "Venezuelan bolívars"
-    },
     "VND": {
         "symbol": "₫",
         "name": "Vietnamese Dong",
@@ -1052,22 +1016,58 @@
         "code": "ZAR",
         "name_plural": "South African rand"
     },
-    "ZMK": {
+    "SSP": {
+        "symbol": "SS£",
+        "name": "South Sudanese Pound",
+        "symbol_native": "£",
+        "decimal_digits": 2,
+        "rounding": 0,
+        "code": "SSP",
+        "name_plural": "South Sudanese pounds"
+    },
+    "VES": {
+        "symbol": "Bs.",
+        "name": "Venezuelan Bolívar Soberano",
+        "symbol_native": "Bs.",
+        "decimal_digits": 2,
+        "rounding": 0,
+        "code": "VES",
+        "name_plural": "Venezuelan bolívares soberanos"
+    },
+    "ZMW": {
         "symbol": "ZK",
         "name": "Zambian Kwacha",
-        "symbol_native": "ZK",
-        "decimal_digits": 0,
+        "symbol_native": "K",
+        "decimal_digits": 2,
         "rounding": 0,
-        "code": "ZMK",
+        "code": "ZMW",
         "name_plural": "Zambian kwachas"
     },
-    "ZWL": {
-        "symbol": "ZWL$",
-        "name": "Zimbabwean Dollar",
-        "symbol_native": "ZWL$",
-        "decimal_digits": 0,
+    "MRU": {
+        "symbol": "UM",
+        "name": "Mauritanian Ouguiya",
+        "symbol_native": "أوقية",
+        "decimal_digits": 2,
         "rounding": 0,
-        "code": "ZWL",
-        "name_plural": "Zimbabwean Dollar"
+        "code": "MRU",
+        "name_plural": "Mauritanian ouguiyas"
+    },
+    "STN": {
+        "symbol": "Db",
+        "name": "São Tomé and Príncipe Dobra",
+        "symbol_native": "Db",
+        "decimal_digits": 2,
+        "rounding": 0,
+        "code": "STN",
+        "name_plural": "São Tomé and Príncipe dobras"
+    },
+    "ZWG": {
+        "symbol": "ZiG",
+        "name": "Zimbabwe Gold (ZiG)",
+        "symbol_native": "ZiG",
+        "decimal_digits": 2,
+        "rounding": 0,
+        "code": "ZWG",
+        "name_plural": "Zimbabwe Gold"
     }
 }

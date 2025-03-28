@@ -29,6 +29,7 @@
 
 import file from "@data/currencies.json" with { type: "json" };
 import type { CurrencyCode } from "@models/currency/types.ts";
+import { isCurrencyCode } from "@models/currency/utils.ts";
 
 /**
  * Represents a currency with essential details.
@@ -281,7 +282,7 @@ export class Currency {
    * @param {string} _symbolNative - The native symbol of the currency
    * @param {number} _decimalDigits - Number of decimal places typically used with this currency
    * @param {number} _rounding - Rounding increment used for this currency
-   * @param {string} _code - The ISO 4217 currency code
+   * @param {CurrencyCode} _code - The ISO 4217 currency code
    * @param {string} _namePlural - The plural form of the currency name
    */
   constructor(
@@ -290,7 +291,7 @@ export class Currency {
     private readonly _symbolNative: string,
     private readonly _decimalDigits: number,
     private readonly _rounding: number,
-    private readonly _code: string,
+    private readonly _code: CurrencyCode,
     private readonly _namePlural: string,
   ) {}
 
@@ -338,7 +339,7 @@ export class Currency {
    * Gets the ISO 4217 currency code.
    * @returns {string} The ISO 4217 currency code
    */
-  get code(): string {
+  get code(): CurrencyCode {
     return this._code;
   }
 
@@ -407,23 +408,47 @@ export class Currency {
   }
 
   /**
-   * Attempts to create a Currency instance from a currency name or ISO code
-   * @param input The currency name or ISO code
-   * @returns A Currency instance if valid input, undefined otherwise
+   * Attempts to create a Currency instance from a currency name or ISO code string.
+   * The `CurrencyCode` type provides type hints for valid ISO codes but resolves to `string`.
+   * @param input The currency name or ISO code string.
+   * @returns A Currency instance if valid input, undefined otherwise.
    */
   public static from(input: string | CurrencyCode): Currency | undefined {
-    if (!input || typeof input !== "string") return undefined;
+    // Handle null or undefined input explicitly
+    if (!input) {
+      return undefined;
+    }
 
+    // Input is guaranteed to be a string here. Trim whitespace.
     const text = input.trim();
-    if (text.length === 0) return undefined;
 
-    // deno-lint-ignore no-explicit-any
-    const currency1 = Currency.fromCode(text as any);
-    if (currency1) return currency1;
+    // Check for empty string after trimming
+    if (text.length === 0) {
+      return undefined;
+    }
 
-    const currency2 = Currency.fromName(text);
-    if (currency2) return currency2;
+    // Check if the input string matches a known CurrencyCode
+    if (isCurrencyCode(text)) {
+      // If it's a valid code format, try creating from code.
+      // 'text' is now known to be of type CurrencyCode within this block.
+      const currency = Currency.fromCode(text);
 
+      // Return if successful. Note: fromCode itself might return undefined
+      // even for a valid code if it's e.g., not supported/enabled.
+      if (currency) {
+        return currency;
+      }
+    }
+
+    // If input wasn't a valid CurrencyCode recognized by the type guard,
+    // OR if isCurrencyCode returned true but Currency.fromCode(text) returned undefined,
+    // then try interpreting the original input string as a name.
+    const currencyFromName = Currency.fromName(text);
+    if (currencyFromName) {
+      return currencyFromName;
+    }
+
+    // If neither code nor name interpretation worked
     return undefined;
   }
 
@@ -447,7 +472,9 @@ export class Currency {
     if (typeof maybeCurrency._namePlural !== "string") return false;
 
     // Validate against known currencies
-    const currencyFromCode = Currency.fromCode(maybeCurrency._code as CurrencyCode);
+    const currencyFromCode = Currency.fromCode(
+      maybeCurrency._code as CurrencyCode,
+    );
 
     return Boolean(currencyFromCode);
   }
@@ -506,16 +533,23 @@ export class CurrencyService {
         JSON.stringify(file),
       );
       const currencies = Object.values(data).map(
-        (c) =>
-          new Currency(
+        function (c) {
+          let code: CurrencyCode;
+          if (isCurrencyCode(c.code)) {
+            code = c.code;
+          } else {
+            throw new Error(`Unknown currency code: ${c.code}`);
+          }
+          return new Currency(
             c.symbol,
             c.name,
             c.symbol_native,
             c.decimal_digits,
             c.rounding,
-            c.code,
+            code,
             c.name_plural,
-          ),
+          );
+        },
       );
 
       const codeRecord: Record<string, Currency> = {};

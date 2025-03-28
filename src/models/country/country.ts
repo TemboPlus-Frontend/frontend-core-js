@@ -1001,7 +1001,7 @@ export class CountryService {
             c.flag_emoji,
             continent,
             region,
-            c.currency_iso_iso2,
+            c.currency_iso_code,
           );
         },
       );

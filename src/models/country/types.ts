@@ -111,6 +111,70 @@ export const ISO2_TO_ISO3_MAP: Record<ISO2CountryCode, ISO3CountryCode> = {
 };
 
 /**
+ * A Set containing all defined ISO 3166-1 alpha-2 (ISO2CountryCode)
+ * Useful for quick lookups (e.g., checking if a string is a valid code).
+ */
+export const ISO2CountryCodesSet = new Set<string>([
+  "AF", "AX", "AL", "DZ", "AS", "AD", "AO", "AI", "AQ", "AG",
+  "AR", "AM", "AW", "AU", "AT", "AZ", "BS", "BH", "BD", "BB",
+  "BY", "BE", "BZ", "BJ", "BM", "BT", "BO", "BA", "BW", "BV",
+  "BR", "IO", "VG", "BN", "BG", "BF", "BI", "CV", "KH", "CM",
+  "CA", "KY", "CF", "TD", "CL", "CN", "CX", "CC", "CO", "KM",
+  "CG", "CK", "CR", "CI", "HR", "CU", "CY", "CZ", "CD", "DK",
+  "DJ", "DM", "DO", "EC", "EG", "SV", "GQ", "ER", "EE", "SZ",
+  "ET", "FK", "FO", "FJ", "FI", "FR", "GF", "PF", "TF", "GA",
+  "GM", "GE", "DE", "GH", "GI", "GR", "GL", "GD", "GP", "GU",
+  "GT", "GG", "GN", "GW", "GY", "HT", "HM", "VA", "HN", "HK",
+  "HU", "IS", "IN", "ID", "IR", "IQ", "IE", "IM", "IL", "IT",
+  "JM", "JP", "JE", "JO", "KZ", "KE", "KI", "KP", "KR", "KW",
+  "KG", "LA", "LV", "LB", "LS", "LR", "LY", "LI", "LT", "LU",
+  "MO", "MG", "MW", "MY", "MV", "ML", "MT", "MH", "MQ", "MR",
+  "MU", "YT", "MX", "FM", "MD", "MC", "MN", "ME", "MS", "MA",
+  "MZ", "MM", "NA", "NR", "NP", "NL", "NC", "NZ", "NI", "NE",
+  "NG", "NU", "NF", "MK", "MP", "NO", "OM", "PK", "PW", "PS",
+  "PA", "PG", "PY", "PE", "PH", "PN", "PL", "PT", "PR", "QA",
+  "RE", "RO", "RU", "RW", "SH", "KN", "LC", "PM", "VC", "WS",
+  "SM", "ST", "SA", "SN", "RS", "SC", "SL", "SG", "SK", "SI",
+  "SB", "SO", "ZA", "GS", "SS", "ES", "LK", "SD", "SR", "SJ",
+  "SE", "CH", "SY", "TW", "TJ", "TZ", "TH", "TL", "TG", "TK",
+  "TO", "TT", "TN", "TR", "TM", "TC", "TV", "VI", "UG", "UA",
+  "AE", "GB", "US", "UM", "UY", "UZ", "VU", "VE", "VN", "WF",
+  "EH", "YE", "ZM", "ZW"
+]);
+
+/**
+ * A Set containing all defined ISO 3166-1  alpha-3 (ISO3CountryCode) country codes.
+ * Useful for quick lookups (e.g., checking if a string is a valid code).
+ */
+export const ISO3CountryCodesSet = new Set<string>([
+  "AFG", "ALA", "ALB", "DZA", "ASM", "AND", "AGO", "AIA", "ATA", "ATG",
+  "ARG", "ARM", "ABW", "AUS", "AUT", "AZE", "BHS", "BHR", "BGD", "BRB",
+  "BLR", "BEL", "BLZ", "BEN", "BMU", "BTN", "BOL", "BIH", "BWA", "BVT",
+  "BRA", "IOT", "VGB", "BRN", "BGR", "BFA", "BDI", "CPV", "KHM", "CMR",
+  "CAN", "CYM", "CAF", "TCD", "CHL", "CHN", "CXR", "CCK", "COL", "COM",
+  "COG", "COK", "CRI", "CIV", "HRV", "CUB", "CYP", "CZE", "COD", "DNK",
+  "DJI", "DMA", "DOM", "ECU", "EGY", "SLV", "GNQ", "ERI", "EST", "SWZ",
+  "ETH", "FLK", "FRO", "FJI", "FIN", "FRA", "GUF", "PYF", "ATF", "GAB",
+  "GMB", "GEO", "DEU", "GHA", "GIB", "GRC", "GRL", "GRD", "GLP", "GUM",
+  "GTM", "GGY", "GIN", "GNB", "GUY", "HTI", "HMD", "VAT", "HND", "HKG",
+  "HUN", "ISL", "IND", "IDN", "IRN", "IRQ", "IRL", "IMN", "ISR", "ITA",
+  "JAM", "JPN", "JEY", "JOR", "KAZ", "KEN", "KIR", "KWT", "KGZ", "LAO",
+  "LVA", "LBN", "LSO", "LBR", "LBY", "LIE", "LTU", "LUX", "MAC", "MDG",
+  "MWI", "MYS", "MDV", "MLI", "MLT", "MHL", "MTQ", "MRT", "MUS", "MYT",
+  "MEX", "FSM", "MDA", "MCO", "MNG", "MNE", "MSR", "MAR", "MOZ", "MMR",
+  "NAM", "NRU", "NPL", "NLD", "NCL", "NZL", "NIC", "NER", "NGA", "NIU",
+  "NFK", "PRK", "MKD", "MNP", "NOR", "OMN", "PAK", "PLW", "PSE", "PAN",
+  "PNG", "PRY", "PER", "PHL", "PCN", "POL", "PRT", "PRI", "QAT", "REU",
+  "ROU", "RUS", "RWA", "SHN", "KNA", "LCA", "SPM", "VCT", "WSM", "SMR",
+  "STP", "SAU", "SEN", "SRB", "SYC", "SLE", "SGP", "SVK", "SVN", "SLB",
+  "SOM", "ZAF", "SGS", "KOR", "SSD", "ESP", "LKA", "SDN", "SUR", "SJM",
+  "SWE", "CHE", "SYR", "TWN", "TJK", "TZA", "THA", "TLS", "TGO", "TKL",
+  "TON", "TTO", "TUN", "TUR", "TKM", "TCA", "TUV", "VIR", "UGA", "UKR",
+  "ARE", "GBR", "USA", "UMI", "URY", "UZB", "VUT", "VEN", "VNM", "WLF",
+  "ESH", "YEM", "ZMB", "ZWE"
+]);
+
+/**
  * Represents an ISO country code, accepting either ISO 3166-1 alpha-2 (two-letter)
  * or ISO 3166-1 alpha-3 (three-letter) formats.
  * 

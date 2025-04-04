@@ -54,7 +54,7 @@ export const TZ_MNO_CONFIG: Record<TZMNOId, MNOInfo> = {
  * @param operatorId The operator ID (e.g., TZOperatorId.VODACOM)
  * @returns Array of prefixes or undefined.
  */
-export function getPrefixesForOperator(
+export function getTZPrefixesForOperator(
   operatorId: TZMNOId,
 ): string[] | undefined {
   return operatorPrefixes[operatorId];
@@ -66,7 +66,7 @@ export function getPrefixesForOperator(
  * @param prefix The 2-digit phone number prefix.
  * @returns The NetworkOperatorInfo object or undefined.
  */
-export function findOperatorByPrefix(prefix: string): MNOInfo | undefined {
+export function findTZOperatorByPrefix(prefix: string): MNOInfo | undefined {
   for (const opId in operatorPrefixes) {
     if (operatorPrefixes[opId as TZMNOId].includes(prefix)) {
       return TZ_MNO_CONFIG[opId as TZMNOId];

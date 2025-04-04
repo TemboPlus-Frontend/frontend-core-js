@@ -3,19 +3,17 @@ import type {
   MNOInfo,
   PhoneNumberContract,
 } from "@models/phone_number_2.0/types.ts";
-import type { ISO2CountryCode } from "@models/country/index.ts";
+import { findTZOperatorByPrefix } from "./tz_mnos.ts";
 import { phoneUtils } from "@models/phone_number_2.0/utils.ts";
-
-// Known valid starting digits for Kenyan national numbers (mobile focus)
-const VALID_KE_START_DIGITS = ["1", "7"]; // Currently includes 01x and 07x mobile prefixes
+import type { ISO2CountryCode } from "@models/index.ts";
 
 /**
- * Represents a validated Kenyan (KE) phone number.
+ * Represents a validated Tanzanian (TZ) mobile phone number.
  * Implements the common PhoneNumberContract interface.
  */
-export class KEMobileNumber implements PhoneNumberContract {
-  readonly countryCode: ISO2CountryCode = "KE";
-  readonly compactNumber: string; // Should be 9 digits
+export class TZMobileNumber implements PhoneNumberContract {
+  readonly countryCode: ISO2CountryCode = "TZ";
+  readonly compactNumber: string;
   readonly e164Format: string;
 
   /**
@@ -29,18 +27,18 @@ export class KEMobileNumber implements PhoneNumberContract {
   }
 
   /**
-   * Validates the structure of the Kenyan phone number.
-   * Checks length (9 digits national) and ensures it starts with a known valid digit.
-   * @returns {boolean} True if the number structure is valid for Kenya.
+   * Validates the structure of the Tanzanian phone number.
+   * Checks length and ensures the prefix belongs to a known TZ operator.
+   * @returns {boolean} True if the number structure is valid for Tanzania.
    */
   validate(): boolean {
-    // Basic structural validation (9 digits, digits only)
+    // Basic structural validation (length, digits only)
     if (!/^\d{9}$/.test(this.compactNumber)) {
       return false;
     }
-    // Check if national number starts with a known valid digit (e.g., 1 or 7 for mobile)
-    const startDigit = this.compactNumber.substring(0, 1);
-    return VALID_KE_START_DIGITS.includes(startDigit);
+    // Check if prefix belongs to a known TZ operator
+    const prefix = this.compactNumber.substring(0, 2);
+    return findTZOperatorByPrefix(prefix) !== undefined;
   }
 
   /**
@@ -49,12 +47,11 @@ export class KEMobileNumber implements PhoneNumberContract {
    * @returns {string} The formatted phone number string.
    */
   getWithFormat(format: PhoneNumberFormat): string {
-    const num = this.compactNumber; // 9 digits e.g., 712345678 or 110123456
+    const num = this.compactNumber;
     switch (format) {
       case PhoneNumberFormat.INTERNATIONAL:
-        // Format: +254 XXX XXX XXX (common mobile format)
-        // Adjust spacing if needed based on specific landline area codes
-        return `+254 ${num.substring(0, 3)} ${num.substring(3, 6)} ${
+        // Format: +255 XXX XXX XXX
+        return `+255 ${num.substring(0, 3)} ${num.substring(3, 6)} ${
           num.substring(6)
         }`;
       case PhoneNumberFormat.NATIONAL:
@@ -63,10 +60,11 @@ export class KEMobileNumber implements PhoneNumberContract {
           num.substring(6)
         }`;
       case PhoneNumberFormat.COMPACT:
-        // Format: 712345678 (just the 9 national digits)
+        // Format: 712345678 (just the 9 digits)
         return this.compactNumber;
       case PhoneNumberFormat.RFC3966:
-        // Format: tel:+254712345678
+        // Format: tel:+255712345678 (using the stored e164Format)
+        // Ensure stored e164Format is correct for this
         return `tel:${this.e164Format}`;
       default:
         // Fallback to simple E.164 format
@@ -75,13 +73,13 @@ export class KEMobileNumber implements PhoneNumberContract {
   }
 
   /**
-   * Gets associated mobile operator information.
-   * Returns undefined as MNO info since Mobile Number Portability (MNP) is implemented in Kenya
-   * so checking against network number prefixes is not dependable
-   * @returns {MNOInfo | undefined} Always returns undefined.
+   * Gets associated mobile operator information based on the number's prefix.
+   * Returns undefined if the prefix doesn't match a known Tanzanian operator.
+   * @returns {MNOInfo | undefined} Operator details or undefined.
    */
   getOperatorInfo(): MNOInfo | undefined {
-    return undefined; 
+    const prefix = this.compactNumber.substring(0, 2);
+    return findTZOperatorByPrefix(prefix);
   }
 
   /**
@@ -93,16 +91,16 @@ export class KEMobileNumber implements PhoneNumberContract {
   }
 
   /**
-   * Attempts to create a `KEPhoneNumber` instance from a given string input.
-   * Parses various common Kenyan formats.
-   * Returns undefined if the input is not a valid, recognized Kenyan number.
+   * Attempts to create a `TZPhoneNumber` instance from a given string input.
+   * Parses various common Tanzanian formats.
+   * Returns undefined if the input is not a valid, recognized Tanzanian number.
    *
    * @param input - The input phone number string.
-   * @returns {KEMobileNumber | undefined} An instance if valid, otherwise undefined.
+   * @returns {TZPhoneNumber | undefined} An instance if valid, otherwise undefined.
    */
   public static from(
     input: string | null | undefined,
-  ): KEMobileNumber | undefined {
+  ): TZMobileNumber | undefined {
     if (!input || typeof input !== "string") {
       return undefined;
     }
@@ -119,16 +117,13 @@ export class KEMobileNumber implements PhoneNumberContract {
 
       let compactNumber: string | undefined;
 
-      // Normalize to compact 9-digit national format
-      if (cleanedInput.startsWith("+254")) {
+      // Normalize to compact 9-digit format
+      if (cleanedInput.startsWith("+255")) {
         compactNumber = cleanedInput.substring(4);
-      } else if (cleanedInput.startsWith("254")) {
+      } else if (cleanedInput.startsWith("255")) {
         compactNumber = cleanedInput.substring(3);
       } else if (cleanedInput.startsWith("0")) {
-        // Expect 10 digits starting with 0 (0 + 9 national digits)
-        if (cleanedInput.length === 10) {
-          compactNumber = cleanedInput.substring(1);
-        }
+        compactNumber = cleanedInput.substring(1);
       } else if (/^\d{9}$/.test(cleanedInput)) {
         // Assume it's already in compact format if it's 9 digits
         compactNumber = cleanedInput;
@@ -139,18 +134,22 @@ export class KEMobileNumber implements PhoneNumberContract {
         return undefined;
       }
 
-      // Check if national number starts with a valid digit for KE
-      const startDigit: string = compactNumber.substring(0, 1);
-      if (!VALID_KE_START_DIGITS.includes(startDigit)) {
+      // Check if prefix is valid for TZ
+      const prefix: string = compactNumber.substring(0, 2);
+      if (findTZOperatorByPrefix(prefix) === undefined) {
         return undefined;
       }
 
       // If all checks pass, create instance
-      const e164 = `+254${compactNumber}`;
-      return new KEMobileNumber(compactNumber, e164);
+      const e164 = `+255${compactNumber}`;
+      return new TZMobileNumber(compactNumber, e164);
     } catch (_) {
       // Catch any unexpected errors during parsing/validation
       return undefined;
     }
+  }
+
+  getNumberType(): NumberType {
+    return NumberType.MOBILE;
   }
 }

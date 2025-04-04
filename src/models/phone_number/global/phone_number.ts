@@ -21,7 +21,7 @@ import {
   SharedDialCodeError,
 } from "@models/phone_number/global/service.ts";
 import { PhoneNumberFormat } from "@models/phone_number/format.ts";
-import type { CountryCode, ISO2CountryCode } from "@models/country/types.ts";
+import type { ISO2CountryCode } from "@models/country/types.ts";
 
 /**
  * Options for parsing phone numbers
@@ -31,7 +31,7 @@ export interface PhoneNumberParseOptions {
    * Default country to use when a dial code is shared by multiple countries
    * This can be either a Country object or an ISO country code string
    */
-  defaultCountry?: Country | CountryCode;
+  defaultCountry?: ISO2CountryCode;
 
   /**
    * Whether to throw an error when encountering an ambiguous phone number

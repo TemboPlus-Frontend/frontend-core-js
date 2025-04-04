@@ -1,5 +1,6 @@
 import type { PhoneNumberFormat } from "@models/phone_number_2.0/format.ts";
 import type { ISO2CountryCode } from "@models/country/index.ts";
+import { NumberType } from "libphonenumber-js";
 
 /**
  * Generic interface for Mobile Network Operator information.
@@ -52,4 +53,17 @@ export interface PhoneNumberContract {
    * @returns {string} A display label for the phone number.
    */
   get label(): string;
+
+  getNumberType(): NumberType;
+}
+
+/**
+ * Options for parsing phone numbers
+ */
+export interface PhoneNumberParseOptions {
+  /**
+   * Default country to use when a dial code is shared by multiple countries
+   * This can be either a Country object or an ISO country code string
+   */
+  defaultCountry?: ISO2CountryCode;
 }

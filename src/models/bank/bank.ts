@@ -24,6 +24,8 @@
 
 import file from "@data/banks_tz.json" with { type: "json" };
 
+const BankToken = Symbol("BankToken");
+
 /**
  * Represents a bank with essential details.
  * @class Bank
@@ -79,16 +81,13 @@ export class Bank {
    * @param {string} _swiftCode - The SWIFT code associated with the bank
    */
   constructor(
+    token: symbol,
     private readonly _fullName: string,
     private readonly _shortName: string,
     private readonly _swiftCode: string,
   ) {
-    // Make sure only BankService can create Bank instances
-    const callerIsService = new Error().stack?.includes("BankService");
-    if (!callerIsService) {
-      throw new Error(
-        "Bank instances cannot be created directly. Use Bank.from() or access via Bank.CRDB, Bank.NMB, etc.",
-      );
+    if (token !== BankToken) {
+      throw new Error("Bank can only be instantiated by BankService.");
     }
   }
 
@@ -294,7 +293,7 @@ export class BankService {
         JSON.stringify(file),
       );
       const banks = Object.values(data).map(
-        (b) => new Bank(b.fullName, b.shortName, b.swiftCode),
+        (b) => new Bank(BankToken, b.fullName, b.shortName, b.swiftCode),
       );
 
       const swiftCodeRecord: Record<string, Bank> = {};

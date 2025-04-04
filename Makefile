@@ -2,7 +2,7 @@
 # This package is built using Deno
 
 # Variables
-VERSION ?= 0.2.8
+VERSION ?= 0.2.9
 NPM_DIR = npm
 JSR_PACKAGE_NAME = @temboplus/frontend-core
 
@@ -36,28 +36,28 @@ test:
 
 # Build the npm package
 .PHONY: build
-build: test
+build-npm: test
 	@echo "Building npm package version $(VERSION)..."
 	deno run -A scripts/build_npm.ts $(VERSION)
 	@echo "Build complete. Package is ready in the npm directory."
 
 # Publish to npm
 .PHONY: publish
-publish:
+publish-npm:
 	@echo "Publishing to npm..."
 	cd $(NPM_DIR) && npm publish --access=public
 	@echo "Package published successfully!"
 
 # Deploy to JSR (JavaScript Registry)
 .PHONY: deploy-jsr
-deploy-jsr:
+publish-jsr:
 	@echo "Deploying to JSR..."
 	deno publish --allow-slow-types
 	@echo "Package deployed to JSR successfully!"
 
 # Build and publish to npm in one step
 .PHONY: release
-release: build publish
+release-npm: build-npm publish-npm
 
 # Build and publish to both npm and JSR in one step
 .PHONY: release-all

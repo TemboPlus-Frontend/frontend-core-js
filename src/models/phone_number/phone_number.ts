@@ -1,9 +1,9 @@
 import { type ParsedPhoneNumber, PhoneNumberService } from "./service.ts";
-import { PhoneNumberFormat } from "./format.ts";
-import type { MNOInfo, PhoneNumberContract } from "./types.ts";
+import type { MNOInfo, PhoneNumberContract, PhoneNumberType } from "./types.ts";
 import type { ISO2CountryCode } from "@models/country/types.ts";
 import type { PhoneNumber as LibPhoneNumberInstance } from "libphonenumber-js";
 import type { PhoneNumberParseOptions } from "./types.ts";
+import { PhoneNumberFormat } from "@models/phone_number/index.ts";
 
 /**
  * Represents a generic international phone number, validated using libphonenumber-js
@@ -52,6 +52,10 @@ export class PhoneNumber implements PhoneNumberContract {
    */
   getWithFormat(format: PhoneNumberFormat): string {
     return this._service.format(this._parsedInfo.libInstance, format);
+  }
+
+  getNumberType(): PhoneNumberType | undefined {
+    return this._parsedInfo.libInstance.getType() as PhoneNumberType;
   }
 
   /**

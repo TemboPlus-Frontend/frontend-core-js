@@ -6,8 +6,9 @@ import {
   parsePhoneNumberWithError,
   type PhoneNumber,
 } from "libphonenumber-js/max";
-import { PhoneNumberFormat } from "@models/phone_number_2.0/format.ts";
 import type { ISO2CountryCode } from "@models/country/index.ts";
+import { PhoneNumberFormat } from "@models/phone_number/types.ts";
+import { phoneUtils } from "./utils.ts";
 
 // Interface for the parsed result from this service
 export interface ParsedPhoneNumber {
@@ -45,7 +46,7 @@ export class PhoneNumberService {
   ): ParsedPhoneNumber | undefined {
     try {
       const phoneNumberInstance = parsePhoneNumberWithError(
-        numberToParse,
+        phoneUtils.normalizePhoneNumber(numberToParse),
         defaultCountry as LibCountryCode,
       );
 

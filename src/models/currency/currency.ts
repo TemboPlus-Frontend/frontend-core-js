@@ -31,6 +31,8 @@ import file from "@data/currencies.json" with { type: "json" };
 import type { CurrencyCode } from "@models/currency/types.ts";
 import { isCurrencyCode } from "@models/currency/utils.ts";
 
+const CurrencyToken = Symbol("CurrencyToken");
+
 /**
  * Represents a currency with essential details.
  * @class Currency
@@ -286,6 +288,7 @@ export class Currency {
    * @param {string} _namePlural - The plural form of the currency name
    */
   constructor(
+    token: symbol,
     private readonly _symbol: string,
     private readonly _name: string,
     private readonly _symbolNative: string,
@@ -293,7 +296,11 @@ export class Currency {
     private readonly _rounding: number,
     private readonly _code: CurrencyCode,
     private readonly _namePlural: string,
-  ) {}
+  ) {
+    if (token !== CurrencyToken) {
+      throw new Error("Country can only be instantiated by CountryService.");
+    }
+  }
 
   /**
    * Gets the international symbol of the currency.
@@ -541,6 +548,7 @@ export class CurrencyService {
             throw new Error(`Unknown currency code: ${c.code}`);
           }
           return new Currency(
+            CurrencyToken,
             c.symbol,
             c.name,
             c.symbol_native,

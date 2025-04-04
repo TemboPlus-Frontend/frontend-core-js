@@ -1,4 +1,4 @@
-import type { MNOInfo } from "@models/phone_number_2.0/types.ts";
+import type { MNOInfo } from "../types.ts";
 
 /**
  * Represents unique identifiers for Tanzanian mobile network operators.

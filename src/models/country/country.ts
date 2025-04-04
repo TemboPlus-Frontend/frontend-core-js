@@ -28,7 +28,13 @@
 import { Currency } from "@models/currency/currency.ts";
 import file from "@data/countries.json" with { type: "json" };
 import type { CurrencyCode } from "@models/currency/index.ts";
-import type { CountryCode, ISO2CountryCode, ISO3CountryCode } from "@models/country/types.ts";
+import type {
+  CountryCode,
+  ISO2CountryCode,
+  ISO3CountryCode,
+} from "@models/country/types.ts";
+
+const CountryToken = Symbol("CountryToken");
 
 /**
  * Enum for continents
@@ -581,6 +587,7 @@ export class Country {
    * @param {string | null} _currencyCode - The ISO currency code used in the country
    */
   constructor(
+    token: symbol,
     private readonly _name: string,
     private readonly _iso2: ISO2CountryCode,
     private readonly _nameOfficial: string = "",
@@ -589,7 +596,11 @@ export class Country {
     private readonly _continent: CONTINENT = CONTINENT.EUROPE,
     private readonly _region: SUB_REGION = SUB_REGION.NORTHERN_EUROPE,
     private readonly _currencyCode: CurrencyCode | null = null,
-  ) {}
+  ) {
+    if (token !== CountryToken) {
+      throw new Error("Country can only be instantiated by CountryService.");
+    }
+  }
 
   /**
    * Gets the common name of the country.
@@ -831,7 +842,7 @@ export class Country {
 
     const maybeCountry = obj as Record<string, unknown>;
 
-    console.log(maybeCountry)
+    console.log(maybeCountry);
 
     // Check private properties exist with correct types
     if (typeof maybeCountry._name !== "string") return false;
@@ -994,6 +1005,7 @@ export class CountryService {
           const region = this.mapRegion(c.region);
 
           return new Country(
+            CountryToken,
             c.name,
             c.iso_2,
             c.name_official,

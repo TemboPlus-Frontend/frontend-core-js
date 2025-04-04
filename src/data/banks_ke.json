@@ -1,0 +1,102 @@
+[
+    {
+        "fullName": "KENYA COMMERCIAL BANK LIMITED",
+        "shortName": "KCB",
+        "swiftCode": "KCBLKENX"
+    },
+    {
+        "fullName": "EQUITY BANK KENYA LIMITED",
+        "shortName": "EQUITY",
+        "swiftCode": "EQBLKENX"
+    },
+    {
+        "fullName": "CO-OPERATIVE BANK OF KENYA LIMITED",
+        "shortName": "CO-OP",
+        "swiftCode": "KCOOKENX"
+    },
+    {
+        "fullName": "STANDARD CHARTERED BANK KENYA LIMITED",
+        "shortName": "SCB",
+        "swiftCode": "SCBLKENX"
+    },
+    {
+        "fullName": "ABSA BANK KENYA PLC",
+        "shortName": "ABSA",
+        "swiftCode": "BARCKENX"
+    },
+    {
+        "fullName": "NCBA BANK KENYA PLC",
+        "shortName": "NCBA",
+        "swiftCode": "CBAFKENX"
+    },
+    {
+        "fullName": "DIAMOND TRUST BANK KENYA LIMITED",
+        "shortName": "DTB",
+        "swiftCode": "DTKEKENX"
+    },
+    {
+        "fullName": "FAMILY BANK LIMITED",
+        "shortName": "FAMILY",
+        "swiftCode": "FABLKENA"
+    },
+    {
+        "fullName": "CITIBANK N.A. KENYA",
+        "shortName": "CITI",
+        "swiftCode": "CITIKENA"
+    },
+    {
+        "fullName": "HOUSING FINANCE COMPANY OF KENYA LIMITED",
+        "shortName": "HFCK",
+        "swiftCode": "HFCOKENX"
+    },
+    {
+        "fullName": "STANBIC BANK KENYA LIMITED",
+        "shortName": "STANBIC",
+        "swiftCode": "SBICKENX"
+    },
+    {
+        "fullName": "NATIONAL BANK OF KENYA LIMITED",
+        "shortName": "NBK",
+        "swiftCode": "NBKEKENX"
+    },
+    {
+        "fullName": "BANK OF AFRICA KENYA LIMITED",
+        "shortName": "BOA",
+        "swiftCode": "AFRIKENX"
+    },
+    {
+        "fullName": "GUARANTY TRUST BANK KENYA LIMITED",
+        "shortName": "GT BANK",
+        "swiftCode": "GTBOKENX"
+    },
+    {
+        "fullName": "I&M BANK LIMITED",
+        "shortName": "IMBANK",
+        "swiftCode": "IMBLKENX"
+    },
+    {
+        "fullName": "ECOBANK KENYA LIMITED",
+        "shortName": "ECOBANK",
+        "swiftCode": "ECOCKENX"
+    },
+    {
+        "fullName": "BANK OF BARODA KENYA LIMITED",
+        "shortName": "BARODA",
+        "swiftCode": "BARBKENX"
+    },
+    {
+        "fullName": "BANK OF INDIA KENYA LIMITED",
+        "shortName": "BOI",
+        "swiftCode": "BKIDKENX"
+    },
+    {
+        "fullName": "UBA KENYA BANK LIMITED",
+        "shortName": "UBA",
+        "swiftCode": "UNAFKENX"
+    },
+    {
+        "fullName": "SOCIETE GENERALE KENYA LIMITED",
+        "shortName": "SG",
+        "swiftCode": "SGKENX"
+    }
+]

@@ -1,28 +1,19 @@
-/**
- * bank.ts
- * Contains the TZBank class (previously refactored) and the updated BankService.
- */
+import type { Bank } from "./bank._contract.ts";
+import { TZBank } from "./bank.tz.ts";
+import { KEBank } from "./bank.ke.ts";
 
-import { Bank, SWIFT_CODE_REGEX } from "./contract.ts";
-import { TZBank } from "./tz_bank.ts"; // Assuming TZBank is now in its own file or renamed within this file
-import { KEBank } from "./ke_bank.ts"; // Assuming KEBank is in its own file
-
-// --- Data Loading ---
-// TODO: Implement a robust way to dynamically load country-specific bank data.
-// This could involve dynamic imports, a map of file paths, or fetching from an API.
-// For now, we'll use placeholder comments.
-// import tzData from "@data/banks_tz.json" with { type: "json" };
-// import keData from "@data/banks_ke.json" with { type: "json" }; // You need to create this file
+import tzData from "@data/banks_tz.json" with { type: "json" };
+import keData from "@data/banks_ke.json" with { type: "json" };
+import type { ISO2CountryCode } from "@models/index.ts";
+import type { BankSwiftCode } from "./types.ts";
 
 // --- Type Definitions ---
-// Define a type for the raw bank data loaded from JSON
 type BankData = {
   fullName: string;
   shortName: string;
   swiftCode: string;
 };
 
-// Define a type for the structure holding loaded bank data per country
 type CountryBankData = {
   list: Bank[];
   swiftMap: Map<string, Bank>;
@@ -38,8 +29,6 @@ export class BankService {
   private static instance: BankService;
   // Holds loaded bank data, keyed by country code (e.g., 'TZ', 'KE')
   private loadedData: Map<string, CountryBankData> = new Map();
-  // Flag to prevent re-initialization if getInstance is called multiple times
-  private isInitialized: boolean = false;
 
   private constructor() {}
 
@@ -50,9 +39,9 @@ export class BankService {
   static getInstance(): BankService {
     if (!BankService.instance) {
       BankService.instance = new BankService();
-      // Initialize known countries here or lazily when needed
-      // BankService.instance.initializeCountry('TZ');
-      // BankService.instance.initializeCountry('KE');
+      // Initialize known countries here
+      BankService.instance.initializeCountry("TZ");
+      BankService.instance.initializeCountry("KE");
     }
     return BankService.instance;
   }
@@ -63,7 +52,7 @@ export class BankService {
    * Can be called lazily when data for a country is first needed.
    * @param countryCode The ISO country code (e.g., 'TZ', 'KE').
    */
-  public async initializeCountry(countryCode: string): Promise<boolean> {
+  public initializeCountry(countryCode: ISO2CountryCode): boolean {
     const upperCountryCode = countryCode.toUpperCase();
     if (this.loadedData.has(upperCountryCode)) {
       return true; // Already loaded
@@ -71,13 +60,11 @@ export class BankService {
 
     console.log(`Initializing bank data for ${upperCountryCode}...`);
 
-    // ****** FIX 1: Change expected type to BankData[] ******
     let rawDataArray: BankData[] | null = null;
     let BankClass: new (
       fullName: string,
       shortName: string,
       swiftCode: string,
-      caller: BankService,
     ) => Bank;
 
     // --- Dynamic Data Loading & Class Selection ---
@@ -85,12 +72,7 @@ export class BankService {
     switch (upperCountryCode) {
       case "TZ":
         try {
-          const tzFile = await import("@data/banks_tz.json", {
-            // deno-lint-ignore no-import-assertions
-            assert: { type: "json" },
-          });
-          // ****** FIX 2: Assert as BankData[] ******
-          rawDataArray = tzFile.default as BankData[];
+          rawDataArray = tzData as BankData[];
           BankClass = TZBank;
         } catch (e) {
           console.error(`Failed to load data for TZ:`, e);
@@ -99,11 +81,7 @@ export class BankService {
         break;
       case "KE":
         try {
-          const keFile = await import("@data/banks_ke.json", {
-            // deno-lint-ignore no-import-assertions
-            assert: { type: "json" },
-          });
-          rawDataArray = keFile.default as BankData[];
+          rawDataArray = keData as BankData[];
           BankClass = KEBank;
         } catch (e) {
           console.error(
@@ -120,7 +98,6 @@ export class BankService {
         return false;
     }
 
-    // ****** FIX 3: Check the array directly ******
     if (!rawDataArray || rawDataArray.length === 0) {
       console.error(
         `No raw data loaded or data array is empty for ${upperCountryCode}`,
@@ -135,7 +112,6 @@ export class BankService {
     const shortNameMap = new Map<string, Bank>();
 
     try {
-      // ****** FIX 4: Iterate directly over the rawDataArray ******
       rawDataArray.forEach((b) => {
         // Check if data item has the required properties (optional robustness)
         if (!b.fullName || !b.shortName || !b.swiftCode) {
@@ -148,8 +124,7 @@ export class BankService {
         const bankInstance = new BankClass(
           b.fullName,
           b.shortName,
-          b.swiftCode,
-          this,
+          b.swiftCode as BankSwiftCode,
         );
         bankList.push(bankInstance);
         swiftMap.set(bankInstance.swiftCode.toUpperCase(), bankInstance);
@@ -187,17 +162,16 @@ export class BankService {
    * @param countryCode The ISO country code (e.g., 'TZ', 'KE').
    * @returns The CountryBankData structure or undefined if loading fails.
    */
-  private async getCountryData(
-    countryCode: string,
-  ): Promise<CountryBankData | undefined> {
-    const upperCountryCode = countryCode.toUpperCase();
-    if (!this.loadedData.has(upperCountryCode)) {
-      const success = await this.initializeCountry(upperCountryCode);
+  private getCountryData(
+    countryCode: ISO2CountryCode,
+  ): CountryBankData | undefined {
+    if (!this.loadedData.has(countryCode)) {
+      const success = this.initializeCountry(countryCode);
       if (!success) {
         return undefined; // Initialization failed
       }
     }
-    return this.loadedData.get(upperCountryCode);
+    return this.loadedData.get(countryCode);
   }
 
   /**
@@ -205,8 +179,8 @@ export class BankService {
    * @param countryCode The ISO country code (e.g., 'TZ', 'KE').
    * @returns An array of Bank instances for the country, or an empty array if not found/loaded.
    */
-  async getAll(countryCode: string): Promise<Bank[]> {
-    const data = await this.getCountryData(countryCode);
+  getAll(countryCode: ISO2CountryCode): Bank[] {
+    const data = this.getCountryData(countryCode);
     return data ? data.list : [];
   }
 
@@ -216,12 +190,12 @@ export class BankService {
    * @param swiftCode The SWIFT code to search for.
    * @returns The Bank instance or undefined if not found.
    */
-  async fromSWIFTCode(
-    countryCode: string,
+  fromSWIFTCode(
+    countryCode: ISO2CountryCode,
     swiftCode: string,
-  ): Promise<Bank | undefined> {
+  ): Bank | undefined {
     if (!swiftCode || typeof swiftCode !== "string") return undefined;
-    const data = await this.getCountryData(countryCode);
+    const data = this.getCountryData(countryCode);
     return data?.swiftMap.get(swiftCode.toUpperCase());
   }
 
@@ -231,12 +205,12 @@ export class BankService {
    * @param bankName The short or full name to search for (case-insensitive).
    * @returns The Bank instance or undefined if not found.
    */
-  async fromBankName(
-    countryCode: string,
+  fromBankName(
+    countryCode: ISO2CountryCode,
     bankName: string,
-  ): Promise<Bank | undefined> {
+  ): Bank | undefined {
     if (!bankName || typeof bankName !== "string") return undefined;
-    const data = await this.getCountryData(countryCode);
+    const data = this.getCountryData(countryCode);
     if (!data) return undefined;
 
     const upperName = bankName.toUpperCase();
@@ -251,13 +225,13 @@ export class BankService {
    * @param limit Max number of results.
    * @returns An array of matching Bank instances.
    */
-  async search(
-    countryCode: string,
+  search(
+    countryCode: ISO2CountryCode,
     searchTerm: string,
     limit: number = 10,
-  ): Promise<Bank[]> {
+  ): Bank[] {
     if (!searchTerm || typeof searchTerm !== "string") return [];
-    const data = await this.getCountryData(countryCode);
+    const data = this.getCountryData(countryCode);
     if (!data) return [];
 
     const term = searchTerm.toLowerCase().trim();
@@ -279,11 +253,11 @@ export class BankService {
    * @param swiftCode The SWIFT code to validate.
    * @returns True if the SWIFT code is valid for the country, false otherwise.
    */
-  async isValidSwiftCode(
-    countryCode: string,
+  isValidSwiftCode(
+    countryCode: ISO2CountryCode,
     swiftCode: string,
-  ): Promise<boolean> {
-    const bank = await this.fromSWIFTCode(countryCode, swiftCode);
+  ): boolean {
+    const bank = this.fromSWIFTCode(countryCode, swiftCode);
     // If we found a bank for this SWIFT in this country, it's valid.
     // The Bank implementation's isValidSwiftCode checks format AND existence in its list.
     return !!bank;

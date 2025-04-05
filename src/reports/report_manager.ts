@@ -1,5 +1,5 @@
 import FileSaver from "file-saver";
-import { ConfigService } from "../config/index.ts";
+import { ConfigService } from "@config/index.ts";
 
 /**
  * Available file formats for reports

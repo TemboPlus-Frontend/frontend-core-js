@@ -1,13 +1,16 @@
-/**
- * Enumeration for various phone number formats
- */
 export enum PhoneNumberFormat {
-  /** E.164 format with plus sign (e.g., +12025550123) */
+  /** E.164 format with plus sign, no spaces (e.g., +255612345678) */
+  E164 = "E164",
+
+  /** International human-readable format with spaces (e.g., +255 612 345 678) */
   INTERNATIONAL = "INTERNATIONAL",
-  /** National format with spaces (formatting varies by country) */
+
+  /** National human-readable format (e.g., 0612 345 678) */
   NATIONAL = "NATIONAL",
-  /** Compact format without country code (e.g., 2025550123) */
+
+  /** Raw digits of the national number (e.g., 612345678) */
   COMPACT = "COMPACT",
-  /** RFC3966 format (e.g., tel:+1-202-555-0123) */
+
+  /** RFC3966 URI format (e.g., tel:+255612345678) */
   RFC3966 = "RFC3966",
 }

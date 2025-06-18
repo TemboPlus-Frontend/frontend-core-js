@@ -115,6 +115,9 @@ export class PhoneNumber {
    */
   getWithFormat(format: PhoneNumberFormat): string {
     switch (format) {
+      case PhoneNumberFormat.E164:
+        // Format: +{dial_code}{compactNumber}
+        return this.formatE164();
       case PhoneNumberFormat.INTERNATIONAL:
         // Format: +{dial_code}{compactNumber}
         return this.formatInternational();
@@ -131,6 +134,10 @@ export class PhoneNumber {
       default:
         return this.formattedNumber;
     }
+  }
+
+  private formatE164(): string {
+    return `+${this.dialCode}${this._compactNumber}`;
   }
 
   /**

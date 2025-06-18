@@ -7,6 +7,7 @@
  * Tanzania's phone number system requires specific validation and formatting rules:
  *
  * 1. Phone numbers can be entered in multiple formats:
+ *    - E164 format: "+255712345678"
  *    - International format: "+255712345678"
  *    - Local format with country code: "255712345678"
  *    - Local format with leading zero: "0712345678"
@@ -78,6 +79,9 @@ export class TZPhoneNumber {
    */
   getWithFormat(format: PhoneNumberFormat): string {
     switch (format) {
+      case PhoneNumberFormat.E164:
+        // Format: +255XXXXXXXXX
+        return this.formatE164();
       case PhoneNumberFormat.INTERNATIONAL:
         // Format: +255 XXX XXX XXX
         return this.formatInternational();
@@ -93,6 +97,15 @@ export class TZPhoneNumber {
       default:
         return `+255${this._compactNumber}`;
     }
+  }
+
+  /**
+   * Formats the phone number in international format with spaces
+   * Format: +255XXXXXXXXX
+   */
+  private formatE164(): string {
+    const num = this._compactNumber;
+    return `+255${num}`;
   }
 
   /**

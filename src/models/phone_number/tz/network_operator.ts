@@ -41,14 +41,14 @@ export const NETWORK_OPERATOR_CONFIG: Record<
 > = {
   [NetworkOperator.VODACOM]: {
     id: NetworkOperator.VODACOM,
-    mobileNumberPrefixes: ["74", "75", "76"],
+    mobileNumberPrefixes: ["74", "75", "76", "79"],
     displayName: "Vodacom",
     mobileMoneyService: "M-Pesa",
     brandColor: "red",
   },
   [NetworkOperator.AIRTEL]: {
     id: NetworkOperator.AIRTEL,
-    mobileNumberPrefixes: ["78", "79", "68", "69"],
+    mobileNumberPrefixes: ["78", "68", "69"],
     displayName: "Airtel",
     mobileMoneyService: "Airtel Money",
     brandColor: "volcano",

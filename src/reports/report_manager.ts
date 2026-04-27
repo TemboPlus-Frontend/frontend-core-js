@@ -9,6 +9,8 @@ export enum FileFormat {
   PDF = "pdf",
   /** Excel file format */
   EXCEL = "excel",
+  /** CSV file format */
+  CSV = "csv",
 }
 
 /**

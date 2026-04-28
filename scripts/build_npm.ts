@@ -12,7 +12,7 @@ await build({
     deno: true,
   },
   package: {
-    name: "@temboplus/frontend-core",
+    name: "@temboplus/frontend-core-legacy",
     version: Deno.args[0],
     private: false,
     description: "A JavaScript/TypeScript package providing common utilities and logic shared across front-end TemboPlus projects.",

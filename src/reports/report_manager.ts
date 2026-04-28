@@ -91,7 +91,7 @@ export const REPORTS = {
     id: "customer_wallet_activity",
     displayName: "Customer Wallet Activity",
     endpoint: "/afloat/wallet_activity",
-    availableFormats: [FileFormat.PDF, FileFormat.EXCEL],
+    availableFormats: [FileFormat.PDF, FileFormat.EXCEL, FileFormat.CSV],
     projectType: ProjectType.AFLOAT,
     reportType: ReportType.CUSTOMER_WALLET_ACTIVITY,
     description: "Detailed record of all customer wallet transactions",
@@ -350,9 +350,15 @@ export class ReportManager {
     const baseFilename = `${report.id}_${date}`;
 
     // Add the extension based on the file format
-    return fileFormat === FileFormat.PDF
-      ? `${baseFilename}.pdf`
-      : `${baseFilename}.xlsx`;
+    switch (fileFormat) {
+      case FileFormat.PDF:
+        return `${baseFilename}.pdf`;
+      case FileFormat.CSV:
+        return `${baseFilename}.csv`;
+      case FileFormat.EXCEL:
+      default:
+        return `${baseFilename}.xlsx`;
+    }
   }
 
   /**

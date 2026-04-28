@@ -1,31 +1,72 @@
-# @temboplus/frontend-core
+# @temboplus/frontend-core-legacy
 
-A robust and versatile JavaScript/TypeScript library designed to streamline the development of TemboPlus front-end applications. This library provides a comprehensive suite of utilities, standardized data models, and services to ensure consistency, efficiency, and maintainability across all TemboPlus projects.
+⚠️ **Legacy package**
+
+This package contains the previous implementation of the TemboPlus Frontend Core library.
+It is maintained for existing applications that depend on the legacy architecture.
+
+**Status:** Maintenance mode
+
+* Bug fixes only
+* Security fixes only
+* No new features
+
+For new development, use:
+
+```
+@temboplus/frontend-core
+```
+
+---
+
+## Overview
+
+A robust and versatile JavaScript/TypeScript library designed to streamline the development of TemboPlus front-end applications.
+
+This library provides a comprehensive suite of utilities, standardized data models, and services to ensure consistency, efficiency, and maintainability across legacy TemboPlus projects.
+
+---
+
+## Migration Note
+
+Existing projects may continue using:
+
+```
+@temboplus/frontend-core-legacy
+```
+
+New projects should use:
+
+```
+@temboplus/frontend-core
+```
+
+Migration timelines depend on product requirements and will be handled incrementally.
+
+---
 
 ## Core Features
 
-* **Utility Functions:** A collection of pre-built helper functions to simplify common development tasks.
-* **Standardized Data Models:** Consistent and reliable data structures for managing essential data types, including phone numbers, amounts, currencies, countries, and bank details.
-* **Comprehensive Report Management:** A powerful `ReportManager` for generating and downloading reports in various formats across different TemboPlus projects.
-* **Centralized Configuration Service:** A flexible `ConfigService` for managing application settings and environment configurations.
+* **Utility Functions:** A collection of helper functions to simplify common development tasks
+* **Standardized Data Models:** Consistent data structures for managing essential data types
+* **Comprehensive Report Management:** A powerful `ReportManager` for generating and downloading reports
+* **Centralized Configuration Service:** A flexible `ConfigService` for managing application settings
 
-## Data Models
+---
 
-This library offers a set of meticulously crafted data models, each designed to handle specific data types with precision:
+## Installation
 
-* **PhoneNumber:** Robust international phone number validation and formatting.
-* **TZPhoneNumber:** Specialized phone number handling for Tanzania, including network operator identification.
-* **Amount:** Precise currency value management, with support for formatting and conversion.
-* **Currency:** Detailed currency information, including symbols, formatting rules, and validation.
-* **Country:** Enhanced country data handling with ISO-2 and ISO-3 codes, official names, flag emojis, and strongly-typed geographical categorization.
-* **Bank:** Consistent bank account information management.
+```
+npm install @temboplus/frontend-core-legacy
+```
+
 
 ## Report Management with `ReportManager`
 
 The `ReportManager` simplifies the process of generating and downloading reports across various TemboPlus projects.
 
 ```typescript
-import { ReportManager, FileFormat, ReportType, ProjectType } from '@temboplus/frontend-core';
+import { ReportManager, FileFormat, ReportType, ProjectType } from '@temboplus/frontend-core-legacy';
 
 // Download a report
 async function downloadMerchantDisbursementReport() {
@@ -42,7 +83,7 @@ async function downloadMerchantDisbursementReport() {
 }
 
 // Get all reports for a specific project
-import { getReportsByProject } from '@temboplus/frontend-core';
+import { getReportsByProject } from '@temboplus/frontend-core-legacy';
 function getAllDashboardReports(){
   const dashboardReports = getReportsByProject(ProjectType.DASHBOARD);
   return dashboardReports;
@@ -65,7 +106,7 @@ function getAllDashboardReports(){
 The `ConfigService` provides a centralized mechanism for managing application configurations.
 
 ```typescript
-import { ConfigService } from '@temboplus/frontend-core';
+import { ConfigService } from '@temboplus/frontend-core-legacy';
 
 // Initialize configuration at application startup
 ConfigService.instance.initialize({
@@ -82,7 +123,7 @@ Each data model includes validation methods to ensure data integrity:
 * **`validate()`:** Verifies the validity of an existing data model instance.
 
 ```typescript
-import { PhoneNumber, Amount } from '@temboplus/frontend-core';
+import { PhoneNumber, Amount } from '@temboplus/frontend-core-legacy';
 
 // Using is()
 if (PhoneNumber.is(someObject)) {
@@ -121,7 +162,7 @@ import {
   ISO3CountryCode, 
   CountryCode, 
   CurrencyCode 
-} from '@temboplus/frontend-core';
+} from '@temboplus/frontend-core-legacy';
 
 // Type-safe function parameters
 function processTransaction(
@@ -146,7 +187,7 @@ processTransaction(400, "USD", "ZZZ");  // Error: "ZZZ" is not a valid CountryCo
 Convenient static properties are available for accessing common data:
 
 ```typescript
-import { Country, Currency, Bank, CONTINENT, SUB_REGION } from '@temboplus/frontend-core';
+import { Country, Currency, Bank, CONTINENT, SUB_REGION } from '@temboplus/frontend-core-legacy';
 
 // Country access with enhanced features
 const tanzania = Country.TZ;
@@ -179,7 +220,7 @@ const nmb = Bank.NMB;
 ## Phone Number Usage
 
 ```typescript
-import { PhoneNumber, TZPhoneNumber, PhoneNumberFormat } from '@temboplus/frontend-core';
+import { PhoneNumber, TZPhoneNumber, PhoneNumberFormat } from '@temboplus/frontend-core-legacy';
 
 // International phone numbers
 const internationalPhone = PhoneNumber.from("+1 (202) 555-0123");
@@ -202,5 +243,5 @@ console.log(tanzaniaPhone.networkOperator.name); // "Yas"
 ## Installation
 
 ```bash
-npm install @temboplus/frontend-core
+npm install @temboplus/frontend-core-legacy
 ```

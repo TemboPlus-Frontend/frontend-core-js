@@ -37,6 +37,8 @@ export enum ReportType {
   CUSTOMER_WALLET_ACTIVITY = "customer_wallet_activity",
   /** Customer profile information (Afloat) */
   CUSTOMER_PROFILE_SNAPSHOT = "customer_profile_snapshot",
+  /** Customer profile information (Afloat) */
+  PROOF_OF_PAYMENT = "proof_of_payment",
   /** Gateway transaction log (VertoX) */
   GATEWAY_TRANSACTION_LOG = "gateway_transaction_log",
 }
@@ -105,6 +107,16 @@ export const REPORTS = {
     projectType: ProjectType.AFLOAT,
     reportType: ReportType.CUSTOMER_PROFILE_SNAPSHOT,
     description: "Current account information and status",
+  } as ReportDefinition,
+
+  [ReportType.PROOF_OF_PAYMENT]: {
+    id: "proof_of_payment",
+    displayName: "Payment POP",
+    endpoint: "/afloat/pop",
+    availableFormats: [FileFormat.PDF],
+    projectType: ProjectType.AFLOAT,
+    reportType: ReportType.PROOF_OF_PAYMENT,
+    description: "Proof of payment for a specific transaction",
   } as ReportDefinition,
 
   // VertoX Reports
